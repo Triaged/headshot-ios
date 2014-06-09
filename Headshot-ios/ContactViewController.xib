@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactViewController">
+            <connections>
+                <outlet property="avatarImageView" destination="VJH-ss-uvJ" id="jkH-C2-4lQ"/>
+                <outlet property="nameLabel" destination="18x-wu-T4t" id="L3K-EP-pqd"/>
+                <outlet property="titleLabel" destination="YqI-mJ-fvb" id="thu-fG-fJk"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VJH-ss-uvJ">
+                    <rect key="frame" x="108" y="-1" width="105" height="105"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="105" id="4hn-Lh-riV"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18x-wu-T4t">
+                    <rect key="frame" x="0.0" y="123" width="320" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="24"/>
+                    <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqI-mJ-fvb">
+                    <rect key="frame" x="0.0" y="156" width="320" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="16"/>
+                    <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yx4-tP-joF">
+                    <rect key="frame" x="15" y="192" width="60" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="profile-message">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="messageTapped:" destination="-1" eventType="touchUpInside" id="p2A-1r-1WL"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2U5-vF-bfe">
+                    <rect key="frame" x="92" y="192" width="60" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="profile-email">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="emailTapped:" destination="-1" eventType="touchUpInside" id="59R-PA-R4W"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOk-K1-Nwj">
+                    <rect key="frame" x="169" y="192" width="60" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="profile-call">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="callTapped:" destination="-1" eventType="touchUpInside" id="LpX-Be-SlM"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NDi-mb-b7M">
+                    <rect key="frame" x="245" y="192" width="60" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="profile-meet">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="meetTapped:" destination="-1" eventType="touchUpInside" id="6Pg-O5-Acl"/>
+                    </connections>
+                </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUs-y9-JXK">
+                    <rect key="frame" x="22" y="260" width="46" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="C74-jh-BdL"/>
+                        <constraint firstAttribute="width" constant="46" id="cds-Kx-qRe"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
+                    <color key="textColor" red="0.97254901960784312" green="0.67450980392156867" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="und-Hm-2TP">
+                    <rect key="frame" x="99" y="260" width="46" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="lyg-e8-9lx"/>
+                        <constraint firstAttribute="width" constant="46" id="rJv-Wn-3rc"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
+                    <color key="textColor" red="0.97254901959999995" green="0.67450980390000004" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aga-IV-wv2">
+                    <rect key="frame" x="176" y="260" width="46" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="5jW-Yb-1Kk"/>
+                        <constraint firstAttribute="width" constant="46" id="6hk-s1-fJE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
+                    <color key="textColor" red="0.97254901959999995" green="0.67450980390000004" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5I4-qN-zLJ">
+                    <rect key="frame" x="252" y="260" width="46" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="82y-CR-mxE"/>
+                        <constraint firstAttribute="height" constant="15" id="RhD-Gg-QIp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
+                    <color key="textColor" red="0.97254901959999995" green="0.67450980390000004" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="YqI-mJ-fvb" firstAttribute="top" secondItem="18x-wu-T4t" secondAttribute="bottom" constant="4" id="0e4-J0-dCm"/>
+                <constraint firstItem="yx4-tP-joF" firstAttribute="top" secondItem="YqI-mJ-fvb" secondAttribute="bottom" constant="16" id="45L-zT-8ui"/>
+                <constraint firstItem="LUs-y9-JXK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="22" id="6fG-io-kf3"/>
+                <constraint firstItem="EOk-K1-Nwj" firstAttribute="top" secondItem="YqI-mJ-fvb" secondAttribute="bottom" constant="16" id="6lA-XY-Gaw"/>
+                <constraint firstAttribute="trailing" secondItem="VJH-ss-uvJ" secondAttribute="trailing" constant="107" id="A57-Dk-fxF"/>
+                <constraint firstItem="YqI-mJ-fvb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Cez-iH-sro"/>
+                <constraint firstItem="NDi-mb-b7M" firstAttribute="leading" secondItem="EOk-K1-Nwj" secondAttribute="trailing" constant="16" id="DPo-dv-ylp"/>
+                <constraint firstItem="2U5-vF-bfe" firstAttribute="top" secondItem="YqI-mJ-fvb" secondAttribute="bottom" constant="16" id="Faq-Nl-7s1"/>
+                <constraint firstItem="EOk-K1-Nwj" firstAttribute="leading" secondItem="2U5-vF-bfe" secondAttribute="trailing" constant="17" id="Fwk-om-qN3"/>
+                <constraint firstAttribute="trailing" secondItem="NDi-mb-b7M" secondAttribute="trailing" constant="15" id="JID-SN-Sqh"/>
+                <constraint firstItem="aga-IV-wv2" firstAttribute="top" secondItem="EOk-K1-Nwj" secondAttribute="bottom" constant="8" id="OfZ-e6-ZK2"/>
+                <constraint firstItem="2U5-vF-bfe" firstAttribute="leading" secondItem="yx4-tP-joF" secondAttribute="trailing" constant="17" id="QAI-MO-eM8"/>
+                <constraint firstItem="18x-wu-T4t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Rj9-EV-QQh"/>
+                <constraint firstItem="VJH-ss-uvJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-1" id="T9c-a1-a2E"/>
+                <constraint firstItem="5I4-qN-zLJ" firstAttribute="leading" secondItem="aga-IV-wv2" secondAttribute="trailing" constant="30" id="URD-AG-h18"/>
+                <constraint firstItem="und-Hm-2TP" firstAttribute="top" secondItem="2U5-vF-bfe" secondAttribute="bottom" constant="8" id="XVP-NY-CGB"/>
+                <constraint firstItem="18x-wu-T4t" firstAttribute="top" secondItem="VJH-ss-uvJ" secondAttribute="bottom" constant="19" id="Xyj-rR-IIT"/>
+                <constraint firstItem="5I4-qN-zLJ" firstAttribute="top" secondItem="NDi-mb-b7M" secondAttribute="bottom" constant="8" id="dwu-p4-IMJ"/>
+                <constraint firstItem="yx4-tP-joF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="hiJ-Hh-Esw"/>
+                <constraint firstItem="und-Hm-2TP" firstAttribute="leading" secondItem="LUs-y9-JXK" secondAttribute="trailing" constant="31" id="k0j-uX-NlO"/>
+                <constraint firstItem="LUs-y9-JXK" firstAttribute="top" secondItem="yx4-tP-joF" secondAttribute="bottom" constant="8" id="k57-IJ-SNT"/>
+                <constraint firstItem="NDi-mb-b7M" firstAttribute="top" secondItem="YqI-mJ-fvb" secondAttribute="bottom" constant="16" id="lfb-8A-NY1"/>
+                <constraint firstItem="aga-IV-wv2" firstAttribute="leading" secondItem="und-Hm-2TP" secondAttribute="trailing" constant="31" id="nTG-Va-Qtw"/>
+                <constraint firstAttribute="trailing" secondItem="YqI-mJ-fvb" secondAttribute="trailing" id="ncW-EV-5iR"/>
+                <constraint firstItem="yx4-tP-joF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="tjR-kY-qP8"/>
+                <constraint firstItem="VJH-ss-uvJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="108" id="uVi-U9-mOV"/>
+                <constraint firstAttribute="trailing" secondItem="18x-wu-T4t" secondAttribute="trailing" id="xqt-ig-VTi"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="profile-call" width="60" height="60"/>
+        <image name="profile-email" width="60" height="60"/>
+        <image name="profile-meet" width="60" height="60"/>
+        <image name="profile-message" width="60" height="60"/>
+    </resources>
+</document>

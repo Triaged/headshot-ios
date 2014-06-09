@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AccountViewController">
+            <connections>
+                <outlet property="avatarImageView" destination="OPr-ki-3YV" id="EzJ-OY-VGI"/>
+                <outlet property="nameLabel" destination="IJO-Kd-x7x" id="tMk-Rp-uqW"/>
+                <outlet property="titleLabel" destination="5sH-6e-1Sy" id="6ON-ra-nfm"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OPr-ki-3YV">
+                    <rect key="frame" x="108" y="0.0" width="105" height="105"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="105" id="agN-GN-2nT"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJO-Kd-x7x">
+                    <rect key="frame" x="0.0" y="123" width="320" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="CXe-wT-v93"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="24"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sH-6e-1Sy">
+                    <rect key="frame" x="0.0" y="155" width="320" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="t3Y-PB-zpW"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
+                    <color key="textColor" red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="OPr-ki-3YV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="108" id="Cmm-nZ-ebd"/>
+                <constraint firstItem="5sH-6e-1Sy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FKX-lF-K74"/>
+                <constraint firstAttribute="trailing" secondItem="IJO-Kd-x7x" secondAttribute="trailing" id="Fgw-CH-5lL"/>
+                <constraint firstAttribute="trailing" secondItem="5sH-6e-1Sy" secondAttribute="trailing" id="MGF-BK-w0W"/>
+                <constraint firstItem="IJO-Kd-x7x" firstAttribute="top" secondItem="OPr-ki-3YV" secondAttribute="bottom" constant="18" id="QU5-0s-eFf"/>
+                <constraint firstItem="5sH-6e-1Sy" firstAttribute="top" secondItem="IJO-Kd-x7x" secondAttribute="bottom" constant="11" id="Snt-RV-neu"/>
+                <constraint firstAttribute="trailing" secondItem="OPr-ki-3YV" secondAttribute="trailing" constant="107" id="YaB-1O-MTU"/>
+                <constraint firstItem="IJO-Kd-x7x" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bt4-BJ-dUC"/>
+                <constraint firstItem="OPr-ki-3YV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jeJ-u9-uOH"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+</document>

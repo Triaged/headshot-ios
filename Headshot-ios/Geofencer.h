@@ -1,0 +1,18 @@
+//
+//  Geofencer.h
+//  Headshot-ios
+//
+//  Created by Charlie White on 5/25/14.
+//  Copyright (c) 2014 Charlie White. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+
+@interface Geofencer : NSObject <CLLocationManagerDelegate>
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
+
++ (instancetype)sharedClient;
+
+@end

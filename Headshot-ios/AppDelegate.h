@@ -7,16 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TRTabBarController.h"
+#import "SharedImageCache.h"
+
+
+
+@class Store;
+@class Geofencer;
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) TRTabBarController *tabBarController;
+@property (nonatomic, strong) Store* store;
+@property (nonatomic, strong) Geofencer* geofencer;
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-- (void)saveContext;
-- (NSURL *)applicationDocumentsDirectory;
++ (instancetype)sharedDelegate;
+
 
 @end
