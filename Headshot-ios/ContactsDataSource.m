@@ -7,7 +7,6 @@
 //
 
 #import "ContactsDataSource.h"
-#import "ContactViewController.h"
 #import "User.h"
 #import "EmployeeInfo.h"
 #import "ContactCell.h"
@@ -45,16 +44,7 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    User *user = [self itemAtIndexPath:indexPath];
-    
-    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
-    self.tableViewController.navigationController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.tableViewController.navigationController pushViewController:contactVC animated:YES];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
+
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {

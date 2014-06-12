@@ -9,6 +9,7 @@
 #import "ContactsTableViewController.h"
 #import "User.h"
 #import "ContactsDataSource.h"
+#import "ContactViewController.h"
 
 @interface ContactsTableViewController ()
 
@@ -58,7 +59,7 @@
     self.contactsDataSource.fetchedResultsController = [self fetchedResultsController];
     self.contactsDataSource.tableViewController = self;
     self.tableView.dataSource = self.contactsDataSource;
-    self.tableView.delegate = self.contactsDataSource;
+    self.tableView.delegate = self;
 
     
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
@@ -95,6 +96,17 @@
         
     }
     return _fetchedResultsController;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    User *user = [_contactsDataSource itemAtIndexPath:indexPath];
+    
+    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
+    self.navigationController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [self.navigationController pushViewController:contactVC animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

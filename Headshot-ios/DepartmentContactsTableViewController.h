@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Department.h"
 
-@interface DepartmentContactsTableViewController : UITableViewController
+@interface DepartmentContactsTableViewController : UITableViewController <UITableViewDelegate>
 
 @property (nonatomic, strong) Department *department;
 

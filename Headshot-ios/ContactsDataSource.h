@@ -14,4 +14,6 @@
 @property (nonatomic, strong) NSFetchedResultsController* fetchedResultsController;
 @property (strong, nonatomic) UITableViewController *tableViewController;
 
+- (id)itemAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
