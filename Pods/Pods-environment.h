@@ -168,12 +168,6 @@
 #define COCOAPODS_VERSION_MINOR_RDVTabBarController 1
 #define COCOAPODS_VERSION_PATCH_RDVTabBarController 6
 
-// SDCSegmentedViewController
-#define COCOAPODS_POD_AVAILABLE_SDCSegmentedViewController
-#define COCOAPODS_VERSION_MAJOR_SDCSegmentedViewController 1
-#define COCOAPODS_VERSION_MINOR_SDCSegmentedViewController 3
-#define COCOAPODS_VERSION_PATCH_SDCSegmentedViewController 0
-
 // SGNavigationProgress
 #define COCOAPODS_POD_AVAILABLE_SGNavigationProgress
 #define COCOAPODS_VERSION_MAJOR_SGNavigationProgress 1
@@ -245,10 +239,4 @@
 #define COCOAPODS_VERSION_MAJOR_Vertigo 0
 #define COCOAPODS_VERSION_MINOR_Vertigo 1
 #define COCOAPODS_VERSION_PATCH_Vertigo 0
-
-// XLMailBoxContainer
-#define COCOAPODS_POD_AVAILABLE_XLMailBoxContainer
-#define COCOAPODS_VERSION_MAJOR_XLMailBoxContainer 1
-#define COCOAPODS_VERSION_MINOR_XLMailBoxContainer 0
-#define COCOAPODS_VERSION_PATCH_XLMailBoxContainer 0
 

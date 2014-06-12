@@ -182,7 +182,7 @@
 		[self stopObservingViewController:oldViewController];
 	}
 	
-	viewController.view.frame = self.view.frame;
+	viewController.view.frame = self.view.bounds;
 	[self adjustScrollViewInsets:viewController];
 }
 

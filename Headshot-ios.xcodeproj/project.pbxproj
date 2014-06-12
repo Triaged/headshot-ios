@@ -41,6 +41,8 @@
 		CBA5D0791936BB2B0044BBCC /* Whitney-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */; };
 		CBA5D07A1936BB2D0044BBCC /* Whitney-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0771936BB070044BBCC /* Whitney-Semibold.otf */; };
 		CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA5D0821936BD4D0044BBCC /* ContactCell.m */; };
+		CBB5183D194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB5183A194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m */; };
+		CBB5183E194A3F04001C2E0C /* SDCSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB5183C194A3F04001C2E0C /* SDCSegmentedViewController.m */; };
 		CBBA6863192FD646005A6949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBA6862192FD646005A6949 /* Foundation.framework */; };
 		CBBA6865192FD646005A6949 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBA6864192FD646005A6949 /* CoreGraphics.framework */; };
 		CBBA6867192FD646005A6949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBA6866192FD646005A6949 /* UIKit.framework */; };
@@ -141,6 +143,10 @@
 		CBA5D0771936BB070044BBCC /* Whitney-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Semibold.otf"; sourceTree = "<group>"; };
 		CBA5D0811936BD4D0044BBCC /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
 		CBA5D0821936BD4D0044BBCC /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
+		CBB51839194A3EFD001C2E0C /* SDCEmbeddedSegmentSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCEmbeddedSegmentSegue.h; sourceTree = "<group>"; };
+		CBB5183A194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCEmbeddedSegmentSegue.m; sourceTree = "<group>"; };
+		CBB5183B194A3F04001C2E0C /* SDCSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCSegmentedViewController.h; sourceTree = "<group>"; };
+		CBB5183C194A3F04001C2E0C /* SDCSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCSegmentedViewController.m; sourceTree = "<group>"; };
 		CBBA685F192FD646005A6949 /* Headshot-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Headshot-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBBA6862192FD646005A6949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CBBA6864192FD646005A6949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -247,6 +253,7 @@
 		CBA5D0731936BAE40044BBCC /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				CBB5183F194A3F25001C2E0C /* SDCEmbeddedSegmentSegue */,
 				CBA5D0711936B8FA0044BBCC /* Reveal.framework */,
 				CBA5D0741936BAEB0044BBCC /* fonts */,
 			);
@@ -275,6 +282,17 @@
 				CB04186D194A358600B3DE97 /* DepartmentCell.m */,
 			);
 			name = cells;
+			sourceTree = "<group>";
+		};
+		CBB5183F194A3F25001C2E0C /* SDCEmbeddedSegmentSegue */ = {
+			isa = PBXGroup;
+			children = (
+				CBB5183A194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m */,
+				CBB5183B194A3F04001C2E0C /* SDCSegmentedViewController.h */,
+				CBB5183C194A3F04001C2E0C /* SDCSegmentedViewController.m */,
+				CBB51839194A3EFD001C2E0C /* SDCEmbeddedSegmentSegue.h */,
+			);
+			name = SDCEmbeddedSegmentSegue;
 			sourceTree = "<group>";
 		};
 		CBBA6856192FD646005A6949 = {
@@ -652,6 +670,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBB5183D194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m in Sources */,
 				CBBA68DE192FE0B5005A6949 /* User.m in Sources */,
 				CBBA6875192FD646005A6949 /* AppDelegate.m in Sources */,
 				CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */,
@@ -669,6 +688,7 @@
 				CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */,
 				CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */,
 				CBBA68D8192FE0B5005A6949 /* EmployeeInfo.m in Sources */,
+				CBB5183E194A3F04001C2E0C /* SDCSegmentedViewController.m in Sources */,
 				CBBA68FA192FE26C005A6949 /* MessagesTableViewController.m in Sources */,
 				CBBA68E2192FE16F005A6949 /* TRTabBarController.m in Sources */,
 				CBBA68F7192FE262005A6949 /* ContactsTableViewController.m in Sources */,

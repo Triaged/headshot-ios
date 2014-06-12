@@ -14,5 +14,5 @@ pod 'SLRESTfulCoreData'
 pod "MagicalRecord"
 pod 'Vertigo'
 pod 'JSQMessagesViewController'
-pod 'SDCSegmentedViewController'
-pod 'XLMailBoxContainer'
+
+
