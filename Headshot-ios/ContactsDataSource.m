@@ -50,8 +50,8 @@
     User *user = [self itemAtIndexPath:indexPath];
     
     ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
-    self.tableViewController.segmentController.navigationController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.tableViewController.segmentController.navigationController pushViewController:contactVC animated:YES];
+    self.tableViewController.navigationController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [self.tableViewController.navigationController pushViewController:contactVC animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

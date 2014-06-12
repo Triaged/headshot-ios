@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XLSwipeNavigationController.h"
 
-@interface ContactsTableViewController : UITableViewController <XLSwipeContainerChildItem>
+@interface ContactsTableViewController : UITableViewController
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIViewController *segmentController;

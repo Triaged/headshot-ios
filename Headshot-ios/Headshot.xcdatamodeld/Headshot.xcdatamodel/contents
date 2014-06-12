@@ -9,6 +9,11 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="company" inverseEntity="User" syncable="YES"/>
     </entity>
+    <entity name="Department" representedClassName="Department" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="department" inverseEntity="User" syncable="YES"/>
+    </entity>
     <entity name="EmployeeInfo" representedClassName="EmployeeInfo" syncable="YES">
         <attribute name="birthDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="cellPhone" optional="YES" attributeType="String" syncable="YES"/>
@@ -54,6 +59,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="currentUser" inverseEntity="Account" syncable="YES"/>
         <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="users" inverseEntity="Company" syncable="YES"/>
+        <relationship name="department" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Department" inverseName="users" inverseEntity="Department" syncable="YES"/>
         <relationship name="employeeInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EmployeeInfo" inverseName="user" inverseEntity="EmployeeInfo" syncable="YES"/>
         <relationship name="manager" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="subordinates" inverseEntity="User" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="author" inverseEntity="Message" syncable="YES"/>
@@ -67,6 +73,7 @@
         <element name="Message" positionX="-18" positionY="72" width="128" height="118"/>
         <element name="MessageThread" positionX="-27" positionY="63" width="128" height="90"/>
         <element name="OfficeLocation" positionX="0" positionY="45" width="128" height="193"/>
-        <element name="User" positionX="-54" positionY="-9" width="128" height="255"/>
+        <element name="User" positionX="-54" positionY="-9" width="128" height="268"/>
+        <element name="Department" positionX="-36" positionY="108" width="128" height="88"/>
     </elements>
 </model>

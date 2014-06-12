@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DepartmentsTableViewController : UITableViewController
+@interface DepartmentsTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
 @end

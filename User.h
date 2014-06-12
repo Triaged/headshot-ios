@@ -11,7 +11,7 @@
 #import "SLRESTfulCoreData.h"
 
 
-@class Company, EmployeeInfo;
+@class Company, EmployeeInfo, Department;
 
 @interface User : NSManagedObject
 
@@ -25,6 +25,7 @@
 @property (nonatomic, retain) EmployeeInfo *employeeInfo;
 @property (nonatomic, retain) Company *company;
 @property (nonatomic, retain) User *manager;
+@property (nonatomic, retain) Department *department;
 @property (nonatomic, retain) NSSet *subordinates;
 
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler;

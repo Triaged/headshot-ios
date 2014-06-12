@@ -12,6 +12,6 @@
 @interface ContactsDataSource : NSObject  <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIScrollViewDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController* fetchedResultsController;
-@property (strong, nonatomic) ContactsTableViewController *tableViewController;
+@property (strong, nonatomic) UITableViewController *tableViewController;
 
 @end
