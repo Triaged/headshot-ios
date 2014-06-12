@@ -66,12 +66,11 @@
     
     
     self.tabBar.opaque = NO;
-    //[self.tabBar setTintColor:[UIColor colorWithRed:165.00f green:171.00f blue:184.00f alpha:1.0f]];
     [self.tabBar setTintColor:[UIColor whiteColor]];
     [self.tabBar setBackgroundColor:[UIColor whiteColor]];
-    [self  setViewControllers:[NSArray arrayWithObjects:messagesNav, segmentNav, accountNav, nil]];
+    [self setViewControllers:[NSArray arrayWithObjects:messagesNav, segmentNav, accountNav, nil]];
     
-//    
+
     UIImage *finishedImage = [UIImage imageNamed:@"nav_bg_on"];
     UIImage *unfinishedImage = [UIImage imageNamed:@"nav_bg_off"];
     NSArray *tabBarItemImages = @[@"messages", @"contacts", @"profile"];
