@@ -13,6 +13,9 @@
 
 @interface MessageThreadViewController ()
 
+@property (strong, nonatomic) NSDictionary *avatarImageURLs;
+@property (assign, nonatomic) CGSize avatarImageSize;
+
 @end
 
 static NSString * const kJSQDemoAvatarNameCook = @"Tim Cook";
@@ -77,16 +80,15 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory
                                      outgoingMessageBubbleImageViewWithColor:
-                                    //[UIColor colorWithRed:248.0f green:172.0f blue:0.0f alpha:1]];
-                                    [UIColor jsq_messageBubbleBlueColor]];
+                                    [UIColor colorWithRed:248/255.0 green:172/255.0 blue:0 alpha:1]];
     
     self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory
                                     incomingMessageBubbleImageViewWithColor:
-                                    //[UIColor colorWithRed:241.0f green:240.0f blue:240.0f alpha:1]];
-                                    [UIColor jsq_messageBubbleLightGrayColor]];
+                                    [UIColor colorWithRed:241/255.0 green:240/255.0 blue:240/255.0 alpha:1]];
     
-    self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
+    self.avatarImageSize = CGSizeMake(40, 40);
+    self.collectionView.collectionViewLayout.incomingAvatarViewSize = self.avatarImageSize;
+    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = self.avatarImageSize;
 
 }
 
@@ -108,43 +110,11 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (void)loadMessages
 {
-    /**
-     *  Load some fake messages for demo.
-     *
-     *  You should have a mutable array or orderedSet, or something.
-     */
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"messageThread == %@", self.messageThread];
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findAllWithPredicate:predicate]];
 
-    /**
-     *  Create avatar images once.
-     *
-     *  Be sure to create your avatars one time and reuse them for good performance.
-     *
-     *  If you are not using avatars, ignore this.
-     */
-    CGFloat outgoingDiameter = self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width;
-    
-    UIImage *jsqImage = [JSQMessagesAvatarFactory avatarWithUserInitials:@"JSQ"
-                                                         backgroundColor:[UIColor colorWithWhite:0.85f alpha:1.0f]
-                                                               textColor:[UIColor colorWithWhite:0.60f alpha:1.0f]
-                                                                    font:[UIFont systemFontOfSize:14.0f]
-                                                                diameter:outgoingDiameter];
-    
-    CGFloat incomingDiameter = self.collectionView.collectionViewLayout.incomingAvatarViewSize.width;
-    
-    UIImage *cookImage = [JSQMessagesAvatarFactory avatarWithImage:[UIImage imageNamed:@"demo_avatar_cook"]
-                                                          diameter:incomingDiameter];
-    
-    UIImage *jobsImage = [JSQMessagesAvatarFactory avatarWithImage:[UIImage imageNamed:@"demo_avatar_jobs"]
-                                                          diameter:incomingDiameter];
-    
-    UIImage *wozImage = [JSQMessagesAvatarFactory avatarWithImage:[UIImage imageNamed:@"demo_avatar_woz"]
-                                                         diameter:incomingDiameter];
-    self.avatars = @{ self.sender : jsqImage,
-                      kJSQDemoAvatarNameCook : cookImage,
-                      kJSQDemoAvatarNameJobs : jobsImage,
-                      kJSQDemoAvatarNameWoz : wozImage };
+    self.avatarImageURLs = @{self.sender : self.currentUser.avatarFaceUrl,
+                             self.messageThread.recipient.name : self.messageThread.recipient.avatarFaceUrl};
     
 }
 
@@ -158,10 +128,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 {
     [super viewDidAppear:animated];
     
-    /**
-     *  Enable/disable springy bubbles, default is YES.
-     *  For best results, toggle from `viewDidAppear:`
-     */
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
 }
 
@@ -220,16 +186,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView bubbleImageViewForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    /**
-     *  You may return nil here if you do not want bubbles.
-     *  In this case, you should set the background color of your collection view cell's textView.
-     */
-    
-    /**
-     *  Reuse created bubble images, but create new imageView to add to each cell
-     *  Otherwise, each cell would be referencing the same imageView and bubbles would disappear from cells
-     */
-    
     JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
     
     
@@ -244,33 +200,11 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageViewForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    return nil;
-    /**
-     *  Return `nil` here if you do not want avatars.
-     *  If you do return `nil`, be sure to do the following in `viewDidLoad`:
-     *
-     *  self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-     *  self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
-     *
-     *  It is possible to have only outgoing avatars or only incoming avatars, too.
-     */
-    
-    /**
-     *  Reuse created avatar images, but create new imageView to add to each cell
-     *  Otherwise, each cell would be referencing the same imageView and avatars would disappear from cells
-     *
-     *  Note: these images will be sized according to these values:
-     *
-     *  self.collectionView.collectionViewLayout.incomingAvatarViewSize
-     *  self.collectionView.collectionViewLayout.outgoingAvatarViewSize
-     *
-     *  Override the defaults in `viewDidLoad`
-     */
     JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
-    
-    UIImage *avatarImage = [self.avatars objectForKey:message.sender];
-    return [[UIImageView alloc] initWithImage:avatarImage];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.avatarImageSize.width, self.avatarImageSize.height)];
+    NSURL *imageURL = [NSURL URLWithString:self.avatarImageURLs[message.sender]];
+    [imageView setImageWithURL:imageURL];
+    return imageView;
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
@@ -382,8 +316,8 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     if (indexPath.item % 3 == 0) {
         return kJSQMessagesCollectionViewCellLabelHeightDefault;
     }
-    
-    return 0.0f;
+    //give a little extra room between messages if no label
+    return 5.0f;
 }
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
@@ -418,24 +352,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 {
     NSLog(@"Load earlier messages!");
 }
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 
