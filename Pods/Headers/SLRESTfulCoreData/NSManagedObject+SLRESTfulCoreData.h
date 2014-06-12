@@ -1,1 +1,0 @@
-../../SLRESTfulCoreData/SLRESTfulCoreData/SLRESTfulCoreData/Framework Additions/CoreData/NSManagedObject/NSManagedObject+SLRESTfulCoreData.h

@@ -1,1 +1,0 @@
-../../SLRESTfulCoreData/SLRESTfulCoreData/SLRESTfulCoreData/SLAttributeMapping/SLAttributeMapping.h

@@ -1,0 +1,6 @@
+.DS_Store
+Pods/*
+Headshot-ios.xcodeproj/project.xcworkspace/*
+Headshot-ios.xcodeproj/xcuserdata/*
+Headshot-ios.xcworkspace/xcuserdata/*
+Headshot-ios.xcworkspace/xcshareddata/Headshot-ios.xccheckout

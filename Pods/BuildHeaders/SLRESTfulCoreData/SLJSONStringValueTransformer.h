@@ -1,1 +1,0 @@
-../../SLRESTfulCoreData/SLRESTfulCoreData/SLRESTfulCoreData/NSValueTransformers/SLJSONStringValueTransformer.h
