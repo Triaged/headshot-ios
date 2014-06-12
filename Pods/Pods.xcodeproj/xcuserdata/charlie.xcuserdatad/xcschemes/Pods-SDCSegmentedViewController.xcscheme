@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0BFC76AD8FF14A488BD0AF89"
+               BlueprintIdentifier = "F9EDF299102346C68439F66E"
                BuildableName = "libPods-SDCSegmentedViewController.a"
                BlueprintName = "Pods-SDCSegmentedViewController"
                ReferencedContainer = "container:Pods.xcodeproj">

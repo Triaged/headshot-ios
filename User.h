@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "FICEntity.h"
 #import "SLRESTfulCoreData.h"
 
 
 @class Company, EmployeeInfo;
 
-@interface User : NSManagedObject <FICEntity>
+@interface User : NSManagedObject
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * firstName;

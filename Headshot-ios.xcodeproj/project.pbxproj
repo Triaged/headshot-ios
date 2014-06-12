@@ -33,7 +33,6 @@
 		CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31D319327B6000CDCFD4 /* OfficeLocation.m */; };
 		CB1F31D619327BAA00CDCFD4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31D519327BAA00CDCFD4 /* CoreLocation.framework */; };
 		CB1F31D919327FC600CDCFD4 /* Geofencer.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31D819327FC600CDCFD4 /* Geofencer.m */; };
-		CB1F31DC1932BC9800CDCFD4 /* SharedImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31DB1932BC9800CDCFD4 /* SharedImageCache.m */; };
 		CBA5D0721936B8FA0044BBCC /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA5D0711936B8FA0044BBCC /* Reveal.framework */; };
 		CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0751936BB070044BBCC /* Whitney-Book.otf */; };
 		CBA5D0791936BB2B0044BBCC /* Whitney-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */; };
@@ -127,8 +126,6 @@
 		CB1F31D519327BAA00CDCFD4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CB1F31D719327FC600CDCFD4 /* Geofencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geofencer.h; sourceTree = "<group>"; };
 		CB1F31D819327FC600CDCFD4 /* Geofencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geofencer.m; sourceTree = "<group>"; };
-		CB1F31DA1932BC9800CDCFD4 /* SharedImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedImageCache.h; sourceTree = "<group>"; };
-		CB1F31DB1932BC9800CDCFD4 /* SharedImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedImageCache.m; sourceTree = "<group>"; };
 		CBA5D0711936B8FA0044BBCC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = ../Reveal.framework; sourceTree = "<group>"; };
 		CBA5D0751936BB070044BBCC /* Whitney-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Book.otf"; sourceTree = "<group>"; };
 		CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Medium.otf"; sourceTree = "<group>"; };
@@ -369,8 +366,6 @@
 				CBBA689F192FD850005A6949 /* TRBackgroundQueue.m */,
 				CB1F31D719327FC600CDCFD4 /* Geofencer.h */,
 				CB1F31D819327FC600CDCFD4 /* Geofencer.m */,
-				CB1F31DA1932BC9800CDCFD4 /* SharedImageCache.h */,
-				CB1F31DB1932BC9800CDCFD4 /* SharedImageCache.m */,
 			);
 			name = persistence;
 			sourceTree = "<group>";
@@ -668,7 +663,6 @@
 				CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */,
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,
 				CBBA68AB192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m in Sources */,
-				CB1F31DC1932BC9800CDCFD4 /* SharedImageCache.m in Sources */,
 				CBBA68AD192FD8FD005A6949 /* HeadshotRequestAPIClient.m in Sources */,
 				CBBA6878192FD646005A6949 /* Headshot.xcdatamodeld in Sources */,
 				CB1F31C919325D8600CDCFD4 /* ContactViewController.m in Sources */,

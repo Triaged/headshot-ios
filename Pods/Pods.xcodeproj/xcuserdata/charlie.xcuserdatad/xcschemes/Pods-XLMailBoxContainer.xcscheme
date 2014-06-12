@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AFE5530D46D74FF783521AAF"
+               BlueprintIdentifier = "74D3E7DF0B094298B8C29464"
                BuildableName = "libPods-XLMailBoxContainer.a"
                BlueprintName = "Pods-XLMailBoxContainer"
                ReferencedContainer = "container:Pods.xcodeproj">

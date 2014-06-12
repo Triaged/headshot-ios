@@ -129,7 +129,6 @@
     
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Headshot.sqlite"];
     
-    [[SharedImageCache sharedClient] configureFastImageCache];
 }
 
 - (void) setBaseStyles

@@ -9,7 +9,6 @@
 #import "User.h"
 #import "Company.h"
 #import "EmployeeInfo.h"
-#import "FICUtilities.h"
 
 
 @implementation User
@@ -31,44 +30,6 @@
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
 
-- (NSString *)UUID {
-    CFUUIDBytes UUIDBytes = FICUUIDBytesWithString(self.identifier);
-    NSString *UUID = FICStringWithUUIDBytes(UUIDBytes);
-    
-    return UUID;
-   
-}
-
-- (NSString *)sourceImageUUID {
-    CFUUIDBytes sourceImageUUIDBytes = FICUUIDBytesWithString(self.avatarUrl);
-    NSString *sourceImageUUID = FICStringWithUUIDBytes(sourceImageUUIDBytes);
-    
-    return sourceImageUUID;
-}
-
-- (NSURL *)sourceImageURLWithFormatName:(NSString *)formatName {
-    return [NSURL URLWithString:self.avatarUrl];
-}
-
-- (FICEntityImageDrawingBlock)drawingBlockForImage:(UIImage *)image withFormatName:(NSString *)formatName {
-    FICEntityImageDrawingBlock drawingBlock = ^(CGContextRef context, CGSize contextSize) {
-        CGRect contextBounds = CGRectZero;
-        contextBounds.size = contextSize;
-        CGContextClearRect(context, contextBounds);
-        
-//        // Clip medium thumbnails so they have rounded corners
-//        if ([formatName isEqualToString:XXImageFormatNameUserThumbnailMedium]) {
-//            UIBezierPath clippingPath = [self _clippingPath];
-//            [clippingPath addClip];
-//        }
-        
-        UIGraphicsPushContext(context);
-        [image drawInRect:contextBounds];
-        UIGraphicsPopContext();
-    };
-    
-    return drawingBlock;
-}
 
 -(void)fetchOrgStructure {
     NSURL *managerURL = [NSURL URLWithString:[NSString stringWithFormat:@"users/%@/manager", self.identifier]];
