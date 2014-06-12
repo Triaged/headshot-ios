@@ -46,15 +46,6 @@
                            alpha:1.0f];
 }
 
-
-+ (UIColor *)jsq_messageBubbleOrangeColor
-{
-    return [UIColor colorWithHue:41.6f / 360.0f
-                      saturation:100.0f
-                      brightness:48.6f
-                           alpha:1.0f];
-}
-
 #pragma mark - Utilities
 
 - (UIColor *)jsq_colorByDarkeningColorWithValue:(CGFloat)value

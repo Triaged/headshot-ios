@@ -64,7 +64,10 @@
 {
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
-        [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
+        if (error == nil) {
+            [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
+        }
+        
 //        Mixpanel *mixpanel = [Mixpanel sharedInstance];
 //        [mixpanel identify:account.identifier];
 //        [mixpanel track:@"signup" properties:@{@"id": account.identifier,

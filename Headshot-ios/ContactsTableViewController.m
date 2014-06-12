@@ -26,6 +26,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        self.automaticallyAdjustsScrollViewInsets = NO;
     }
     return self;
 }
@@ -33,7 +34,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
+
     self.title = @"Contacts";
     
     [self setupTableView];
@@ -45,9 +48,21 @@
     
 }
 
+-(id)swipeContainerItemAssociatedSegmentedItem
+{
+    return @"Table";
+}
+
+-(UIColor *)swipeContainerItemAssociatedColor
+{
+    return [UIColor blueColor];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     // scroll the search bar off-screen
     //self.tableView.contentOffset = CGPointMake(0.0, 44.0);
+    //self.tableView.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBar.shadowImage = nil;
 }
 
@@ -58,6 +73,7 @@
     self.contactsDataSource.tableViewController = self;
     self.tableView.dataSource = self.contactsDataSource;
     self.tableView.delegate = self.contactsDataSource;
+
     
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
   

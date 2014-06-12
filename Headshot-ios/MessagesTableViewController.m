@@ -48,10 +48,6 @@
     
 }
 
--(void) viewWillAppear:(BOOL)animated {
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:YES];
-}
-
 - (void)newThread {
     NewThreadTableViewController *newThreadVC = [[NewThreadTableViewController alloc] init];
     newThreadVC.messagesTableVC = self;

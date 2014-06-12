@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A478065B-47D5-4B2F-8893-7EA752AF8FBD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Headshot-ios</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>ED624577-B8FB-43B5-A25B-32B87D1205AF</key>
+		<string>ssh://github.com/Triaged/headshot-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Headshot-ios.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>ED624577-B8FB-43B5-A25B-32B87D1205AF</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/Triaged/headshot-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>ED624577-B8FB-43B5-A25B-32B87D1205AF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>ED624577-B8FB-43B5-A25B-32B87D1205AF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Headshot-ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>

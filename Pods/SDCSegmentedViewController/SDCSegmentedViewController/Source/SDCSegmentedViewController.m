@@ -1,0 +1,231 @@
+//
+//  SDCSegmentedViewController.m
+//  SDCSegmentedViewController
+//
+//  Created by Scott Berrevoets on 3/15/13.
+//  Copyright (c) 2013 Scotty Doesn't Code. All rights reserved.
+//
+
+#import "SDCSegmentedViewController.h"
+
+@interface SDCSegmentedViewController ()
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) NSMutableArray *viewControllers;
+@property (nonatomic, strong) NSMutableArray *titles;
+@property (nonatomic) NSInteger currentSelectedIndex;
+@end
+
+@implementation SDCSegmentedViewController
+
+- (NSMutableArray *)viewControllers {
+	if (!_viewControllers)
+		_viewControllers = [NSMutableArray array];
+    return _viewControllers;
+}
+
+- (NSMutableArray *)titles {
+	if (!_titles)
+		_titles = [NSMutableArray array];
+    return _titles;
+}
+
+- (void)setPosition:(SDCSegmentedViewControllerControlPosition)position {
+	_position = position;
+	[self moveControlToPosition:position];
+}
+
+#pragma mark - Initializers
+
+- (instancetype)initWithViewControllers:(NSArray *)viewControllers {
+	return [self initWithViewControllers:viewControllers titles:[viewControllers valueForKeyPath:@"@unionOfObjects.title"]];
+}
+
+- (instancetype)initWithViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles {
+	self = [super init];
+	
+	if (self) {
+		[self createSegmentedControl];
+		
+		_currentSelectedIndex = UISegmentedControlNoSegment;
+		_viewControllers = [NSMutableArray array];
+		_titles = [NSMutableArray array];
+		
+		[viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+			if ([obj isKindOfClass:[UIViewController class]] && index < [titles count])
+				[self addViewController:obj withTitle:titles[index]];
+		}];
+		
+		if ([_viewControllers count] == 0 || [_viewControllers count] != [_titles count]) {
+			self = nil;
+			NSLog(@"%@: Invalid configuration of view controllers and titles.", NSStringFromClass([self class]));
+		}
+	}
+	
+	return self;
+}
+
+- (void)createSegmentedControl {
+	_segmentedControl = [[UISegmentedControl alloc] initWithItems:nil];
+	[_segmentedControl addTarget:self action:@selector(changeViewController:) forControlEvents:UIControlEventValueChanged];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
+	_segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+#endif
+}
+
+- (void)awakeFromNib {
+	[self createSegmentedControl];
+	_currentSelectedIndex = UISegmentedControlNoSegment;
+}
+
+#pragma mark - View Controller Lifecycle
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+    
+	if ([self.viewControllers count] == 0)
+		[NSException raise:@"SDCSegmentedViewControllerException" format:@"SDCSegmentedViewController has no view controllers that it can display."];
+	
+	if (self.currentSelectedIndex == UISegmentedControlNoSegment)
+		[self showFirstViewController];
+	else if (self.currentSelectedIndex < [self.viewControllers count])
+		[self observeViewController:self.viewControllers[self.currentSelectedIndex]];
+	
+	[self moveControlToPosition:self.position];
+}
+
+- (void)viewWillLayoutSubviews {
+	[super viewWillLayoutSubviews];
+	
+	UIViewController *childViewController = self.viewControllers[self.currentSelectedIndex];
+	[self adjustScrollViewInsets:childViewController];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	[self stopObservingViewController:self.viewControllers[self.currentSelectedIndex]];
+}
+
+#pragma mark - View Management
+
+- (void)adjustScrollViewInsets:(UIViewController *)viewController {
+	if ([viewController.view isKindOfClass:[UIScrollView class]] && viewController.automaticallyAdjustsScrollViewInsets) {
+		UIScrollView *scrollView = (UIScrollView *)viewController.view;
+		UIEdgeInsets insets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0);
+		scrollView.contentInset = insets;
+		scrollView.scrollIndicatorInsets = insets;
+	}
+}
+
+- (void)moveControlToPosition:(SDCSegmentedViewControllerControlPosition)newPosition {
+	switch (newPosition) {
+		case SDCSegmentedViewControllerControlPositionNavigationBar:
+			self.navigationItem.titleView = self.segmentedControl;
+			break;
+		case SDCSegmentedViewControllerControlPositionToolbar: {
+			UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+			UIBarButtonItem *control = [[UIBarButtonItem alloc] initWithCustomView:self.segmentedControl];
+			
+			self.toolbarItems = @[flexible, control, flexible];
+			break;
+		}
+	}
+	
+	if ([self.viewControllers count] > 0 && self.currentSelectedIndex != UISegmentedControlNoSegment)
+		[self updateBarsForViewController:self.viewControllers[self.segmentedControl.selectedSegmentIndex]];
+}
+
+- (void)updateBarsForViewController:(UIViewController *)viewController {
+	if (self.position == SDCSegmentedViewControllerControlPositionToolbar)
+		self.title = viewController.title;
+	else if (self.position == SDCSegmentedViewControllerControlPositionNavigationBar)
+		self.toolbarItems = viewController.toolbarItems;
+}
+
+#pragma mark - View Controller Containment
+
+- (void)addStoryboardSegments:(NSArray *)segments {
+	[segments enumerateObjectsUsingBlock:^(NSString *segment, NSUInteger idx, BOOL *stop) {
+		[self performSegueWithIdentifier:segment sender:self];
+	}];
+}
+
+- (void)addViewController:(UIViewController *)viewController {
+	if (viewController && viewController.title)
+		[self addViewController:viewController withTitle:viewController.title];
+	else
+		NSLog(@"%@: Can't add view controller (%@) because no title was specified!", NSStringFromClass([self class]), viewController);
+}
+
+- (void)addViewController:(UIViewController *)viewController withTitle:(NSString *)title {
+	[self.viewControllers addObject:viewController];
+	[self.titles addObject:title];
+	[self addChildViewController:viewController];
+	
+	[self.segmentedControl insertSegmentWithTitle:title atIndex:[self.titles indexOfObject:title] animated:YES];
+	[self.segmentedControl sizeToFit];
+}
+
+#pragma mark - View Controller Transitioning
+
+- (void)showFirstViewController {
+	UIViewController *firstViewController = [self.viewControllers firstObject];
+	[self.view addSubview:firstViewController.view];
+	
+	[self willTransitionToViewController:firstViewController];
+	[self didTransitionToViewController:firstViewController];
+}
+
+- (void)willTransitionToViewController:(UIViewController *)viewController {
+	if (self.currentSelectedIndex != UISegmentedControlNoSegment) {
+		UIViewController *oldViewController = self.viewControllers[self.currentSelectedIndex];
+		[oldViewController willMoveToParentViewController:nil];
+		[self stopObservingViewController:oldViewController];
+	}
+	
+	viewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+	[self adjustScrollViewInsets:viewController];
+}
+
+- (void)didTransitionToViewController:(UIViewController *)viewController {
+	[viewController didMoveToParentViewController:self];
+	[self updateBarsForViewController:viewController];
+	[self observeViewController:viewController];
+	
+	self.segmentedControl.selectedSegmentIndex = [self.viewControllers indexOfObject:viewController];
+	self.currentSelectedIndex = [self.viewControllers indexOfObject:viewController];
+}
+
+- (void)changeViewController:(UISegmentedControl *)segmentedControl {
+	UIViewController *oldViewController = self.viewControllers[self.currentSelectedIndex];
+	UIViewController *newViewController = self.viewControllers[segmentedControl.selectedSegmentIndex];
+	
+	[self willTransitionToViewController:newViewController];
+	[self transitionFromViewController:oldViewController
+					  toViewController:newViewController
+							  duration:0
+							   options:UIViewAnimationOptionTransitionNone
+							animations:nil
+							completion:^(BOOL finished) {
+								if (finished)
+									[self didTransitionToViewController:newViewController];
+							}];
+}
+
+#pragma mark - KVO
+
+- (void)observeViewController:(UIViewController *)viewController {
+	[viewController addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
+	[viewController addObserver:self forKeyPath:@"toolbarItems" options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (void)stopObservingViewController:(UIViewController *)viewController {
+	[viewController removeObserver:self forKeyPath:@"title"];
+	[viewController removeObserver:self forKeyPath:@"toolbarItems"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	[self updateBarsForViewController:object];
+}
+
+@end

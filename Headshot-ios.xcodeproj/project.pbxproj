@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
+		CB0418611948C59600B3DE97 /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */; };
+		CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0418641949310300B3DE97 /* DepartmentsTableViewController.m */; };
+		CB0E71A8194897B0002B2B58 /* ContactDetailsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E71A7194897B0002B2B58 /* ContactDetailsDataSource.m */; };
+		CB0E71AF1948BA5E002B2B58 /* ContactSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E71AD1948BA5E002B2B58 /* ContactSectionViewController.m */; };
+		CB0E71B01948BA5E002B2B58 /* ContactSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB0E71AE1948BA5E002B2B58 /* ContactSectionViewController.xib */; };
 		CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31A81931599000CDCFD4 /* MessageThread.m */; };
 		CB1F31AC1931599100CDCFD4 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31AB1931599100CDCFD4 /* Message.m */; };
 		CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31AE19315A6700CDCFD4 /* MessageThreadViewController.m */; };
@@ -82,6 +88,16 @@
 /* Begin PBXFileReference section */
 		30B39923FA64452EB4653D38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		426C573043D24799B16F4828 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB04185D1948C59600B3DE97 /* ContactInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoTableViewCell.h; sourceTree = "<group>"; };
+		CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoTableViewCell.m; sourceTree = "<group>"; };
+		CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoTableViewCell.xib; sourceTree = "<group>"; };
+		CB0418631949310300B3DE97 /* DepartmentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepartmentsTableViewController.h; sourceTree = "<group>"; };
+		CB0418641949310300B3DE97 /* DepartmentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartmentsTableViewController.m; sourceTree = "<group>"; };
+		CB0E71A6194897B0002B2B58 /* ContactDetailsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailsDataSource.h; sourceTree = "<group>"; };
+		CB0E71A7194897B0002B2B58 /* ContactDetailsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailsDataSource.m; sourceTree = "<group>"; };
+		CB0E71AC1948BA5E002B2B58 /* ContactSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSectionViewController.h; sourceTree = "<group>"; };
+		CB0E71AD1948BA5E002B2B58 /* ContactSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSectionViewController.m; sourceTree = "<group>"; };
+		CB0E71AE1948BA5E002B2B58 /* ContactSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactSectionViewController.xib; sourceTree = "<group>"; };
 		CB1F31A71931599000CDCFD4 /* MessageThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageThread.h; sourceTree = "<group>"; };
 		CB1F31A81931599000CDCFD4 /* MessageThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThread.m; sourceTree = "<group>"; };
 		CB1F31AA1931599100CDCFD4 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
@@ -211,6 +227,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB041862194930E000B3DE97 /* departments */ = {
+			isa = PBXGroup;
+			children = (
+				CB0418631949310300B3DE97 /* DepartmentsTableViewController.h */,
+				CB0418641949310300B3DE97 /* DepartmentsTableViewController.m */,
+			);
+			name = departments;
+			sourceTree = "<group>";
+		};
 		CBA5D0731936BAE40044BBCC /* resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +260,9 @@
 			children = (
 				CBA5D0811936BD4D0044BBCC /* ContactCell.h */,
 				CBA5D0821936BD4D0044BBCC /* ContactCell.m */,
+				CB04185D1948C59600B3DE97 /* ContactInfoTableViewCell.h */,
+				CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */,
+				CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -386,6 +414,7 @@
 		CBBA68DF192FE12A005A6949 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CB041862194930E000B3DE97 /* departments */,
 				CBBA68F1192FE23D005A6949 /* messages */,
 				CBBA68F0192FE239005A6949 /* contacts */,
 				CBBA68EF192FE231005A6949 /* account */,
@@ -436,6 +465,11 @@
 				CB1F31C619325D8600CDCFD4 /* ContactViewController.h */,
 				CB1F31C719325D8600CDCFD4 /* ContactViewController.m */,
 				CB1F31C819325D8600CDCFD4 /* ContactViewController.xib */,
+				CB0E71A6194897B0002B2B58 /* ContactDetailsDataSource.h */,
+				CB0E71A7194897B0002B2B58 /* ContactDetailsDataSource.m */,
+				CB0E71AC1948BA5E002B2B58 /* ContactSectionViewController.h */,
+				CB0E71AD1948BA5E002B2B58 /* ContactSectionViewController.m */,
+				CB0E71AE1948BA5E002B2B58 /* ContactSectionViewController.xib */,
 			);
 			name = contacts;
 			sourceTree = "<group>";
@@ -534,6 +568,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB0418611948C59600B3DE97 /* ContactInfoTableViewCell.xib in Resources */,
 				CBA5D0791936BB2B0044BBCC /* Whitney-Medium.otf in Resources */,
 				CBBA686F192FD646005A6949 /* InfoPlist.strings in Resources */,
 				CB1F31CA19325D8600CDCFD4 /* ContactViewController.xib in Resources */,
@@ -542,6 +577,7 @@
 				CB1F31D11932746F00CDCFD4 /* AccountViewController.xib in Resources */,
 				CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */,
 				CBA5D07A1936BB2D0044BBCC /* Whitney-Semibold.otf in Resources */,
+				CB0E71B01948BA5E002B2B58 /* ContactSectionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,10 +644,13 @@
 			files = (
 				CBBA68DE192FE0B5005A6949 /* User.m in Sources */,
 				CBBA6875192FD646005A6949 /* AppDelegate.m in Sources */,
+				CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */,
 				CB1F31D01932746F00CDCFD4 /* AccountViewController.m in Sources */,
+				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
 				CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */,
 				CBBA68A2192FD850005A6949 /* TRDataStoreManager.m in Sources */,
 				CB1F31D919327FC600CDCFD4 /* Geofencer.m in Sources */,
+				CB0E71AF1948BA5E002B2B58 /* ContactSectionViewController.m in Sources */,
 				CBBA6871192FD646005A6949 /* main.m in Sources */,
 				CB1F31C51931A12600CDCFD4 /* NewThreadTableViewController.m in Sources */,
 				CBBA68DB192FE0B5005A6949 /* Account.m in Sources */,
@@ -624,6 +663,7 @@
 				CBBA68F7192FE262005A6949 /* ContactsTableViewController.m in Sources */,
 				CB1F31AC1931599100CDCFD4 /* Message.m in Sources */,
 				CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */,
+				CB0E71A8194897B0002B2B58 /* ContactDetailsDataSource.m in Sources */,
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
 				CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */,
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,

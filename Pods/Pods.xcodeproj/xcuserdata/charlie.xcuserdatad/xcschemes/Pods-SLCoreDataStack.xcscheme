@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "984F517123AC441EAFE9C4CF"
+               BlueprintIdentifier = "D7534504018E43F7A6199341"
                BuildableName = "libPods-SLCoreDataStack.a"
                BlueprintName = "Pods-SLCoreDataStack"
                ReferencedContainer = "container:Pods.xcodeproj">

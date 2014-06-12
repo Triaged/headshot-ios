@@ -1,27 +1,29 @@
 PODS:
-  - AFNetworking (2.2.4):
+  - AFNetworking (2.3.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.2.4):
+  - AFNetworking/NSURLConnection (2.3.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.2.4):
-    - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.2.4)
-  - AFNetworking/Security (2.2.4)
-  - AFNetworking/Serialization (2.2.4)
-  - AFNetworking/UIKit (2.2.4):
+  - AFNetworking/NSURLSession (2.3.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.3.0)
+  - AFNetworking/Security (2.3.0)
+  - AFNetworking/Serialization (2.3.0)
+  - AFNetworking/UIKit (2.3.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - FastImageCache (1.3)
-  - JSQMessagesViewController (5.0.2):
+  - JSQMessagesViewController (5.0.4):
     - JSQSystemSoundPlayer
-  - JSQSystemSoundPlayer (1.5.0)
+  - JSQSystemSoundPlayer (1.5.2)
   - MagicalRecord (2.2):
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
@@ -63,25 +65,27 @@ PODS:
   - NJKWebViewProgress/ProgressView (0.2.3)
   - NSDate+TimeAgo (1.0.3)
   - RDVTabBarController (1.1.6)
+  - SDCSegmentedViewController (1.3)
   - SGNavigationProgress (1.2)
   - SLCoreDataStack (0.5.0)
-  - SLRESTfulCoreData (1.7.0):
+  - SLRESTfulCoreData (1.8.0):
     - SLRESTfulCoreData/Complete
-  - SLRESTfulCoreData/AFRESTfulCoreDataBackgroundQueue (1.7.0):
+  - SLRESTfulCoreData/AFRESTfulCoreDataBackgroundQueue (1.8.0):
     - AFNetworking (~> 2.1)
     - SLRESTfulCoreData/Core
-  - SLRESTfulCoreData/Complete (1.7.0):
+  - SLRESTfulCoreData/Complete (1.8.0):
     - AFNetworking (~> 2.1)
     - SLCoreDataStack (>= 0.2.0)
     - SLRESTfulCoreData/AFRESTfulCoreDataBackgroundQueue
     - SLRESTfulCoreData/Core
-  - SLRESTfulCoreData/Core (1.7.0)
+  - SLRESTfulCoreData/Core (1.8.0)
   - SSKeychain (1.2.2)
   - SVProgressHUD (1.0)
   - SVWebViewController (HEAD based on 1.0)
   - UITableView-NXEmptyView (0.1.5)
   - UIView+AutoLayout (1.3.0)
   - Vertigo (0.1)
+  - XLMailBoxContainer (1.0.0)
 
 DEPENDENCIES:
   - FastImageCache
@@ -91,6 +95,7 @@ DEPENDENCIES:
   - NJKWebViewProgress
   - NSDate+TimeAgo
   - RDVTabBarController
+  - SDCSegmentedViewController
   - SGNavigationProgress
   - SLRESTfulCoreData
   - SSKeychain
@@ -99,25 +104,28 @@ DEPENDENCIES:
   - UITableView-NXEmptyView
   - UIView+AutoLayout
   - Vertigo
+  - XLMailBoxContainer
 
 SPEC CHECKSUMS:
-  AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
+  AFNetworking: e7abefee64543aa978c9d759bc8892402b1ed7d1
   FastImageCache: f0897a850a1479a95b1415eb88ed1fdce708353a
-  JSQMessagesViewController: aa5af4abfc1694cdd0938a85bdeb2778d11440bf
-  JSQSystemSoundPlayer: 0e636d5fd51e071fb708a0fec04e3d05175d9d27
+  JSQMessagesViewController: 70be735cbe86b74961870d1d9a2948af7ea2da9d
+  JSQSystemSoundPlayer: c24914bc96ff5365b5d28b59d7ecffd60d1c5587
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
   MRProgress: e588fb8d0fba293715eaf0e485dd8402f4ce1de6
   NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1
   NSDate+TimeAgo: f3533e0198fab05b716368b19f8c2185d53d6f3b
   RDVTabBarController: 252dafb16725f9a07026618ff51acf06a12b206b
+  SDCSegmentedViewController: 046f8aed6efc3538792910695b6b41365cbb9d65
   SGNavigationProgress: 6c38006ca3c652618411c67d493b263343d5aece
   SLCoreDataStack: 18c6fb041fa421ac6957185732e936fea512d470
-  SLRESTfulCoreData: 5e2037995f9b7b9f4465716f157241e83ed6ce80
+  SLRESTfulCoreData: 1f34fe811de67dd30dfae9818e4ce449bb672fe5
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   SVWebViewController: fbf917baa92744c54cfb89a52a4c056e409973a4
   UITableView-NXEmptyView: 56377099d64bc965f73762d9c272ea729d953c34
   UIView+AutoLayout: dc24ec6114498617510af759148a05b957af1b38
   Vertigo: 606222b572b2f54d5a85329b7afe1436a4859e89
+  XLMailBoxContainer: e2c53676230003aca5cd75461a206ccb82ea0b2c
 
 COCOAPODS: 0.33.1

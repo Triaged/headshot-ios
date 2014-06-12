@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "FICEntity.h"
+#import "SLRESTfulCoreData.h"
 
 
 @class Company, EmployeeInfo;
@@ -24,8 +25,10 @@
 @property (nonatomic, retain) NSString * avatarUrl;
 @property (nonatomic, retain) EmployeeInfo *employeeInfo;
 @property (nonatomic, retain) Company *company;
+@property (nonatomic, retain) User *manager;
+@property (nonatomic, retain) NSSet *subordinates;
 
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler;
-
+-(void)fetchOrgStructure;
 
 @end

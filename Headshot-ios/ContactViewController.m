@@ -10,8 +10,11 @@
 #import "EmployeeInfo.h"
 #import "OfficeLocation.h"
 #import "MessageThreadViewController.h"
+#import "ContactDetailsDataSource.h"
 
 @interface ContactViewController ()
+
+@property (nonatomic, strong) ContactDetailsDataSource *contactDetailsDataSource;
 
 @end
 
@@ -46,10 +49,28 @@
     self.titleLabel.text = self.user.employeeInfo.jobTitle;
     self.currentOfficeLocationLabel.text = self.user.employeeInfo.currentOfficeLocation.streetAddress;
     
+    self.contactDetailsDataSource = [[ContactDetailsDataSource alloc] initWithUser:self.user];
+    self.contactDetailsDataSource.contactVC = self;
+    self.contactDetailsTableView.dataSource = self.contactDetailsDataSource;
+    self.contactDetailsTableView.delegate = self.contactDetailsDataSource;
+    self.contactDetailsTableView.scrollEnabled = NO;
+    self.contactDetailsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.contactDetailsTableView registerNib:[UINib nibWithNibName:@"ContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"ContactInfoCell"];
+    
+    [self.user fetchOrgStructure];
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:YES];
+    [self.contactDetailsTableView reloadData];
+}
+
+-(void)viewDidLayoutSubviews
+{
+    CGFloat height = MIN(self.view.bounds.size.height, self.contactDetailsTableView.contentSize.height);
+    self.tableHeightConstraint.constant = height;
+    [self.view layoutIfNeeded];
 }
 
 - (void)didReceiveMemoryWarning

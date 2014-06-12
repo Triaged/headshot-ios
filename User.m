@@ -9,7 +9,6 @@
 #import "User.h"
 #import "Company.h"
 #import "EmployeeInfo.h"
-#import "SLRESTfulCoreData.h"
 #import "FICUtilities.h"
 
 
@@ -24,6 +23,8 @@
 @dynamic avatarUrl;
 @dynamic employeeInfo;
 @dynamic company;
+@dynamic manager;
+@dynamic subordinates;
 
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler {
     NSURL *URL = [NSURL URLWithString:@"users.json"];
@@ -67,6 +68,15 @@
     };
     
     return drawingBlock;
+}
+
+-(void)fetchOrgStructure {
+    NSURL *managerURL = [NSURL URLWithString:[NSString stringWithFormat:@"users/%@/manager", self.identifier]];
+    [self fetchObjectsForRelationship:@"manager" fromURL:managerURL completionHandler:^(NSArray *fetchedObjects, NSError *error) {}];
+    
+    NSURL *subordinatesURL = [NSURL URLWithString:[NSString stringWithFormat:@"users/%@/subordinates", self.identifier]];
+    [self fetchObjectsForRelationship:@"subordinates" fromURL:subordinatesURL completionHandler:^(NSArray *fetchedObjects, NSError *error) {}];
+
 }
 
 

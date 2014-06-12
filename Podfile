@@ -15,3 +15,5 @@ pod "MagicalRecord"
 pod 'Vertigo'
 pod 'JSQMessagesViewController'
 pod 'FastImageCache'
+pod 'SDCSegmentedViewController'
+pod 'XLMailBoxContainer'

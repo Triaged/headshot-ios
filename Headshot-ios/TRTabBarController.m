@@ -14,6 +14,9 @@
 #import "CredentialStore.h"
 #import "RDVTabBarItem.h"
 #import "LoginViewController.h"
+#import "SDCSegmentedViewController.h"
+#import "DepartmentsTableViewController.h"
+
 
 
 @interface TRTabBarController ()
@@ -44,9 +47,18 @@
     blockade.backgroundColor = [UIColor whiteColor];
     [messagesNav.view addSubview:blockade];
     
-    // Providers
+    // Contacts
     ContactsTableViewController *contactsTableView = [[ContactsTableViewController alloc] init];
-    TRNavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:contactsTableView];
+    DepartmentsTableViewController *deptsTableView = [[DepartmentsTableViewController alloc] init];
+    
+    
+    //TRNavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:contactsTableView];
+    
+    SDCSegmentedViewController *segmentedController = [[SDCSegmentedViewController alloc] initWithViewControllers:@[contactsTableView, deptsTableView] titles:@[@"Contacts", @"Departments"]];
+    segmentedController.segmentedControl.tintColor = BUTTON_TINT_COLOR;
+
+    TRNavigationController *segmentNav = [[TRNavigationController alloc] initWithRootViewController:segmentedController];
+    contactsTableView.segmentController = segmentedController;
     
     // Settings
     AccountViewController *accountVC = [[AccountViewController alloc] init];
@@ -57,7 +69,7 @@
     //[self.tabBar setTintColor:[UIColor colorWithRed:165.00f green:171.00f blue:184.00f alpha:1.0f]];
     [self.tabBar setTintColor:[UIColor whiteColor]];
     [self.tabBar setBackgroundColor:[UIColor whiteColor]];
-    [self  setViewControllers:[NSArray arrayWithObjects:messagesNav, contactsNav, accountNav, nil]];
+    [self  setViewControllers:[NSArray arrayWithObjects:messagesNav, segmentNav, accountNav, nil]];
     
 //    
     UIImage *finishedImage = [UIImage imageNamed:@"nav_bg_on"];

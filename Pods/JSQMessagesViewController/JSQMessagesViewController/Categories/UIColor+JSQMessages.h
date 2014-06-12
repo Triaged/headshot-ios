@@ -36,7 +36,6 @@
  *  @return A color object containing HSB values similar to the iOS 7 messages app light gray bubble color.
  */
 + (UIColor *)jsq_messageBubbleLightGrayColor;
-+ (UIColor *)jsq_messageBubbleOrangeColor;
 
 #pragma mark - Utilities
 

@@ -78,7 +78,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory
                                      outgoingMessageBubbleImageViewWithColor:
                                     //[UIColor colorWithRed:248.0f green:172.0f blue:0.0f alpha:1]];
-                                    [UIColor jsq_messageBubbleOrangeColor]];
+                                    [UIColor jsq_messageBubbleBlueColor]];
     
     self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory
                                     incomingMessageBubbleImageViewWithColor:
@@ -93,6 +93,10 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 -(void)viewWillAppear:(BOOL)animated {
     [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:YES animated:YES];
     self.navigationController.navigationBar.shadowImage = nil;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:YES];
 }
 
 
@@ -158,7 +162,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      *  Enable/disable springy bubbles, default is YES.
      *  For best results, toggle from `viewDidAppear:`
      */
-    //self.collectionView.collectionViewLayout.springinessEnabled = YES;
+    self.collectionView.collectionViewLayout.springinessEnabled = NO;
 }
 
 #pragma mark - JSQMessagesViewController method overrides

@@ -9,44 +9,44 @@
 // AFNetworking
 #define COCOAPODS_POD_AVAILABLE_AFNetworking
 #define COCOAPODS_VERSION_MAJOR_AFNetworking 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking 2
-#define COCOAPODS_VERSION_PATCH_AFNetworking 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking 0
 
 // AFNetworking/NSURLConnection
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_NSURLConnection
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_NSURLConnection 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_NSURLConnection 2
-#define COCOAPODS_VERSION_PATCH_AFNetworking_NSURLConnection 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_NSURLConnection 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking_NSURLConnection 0
 
 // AFNetworking/NSURLSession
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_NSURLSession
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_NSURLSession 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_NSURLSession 2
-#define COCOAPODS_VERSION_PATCH_AFNetworking_NSURLSession 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_NSURLSession 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking_NSURLSession 0
 
 // AFNetworking/Reachability
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_Reachability
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_Reachability 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_Reachability 2
-#define COCOAPODS_VERSION_PATCH_AFNetworking_Reachability 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_Reachability 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking_Reachability 0
 
 // AFNetworking/Security
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_Security
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_Security 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_Security 2
-#define COCOAPODS_VERSION_PATCH_AFNetworking_Security 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_Security 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking_Security 0
 
 // AFNetworking/Serialization
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_Serialization
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_Serialization 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_Serialization 2
-#define COCOAPODS_VERSION_PATCH_AFNetworking_Serialization 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_Serialization 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking_Serialization 0
 
 // AFNetworking/UIKit
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_UIKit
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_UIKit 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 2
-#define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 4
+#define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 0
 
 // FastImageCache
 #define COCOAPODS_POD_AVAILABLE_FastImageCache
@@ -58,13 +58,13 @@
 #define COCOAPODS_POD_AVAILABLE_JSQMessagesViewController
 #define COCOAPODS_VERSION_MAJOR_JSQMessagesViewController 5
 #define COCOAPODS_VERSION_MINOR_JSQMessagesViewController 0
-#define COCOAPODS_VERSION_PATCH_JSQMessagesViewController 2
+#define COCOAPODS_VERSION_PATCH_JSQMessagesViewController 4
 
 // JSQSystemSoundPlayer
 #define COCOAPODS_POD_AVAILABLE_JSQSystemSoundPlayer
 #define COCOAPODS_VERSION_MAJOR_JSQSystemSoundPlayer 1
 #define COCOAPODS_VERSION_MINOR_JSQSystemSoundPlayer 5
-#define COCOAPODS_VERSION_PATCH_JSQSystemSoundPlayer 0
+#define COCOAPODS_VERSION_PATCH_JSQSystemSoundPlayer 2
 
 // MRProgress
 #define COCOAPODS_POD_AVAILABLE_MRProgress
@@ -174,6 +174,12 @@
 #define COCOAPODS_VERSION_MINOR_RDVTabBarController 1
 #define COCOAPODS_VERSION_PATCH_RDVTabBarController 6
 
+// SDCSegmentedViewController
+#define COCOAPODS_POD_AVAILABLE_SDCSegmentedViewController
+#define COCOAPODS_VERSION_MAJOR_SDCSegmentedViewController 1
+#define COCOAPODS_VERSION_MINOR_SDCSegmentedViewController 3
+#define COCOAPODS_VERSION_PATCH_SDCSegmentedViewController 0
+
 // SGNavigationProgress
 #define COCOAPODS_POD_AVAILABLE_SGNavigationProgress
 #define COCOAPODS_VERSION_MAJOR_SGNavigationProgress 1
@@ -189,25 +195,25 @@
 // SLRESTfulCoreData
 #define COCOAPODS_POD_AVAILABLE_SLRESTfulCoreData
 #define COCOAPODS_VERSION_MAJOR_SLRESTfulCoreData 1
-#define COCOAPODS_VERSION_MINOR_SLRESTfulCoreData 7
+#define COCOAPODS_VERSION_MINOR_SLRESTfulCoreData 8
 #define COCOAPODS_VERSION_PATCH_SLRESTfulCoreData 0
 
 // SLRESTfulCoreData/AFRESTfulCoreDataBackgroundQueue
 #define COCOAPODS_POD_AVAILABLE_SLRESTfulCoreData_AFRESTfulCoreDataBackgroundQueue
 #define COCOAPODS_VERSION_MAJOR_SLRESTfulCoreData_AFRESTfulCoreDataBackgroundQueue 1
-#define COCOAPODS_VERSION_MINOR_SLRESTfulCoreData_AFRESTfulCoreDataBackgroundQueue 7
+#define COCOAPODS_VERSION_MINOR_SLRESTfulCoreData_AFRESTfulCoreDataBackgroundQueue 8
 #define COCOAPODS_VERSION_PATCH_SLRESTfulCoreData_AFRESTfulCoreDataBackgroundQueue 0
 
 // SLRESTfulCoreData/Complete
 #define COCOAPODS_POD_AVAILABLE_SLRESTfulCoreData_Complete
 #define COCOAPODS_VERSION_MAJOR_SLRESTfulCoreData_Complete 1
-#define COCOAPODS_VERSION_MINOR_SLRESTfulCoreData_Complete 7
+#define COCOAPODS_VERSION_MINOR_SLRESTfulCoreData_Complete 8
 #define COCOAPODS_VERSION_PATCH_SLRESTfulCoreData_Complete 0
 
 // SLRESTfulCoreData/Core
 #define COCOAPODS_POD_AVAILABLE_SLRESTfulCoreData_Core
 #define COCOAPODS_VERSION_MAJOR_SLRESTfulCoreData_Core 1
-#define COCOAPODS_VERSION_MINOR_SLRESTfulCoreData_Core 7
+#define COCOAPODS_VERSION_MINOR_SLRESTfulCoreData_Core 8
 #define COCOAPODS_VERSION_PATCH_SLRESTfulCoreData_Core 0
 
 // SSKeychain
@@ -245,4 +251,10 @@
 #define COCOAPODS_VERSION_MAJOR_Vertigo 0
 #define COCOAPODS_VERSION_MINOR_Vertigo 1
 #define COCOAPODS_VERSION_PATCH_Vertigo 0
+
+// XLMailBoxContainer
+#define COCOAPODS_POD_AVAILABLE_XLMailBoxContainer
+#define COCOAPODS_VERSION_MAJOR_XLMailBoxContainer 1
+#define COCOAPODS_VERSION_MINOR_XLMailBoxContainer 0
+#define COCOAPODS_VERSION_PATCH_XLMailBoxContainer 0
 

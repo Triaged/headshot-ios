@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ContactsTableViewController.h"
 
 @interface ContactsDataSource : NSObject  <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIScrollViewDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController* fetchedResultsController;
-@property (strong, nonatomic) UITableViewController *tableViewController;
+@property (strong, nonatomic) ContactsTableViewController *tableViewController;
 
 @end
