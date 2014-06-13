@@ -35,10 +35,21 @@
     return [UIColor colorWithWhite:119/255.0 alpha:1.0];
 }
 
+- (UIColor *)incomingMessageBubbleColor
+{
+    return [UIColor colorWithRed:241/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+}
+
+- (UIColor *)outgoingMessageBubbleColor
+{
+    return [UIColor colorWithRed:248/255.0 green:172/255.0 blue:0 alpha:1];
+}
+
 - (UIColor *)buttonTintColor
 {
     return [[UIColor alloc] initWithRed:248.0f/255.0f green:172.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
 }
+
 
 - (void)customizeAppearance
 {
