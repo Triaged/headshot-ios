@@ -37,7 +37,7 @@
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
     
     [self setDataStore];
-    [self setBaseStyles];
+    [[ThemeManager sharedTheme] customizeAppearance];
     [self setupLoggedInUser];
     [self setWindowAndRootVC];
     
@@ -112,10 +112,6 @@
 
 }
 
-
-
-
-//
 -(void)setDataStore{
     
     [NSManagedObject setDefaultBackgroundQueue:[TRBackgroundQueue sharedInstance]];
@@ -133,37 +129,6 @@
     
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Headshot.sqlite"];
     
-}
-
-- (void) setBaseStyles
-{
-    
-    UIColor *tint = [[UIColor alloc] initWithRed:0.0f/255.0f green:167.0f/255.0f blue:152.0f/255.0f alpha:1.0f];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
-                                                                           fontWithName:@"Whitney-Medium" size:17], NSFontAttributeName, tint,NSForegroundColorAttributeName, nil];
-    
-    [[UINavigationBar appearance] setTitleTextAttributes:attributes];
-    
-    UIColor *buttonTint = BUTTON_TINT_COLOR;
-    NSDictionary *buttonAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
-                                                                                 fontWithName:@"Whitney-Medium" size:17], NSFontAttributeName, buttonTint,NSForegroundColorAttributeName, nil];
-    
-    [[UIBarButtonItem appearance] setTitleTextAttributes:buttonAttributes forState:UIControlStateNormal];
-    [[UIBarButtonItem appearance] setTintColor:buttonTint];
-    
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    [UINavigationBar appearance].backIndicatorImage = [[UIImage imageNamed:@"navbar_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [UINavigationBar appearance].backIndicatorTransitionMaskImage = [[UIImage imageNamed:@"navbar_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    
-    //    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage imageNamed:@"navbar_icon_back.png"]
-    //                                                      forState:UIControlStateNormal
-    //                                                    barMetrics:UIBarMetricsDefault];
-    //
-    //    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage imageNamed:@"navbar_icon_back.png"]
-    //                                                      forState:UIControlStateHighlighted
-    //                                                    barMetrics:UIBarMetricsDefault];
 }
 
 @end

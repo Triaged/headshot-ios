@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA0194AD89300F6A4AF /* DefaultTheme.m */; };
+		9647ACA4194AD89300F6A4AF /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA2194AD89300F6A4AF /* Theme.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
 		CB0418611948C59600B3DE97 /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */; };
 		CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0418641949310300B3DE97 /* DepartmentsTableViewController.m */; };
@@ -94,6 +96,10 @@
 /* Begin PBXFileReference section */
 		30B39923FA64452EB4653D38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		426C573043D24799B16F4828 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9647AC9F194AD89300F6A4AF /* DefaultTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTheme.h; sourceTree = "<group>"; };
+		9647ACA0194AD89300F6A4AF /* DefaultTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTheme.m; sourceTree = "<group>"; };
+		9647ACA1194AD89300F6A4AF /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		9647ACA2194AD89300F6A4AF /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		CB04185D1948C59600B3DE97 /* ContactInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoTableViewCell.h; sourceTree = "<group>"; };
 		CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoTableViewCell.m; sourceTree = "<group>"; };
 		CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -245,6 +251,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9647AC9E194AD88200F6A4AF /* theme */ = {
+			isa = PBXGroup;
+			children = (
+				9647AC9F194AD89300F6A4AF /* DefaultTheme.h */,
+				9647ACA0194AD89300F6A4AF /* DefaultTheme.m */,
+				9647ACA1194AD89300F6A4AF /* Theme.h */,
+				9647ACA2194AD89300F6A4AF /* Theme.m */,
+			);
+			name = theme;
+			sourceTree = "<group>";
+		};
 		CB041862194930E000B3DE97 /* departments */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +365,7 @@
 		CBBA686A192FD646005A6949 /* Headshot-ios */ = {
 			isa = PBXGroup;
 			children = (
+				9647AC9E194AD88200F6A4AF /* theme */,
 				CBA5D07B1936BC5E0044BBCC /* cells */,
 				CBA5D0731936BAE40044BBCC /* resources */,
 				CBBA68DF192FE12A005A6949 /* controllers */,
@@ -695,6 +713,7 @@
 				CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */,
 				CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */,
 				CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */,
+				9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */,
 				CBBA68D8192FE0B5005A6949 /* EmployeeInfo.m in Sources */,
 				CBB5183E194A3F04001C2E0C /* SDCSegmentedViewController.m in Sources */,
 				CBBA68FA192FE26C005A6949 /* MessagesTableViewController.m in Sources */,
@@ -704,6 +723,7 @@
 				CB041868194A2FFE00B3DE97 /* Department.m in Sources */,
 				CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */,
 				CB0E71A8194897B0002B2B58 /* ContactDetailsDataSource.m in Sources */,
+				9647ACA4194AD89300F6A4AF /* Theme.m in Sources */,
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
 				CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */,
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,

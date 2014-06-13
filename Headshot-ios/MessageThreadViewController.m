@@ -59,7 +59,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.title = self.messageThread.recipient.name;
     
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    info.tintColor = BUTTON_TINT_COLOR;
+    info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
     [info addTarget:self action:@selector(showContact) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
     self.navigationItem.rightBarButtonItem = item;
@@ -80,11 +80,11 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory
                                      outgoingMessageBubbleImageViewWithColor:
-                                    [UIColor colorWithRed:248/255.0 green:172/255.0 blue:0 alpha:1]];
+                                    [[ThemeManager sharedTheme] outgoingMessageBubbleColor]];
     
     self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory
                                     incomingMessageBubbleImageViewWithColor:
-                                    [UIColor colorWithRed:241/255.0 green:240/255.0 blue:240/255.0 alpha:1]];
+                                    [[ThemeManager sharedTheme] incomingMessageBubbleColor]];
     
     self.avatarImageSize = CGSizeMake(40, 40);
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = self.avatarImageSize;

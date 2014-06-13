@@ -14,7 +14,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
-
+    #import "Theme.h"
     #import "AppDelegate.h"
     #import "Store.h"
     #import "HeadshotAPIClient.h"
@@ -30,7 +30,6 @@
     #define BG_COLOR [[UIColor alloc] initWithRed:236.0f/255.0f green:238.0f/255.0f blue:244.0f/255.0f alpha:1.0f];
     //#define TINT_COLOR [[UIColor alloc] initWithRed:105.0f/255.0f green:125.0f/255.0f blue:165.0f/255.0f alpha:1.0f];
     #define TINT_COLOR [[UIColor alloc] initWithRed:121.0f/255.0f green:159.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-    #define BUTTON_TINT_COLOR [[UIColor alloc] initWithRed:248.0f/255.0f green:172.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
     #define BAR_TINT_COLOR [[UIColor alloc] initWithRed:253.0f/255.0f green:253.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
     #define BODY_COLOR [[UIColor alloc] initWithRed:120.0f/255.0f green:120.0f/255.0f blue:120.0f/255.0f alpha:1.0f];
     #define TITLE_COLOR [[UIColor alloc] initWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
