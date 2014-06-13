@@ -65,7 +65,7 @@
     TRNavigationController *accountNav = [[TRNavigationController alloc] initWithRootViewController:accountVC];
     
     
-    self.tabBar.opaque = NO;
+    self.tabBar.opaque = YES;
     [self.tabBar setTintColor:[UIColor whiteColor]];
     [self.tabBar setBackgroundColor:[UIColor whiteColor]];
     [self setViewControllers:[NSArray arrayWithObjects:messagesNav, segmentNav, accountNav, nil]];

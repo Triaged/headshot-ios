@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * userCount;
 @property (nonatomic, retain) NSSet *users;
 
 + (void)departmentsWithCompletionHandler:(void(^)(NSArray *departments, NSError *error))completionHandler;

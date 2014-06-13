@@ -67,6 +67,7 @@
 - (void)createSegmentedControl {
 	_segmentedControl = [[UISegmentedControl alloc] initWithItems:nil];
 	[_segmentedControl addTarget:self action:@selector(changeViewController:) forControlEvents:UIControlEventValueChanged];
+    
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
 	_segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
 #endif
@@ -162,7 +163,8 @@
 	[self addChildViewController:viewController];
 	
 	[self.segmentedControl insertSegmentWithTitle:title atIndex:[self.titles indexOfObject:title] animated:YES];
-	[self.segmentedControl sizeToFit];
+    [_segmentedControl setWidth:120.0 forSegmentAtIndex:[self.titles indexOfObject:title]];
+    [self.segmentedControl sizeToFit];
 }
 
 #pragma mark - View Controller Transitioning

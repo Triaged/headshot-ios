@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import <MessageUI/MessageUI.h>
+#import <EventKit/EventKit.h>
+#import <EventKitUI/EventKitUI.h>
 
-@interface ContactViewController : UIViewController <MFMailComposeViewControllerDelegate, UIToolbarDelegate>
+@interface ContactViewController : UIViewController <MFMailComposeViewControllerDelegate, UIToolbarDelegate, EKEventEditViewDelegate>
 
 @property (strong, nonatomic) User *user;
 

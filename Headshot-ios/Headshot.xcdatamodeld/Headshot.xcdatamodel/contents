@@ -12,6 +12,7 @@
     <entity name="Department" representedClassName="Department" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="department" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="EmployeeInfo" representedClassName="EmployeeInfo" syncable="YES">
@@ -69,11 +70,11 @@
     <elements>
         <element name="Account" positionX="-63" positionY="-18" width="128" height="73"/>
         <element name="Company" positionX="-18" positionY="27" width="128" height="88"/>
+        <element name="Department" positionX="-36" positionY="108" width="128" height="105"/>
         <element name="EmployeeInfo" positionX="-36" positionY="9" width="128" height="178"/>
         <element name="Message" positionX="-18" positionY="72" width="128" height="118"/>
         <element name="MessageThread" positionX="-27" positionY="63" width="128" height="90"/>
         <element name="OfficeLocation" positionX="0" positionY="45" width="128" height="193"/>
         <element name="User" positionX="-54" positionY="-9" width="128" height="268"/>
-        <element name="Department" positionX="-36" positionY="108" width="128" height="88"/>
     </elements>
 </model>

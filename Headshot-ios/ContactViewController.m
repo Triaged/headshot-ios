@@ -12,6 +12,7 @@
 #import "MessageThreadViewController.h"
 #import "ContactDetailsDataSource.h"
 
+
 @interface ContactViewController ()
 
 @property (nonatomic, strong) ContactDetailsDataSource *contactDetailsDataSource;
@@ -96,6 +97,27 @@
 }
 
 - (IBAction)meetTapped:(id)sender {
+    EKEventStore *store = [[EKEventStore alloc] init];
+    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error)
+            {
+                // display error message here
+            }
+            else if (!granted)
+            {
+                // display access denied error message here
+            }
+            else
+            {
+                // access granted
+                EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
+                controller.eventStore = store;
+                controller.editViewDelegate = self;
+                [self presentViewController:controller animated:YES completion:nil];
+            }
+        });
+    }];
 }
 
 - (IBAction)callTapped:(id)sender {

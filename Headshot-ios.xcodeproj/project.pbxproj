@@ -36,6 +36,8 @@
 		CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31D319327B6000CDCFD4 /* OfficeLocation.m */; };
 		CB1F31D619327BAA00CDCFD4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31D519327BAA00CDCFD4 /* CoreLocation.framework */; };
 		CB1F31D919327FC600CDCFD4 /* Geofencer.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31D819327FC600CDCFD4 /* Geofencer.m */; };
+		CB354D30194A48B400E537C2 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB354D2E194A48B400E537C2 /* EventKit.framework */; };
+		CB354D31194A48B400E537C2 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB354D2F194A48B400E537C2 /* EventKitUI.framework */; };
 		CBA5D0721936B8FA0044BBCC /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA5D0711936B8FA0044BBCC /* Reveal.framework */; };
 		CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0751936BB070044BBCC /* Whitney-Book.otf */; };
 		CBA5D0791936BB2B0044BBCC /* Whitney-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */; };
@@ -137,6 +139,8 @@
 		CB1F31D519327BAA00CDCFD4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CB1F31D719327FC600CDCFD4 /* Geofencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geofencer.h; sourceTree = "<group>"; };
 		CB1F31D819327FC600CDCFD4 /* Geofencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geofencer.m; sourceTree = "<group>"; };
+		CB354D2E194A48B400E537C2 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		CB354D2F194A48B400E537C2 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		CBA5D0711936B8FA0044BBCC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = ../Reveal.framework; sourceTree = "<group>"; };
 		CBA5D0751936BB070044BBCC /* Whitney-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Book.otf"; sourceTree = "<group>"; };
 		CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Medium.otf"; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB354D30194A48B400E537C2 /* EventKit.framework in Frameworks */,
+				CB354D31194A48B400E537C2 /* EventKitUI.framework in Frameworks */,
 				CB1F31D619327BAA00CDCFD4 /* CoreLocation.framework in Frameworks */,
 				CB1F31CC193261B000CDCFD4 /* MessageUI.framework in Frameworks */,
 				CB1F31C21931872E00CDCFD4 /* libstdc++.6.0.9.dylib in Frameworks */,
@@ -318,6 +324,8 @@
 		CBBA6861192FD646005A6949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB354D2E194A48B400E537C2 /* EventKit.framework */,
+				CB354D2F194A48B400E537C2 /* EventKitUI.framework */,
 				CB1F31D519327BAA00CDCFD4 /* CoreLocation.framework */,
 				CB1F31CB193261B000CDCFD4 /* MessageUI.framework */,
 				CB1F31C11931872E00CDCFD4 /* libstdc++.6.0.9.dylib */,
@@ -826,8 +834,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Richardson White (4AM4VLZM5Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Richardson White (4AM4VLZM5Y)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -841,7 +849,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "99DDFC7D-15DA-4CF6-A541-1E02AFE7F4C5";
+				PROVISIONING_PROFILE = "868B1FF7-DFE8-431A-A9FB-02C51C33261B";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -853,8 +861,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Richardson White (4AM4VLZM5Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Richardson White (4AM4VLZM5Y)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -868,7 +876,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "99DDFC7D-15DA-4CF6-A541-1E02AFE7F4C5";
+				PROVISIONING_PROFILE = "868B1FF7-DFE8-431A-A9FB-02C51C33261B";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

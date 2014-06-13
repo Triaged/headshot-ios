@@ -9,6 +9,7 @@
 #import "DepartmentsTableViewController.h"
 #import "Department.h"
 #import "DepartmentContactsTableViewController.h"
+#import "DepartmentCell.h"
 
 @interface DepartmentsTableViewController ()
 
@@ -39,6 +40,7 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorInset = UIEdgeInsetsZero;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchDepartments) forControlEvents:UIControlEventValueChanged];
@@ -98,10 +100,10 @@
 {
     Department *dept = [self itemAtIndexPath:indexPath];
     static NSString *CellIdentifier = @"departmentCell";
-    UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier:CellIdentifier ] ;
+    DepartmentCell *cell = [ tableView dequeueReusableCellWithIdentifier:CellIdentifier ] ;
     if ( !cell )
     {
-        cell = [ [ UITableViewCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier ] ;
+        cell = [ [ DepartmentCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier ] ;
     }
     
     cell.textLabel.text = dept.name;
@@ -113,6 +115,10 @@
     Department *dept = [self itemAtIndexPath:indexPath];
     DepartmentContactsTableViewController *deptContactsTableVC = [[DepartmentContactsTableViewController alloc] initWithDepartment:dept];
     [self.navigationController pushViewController:deptContactsTableVC animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 55;
 }
 
 

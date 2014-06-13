@@ -14,6 +14,7 @@
 
 @dynamic identifier;
 @dynamic name;
+@dynamic userCount;
 @dynamic users;
 
 + (void)departmentsWithCompletionHandler:(void(^)(NSArray *departments, NSError *error))completionHandler {
