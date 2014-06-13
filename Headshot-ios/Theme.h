@@ -16,6 +16,7 @@
 - (NSString *)boldFontName;
 - (UIColor *)darkGrayTextColor;
 - (UIColor *)lightGrayTextColor;
+- (UIColor *)buttonTintColor;
 - (void)customizeAppearance;
 @end
 

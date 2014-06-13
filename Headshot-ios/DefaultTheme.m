@@ -35,6 +35,11 @@
     return [UIColor colorWithWhite:119/255.0 alpha:1.0];
 }
 
+- (UIColor *)buttonTintColor
+{
+    return [[UIColor alloc] initWithRed:248.0f/255.0f green:172.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
+}
+
 - (void)customizeAppearance
 {
     UIColor *tint = [[UIColor alloc] initWithRed:0.0f/255.0f green:167.0f/255.0f blue:152.0f/255.0f alpha:1.0f];
@@ -43,7 +48,7 @@
     
     [[UINavigationBar appearance] setTitleTextAttributes:attributes];
     
-    UIColor *buttonTint = BUTTON_TINT_COLOR;
+    UIColor *buttonTint = [self buttonTintColor];;
     NSDictionary *buttonAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
                                                                                  fontWithName:@"Whitney-Medium" size:17], NSFontAttributeName, buttonTint,NSForegroundColorAttributeName, nil];
     

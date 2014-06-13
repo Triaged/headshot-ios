@@ -59,7 +59,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.title = self.messageThread.recipient.name;
     
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    info.tintColor = BUTTON_TINT_COLOR;
+    info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
     [info addTarget:self action:@selector(showContact) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
     self.navigationItem.rightBarButtonItem = item;

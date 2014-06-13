@@ -55,7 +55,7 @@
     //TRNavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:contactsTableView];
     
     SDCSegmentedViewController *segmentedController = [[SDCSegmentedViewController alloc] initWithViewControllers:@[contactsTableView, deptsTableView] titles:@[@"Contacts", @"Departments"]];
-    segmentedController.segmentedControl.tintColor = BUTTON_TINT_COLOR;
+    segmentedController.segmentedControl.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
 
     TRNavigationController *segmentNav = [[TRNavigationController alloc] initWithRootViewController:segmentedController];
     contactsTableView.segmentController = segmentedController;
