@@ -14,7 +14,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
-
+    #import "Theme.h"
     #import "AppDelegate.h"
     #import "Store.h"
     #import "HeadshotAPIClient.h"
