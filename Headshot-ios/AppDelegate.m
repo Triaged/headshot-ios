@@ -13,6 +13,7 @@
 #import "TRBackgroundQueue.h"
 #import "Geofencer.h"
 #import "SinchClient.h"
+#import "NotificationManager.h"
 
 
 @interface NSManagedObjectContext ()
@@ -35,7 +36,7 @@
     
     UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
-    
+    [NotificationManager sharedManager];
     [self setDataStore];
     [[ThemeManager sharedTheme] customizeAppearance];
     [self setupLoggedInUser];
@@ -66,7 +67,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[SinchClient sharedClient].client start];
+    [[SinchClient sharedClient].client startListeningOnActiveConnection];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

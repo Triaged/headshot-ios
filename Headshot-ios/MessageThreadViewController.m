@@ -10,6 +10,7 @@
 #import "User.h"
 #import "SinchClient.h"
 #import "ContactViewController.h"
+#import "NotificationManager.h"
 
 @interface MessageThreadViewController ()
 
@@ -64,10 +65,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
     self.navigationItem.rightBarButtonItem = item;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(fetchMessages)
-                                                 name:[NSString stringWithFormat:@"%@", [self.messageThread objectID] ]
-                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
 
     
     
@@ -89,16 +87,25 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.avatarImageSize = CGSizeMake(40, 40);
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = self.avatarImageSize;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = self.avatarImageSize;
+}
 
+- (void)receivedNewMessageNotification:(NSNotification *)notification
+{
+    MessageThread *thread = notification.userInfo[@"thread"];
+    if ([thread.objectID isEqual:self.messageThread.objectID]) {
+        [self fetchMessages];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:YES animated:YES];
     self.navigationController.navigationBar.shadowImage = nil;
+    [NotificationManager sharedManager].visibleMessageThreadViewController = self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:YES];
+    [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
 }
 
 
