@@ -85,9 +85,9 @@
     User *sender = [User MR_findFirstByAttribute:@"identifier" withValue:identifier];
     MessageThread *thread = [self createOrFindThreadForRecipient:sender];
     
-    [self createMessageWithText:message.text andAuthor:sender andThread:thread];
+    Message *newMessage = [self createMessageWithText:message.text andAuthor:sender andThread:thread];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:[NSString stringWithFormat:@"%@", thread.objectID] object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:@{@"thread" : thread, @"message" : newMessage}];
 }
 
 - (void)messageSent:(id<SINMessage>)message recipientId:(NSString *)recipientId {
@@ -143,7 +143,7 @@
     return thread;
 }
 
-- (void)createMessageWithText:(NSString *)text andAuthor:(User *)user andThread:(MessageThread *)thread {
+- (Message *)createMessageWithText:(NSString *)text andAuthor:(User *)user andThread:(MessageThread *)thread {
     Message *newMesage = [Message MR_createEntity];
     newMesage.timestamp = [NSDate date];
     newMesage.author = user;
@@ -151,6 +151,7 @@
     newMesage.messageText = text;
     
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    return newMesage;
 }
 
 @end

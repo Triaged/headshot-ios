@@ -21,6 +21,7 @@
     #import "CoreData+MagicalRecord.h"
     #import "UIImageView+AFNetworking.h"
     #import "TRNavigationController.h"
+    #import "Constants.h"
 
 
     #define TGRAY_COLOR [[UIColor alloc] initWithRed:155.0f/255.0f green:163.0f/255.0f blue:183.0f/255.0f alpha:1.0f];
