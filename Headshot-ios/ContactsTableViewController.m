@@ -49,7 +49,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     // scroll the search bar off-screen
-    //self.tableView.contentOffset = CGPointMake(0.0, 44.0);
+    self.tableView.contentOffset = CGPointMake(0.0, 44.0);
     self.navigationController.navigationBar.shadowImage = nil;
 }
 

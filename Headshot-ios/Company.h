@@ -2,7 +2,7 @@
 //  Company.h
 //  Headshot-ios
 //
-//  Created by Charlie White on 5/23/14.
+//  Created by Charlie White on 6/13/14.
 //  Copyright (c) 2014 Charlie White. All rights reserved.
 //
 
@@ -15,8 +15,13 @@
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * usesDepartments;
 @property (nonatomic, retain) NSSet *users;
+
++ (void)companyWithCompletionHandler:(void(^)(Company *company, NSError *error))completionHandler;
 @end
+
+
 
 @interface Company (CoreDataGeneratedAccessors)
 

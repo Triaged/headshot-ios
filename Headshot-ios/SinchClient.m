@@ -107,7 +107,7 @@
     for (id<SINPushPair> pair in pushPairs) {
         NSString * deviceToken = [[pair.pushData description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
         deviceToken = [deviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
-        params = @{ @"push_service" : @{ @"push_token" : deviceToken, @"payload" : pair.pushPayload } };
+        params = @{ @"push_service" : @{ @"push_token" : deviceToken, @"payload" : pair.pushPayload, @"message_body" : message.text } };
     }
     
     

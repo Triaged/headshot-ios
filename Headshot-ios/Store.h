@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Account.h"
+#import "Company.h"
 
 @class NSFetchedResultsController;
 
@@ -16,6 +17,7 @@
 + (instancetype)store;
 
 - (Account *) currentAccount;
+- (Company *)currentCompany;
 - (void) fetchRemoteUserAccount;
 - (void) setCurrentAccount: (Account *)account;
 - (void) fetchRemoteUserAccount;

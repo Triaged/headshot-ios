@@ -14,4 +14,7 @@
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *countLabel;
 
+- (void)configureForDepartment:(Department *)department;
+
 @end
+

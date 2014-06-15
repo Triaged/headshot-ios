@@ -59,7 +59,7 @@
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (!_fetchedResultsController) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"department == %@", _department];
         _fetchedResultsController = [User MR_fetchAllSortedBy:nil
                                                     ascending:NO
                                                 withPredicate:predicate

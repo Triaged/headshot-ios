@@ -40,7 +40,7 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.tableFooterView = [[UIView alloc] init];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchDepartments) forControlEvents:UIControlEventValueChanged];
@@ -51,6 +51,7 @@
 
 - (void) fetchDepartments {
     [Department departmentsWithCompletionHandler:^(NSArray *departments, NSError *error) {
+        _fetchedResultsController = nil;
         [[self fetchedResultsController] performFetch:nil];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
@@ -66,9 +67,10 @@
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (!_fetchedResultsController) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"usersCount > 0"];
         _fetchedResultsController = [Department MR_fetchAllSortedBy:nil
                                                     ascending:NO
-                                                withPredicate:nil
+                                                withPredicate:predicate
                                                       groupBy:nil
                                                      delegate:self];
         
@@ -106,7 +108,7 @@
         cell = [ [ DepartmentCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier ] ;
     }
     
-    cell.textLabel.text = dept.name;
+    [cell configureForDepartment:dept];
 
     return cell;
 }

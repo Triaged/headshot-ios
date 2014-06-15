@@ -47,28 +47,33 @@
     blockade.backgroundColor = [UIColor whiteColor];
     [messagesNav.view addSubview:blockade];
     
-    // Contacts
-    ContactsTableViewController *contactsTableView = [[ContactsTableViewController alloc] init];
-    DepartmentsTableViewController *deptsTableView = [[DepartmentsTableViewController alloc] init];
-    
-    
-    //TRNavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:contactsTableView];
-    
-    SDCSegmentedViewController *segmentedController = [[SDCSegmentedViewController alloc] initWithViewControllers:@[contactsTableView, deptsTableView] titles:@[@"Contacts", @"Departments"]];
-    segmentedController.segmentedControl.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
-
-    TRNavigationController *segmentNav = [[TRNavigationController alloc] initWithRootViewController:segmentedController];
-    contactsTableView.segmentController = segmentedController;
-    
     // Settings
     AccountViewController *accountVC = [[AccountViewController alloc] init];
     TRNavigationController *accountNav = [[TRNavigationController alloc] initWithRootViewController:accountVC];
+    
+    if ([AppDelegate sharedDelegate].store.currentCompany.usesDepartments) {
+        // Contacts
+        ContactsTableViewController *contactsTableView = [[ContactsTableViewController alloc] init];
+        DepartmentsTableViewController *deptsTableView = [[DepartmentsTableViewController alloc] init];
+        
+        SDCSegmentedViewController *segmentedController = [[SDCSegmentedViewController alloc] initWithViewControllers:@[contactsTableView, deptsTableView] titles:@[@"Contacts", @"Departments"]];
+        segmentedController.segmentedControl.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
+        contactsTableView.segmentController = segmentedController;
+        TRNavigationController *segmentNav = [[TRNavigationController alloc] initWithRootViewController:segmentedController];
+        
+        [self setViewControllers:[NSArray arrayWithObjects:messagesNav, segmentNav, accountNav, nil]];
+    } else {
+        ContactsTableViewController *contactsTableView = [[ContactsTableViewController alloc] init];
+        TRNavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:contactsTableView];
+        
+        [self setViewControllers:[NSArray arrayWithObjects:messagesNav, contactsNav, accountNav, nil]];
+    }
     
     
     self.tabBar.opaque = YES;
     [self.tabBar setTintColor:[UIColor whiteColor]];
     [self.tabBar setBackgroundColor:[UIColor whiteColor]];
-    [self setViewControllers:[NSArray arrayWithObjects:messagesNav, segmentNav, accountNav, nil]];
+    
     
 
     UIImage *finishedImage = [UIImage imageNamed:@"nav_bg_on"];

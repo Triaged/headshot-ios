@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "CredentialStore.h"
 #import "SinchClient.h"
+#import "User.h"
 
 
 
@@ -57,6 +58,10 @@
     return [Account MR_findFirst];
 }
 
+- (Company *)currentCompany {
+    return [Company MR_findFirst];
+}
+
 
 #pragma mark - User Authentication
 
@@ -66,6 +71,9 @@
     [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
         if (error == nil) {
             [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
+            
+            [Company companyWithCompletionHandler:^(Company *company, NSError *error) {}];
+            [User usersWithCompletionHandler:^(NSArray *users, NSError *error){}];
         }
         
 //        Mixpanel *mixpanel = [Mixpanel sharedInstance];
