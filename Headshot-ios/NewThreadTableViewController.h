@@ -10,9 +10,16 @@
 #import "User.h"
 #import "MessagesTableViewController.h"
 
+@class NewThreadTableViewController;
+@protocol NewThreadTableViewControllerDelegate <NSObject>
+
+- (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUser:(User *)user;
+
+@end
+
 @interface NewThreadTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) MessagesTableViewController *messagesTableVC;
 @property (nonatomic, strong) UISearchDisplayController *searchController;
+@property (weak, nonatomic) id<NewThreadTableViewControllerDelegate>delegate;
 
 @end

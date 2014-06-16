@@ -13,7 +13,7 @@
 #import "NewThreadTableViewController.h"
 #import "MessageThreadPreviewCell.h"
 
-@interface MessagesTableViewController ()
+@interface MessagesTableViewController () <NewThreadTableViewControllerDelegate>
 
 @end
 
@@ -49,7 +49,7 @@
 - (void)newThread
 {
     NewThreadTableViewController *newThreadVC = [[NewThreadTableViewController alloc] init];
-    newThreadVC.messagesTableVC = self;
+    newThreadVC.delegate = self;
     UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(dismissModal)];
     newThreadVC.navigationItem.leftBarButtonItem = cancelButtonItem;
     TRNavigationController *nav = [[TRNavigationController alloc] initWithRootViewController:newThreadVC];
@@ -75,12 +75,11 @@
     }
     
     MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
-    [self.navigationController pushViewController:messageThreadVC animated:YES];
+    [self.navigationController pushViewController:messageThreadVC animated:NO];
 }
 
 - (void)setupTableView
 {
-  
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.tableFooterView = [[UIView alloc] init];
@@ -91,6 +90,13 @@
 {
     _messageThreads = messageThreads;
     [self.tableView reloadData];
+}
+
+#pragma mark - New Thread Table View Controller Delegate
+- (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUser:(User *)user
+{
+    [self createOrFindThreadForRecipient:user];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

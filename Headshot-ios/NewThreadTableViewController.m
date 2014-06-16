@@ -83,9 +83,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self.messagesTableVC createOrFindThreadForRecipient:user];
-    }];
+    if ([self.delegate respondsToSelector:@selector(newThreadTableViewController:didSelectUser:)]) {
+        [self.delegate newThreadTableViewController:self didSelectUser:user];
+    }
 }
 
 
