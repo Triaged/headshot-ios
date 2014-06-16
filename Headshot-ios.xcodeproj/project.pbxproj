@@ -19,6 +19,8 @@
 		964A6BE6194F2FB90024B3C2 /* DatePickerModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */; };
 		964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */; };
 		964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */; };
+		964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BEE194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m */; };
+		964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BF1194F93250024B3C2 /* OnboardPushPermissionViewController.m */; };
 		96696330194B5061003B22B5 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669632F194B5061003B22B5 /* NotificationManager.m */; };
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
 		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
@@ -134,6 +136,10 @@
 		964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThreadPreviewCell.m; sourceTree = "<group>"; };
 		964A6BEA194F6B760024B3C2 /* User+FindAllExcludeCurrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+FindAllExcludeCurrent.h"; sourceTree = "<group>"; };
 		964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+FindAllExcludeCurrent.m"; sourceTree = "<group>"; };
+		964A6BED194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardLocationPermissionViewController.h; sourceTree = "<group>"; };
+		964A6BEE194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardLocationPermissionViewController.m; sourceTree = "<group>"; };
+		964A6BF0194F93250024B3C2 /* OnboardPushPermissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardPushPermissionViewController.h; sourceTree = "<group>"; };
+		964A6BF1194F93250024B3C2 /* OnboardPushPermissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardPushPermissionViewController.m; sourceTree = "<group>"; };
 		9669632E194B5061003B22B5 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		9669632F194B5061003B22B5 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		96696331194B6CF7003B22B5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -353,6 +359,10 @@
 				964A6BDF194E66480024B3C2 /* OnboardSelectOfficeViewController.m */,
 				964A6BE1194E6B9B0024B3C2 /* OnboardAddOfficeViewController.h */,
 				964A6BE2194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m */,
+				964A6BED194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.h */,
+				964A6BEE194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m */,
+				964A6BF0194F93250024B3C2 /* OnboardPushPermissionViewController.h */,
+				964A6BF1194F93250024B3C2 /* OnboardPushPermissionViewController.m */,
 			);
 			name = onboard;
 			sourceTree = "<group>";
@@ -807,6 +817,7 @@
 				CB1F31D01932746F00CDCFD4 /* AccountViewController.m in Sources */,
 				964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */,
 				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
+				964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */,
 				CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */,
 				CBBA68A2192FD850005A6949 /* TRDataStoreManager.m in Sources */,
 				CB1F31D919327FC600CDCFD4 /* Geofencer.m in Sources */,
@@ -840,6 +851,7 @@
 				CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */,
 				CB0E71A8194897B0002B2B58 /* ContactDetailsDataSource.m in Sources */,
 				9647ACA4194AD89300F6A4AF /* Theme.m in Sources */,
+				964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */,
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
 				CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */,
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,

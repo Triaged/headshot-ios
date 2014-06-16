@@ -11,6 +11,8 @@
 #import "OnboardUserDetailsViewController.h"
 #import "OnboardJobViewController.h"
 #import "OnboardSelectOfficeViewController.h"
+#import "OnboardLocationPermissionViewController.h"
+#import "OnboardPushPermissionViewController.h"
 #import "AppDelegate.h"
 #import "Store.h"
 #import "Account.h"
@@ -22,6 +24,8 @@
 @property (strong, nonatomic) OnboardUserDetailsViewController *userDetailsViewController;
 @property (strong, nonatomic) OnboardJobViewController *jobViewController;
 @property (strong, nonatomic) OnboardSelectOfficeViewController *selectOfficeViewController;
+@property (strong, nonatomic) OnboardLocationPermissionViewController *locationPermissionsViewController;
+@property (strong, nonatomic) OnboardPushPermissionViewController *pushPermissionsViewController;
 
 @end
 
@@ -46,6 +50,12 @@
     
     self.selectOfficeViewController = [[OnboardSelectOfficeViewController alloc] init];
     self.selectOfficeViewController.delegate = self;
+    
+    self.locationPermissionsViewController = [[OnboardLocationPermissionViewController alloc] init];
+    self.locationPermissionsViewController.delegate = self;
+    
+    self.pushPermissionsViewController = [[OnboardPushPermissionViewController alloc] init];
+    self.pushPermissionsViewController.delegate = self;
     
     self.pageControl = [[UIPageControl alloc] init];
     self.pageControl.size = CGSizeMake(100, self.navigationBar.height);
@@ -75,7 +85,18 @@
     else if (viewController == self.jobViewController) {
         nextViewController = self.selectOfficeViewController;
     }
-    [self pushViewController:nextViewController animated:YES];
+    else if (viewController == self.selectOfficeViewController) {
+        nextViewController = self.locationPermissionsViewController;
+    }
+    else if (viewController == self.locationPermissionsViewController) {
+        nextViewController = self.pushPermissionsViewController;
+    }
+    if (nextViewController) {
+        [self pushViewController:nextViewController animated:YES];
+    }
+    else {
+        [AppDelegate sharedDelegate].window.rootViewController = [AppDelegate sharedDelegate].tabBarController;
+    }
 }
 
 #pragma mark - Navigation Controller Delegate

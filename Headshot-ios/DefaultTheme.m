@@ -71,7 +71,7 @@
     
     UIColor *buttonTint = [self buttonTintColor];;
     NSDictionary *buttonAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
-                                                                                 fontWithName:@"Whitney-Medium" size:12], NSFontAttributeName, buttonTint,NSForegroundColorAttributeName, nil];
+                                                                                 fontWithName:@"Whitney-Medium" size:14], NSFontAttributeName, buttonTint,NSForegroundColorAttributeName, nil];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:buttonAttributes forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTintColor:buttonTint];
