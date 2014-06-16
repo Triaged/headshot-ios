@@ -14,6 +14,8 @@
 - (NSString *)lightFontName;
 - (NSString *)italicFontName;
 - (NSString *)boldFontName;
+- (UIColor *)orangeColor;
+- (UIColor *)greenColor;
 - (UIColor *)darkGrayTextColor;
 - (UIColor *)lightGrayTextColor;
 - (UIColor *)buttonTintColor;
