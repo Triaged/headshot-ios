@@ -50,8 +50,15 @@
 {
     NewThreadTableViewController *newThreadVC = [[NewThreadTableViewController alloc] init];
     newThreadVC.messagesTableVC = self;
+    UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(dismissModal)];
+    newThreadVC.navigationItem.leftBarButtonItem = cancelButtonItem;
     TRNavigationController *nav = [[TRNavigationController alloc] initWithRootViewController:newThreadVC];
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)dismissModal
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)createOrFindThreadForRecipient:(User *)recipient
