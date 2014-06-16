@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     JobTableRowManager,
 };
 
-@interface OnboardJobViewController ()
+@interface OnboardJobViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) FormView *jobTitleFormView;
 @property (strong, nonatomic) FormView *departmentFormView;
@@ -53,17 +53,18 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     self.jobTitleFormView = [[FormView alloc] init];
     self.jobTitleFormView.fieldName = @"Title";
     self.jobTitleFormView.textField.placeholder = @"Your Job Title";
+    self.jobTitleFormView.textField.delegate = self;
     
     self.departmentFormView = [[FormView alloc] init];
-    self.departmentFormView.fieldName = @"Select Department";
+    self.departmentFormView.fieldName = @"Department";
     self.departmentFormView.userInteractionEnabled = NO;
     
     self.managerFormView = [[FormView alloc] init];
-    self.managerFormView.fieldName = @"Who are you reporting to?";
+    self.managerFormView.fieldName = @"Reporting to";
     self.managerFormView.userInteractionEnabled = NO;
  
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 125)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 143)];
     self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.nextButton.size = CGSizeMake(self.view.width, 60);
     self.nextButton.bottom = footerView.height;
@@ -85,6 +86,13 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
         [self.delegate onboardViewController:self doneButtonTouched:sender];
     }
+}
+
+#pragma mark - text field delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark - Table view data source

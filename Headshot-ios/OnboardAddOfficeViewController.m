@@ -7,11 +7,17 @@
 //
 
 #import "OnboardAddOfficeViewController.h"
+#import <INTULocationManager.h>
 #import "FormView.h"
+#import "Geofencer.h"
 
 @interface OnboardAddOfficeViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) FormView *addressFormView;
+@property (strong, nonatomic) FormView *cityFormView;
+@property (strong, nonatomic) FormView *stateFormView;
+@property (strong, nonatomic) UIView *formContainerView;
+@property (strong, nonatomic) UIButton *currentLocationButton;
 @property (strong, nonatomic) MKMapView *mapView;
 
 @end
@@ -24,20 +30,77 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButtonTouched:)];
     
-    self.addressFormView = [[FormView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
+    CGFloat formHeight = 44;
+    self.formContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, formHeight*2)];
+    self.formContainerView.backgroundColor = [UIColor whiteColor];
+    self.formContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.formContainerView];
+    
+    self.addressFormView = [[FormView alloc] initWithFrame:CGRectMake(0, 0, self.formContainerView.width, formHeight)];
     self.addressFormView.backgroundColor = [UIColor whiteColor];
     self.addressFormView.fieldName = @"Address:";
     self.addressFormView.textField.delegate = self;
     [self.addressFormView addEdge:(UIRectEdgeTop | UIRectEdgeBottom) width:0.5 color:[UIColor colorWithWhite:219/255.0 alpha:1.0]];
-    [self.view addSubview:self.addressFormView];
+    [self.formContainerView addSubview:self.addressFormView];
+    
+    self.cityFormView = [[FormView alloc] initWithFrame:CGRectMake(0, self.addressFormView.bottom, 0.6*self.formContainerView.width, formHeight)];
+    self.cityFormView.backgroundColor = [UIColor whiteColor];
+    self.cityFormView.fieldName = @"City:";
+    self.cityFormView.textField.delegate = self;
+    [self.cityFormView addEdge:(UIRectEdgeBottom | UIRectEdgeRight) width:0.5 color:[UIColor colorWithWhite:219/255.0 alpha:1.0]];
+    [self.formContainerView addSubview:self.cityFormView];
+    
+    self.stateFormView = [[FormView alloc] initWithFrame:CGRectMake(self.cityFormView.right, self.cityFormView.y, self.formContainerView.width - self.cityFormView.width, formHeight)];
+    self.stateFormView.fieldName = @"State:";
+    self.stateFormView.textField.delegate = self;
+    [self.stateFormView addEdge:UIRectEdgeBottom width:0.5 color:[UIColor colorWithWhite:219/255.0 alpha:1.0]];
+    [self.formContainerView addSubview:self.stateFormView];
     
     self.mapView = [[MKMapView alloc] init];
-    self.mapView.size = CGSizeMake(self.view.width, self.view.height - self.addressFormView.height);
-    self.mapView.y = self.addressFormView.bottom;
+    self.mapView.size = CGSizeMake(self.view.width, self.view.height - self.formContainerView.height);
+    self.mapView.y = self.formContainerView.bottom;
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.mapView];
     
-    
+    self.currentLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.currentLocationButton.size = CGSizeMake(38, 38);
+    self.currentLocationButton.x = 8;
+    self.currentLocationButton.y = self.formContainerView.bottom + 8;
+    self.currentLocationButton.backgroundColor = [UIColor whiteColor];
+    [self.currentLocationButton addTarget:self action:@selector(currentLocationButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.currentLocationButton];
+}
+
+- (void)currentLocationButtonTouched:(id)sender
+{
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:4 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        if (currentLocation) {
+            [self centerOnCoordinate:currentLocation.coordinate];
+        }
+        self.mapView.showsUserLocation = YES;
+        CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+        [geoCoder reverseGeocodeLocation:[Geofencer sharedClient].locationManager.location completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (placemarks && placemarks.count) {
+                [self autoFillFormsWithPlacemark:[placemarks firstObject]];
+            }
+        }];
+    }];
+}
+
+- (void)centerOnCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 200, 200);
+    [self.mapView setRegion:region animated:YES];
+}
+
+- (void)autoFillFormsWithPlacemark:(CLPlacemark *)placemark
+{
+    NSString *city = placemark.addressDictionary[@"City"];
+    NSString *state = placemark.addressDictionary[@"State"];
+    NSString *address = placemark.addressDictionary[@"Street"];
+    self.cityFormView.textField.text = city;
+    self.stateFormView.textField.text = state;
+    self.addressFormView.textField.text = address;
 }
 
 - (void)viewWillAppear:(BOOL)animated

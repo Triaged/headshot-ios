@@ -19,18 +19,15 @@
 
 @synthesize delegate;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 249)];
     UIImageView *jobImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"onboarding-location"]];
@@ -49,6 +46,18 @@
     [headerView addSubview:descriptionLabel];
     self.tableView.tableHeaderView = headerView;
     
+    self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.nextButton.size = CGSizeMake(self.view.width, 60);
+    self.nextButton.bottom = self.view.height;
+    self.nextButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    self.nextButton.backgroundColor = [[ThemeManager sharedTheme] orangeColor];
+    [self.nextButton setTitle:@"Continue" forState:UIControlStateNormal];
+    self.nextButton.titleLabel.font = [ThemeManager regularFontOfSize:18];
+    [self.nextButton addTarget:self action:@selector(nextButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.nextButton];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.nextButton.height, 0);
+    
     self.offices = @[];
     
 }
@@ -56,6 +65,13 @@
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
+}
+
+- (void)nextButtonTouched:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
+        [self.delegate onboardViewController:self doneButtonTouched:sender];
+    }
 }
 
 

@@ -15,5 +15,5 @@ pod "MagicalRecord"
 pod 'Vertigo'
 pod 'JSQMessagesViewController'
 pod 'UIView+Positioning'
-
+pod 'INTULocationManager'
 

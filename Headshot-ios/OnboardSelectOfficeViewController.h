@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "OnboardNavigationController.h"
 
-@interface OnboardSelectOfficeViewController : UITableViewController <OnboardViewController>
+@interface OnboardSelectOfficeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, OnboardViewController>
 
+
+@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *offices;
 
 @end

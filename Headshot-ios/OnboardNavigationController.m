@@ -89,6 +89,12 @@
     }
 //    viewController.navigationItem.titleView = self.pageControl;
     self.pageControl.currentPage = navigationController.viewControllers.count;
+    if (navigationController.viewControllers.count < 2) {
+        return;
+    }
+    UIViewController *previous = navigationController.viewControllers[navigationController.viewControllers.count - 2];
+    previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
+
 
 @end

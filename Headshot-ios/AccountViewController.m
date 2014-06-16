@@ -9,6 +9,7 @@
 #import "AccountViewController.h"
 #import "EmployeeInfo.h"
 #import "OfficeLocation.h"
+#import "OnboardNavigationController.h"
 
 @interface AccountViewController ()
 
@@ -46,6 +47,16 @@
     self.titleLabel.text = currentUser.employeeInfo.jobTitle;
     self.currentOfficeLocationLabel.text = currentUser.employeeInfo.currentOfficeLocation.streetAddress;
     
+#warning TEST
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showOnboard)];
+    self.avatarImageView.userInteractionEnabled = YES;
+    [self.avatarImageView addGestureRecognizer:tap
+     ];
+}
+
+- (void)showOnboard
+{
+    [AppDelegate sharedDelegate].window.rootViewController = [[OnboardNavigationController alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
