@@ -12,7 +12,7 @@
 
 @interface NewThreadTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSArray *users;
 @property (strong, nonatomic) MessagesTableViewController *messagesTableVC;
+@property (nonatomic, strong) UISearchDisplayController *searchController;
 
 @end

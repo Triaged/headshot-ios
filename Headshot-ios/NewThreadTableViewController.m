@@ -7,14 +7,16 @@
 //
 
 #import "NewThreadTableViewController.h"
+#import "ContactsDataSource.h"
 
 @interface NewThreadTableViewController ()
+
+@property (strong, nonatomic) ContactsDataSource *contactsDataSource;
 
 @end
 
 @implementation NewThreadTableViewController
 
-@synthesize users;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -28,57 +30,63 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    users = [User MR_findAll];
-    
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    
     self.title = @"New Message";
+    
+    [self setupTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
+- (void)setupTableView
+{
+    self.contactsDataSource = [[ContactsDataSource alloc] init];
+    self.contactsDataSource.users = [User findAllExcludeCurrent];
+    self.contactsDataSource.tableViewController = self;
+    self.tableView.dataSource = self.contactsDataSource;
+    self.tableView.delegate = self;
+    
+    
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    
+    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    
+    self.searchController = [[UISearchDisplayController alloc]
+                        initWithSearchBar:searchBar contentsController:self];
+    self.searchController.delegate =  self.contactsDataSource;
+    self.searchController.searchResultsDataSource =  self.contactsDataSource;
+    self.searchController.searchResultsDelegate =  self;
+    self.tableView.tableHeaderView = searchBar;
+    
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-
-    // Return the number of sections.
-    return 1;
+    return [self.contactsDataSource tableView:tableView heightForHeaderInSection:section];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return the number of rows in the section.
-    return users.count;
+    return [self.contactsDataSource tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    static NSString *CellIdentifier = @"userCell";
-    UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier:CellIdentifier ] ;
-    if ( !cell )
-    {
-        cell = [ [ UITableViewCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier ] ;
-    }
-    
-    User *user = [users objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = user.name;
-    NSURL *avatarUrl = [NSURL URLWithString:user.avatarFaceUrl];
-    [cell.imageView setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"avatar"]];
-    
-    return cell;
+    return [self.contactsDataSource tableView:tableView viewForHeaderInSection:section];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    User *user = [users objectAtIndex:indexPath.row];
+    User *user = [self.contactsDataSource userAtIndexPath:indexPath];
     [self dismissViewControllerAnimated:YES completion:^{
         [self.messagesTableVC createOrFindThreadForRecipient:user];
     }];
 }
-
 
 
 

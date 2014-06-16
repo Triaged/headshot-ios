@@ -17,6 +17,7 @@
     #import <UIView+Positioning.h>
     #import "UIView+Edge.h"
     #import "UIView+Shadow.h"
+    #import "User+FindAllExcludeCurrent.h"
     #import "Theme.h"
     #import "AppDelegate.h"
     #import "Store.h"

@@ -18,6 +18,7 @@
 		964A6BE3194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE2194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m */; };
 		964A6BE6194F2FB90024B3C2 /* DatePickerModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */; };
 		964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */; };
+		964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */; };
 		96696330194B5061003B22B5 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669632F194B5061003B22B5 /* NotificationManager.m */; };
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
 		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
@@ -131,6 +132,8 @@
 		964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerModalView.m; sourceTree = "<group>"; };
 		964A6BE7194F39620024B3C2 /* MessageThreadPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageThreadPreviewCell.h; sourceTree = "<group>"; };
 		964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThreadPreviewCell.m; sourceTree = "<group>"; };
+		964A6BEA194F6B760024B3C2 /* User+FindAllExcludeCurrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+FindAllExcludeCurrent.h"; sourceTree = "<group>"; };
+		964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+FindAllExcludeCurrent.m"; sourceTree = "<group>"; };
 		9669632E194B5061003B22B5 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		9669632F194B5061003B22B5 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		96696331194B6CF7003B22B5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 				964A6BD0194E2C180024B3C2 /* UIView+Shadow.m */,
 				964A6BD1194E2C180024B3C2 /* UIView+Edge.h */,
 				964A6BD2194E2C180024B3C2 /* UIView+Edge.m */,
+				964A6BEA194F6B760024B3C2 /* User+FindAllExcludeCurrent.h */,
+				964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -815,6 +820,7 @@
 				CBBA68DB192FE0B5005A6949 /* Account.m in Sources */,
 				CB04186B194A338900B3DE97 /* DepartmentContactsTableViewController.m in Sources */,
 				CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */,
+				964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */,
 				CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */,
 				964A6BDD194E5E120024B3C2 /* OnboardJobViewController.m in Sources */,
 				9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */,

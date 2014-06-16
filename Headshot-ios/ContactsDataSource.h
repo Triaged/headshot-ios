@@ -8,12 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "ContactsTableViewController.h"
+#import "User.h"
 
 @interface ContactsDataSource : NSObject  <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIScrollViewDelegate, UISearchDisplayDelegate>
 
-@property (nonatomic, strong) NSFetchedResultsController* fetchedResultsController;
-@property (strong, nonatomic) UITableViewController *tableViewController;
 
-- (id)itemAtIndexPath:(NSIndexPath *)indexPath;
+@property (strong, nonatomic) UITableViewController *tableViewController;
+@property (strong, nonatomic) NSArray *users;
+@property (assign, nonatomic) BOOL separateSectionsForNames;
+
+- (id)initWithUsers:(NSArray *)users;
+- (User *)userAtIndexPath:(NSIndexPath *)indexPath;
+- (NSArray *)usersInSection:(NSInteger)section;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
 
 @end
