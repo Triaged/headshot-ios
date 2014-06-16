@@ -83,6 +83,7 @@
   
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 
