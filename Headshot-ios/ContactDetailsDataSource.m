@@ -165,14 +165,11 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     User *user = [self itemAtIndexPath:indexPath];
     
     static NSString *CellIdentifier = @"ContactCell";
-    ContactCell *cell = [ tableView dequeueReusableCellWithIdentifier:CellIdentifier ] ;
-    if ( !cell )
-    {
-        cell = [ [ ContactCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier ] ;
+    ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[ContactCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-    [cell configureForUser:user];
-    
+    cell.user = user;
     return cell;
 }
 
@@ -181,10 +178,9 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     NSArray *row = [self itemAtIndexPath:indexPath];
     
     static NSString *CellIdentifier = @"ContactInfoCell";
-    ContactInfoTableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier:CellIdentifier ] ;
-    if ( !cell )
-    {
-        cell = [ [ ContactInfoTableViewCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier ] ;
+    ContactInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier] ;
+    if (!cell) {
+        cell = [[ContactInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     [cell configureForArray:row];

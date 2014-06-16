@@ -35,6 +35,16 @@
     return [UIColor colorWithWhite:119/255.0 alpha:1.0];
 }
 
+- (UIColor *)orangeColor
+{
+    return [UIColor colorWithRed:248/255.0 green:172/255.0 blue:0 alpha:1.0];
+}
+
+- (UIColor *)greenColor
+{
+    return [UIColor colorWithRed:0 green:167/255.0 blue:152/255.0 alpha:1.0];
+}
+
 - (UIColor *)incomingMessageBubbleColor
 {
     return [UIColor colorWithRed:241/255.0 green:240/255.0 blue:240/255.0 alpha:1];
@@ -61,7 +71,7 @@
     
     UIColor *buttonTint = [self buttonTintColor];;
     NSDictionary *buttonAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
-                                                                                 fontWithName:@"Whitney-Medium" size:17], NSFontAttributeName, buttonTint,NSForegroundColorAttributeName, nil];
+                                                                                 fontWithName:@"Whitney-Medium" size:12], NSFontAttributeName, buttonTint,NSForegroundColorAttributeName, nil];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:buttonAttributes forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTintColor:buttonTint];

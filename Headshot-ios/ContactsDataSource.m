@@ -11,36 +11,135 @@
 #import "EmployeeInfo.h"
 #import "ContactCell.h"
 
+NSString * const Alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+@interface ContactsDataSource()
+
+@property (strong, nonatomic) NSDictionary *userDictionary;
+@property (strong, nonatomic) NSArray *filteredUsers;
+@property (assign, nonatomic) BOOL searchMode;
+
+@end
+
 @implementation ContactsDataSource
 
-@synthesize fetchedResultsController, tableViewController;
+- (id)init
+{
+    return [self initWithUsers:nil];
+}
 
-- (id)itemAtIndexPath:(NSIndexPath *)indexPath {
-    return [fetchedResultsController objectAtIndexPath:indexPath];
+- (id)initWithUsers:(NSArray *)users
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    self.separateSectionsForNames = YES;
+    self.users = users;
+    return self;
+}
+
+- (void)setUsers:(NSArray *)users
+{
+    _users = users;
+    self.filteredUsers = users;
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
+    _users = [_users sortedArrayUsingDescriptors:@[descriptor]];
+    //sort alphabetically
+    NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
+    for (User *user in users) {
+        NSString *key = [user.lastName substringToIndex:1];
+        NSMutableArray *usersByName = userDictionary[key];
+        if (!usersByName) {
+            usersByName = [[NSMutableArray alloc] init];
+            userDictionary[key] = usersByName;
+        }
+        [usersByName addObject:user];
+    }
+    //sort each section alphabetically
+    
+    self.userDictionary = [NSDictionary dictionaryWithDictionary:userDictionary];
+}
+
+- (User *)userAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *users = [self usersInSection:indexPath.section];
+    if (!users) {
+        return nil;
+    }
+    return users[indexPath.row];
+}
+
+- (NSArray *)usersInSection:(NSInteger)section
+{
+    if (self.separateSectionsForNames) {
+        return self.userDictionary[[Alphabet substringWithRange:NSMakeRange(section, 1)]];
+    }
+    return self.filteredUsers;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[fetchedResultsController sections] count];
+    return self.separateSectionsForNames ? Alphabet.length : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    NSInteger numRows = 0;
+    if (self.separateSectionsForNames) {
+        NSArray *users = [self usersInSection:section];
+        numRows = users ? users.count : 0;
+    }
+    else {
+        numRows = self.filteredUsers.count;
+    }
+    return numRows;
 }
 
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat height = 0;
+    if (!self.separateSectionsForNames) {
+        return height;
+    }
+    NSArray *usersInSection = [self usersInSection:section];
+    if (usersInSection) {
+        height = 30;
+    }
+    return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    static NSString *HeaderIdentifier = @"HeaderIdentifier";
+    static NSInteger HeaderLabelTag = 1;
+    UIView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderIdentifier];
+    if (!view) {
+        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, [self tableView:tableView heightForHeaderInSection:section])];
+        view.backgroundColor = [UIColor whiteColor];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:view.bounds];
+        titleLabel.font = [ThemeManager boldFontOfSize:12];
+        titleLabel.x = 15;
+        titleLabel.tag = HeaderLabelTag;
+        [view addSubview:titleLabel];
+    }
+    UILabel *titleLabel = (UILabel *)[view viewWithTag:HeaderLabelTag];
+    titleLabel.text = [Alphabet substringWithRange:NSMakeRange(section, 1)];
+    return view;
+}
+
+- (UITableViewCell *)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
    
-    User *user = [self itemAtIndexPath:indexPath];
+    User *user = [self userAtIndexPath:indexPath];
     static NSString *CellIdentifier = @"contactCell";
-    ContactCell *cell = [ tableView dequeueReusableCellWithIdentifier:CellIdentifier ] ;
-    if ( !cell )
-    {
-        cell = [ [ ContactCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier ] ;
+    ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[ContactCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-    [cell configureForUser:user];
-    
+    cell.user = user;
     return cell;
 }
 
@@ -48,10 +147,10 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
+    self.separateSectionsForNames = NO;
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@ && identifier != %@", searchText, [AppDelegate sharedDelegate].store.currentAccount.identifier];
-    [[fetchedResultsController fetchRequest] setPredicate:resultPredicate];
-    [fetchedResultsController performFetch:nil];
-    
+    self.filteredUsers = [self.users filteredArrayUsingPredicate:resultPredicate];
+    [self.tableViewController.tableView reloadData];
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -64,15 +163,11 @@
     return YES;
 }
 
-- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier];
-    [[fetchedResultsController fetchRequest] setPredicate:predicate];
-    [fetchedResultsController performFetch:nil];
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    self.separateSectionsForNames = YES;
+    self.filteredUsers = self.users;
     [self.tableViewController.tableView reloadData];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 55;
 }
 
 @end

@@ -11,13 +11,6 @@
 
 @interface ContactCell : UITableViewCell
 
-@property (strong, nonatomic) UIImageView *avatarView;
-@property (strong, nonatomic) UILabel *nameLabel;
-@property (strong, nonatomic) UILabel *titleLabel;
-
-
-- (void)configureForUser:(User *)user;
-
-
+@property (strong, nonatomic) User *user;
 
 @end

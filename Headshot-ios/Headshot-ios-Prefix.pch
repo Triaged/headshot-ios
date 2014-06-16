@@ -14,6 +14,10 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import <UIView+Positioning.h>
+    #import "UIView+Edge.h"
+    #import "UIView+Shadow.h"
+    #import "User+FindAllExcludeCurrent.h"
     #import "Theme.h"
     #import "AppDelegate.h"
     #import "Store.h"
@@ -22,7 +26,6 @@
     #import "UIImageView+AFNetworking.h"
     #import "TRNavigationController.h"
     #import "Constants.h"
-
 
     #define TGRAY_COLOR [[UIColor alloc] initWithRed:155.0f/255.0f green:163.0f/255.0f blue:183.0f/255.0f alpha:1.0f];
     #define TBLUE_COLOR [[UIColor alloc] initWithRed:122.0f/255.0f green:148.0f/255.0f blue:210.0f/255.0f alpha:1.0f];

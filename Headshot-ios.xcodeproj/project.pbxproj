@@ -9,8 +9,20 @@
 /* Begin PBXBuildFile section */
 		9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA0194AD89300F6A4AF /* DefaultTheme.m */; };
 		9647ACA4194AD89300F6A4AF /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA2194AD89300F6A4AF /* Theme.m */; };
+		964A6BD3194E2C180024B3C2 /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD0194E2C180024B3C2 /* UIView+Shadow.m */; };
+		964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD2194E2C180024B3C2 /* UIView+Edge.m */; };
+		964A6BD7194E31C40024B3C2 /* OnboardUserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD6194E31C40024B3C2 /* OnboardUserDetailsViewController.m */; };
+		964A6BDA194E35DE0024B3C2 /* OnboardNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD9194E35DE0024B3C2 /* OnboardNavigationController.m */; };
+		964A6BDD194E5E120024B3C2 /* OnboardJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BDC194E5E120024B3C2 /* OnboardJobViewController.m */; };
+		964A6BE0194E66480024B3C2 /* OnboardSelectOfficeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BDF194E66480024B3C2 /* OnboardSelectOfficeViewController.m */; };
+		964A6BE3194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE2194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m */; };
+		964A6BE6194F2FB90024B3C2 /* DatePickerModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */; };
+		964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */; };
+		964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */; };
 		96696330194B5061003B22B5 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669632F194B5061003B22B5 /* NotificationManager.m */; };
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
+		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
+		9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669633A194E262F003B22B5 /* EmailLoginViewController.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
 		CB0418611948C59600B3DE97 /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */; };
 		CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0418641949310300B3DE97 /* DepartmentsTableViewController.m */; };
@@ -102,10 +114,34 @@
 		9647ACA0194AD89300F6A4AF /* DefaultTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTheme.m; sourceTree = "<group>"; };
 		9647ACA1194AD89300F6A4AF /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		9647ACA2194AD89300F6A4AF /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
+		964A6BCF194E2C180024B3C2 /* UIView+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shadow.h"; sourceTree = "<group>"; };
+		964A6BD0194E2C180024B3C2 /* UIView+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shadow.m"; sourceTree = "<group>"; };
+		964A6BD1194E2C180024B3C2 /* UIView+Edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Edge.h"; sourceTree = "<group>"; };
+		964A6BD2194E2C180024B3C2 /* UIView+Edge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Edge.m"; sourceTree = "<group>"; };
+		964A6BD5194E31C40024B3C2 /* OnboardUserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardUserDetailsViewController.h; sourceTree = "<group>"; };
+		964A6BD6194E31C40024B3C2 /* OnboardUserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardUserDetailsViewController.m; sourceTree = "<group>"; };
+		964A6BD8194E35DE0024B3C2 /* OnboardNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardNavigationController.h; sourceTree = "<group>"; };
+		964A6BD9194E35DE0024B3C2 /* OnboardNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardNavigationController.m; sourceTree = "<group>"; };
+		964A6BDB194E5E120024B3C2 /* OnboardJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardJobViewController.h; sourceTree = "<group>"; };
+		964A6BDC194E5E120024B3C2 /* OnboardJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardJobViewController.m; sourceTree = "<group>"; };
+		964A6BDE194E66480024B3C2 /* OnboardSelectOfficeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectOfficeViewController.h; sourceTree = "<group>"; };
+		964A6BDF194E66480024B3C2 /* OnboardSelectOfficeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectOfficeViewController.m; sourceTree = "<group>"; };
+		964A6BE1194E6B9B0024B3C2 /* OnboardAddOfficeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardAddOfficeViewController.h; sourceTree = "<group>"; };
+		964A6BE2194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardAddOfficeViewController.m; sourceTree = "<group>"; };
+		964A6BE4194F2FB90024B3C2 /* DatePickerModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerModalView.h; sourceTree = "<group>"; };
+		964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerModalView.m; sourceTree = "<group>"; };
+		964A6BE7194F39620024B3C2 /* MessageThreadPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageThreadPreviewCell.h; sourceTree = "<group>"; };
+		964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThreadPreviewCell.m; sourceTree = "<group>"; };
+		964A6BEA194F6B760024B3C2 /* User+FindAllExcludeCurrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+FindAllExcludeCurrent.h"; sourceTree = "<group>"; };
+		964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+FindAllExcludeCurrent.m"; sourceTree = "<group>"; };
 		9669632E194B5061003B22B5 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		9669632F194B5061003B22B5 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		96696331194B6CF7003B22B5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		96696332194B6CF7003B22B5 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		96696335194E2018003B22B5 /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
+		96696336194E2018003B22B5 /* FormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormView.m; sourceTree = "<group>"; };
+		96696339194E262F003B22B5 /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
+		9669633A194E262F003B22B5 /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
 		CB04185D1948C59600B3DE97 /* ContactInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoTableViewCell.h; sourceTree = "<group>"; };
 		CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoTableViewCell.m; sourceTree = "<group>"; };
 		CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -268,6 +304,19 @@
 			name = theme;
 			sourceTree = "<group>";
 		};
+		964A6BCE194E2BF60024B3C2 /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				964A6BCF194E2C180024B3C2 /* UIView+Shadow.h */,
+				964A6BD0194E2C180024B3C2 /* UIView+Shadow.m */,
+				964A6BD1194E2C180024B3C2 /* UIView+Edge.h */,
+				964A6BD2194E2C180024B3C2 /* UIView+Edge.m */,
+				964A6BEA194F6B760024B3C2 /* User+FindAllExcludeCurrent.h */,
+				964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */,
+			);
+			name = categories;
+			sourceTree = "<group>";
+		};
 		9669632D194B504E003B22B5 /* notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +324,37 @@
 				9669632F194B5061003B22B5 /* NotificationManager.m */,
 			);
 			name = notifications;
+			sourceTree = "<group>";
+		};
+		96696334194E1F53003B22B5 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				CBA5D07B1936BC5E0044BBCC /* cells */,
+				96696335194E2018003B22B5 /* FormView.h */,
+				96696336194E2018003B22B5 /* FormView.m */,
+				964A6BE4194F2FB90024B3C2 /* DatePickerModalView.h */,
+				964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		96696338194E25FC003B22B5 /* onboard */ = {
+			isa = PBXGroup;
+			children = (
+				96696339194E262F003B22B5 /* EmailLoginViewController.h */,
+				9669633A194E262F003B22B5 /* EmailLoginViewController.m */,
+				964A6BD5194E31C40024B3C2 /* OnboardUserDetailsViewController.h */,
+				964A6BD6194E31C40024B3C2 /* OnboardUserDetailsViewController.m */,
+				964A6BD8194E35DE0024B3C2 /* OnboardNavigationController.h */,
+				964A6BD9194E35DE0024B3C2 /* OnboardNavigationController.m */,
+				964A6BDB194E5E120024B3C2 /* OnboardJobViewController.h */,
+				964A6BDC194E5E120024B3C2 /* OnboardJobViewController.m */,
+				964A6BDE194E66480024B3C2 /* OnboardSelectOfficeViewController.h */,
+				964A6BDF194E66480024B3C2 /* OnboardSelectOfficeViewController.m */,
+				964A6BE1194E6B9B0024B3C2 /* OnboardAddOfficeViewController.h */,
+				964A6BE2194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m */,
+			);
+			name = onboard;
 			sourceTree = "<group>";
 		};
 		CB041862194930E000B3DE97 /* departments */ = {
@@ -318,6 +398,8 @@
 				CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */,
 				CB04186C194A358600B3DE97 /* DepartmentCell.h */,
 				CB04186D194A358600B3DE97 /* DepartmentCell.m */,
+				964A6BE7194F39620024B3C2 /* MessageThreadPreviewCell.h */,
+				964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -380,9 +462,10 @@
 		CBBA686A192FD646005A6949 /* Headshot-ios */ = {
 			isa = PBXGroup;
 			children = (
+				964A6BCE194E2BF60024B3C2 /* categories */,
+				96696334194E1F53003B22B5 /* views */,
 				9669632D194B504E003B22B5 /* notifications */,
 				9647AC9E194AD88200F6A4AF /* theme */,
-				CBA5D07B1936BC5E0044BBCC /* cells */,
 				CBA5D0731936BAE40044BBCC /* resources */,
 				CBBA68DF192FE12A005A6949 /* controllers */,
 				CBBA68BD192FDDBE005A6949 /* models */,
@@ -486,6 +569,7 @@
 		CBBA68DF192FE12A005A6949 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				96696338194E25FC003B22B5 /* onboard */,
 				CB041862194930E000B3DE97 /* departments */,
 				CBBA68F1192FE23D005A6949 /* messages */,
 				CBBA68F0192FE239005A6949 /* contacts */,
@@ -714,23 +798,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96696337194E2018003B22B5 /* FormView.m in Sources */,
 				CBB5183D194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m in Sources */,
 				CBBA68DE192FE0B5005A6949 /* User.m in Sources */,
 				CBBA6875192FD646005A6949 /* AppDelegate.m in Sources */,
+				964A6BE3194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m in Sources */,
 				CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */,
 				CB1F31D01932746F00CDCFD4 /* AccountViewController.m in Sources */,
+				964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */,
 				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
 				CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */,
 				CBBA68A2192FD850005A6949 /* TRDataStoreManager.m in Sources */,
 				CB1F31D919327FC600CDCFD4 /* Geofencer.m in Sources */,
 				CB0E71AF1948BA5E002B2B58 /* ContactSectionViewController.m in Sources */,
 				CBBA6871192FD646005A6949 /* main.m in Sources */,
+				964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */,
 				CB1F31C51931A12600CDCFD4 /* NewThreadTableViewController.m in Sources */,
+				964A6BD7194E31C40024B3C2 /* OnboardUserDetailsViewController.m in Sources */,
 				96696330194B5061003B22B5 /* NotificationManager.m in Sources */,
+				964A6BE0194E66480024B3C2 /* OnboardSelectOfficeViewController.m in Sources */,
 				CBBA68DB192FE0B5005A6949 /* Account.m in Sources */,
 				CB04186B194A338900B3DE97 /* DepartmentContactsTableViewController.m in Sources */,
 				CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */,
+				964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */,
 				CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */,
+				964A6BDD194E5E120024B3C2 /* OnboardJobViewController.m in Sources */,
+				9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */,
 				CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */,
 				9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */,
 				96696333194B6CF7003B22B5 /* Constants.m in Sources */,
@@ -740,6 +833,8 @@
 				CBBA68E2192FE16F005A6949 /* TRTabBarController.m in Sources */,
 				CBBA68F7192FE262005A6949 /* ContactsTableViewController.m in Sources */,
 				CB1F31AC1931599100CDCFD4 /* Message.m in Sources */,
+				964A6BE6194F2FB90024B3C2 /* DatePickerModalView.m in Sources */,
+				964A6BD3194E2C180024B3C2 /* UIView+Shadow.m in Sources */,
 				CB041868194A2FFE00B3DE97 /* Department.m in Sources */,
 				CB354D34194B710E00E537C2 /* Company.m in Sources */,
 				CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */,
@@ -755,6 +850,7 @@
 				CB04186E194A358600B3DE97 /* DepartmentCell.m in Sources */,
 				CBBA68A0192FD850005A6949 /* Store.m in Sources */,
 				CB1F31B41931749D00CDCFD4 /* SinchClient.m in Sources */,
+				964A6BDA194E35DE0024B3C2 /* OnboardNavigationController.m in Sources */,
 				CBBA68E7192FE185005A6949 /* LoginViewController.m in Sources */,
 				CBBA68AC192FD8FD005A6949 /* HeadshotAPIClient.m in Sources */,
 			);

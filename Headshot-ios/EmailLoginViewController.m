@@ -1,0 +1,118 @@
+//
+//  EmailLoginViewController.m
+//  Headshot-ios
+//
+//  Created by Jeffrey Ames on 6/15/14.
+//  Copyright (c) 2014 Charlie White. All rights reserved.
+//
+
+#import "EmailLoginViewController.h"
+#import "FormView.h"
+
+@interface EmailLoginViewController () <UITextFieldDelegate>
+
+@property (strong, nonatomic) FormView *emailFormView;
+@property (strong, nonatomic) UIButton *loginButton;
+
+@end
+
+@implementation EmailLoginViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 189)];
+    UILabel *loginLabel = [[UILabel alloc] init];
+    loginLabel.size = CGSizeMake(self.view.width, 40);
+    loginLabel.y = 44;
+    loginLabel.textAlignment = NSTextAlignmentCenter;
+    loginLabel.font = [ThemeManager regularFontOfSize:36];
+    loginLabel.textColor = [[ThemeManager sharedTheme] greenColor];
+    loginLabel.text = @"Log In";
+    [headerView addSubview:loginLabel];
+    
+    UILabel *descriptionLabel = [[UILabel alloc] init];
+    descriptionLabel.size = CGSizeMake(186, 48);
+    descriptionLabel.y = loginLabel.bottom + 20;
+    descriptionLabel.centerX = headerView.width/2.0;
+    descriptionLabel.textAlignment = NSTextAlignmentCenter;
+    descriptionLabel.text = @"Log in with your company email address";
+    descriptionLabel.numberOfLines = 2;
+    descriptionLabel.font = [ThemeManager regularFontOfSize:18];
+    descriptionLabel.textColor = [[ThemeManager sharedTheme] lightGrayTextColor];
+    [headerView addSubview:descriptionLabel];
+    self.tableView.tableHeaderView = headerView;
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 118)];
+    self.loginButton = [[UIButton alloc] init];
+    self.loginButton.size = CGSizeMake(280, 50);
+    self.loginButton.centerX = footerView.width/2.0;
+    self.loginButton.centerY = footerView.height/2.0;
+    self.loginButton.backgroundColor = [[ThemeManager sharedTheme] orangeColor];
+    [self.loginButton setTitle:@"Log In" forState:UIControlStateNormal];
+    self.loginButton.titleLabel.font = [ThemeManager regularFontOfSize:18];
+    self.loginButton.layer.cornerRadius = 2;
+    [self.loginButton addTarget:self action:@selector(loginButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:self.loginButton];
+    self.tableView.tableFooterView = footerView;
+    
+    self.emailFormView = [[FormView alloc] init];
+    self.emailFormView.fieldName = @"Email";
+    self.emailFormView.textField.placeholder = @"Your Company Email Address";
+    self.emailFormView.textField.returnKeyType = UIReturnKeyDone;
+    self.emailFormView.textField.delegate = self;
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+- (void)loginButtonTouched:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
+        [self.delegate onboardViewController:self doneButtonTouched:sender];
+    }
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell.contentView addSubview:self.emailFormView];
+    self.emailFormView.frame = cell.contentView.bounds;
+    [self.emailFormView addEdge:(UIRectEdgeTop | UIRectEdgeBottom) width:0.5 color:[UIColor colorWithWhite:225/255.0 alpha:1.0]];
+    
+    return cell;
+}
+
+#pragma mark - UITextFieldDelegegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
+@end
