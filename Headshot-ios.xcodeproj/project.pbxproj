@@ -17,6 +17,7 @@
 		964A6BE0194E66480024B3C2 /* OnboardSelectOfficeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BDF194E66480024B3C2 /* OnboardSelectOfficeViewController.m */; };
 		964A6BE3194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE2194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m */; };
 		964A6BE6194F2FB90024B3C2 /* DatePickerModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */; };
+		964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */; };
 		96696330194B5061003B22B5 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669632F194B5061003B22B5 /* NotificationManager.m */; };
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
 		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
@@ -128,6 +129,8 @@
 		964A6BE2194E6B9B0024B3C2 /* OnboardAddOfficeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardAddOfficeViewController.m; sourceTree = "<group>"; };
 		964A6BE4194F2FB90024B3C2 /* DatePickerModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerModalView.h; sourceTree = "<group>"; };
 		964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerModalView.m; sourceTree = "<group>"; };
+		964A6BE7194F39620024B3C2 /* MessageThreadPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageThreadPreviewCell.h; sourceTree = "<group>"; };
+		964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThreadPreviewCell.m; sourceTree = "<group>"; };
 		9669632E194B5061003B22B5 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		9669632F194B5061003B22B5 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		96696331194B6CF7003B22B5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -390,6 +393,8 @@
 				CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */,
 				CB04186C194A358600B3DE97 /* DepartmentCell.h */,
 				CB04186D194A358600B3DE97 /* DepartmentCell.m */,
+				964A6BE7194F39620024B3C2 /* MessageThreadPreviewCell.h */,
+				964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -802,6 +807,7 @@
 				CB1F31D919327FC600CDCFD4 /* Geofencer.m in Sources */,
 				CB0E71AF1948BA5E002B2B58 /* ContactSectionViewController.m in Sources */,
 				CBBA6871192FD646005A6949 /* main.m in Sources */,
+				964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */,
 				CB1F31C51931A12600CDCFD4 /* NewThreadTableViewController.m in Sources */,
 				964A6BD7194E31C40024B3C2 /* OnboardUserDetailsViewController.m in Sources */,
 				96696330194B5061003B22B5 /* NotificationManager.m in Sources */,

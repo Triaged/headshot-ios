@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class User;
+@class User, Message;
 
 @interface MessageThread : NSManagedObject
 
+@property (readonly) Message *lastMessage;
 @property (nonatomic, retain) NSDate * lastMessageTimeStamp;
 @property (nonatomic, retain) User *recipient;
 @property (nonatomic, retain) NSSet *messages;

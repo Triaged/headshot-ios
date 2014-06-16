@@ -10,6 +10,10 @@
 
 @interface MessagesTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIScrollViewDelegate>
 
+
+@property (strong, nonatomic) NSArray *messageThreads;
+
 -(void)createOrFindThreadForRecipient:(User *)recipient;
+
 
 @end

@@ -11,16 +11,13 @@
 #import "User.h"
 #import "MessageThreadViewController.h"
 #import "NewThreadTableViewController.h"
+#import "MessageThreadPreviewCell.h"
 
 @interface MessagesTableViewController ()
-
-@property (nonatomic, strong) NSFetchedResultsController *_fetchedResultsController;
 
 @end
 
 @implementation MessagesTableViewController
-
-@synthesize _fetchedResultsController;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,31 +32,30 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Messages";
+    self.title = @"Inbox";
     
     [self setupTableView];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newThread)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"NEW" style:UIBarButtonItemStylePlain target:self action:@selector(newThread)];
     
 }
 
-- (void)newThread {
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.messageThreads = [MessageThread MR_findAll];
+}
+
+- (void)newThread
+{
     NewThreadTableViewController *newThreadVC = [[NewThreadTableViewController alloc] init];
     newThreadVC.messagesTableVC = self;
     TRNavigationController *nav = [[TRNavigationController alloc] initWithRootViewController:newThreadVC];
     [self.navigationController presentViewController:nav animated:YES completion:nil];
-    
-
-//    
-//    [self.tableView reloadData];
 }
 
--(void)createOrFindThreadForRecipient:(User *)recipient {
+-(void)createOrFindThreadForRecipient:(User *)recipient
+{
     
     MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];
     if (thread == nil) {
@@ -83,62 +79,51 @@
 }
 
 
-- (NSFetchedResultsController *)fetchedResultsController
+- (void)setMessageThreads:(NSArray *)messageThreads
 {
-    if (!_fetchedResultsController) {
-        _fetchedResultsController = [MessageThread MR_fetchAllSortedBy:@"lastMessageTimeStamp"
-                                                    ascending:NO
-                                                withPredicate:nil
-                                                      groupBy:nil
-                                                     delegate:self];
-        
-    }
-    return _fetchedResultsController;
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    _messageThreads = messageThreads;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
 
-- (id)itemAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self fetchedResultsController] objectAtIndexPath:indexPath];
+- (MessageThread *)threadAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.messageThreads[indexPath.row];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[self fetchedResultsController] sections] count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[[self fetchedResultsController] sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    return self.messageThreads.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80.0;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     
-    MessageThread *thread = [self itemAtIndexPath:indexPath];
+    MessageThread *thread = [self threadAtIndexPath:indexPath];
     static NSString *CellIdentifier = @"messageThreadCell";
-    UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier:CellIdentifier ] ;
+    MessageThreadPreviewCell *cell = [ tableView dequeueReusableCellWithIdentifier:CellIdentifier ] ;
     if ( !cell )
     {
-        cell = [ [ UITableViewCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier ] ;
+        cell = [[MessageThreadPreviewCell alloc ] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
     }
     
-    cell.textLabel.text = thread.recipient.name;
-    NSURL *avatarUrl = [NSURL URLWithString:thread.recipient.avatarFaceUrl];
-    [cell.imageView setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"avatar"]];
+    cell.messageThread = thread;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MessageThread *thread = [self itemAtIndexPath:indexPath];
+    MessageThread *thread = [self threadAtIndexPath:indexPath];
     
     MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -146,55 +131,5 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

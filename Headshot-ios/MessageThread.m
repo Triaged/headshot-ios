@@ -8,12 +8,21 @@
 
 #import "MessageThread.h"
 #import "User.h"
-
+#import "Message.h"
 
 @implementation MessageThread
 
 @dynamic lastMessageTimeStamp;
 @dynamic recipient;
 @dynamic messages;
+
+- (Message *)lastMessage
+{
+    NSSortDescriptor *timeSort = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
+    NSArray *sortedMessages = [self.messages sortedArrayUsingDescriptors:@[timeSort]];
+    return [sortedMessages firstObject];
+}
+
+
 
 @end
