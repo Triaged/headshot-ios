@@ -67,8 +67,10 @@
 
 - (void) userLoggedIn
 {
+    #if !DEBUG
     UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
+    #endif
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
         if (error == nil) {
