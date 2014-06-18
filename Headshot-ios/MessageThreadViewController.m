@@ -42,7 +42,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];
     if (thread == nil) {
         
-        thread = [MessageThread MR_createInContext:recipient.managedObjectContext];
+        thread = [MessageThread MR_createEntity];
         thread.lastMessageTimeStamp = [NSDate date];
         thread.recipient = recipient;
         

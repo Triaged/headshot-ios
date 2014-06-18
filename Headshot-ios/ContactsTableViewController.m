@@ -78,6 +78,7 @@
 
 - (void) fetchContacts {
     [User usersWithCompletionHandler:^(NSArray *users, NSError *error) {
+        users = [User MR_findAll];
         self.contactsDataSource.users = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier]];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
