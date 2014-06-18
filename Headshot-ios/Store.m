@@ -12,6 +12,7 @@
 #import "CredentialStore.h"
 #import "SinchClient.h"
 #import "User.h"
+#import "LoginViewController.h"
 
 
 
@@ -40,7 +41,7 @@
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userSignedOut)
-                                                     name:@"signout"
+                                                     name:@"logout"
                                                    object:nil];
     }
     return self;
@@ -88,6 +89,14 @@
         
     }];
 }
+
+-(void)logout
+{
+    [[CredentialStore sharedClient] clearSavedCredentials];
+    [[NSNotificationCenter defaultCenter] postNotification:@"logout"];
+    
+}
+
 
 - (void) userSignedOut
 {

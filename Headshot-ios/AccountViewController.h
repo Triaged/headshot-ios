@@ -16,4 +16,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *currentOfficeLocationLabel;
 
+
 @end

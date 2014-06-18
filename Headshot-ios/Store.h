@@ -23,4 +23,6 @@
 - (void) fetchRemoteUserAccount;
 
 
+-(void)logout;
+
 @end

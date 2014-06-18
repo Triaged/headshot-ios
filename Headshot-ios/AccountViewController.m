@@ -10,6 +10,8 @@
 #import "EmployeeInfo.h"
 #import "OfficeLocation.h"
 #import "OnboardNavigationController.h"
+#import "CredentialStore.h"
+#import "LoginViewController.h"
 
 @interface AccountViewController ()
 
@@ -34,6 +36,12 @@
     
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    
+    UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
+    [info addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
+    self.navigationItem.rightBarButtonItem = item;
 
     
     //self.title = @"Account";
@@ -46,8 +54,6 @@
     self.nameLabel.text = currentUser.fullName;
     self.titleLabel.text = currentUser.employeeInfo.jobTitle;
     self.currentOfficeLocationLabel.text = currentUser.employeeInfo.currentOfficeLocation.streetAddress;
-    
-#warning TEST
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showOnboard)];
     self.avatarImageView.userInteractionEnabled = YES;
     [self.avatarImageView addGestureRecognizer:tap
@@ -63,6 +69,17 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)logout
+{
+    [[CredentialStore sharedClient] clearSavedCredentials];
+    if (![[CredentialStore sharedClient] isLoggedIn]) {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        [self presentViewController:loginVC animated:NO completion:nil];
+    }
+
+    
 }
 
 @end
