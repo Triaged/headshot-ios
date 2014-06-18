@@ -29,7 +29,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (id)initWithMessageThread:(MessageThread *)messageThread
 {
-    self = [super initWithNibName:nil bundle:nil];
+    self = [super init];
     if (self) {
         // Custom initialization
         self.messageThread = messageThread;
@@ -42,7 +42,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];
     if (thread == nil) {
         
-        thread = [MessageThread MR_createEntity];
+        thread = [MessageThread MR_createInContext:recipient.managedObjectContext];
         thread.lastMessageTimeStamp = [NSDate date];
         thread.recipient = recipient;
         
@@ -119,8 +119,10 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"messageThread == %@", self.messageThread];
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findAllWithPredicate:predicate]];
 
+#warning test
+    NSString *avatarURL = self.messageThread.recipient.avatarFaceUrl ? self.messageThread.recipient.avatarFaceUrl : @"http://upload.wikimedia.org/wikipedia/commons/3/30/Marie_Lloyd_by_Langfier_Ltd.jpg";
     self.avatarImageURLs = @{self.sender : self.currentUser.avatarFaceUrl,
-                             self.messageThread.recipient.fullName : self.messageThread.recipient.avatarFaceUrl};
+                             self.messageThread.recipient.fullName : avatarURL};
     
 }
 
