@@ -33,7 +33,7 @@
  *  @warning You must not return `nil` from this method.
  */
 - (NSString *)sender {
-    return self.author.name;
+    return self.author.fullName;
 }
 
 /**

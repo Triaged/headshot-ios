@@ -57,7 +57,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = self.messageThread.recipient.name;
+    self.title = self.messageThread.recipient.fullName;
     
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
     info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
@@ -70,8 +70,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     
     currentUser = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-    
-    self.sender =  currentUser.name;
+    self.sender =  currentUser.fullName;
 
     
     [self loadMessages];
@@ -121,7 +120,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findAllWithPredicate:predicate]];
 
     self.avatarImageURLs = @{self.sender : self.currentUser.avatarFaceUrl,
-                             self.messageThread.recipient.name : self.messageThread.recipient.avatarFaceUrl};
+                             self.messageThread.recipient.fullName : self.messageThread.recipient.avatarFaceUrl};
     
 }
 

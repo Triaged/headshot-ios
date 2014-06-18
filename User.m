@@ -16,7 +16,7 @@
 @dynamic identifier;
 @dynamic firstName;
 @dynamic lastName;
-@dynamic name;
+@dynamic fullName;
 @dynamic email;
 @dynamic avatarFaceUrl;
 @dynamic avatarUrl;

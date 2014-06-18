@@ -18,7 +18,7 @@
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
-@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * fullName;
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSString * avatarFaceUrl;
 @property (nonatomic, retain) NSString * avatarUrl;

@@ -46,7 +46,7 @@
     NSURL *avatarUrl = [NSURL URLWithString:self.user.avatarFaceUrl];
     [avatarImageView setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"avatar"]];
     
-    self.nameLabel.text = self.user.name;
+    self.nameLabel.text = self.user.fullName;
     self.titleLabel.text = self.user.employeeInfo.jobTitle;
     self.currentOfficeLocationLabel.text = self.user.employeeInfo.currentOfficeLocation.streetAddress;
     

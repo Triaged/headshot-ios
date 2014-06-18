@@ -49,7 +49,7 @@
     NSURL *avatarURL = [NSURL URLWithString:messageThread.recipient.avatarFaceUrl];
     [self.imageView setImageWithURL:avatarURL placeholderImage:[UIImage imageNamed:@"avatar"]];
     Message *lastMessage = messageThread.lastMessage;
-    self.textLabel.text = messageThread.recipient.name;
+    self.textLabel.text = messageThread.recipient.fullName;
     self.detailTextLabel.text = lastMessage.text;
     self.timeLabel.text = [lastMessage.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
 }

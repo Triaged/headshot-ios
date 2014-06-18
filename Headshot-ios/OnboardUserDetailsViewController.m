@@ -120,7 +120,7 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 {
     [self view];
     _user = user;
-    self.welcomeLabel.text = [NSString stringWithFormat:@"Welcome %@", user.name];
+    self.welcomeLabel.text = [NSString stringWithFormat:@"Welcome %@", user.fullName];
     self.firstNameFormView.textField.text = user.firstName;
     self.lastNameFormView.textField.text = user.lastName;
 }
