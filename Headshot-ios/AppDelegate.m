@@ -34,8 +34,6 @@
 {
     // Override point for customization after application launch.
     
-    UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
     [NotificationManager sharedManager];
     [self setDataStore];
     [[ThemeManager sharedTheme] customizeAppearance];
@@ -83,6 +81,7 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // get previously initiated Sinch client
     id<SINClient> client = [SinchClient sharedClient].client;
+    [client unregisterPushNotificationData];
     [client registerPushNotificationData:deviceToken];
 }
 
