@@ -148,7 +148,7 @@ NSString * const Alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
     self.separateSectionsForNames = NO;
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@ && identifier != %@", searchText, [AppDelegate sharedDelegate].store.currentAccount.identifier];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"fullName contains[c] %@ && identifier != %@", searchText, [AppDelegate sharedDelegate].store.currentAccount.identifier];
     self.filteredUsers = [self.users filteredArrayUsingPredicate:resultPredicate];
     [self.tableViewController.tableView reloadData];
 }
