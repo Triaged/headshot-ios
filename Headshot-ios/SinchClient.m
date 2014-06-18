@@ -86,8 +86,7 @@
     MessageThread *thread = [self createOrFindThreadForRecipient:sender];
     
     Message *newMessage = [self createMessageWithText:message.text andAuthor:sender andThread:thread];
-    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:@{@"thread" : thread, @"message" : newMessage}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:@{@"thread" : thread, @"message" : newMessage}];
 }
 
 - (void)messageSent:(id<SINMessage>)message recipientId:(NSString *)recipientId {

@@ -12,6 +12,12 @@
 #import "User.h"
 #import "MessageThreadViewController.h"
 
+@interface NotificationManager() <UIAlertViewDelegate>
+
+@property (assign, nonatomic) BOOL isDisplayingAlert;
+
+@end
+
 @implementation NotificationManager
 
 + (NotificationManager *)sharedManager
@@ -47,8 +53,25 @@
     }
     else if (!self.visibleMessageThreadViewController || (![thread.objectID isEqual:self.visibleMessageThreadViewController.messageThread.objectID])) {
         NSString *text = [NSString stringWithFormat:@"%@: %@", message.author.firstName, message.text];
-        [[[UIAlertView alloc] initWithTitle:@"New Message" message:text delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New Message" message:text delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [self showAlertView:alertView];
     }
+}
+
+- (void)showAlertView:(UIAlertView *)alertView
+{
+    if (self.isDisplayingAlert) {
+        return;
+    }
+    self.isDisplayingAlert = YES;
+    alertView.delegate = self;
+    [alertView show];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    self.isDisplayingAlert = NO;
 }
 
 @end
