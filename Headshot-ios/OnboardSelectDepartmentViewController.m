@@ -75,8 +75,19 @@
         }
     }
     else {
-        
+        [self addDepartmentSelected];
     }
+}
+
+- (void)addDepartmentSelected
+{
+    Department *department = [Department MR_createEntity];
+    department.name = @"Test Department";
+    [department postWithSuccess:^(Department *department) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 @end

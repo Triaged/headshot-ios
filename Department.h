@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "HeadshotRequestAPIClient.h"
 
 @class User;
 
@@ -19,6 +20,7 @@
 @property (nonatomic, retain) NSSet *users;
 
 + (void)departmentsWithCompletionHandler:(void(^)(NSArray *departments, NSError *error))completionHandler;
+- (void)postWithSuccess:(void(^)(Department *department))success failure:(void(^)(NSError *error))failure;
 @end
 
 

@@ -20,6 +20,7 @@
 @property (strong, nonatomic) UIView *formContainerView;
 @property (strong, nonatomic) UIButton *currentLocationButton;
 @property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) OfficeLocation *officeLocation;
 
 @end
 
@@ -70,6 +71,22 @@
     self.currentLocationButton.backgroundColor = [UIColor whiteColor];
     [self.currentLocationButton addTarget:self action:@selector(currentLocationButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.currentLocationButton];
+    
+    self.officeLocation = [OfficeLocation MR_createEntity];
+}
+
+- (void)geocodeLocationFromFields
+{
+    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+    NSDictionary *addressDictionary = @{@"Street" : self.addressFormView.textField.text,
+                                        @"State" : self.stateFormView.textField.text,
+                                        @"City" : self.cityFormView.textField.text};
+    [geoCoder geocodeAddressDictionary:addressDictionary completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (placemarks.count) {
+            CLPlacemark *placemark = [placemarks firstObject];
+            self.officeLocation = [self officeLocationFromPlacemark:placemark];
+        }
+    }];
 }
 
 - (void)currentLocationButtonTouched:(id)sender
@@ -82,7 +99,9 @@
         CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
         [geoCoder reverseGeocodeLocation:[Geofencer sharedClient].locationManager.location completionHandler:^(NSArray *placemarks, NSError *error) {
             if (placemarks && placemarks.count) {
-                [self autoFillFormsWithPlacemark:[placemarks firstObject]];
+                CLPlacemark *placemark = [placemarks firstObject];
+                self.officeLocation = [self officeLocationFromPlacemark:placemark];
+                [self autoFillFormsWithPlacemark:placemark];
             }
         }];
     }];
@@ -104,6 +123,17 @@
     self.addressFormView.textField.text = address;
 }
 
+- (OfficeLocation *)officeLocationFromPlacemark:(CLPlacemark *)placemark
+{
+    OfficeLocation *officeLocation = [OfficeLocation MR_createEntity];
+    officeLocation.streetAddress = placemark.addressDictionary[@"Street"];
+    officeLocation.zipCode = placemark.addressDictionary[@"ZIP"];
+    officeLocation.state = placemark.addressDictionary[@"State"];
+    officeLocation.country = placemark.addressDictionary[@"Country"];
+    officeLocation.city = placemark.addressDictionary[@"City"];
+    return officeLocation;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -112,6 +142,26 @@
 
 - (void)addButtonTouched:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.officeLocation postWithSuccess:^(OfficeLocation *officeLocation) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSError *error) {
+        
+    }];
 }
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+//    make sure all forms have been completed
+    BOOL completed = self.cityFormView.textField.text && self.addressFormView.textField.text && self.stateFormView.textField.text;
+    if (completed) {
+        [self geocodeLocationFromFields];
+    }
+    
+    return YES;
+}
+
+
+
 @end

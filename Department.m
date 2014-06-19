@@ -22,4 +22,17 @@
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
 
+- (void)postWithSuccess:(void(^)(Department *department))success failure:(void(^)(NSError *error))failure
+{
+    NSDictionary *departmentJSON = @{@"name" : self.name};
+    NSDictionary *parameters = @{@"department" : departmentJSON};
+    [[HeadshotRequestAPIClient sharedClient] POST:@"departments/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (error) {
+            failure(error);
+        }
+    }];
+}
+
 @end

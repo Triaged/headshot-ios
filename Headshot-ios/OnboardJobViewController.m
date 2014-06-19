@@ -8,6 +8,7 @@
 
 #import "OnboardJobViewController.h"
 #import "OnboardSelectDepartmentViewController.h"
+#import "OnboardSelectManagersViewControllers.h"
 #import "Department.h"
 #import "FormView.h"
 
@@ -24,6 +25,8 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 @property (strong, nonatomic) FormView *managerFormView;
 @property (strong, nonatomic) UIButton *nextButton;
 @property (strong, nonatomic) Department *selectedDepartment;
+@property (strong, nonatomic) OnboardSelectManagersViewControllers *selectManagersViewController;
+@property (strong, nonatomic) OnboardSelectDepartmentViewController *selectDepartmentViewController;
 
 @end
 
@@ -76,6 +79,7 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     [self.nextButton addTarget:self action:@selector(nextButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:self.nextButton];
     self.tableView.tableFooterView = footerView;
+    
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -137,20 +141,46 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == JobTableRowDepartment) {
-        OnboardSelectDepartmentViewController *departmentViewController = [[OnboardSelectDepartmentViewController alloc] init];
-        departmentViewController.delegate = self;
-        departmentViewController.departments = [Department MR_findAll];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:departmentViewController];
+        self.selectDepartmentViewController = [[OnboardSelectDepartmentViewController alloc] init];
+        self.selectDepartmentViewController.delegate = self;
+        self.selectDepartmentViewController.departments = [Department MR_findAll];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.selectDepartmentViewController];
         navigationController.navigationBar.translucent = NO;
-        departmentViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(modalCancelButtonTouched:)];
+        self.selectDepartmentViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(modalCancelButtonTouched:)];
         [self presentViewController:navigationController animated:YES completion:^{
             
         }];
+    }
+    else if (indexPath.row == JobTableRowManager) {
+        self.selectManagersViewController = [[OnboardSelectManagersViewControllers alloc] init];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.selectManagersViewController];
+        navigationController.navigationBar.translucent = NO;
+        self.selectManagersViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(modalCancelButtonTouched:)];
+        self.selectManagersViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneSelectingManagers)];
+        [self presentViewController:navigationController animated:YES completion:nil];
     }
 }
 
 - (void)modalCancelButtonTouched:(id)sender
 {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)doneSelectingManagers
+{
+    NSString *managerText = nil;
+    NSArray *selectedUsers = self.selectManagersViewController.selectedUsers;
+    if (!selectedUsers || !selectedUsers.count) {
+        managerText = nil;
+    }
+    else if (selectedUsers.count == 1) {
+        User *user = [selectedUsers firstObject];
+        managerText = user.fullName;
+    }
+    else {
+        managerText = [NSString stringWithFormat:@"%d people", selectedUsers.count];
+    }
+    self.managerFormView.textField.text = managerText;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

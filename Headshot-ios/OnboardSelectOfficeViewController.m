@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) UIButton *nextButton;
 @property (strong, nonatomic) OfficeLocation *selectedOffice;
+@property (assign, nonatomic) BOOL noOffice;
 
 @end
 
@@ -92,22 +93,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.font = [ThemeManager regularFontOfSize:17];
     cell.textLabel.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
     cell.detailTextLabel.textColor = [[ThemeManager sharedTheme] lightGrayTextColor];
     cell.detailTextLabel.font = [ThemeManager regularFontOfSize:13];
+    cell.tintColor = [[ThemeManager sharedTheme] greenColor];
     if (indexPath.row < self.offices.count) {
         OfficeLocation *office = self.offices[indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@ Office", office.city];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@ %@", office.streetAddress, office.city, office.zipCode];
         if ([self.selectedOffice isEqual:office]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            cell.tintColor = [[ThemeManager sharedTheme] greenColor];
         }
     }
     else if (indexPath.row == self.offices.count) {
         cell.textLabel.text = @"I don't work in an office";
         cell.detailTextLabel.text = nil;
+        if (self.noOffice) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     }
     else {
         cell.textLabel.textColor = [[ThemeManager sharedTheme] orangeColor];
@@ -122,15 +127,17 @@
     if (indexPath.row < self.offices.count) {
         OfficeLocation *office = self.offices[indexPath.row];
         self.selectedOffice = office;
-        [tableView reloadData];
+        self.noOffice = NO;
     }
     else if (indexPath.row == self.offices.count) {
-        
+        self.noOffice = YES;
+        self.selectedOffice = nil;
     }
     else {
         OnboardAddOfficeViewController *addOfficeViewController = [[OnboardAddOfficeViewController alloc] init];
         [self.navigationController pushViewController:addOfficeViewController animated:YES];
     }
+    [tableView reloadData];
 }
 
 @end

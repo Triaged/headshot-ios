@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "HeadshotRequestAPIClient.h"
 
 
 @interface OfficeLocation : NSManagedObject
@@ -24,6 +25,7 @@
 
 
 + (void)officeLocationsWithCompletionHandler:(void(^)(NSArray *locations, NSError *error))completionHandler;
+- (void)postWithSuccess:(void(^)(OfficeLocation *officeLocation))success failure:(void(^)(NSError *error))failure;
 
 - (void)enterLocation;
 - (void)exitLocation;

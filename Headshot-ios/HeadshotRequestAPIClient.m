@@ -12,6 +12,7 @@
 
 //static NSString * const DockedAPIBaseURLString = @"https://www.triaged.co/api/v1/";
 static NSString * const DockedAPIBaseURLString = @"https://www.docked.io/api/v1/";
+static NSString * const HeadshotAPIBaseURLString = @"http://api.let.io/v1/";
 
 @implementation HeadshotRequestAPIClient
 
@@ -19,7 +20,7 @@ static NSString * const DockedAPIBaseURLString = @"https://www.docked.io/api/v1/
     static HeadshotRequestAPIClient *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[HeadshotRequestAPIClient alloc] initWithBaseURL:[NSURL URLWithString:DockedAPIBaseURLString]];
+        _sharedClient = [[HeadshotRequestAPIClient alloc] initWithBaseURL:[NSURL URLWithString:HeadshotAPIBaseURLString]];
     });
     
     return _sharedClient;
