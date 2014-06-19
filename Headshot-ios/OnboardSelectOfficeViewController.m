@@ -8,10 +8,12 @@
 
 #import "OnboardSelectOfficeViewController.h"
 #import "OnboardAddOfficeViewController.h"
+#import "OfficeLocation.h"
 
 @interface OnboardSelectOfficeViewController ()
 
 @property (strong, nonatomic) UIButton *nextButton;
+@property (strong, nonatomic) OfficeLocation *selectedOffice;
 
 @end
 
@@ -58,7 +60,7 @@
     
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.nextButton.height, 0);
     
-    self.offices = @[];
+    self.offices = [OfficeLocation MR_findAll];
     
 }
 
@@ -92,17 +94,43 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
     cell.textLabel.font = [ThemeManager regularFontOfSize:17];
     cell.textLabel.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
-    cell.detailTextLabel.font = [ThemeManager regularFontOfSize:13];
     cell.detailTextLabel.textColor = [[ThemeManager sharedTheme] lightGrayTextColor];
-    cell.textLabel.textColor = [[ThemeManager sharedTheme] orangeColor];
-    cell.textLabel.text = @"Add a New Office";
+    cell.detailTextLabel.font = [ThemeManager regularFontOfSize:13];
+    if (indexPath.row < self.offices.count) {
+        OfficeLocation *office = self.offices[indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ Office", office.city];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@ %@", office.streetAddress, office.city, office.zipCode];
+        if ([self.selectedOffice isEqual:office]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            cell.tintColor = [[ThemeManager sharedTheme] greenColor];
+        }
+    }
+    else if (indexPath.row == self.offices.count) {
+        cell.textLabel.text = @"I don't work in an office";
+        cell.detailTextLabel.text = nil;
+    }
+    else {
+        cell.textLabel.textColor = [[ThemeManager sharedTheme] orangeColor];
+        cell.textLabel.text = @"Add a New Office";
+        cell.detailTextLabel.text = nil;
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OnboardAddOfficeViewController *addOfficeViewController = [[OnboardAddOfficeViewController alloc] init];
-    [self.navigationController pushViewController:addOfficeViewController animated:YES];
+    if (indexPath.row < self.offices.count) {
+        OfficeLocation *office = self.offices[indexPath.row];
+        self.selectedOffice = office;
+        [tableView reloadData];
+    }
+    else if (indexPath.row == self.offices.count) {
+        
+    }
+    else {
+        OnboardAddOfficeViewController *addOfficeViewController = [[OnboardAddOfficeViewController alloc] init];
+        [self.navigationController pushViewController:addOfficeViewController animated:YES];
+    }
 }
 
 @end

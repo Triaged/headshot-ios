@@ -25,6 +25,7 @@
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
 		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
 		9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669633A194E262F003B22B5 /* EmailLoginViewController.m */; };
+		969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
 		CB0418611948C59600B3DE97 /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */; };
 		CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0418641949310300B3DE97 /* DepartmentsTableViewController.m */; };
@@ -148,6 +149,8 @@
 		96696336194E2018003B22B5 /* FormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormView.m; sourceTree = "<group>"; };
 		96696339194E262F003B22B5 /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		9669633A194E262F003B22B5 /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
+		969B86FE195285DF00090B49 /* OnboardSelectDepartmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectDepartmentViewController.h; sourceTree = "<group>"; };
+		969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectDepartmentViewController.m; sourceTree = "<group>"; };
 		CB04185D1948C59600B3DE97 /* ContactInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoTableViewCell.h; sourceTree = "<group>"; };
 		CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoTableViewCell.m; sourceTree = "<group>"; };
 		CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -363,6 +366,8 @@
 				964A6BEE194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m */,
 				964A6BF0194F93250024B3C2 /* OnboardPushPermissionViewController.h */,
 				964A6BF1194F93250024B3C2 /* OnboardPushPermissionViewController.m */,
+				969B86FE195285DF00090B49 /* OnboardSelectDepartmentViewController.h */,
+				969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */,
 			);
 			name = onboard;
 			sourceTree = "<group>";
@@ -824,6 +829,7 @@
 				CB0E71AF1948BA5E002B2B58 /* ContactSectionViewController.m in Sources */,
 				CBBA6871192FD646005A6949 /* main.m in Sources */,
 				964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */,
+				969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */,
 				CB1F31C51931A12600CDCFD4 /* NewThreadTableViewController.m in Sources */,
 				964A6BD7194E31C40024B3C2 /* OnboardUserDetailsViewController.m in Sources */,
 				96696330194B5061003B22B5 /* NotificationManager.m in Sources */,

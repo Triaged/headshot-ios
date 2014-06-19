@@ -7,7 +7,8 @@
 //
 
 #import "OnboardJobViewController.h"
-#import "DepartmentsTableViewController.h"
+#import "OnboardSelectDepartmentViewController.h"
+#import "Department.h"
 #import "FormView.h"
 
 typedef NS_ENUM(NSUInteger, JobTableRow)  {
@@ -16,12 +17,13 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     JobTableRowManager,
 };
 
-@interface OnboardJobViewController () <UITextFieldDelegate>
+@interface OnboardJobViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate>
 
 @property (strong, nonatomic) FormView *jobTitleFormView;
 @property (strong, nonatomic) FormView *departmentFormView;
 @property (strong, nonatomic) FormView *managerFormView;
 @property (strong, nonatomic) UIButton *nextButton;
+@property (strong, nonatomic) Department *selectedDepartment;
 
 @end
 
@@ -135,9 +137,29 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == JobTableRowDepartment) {
-        DepartmentsTableViewController *departmentViewController = [[DepartmentsTableViewController alloc] init];
-        [self.navigationController pushViewController:departmentViewController animated:YES];
+        OnboardSelectDepartmentViewController *departmentViewController = [[OnboardSelectDepartmentViewController alloc] init];
+        departmentViewController.delegate = self;
+        departmentViewController.departments = [Department MR_findAll];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:departmentViewController];
+        navigationController.navigationBar.translucent = NO;
+        departmentViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(modalCancelButtonTouched:)];
+        [self presentViewController:navigationController animated:YES completion:^{
+            
+        }];
     }
+}
+
+- (void)modalCancelButtonTouched:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Select Department View Controller Delegate
+- (void)OnboardSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController didSelectDepartment:(Department *)department
+{
+    self.selectedDepartment = department;
+    self.departmentFormView.textField.text = department.name;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

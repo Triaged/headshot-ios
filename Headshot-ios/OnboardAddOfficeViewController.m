@@ -10,6 +10,7 @@
 #import <INTULocationManager.h>
 #import "FormView.h"
 #import "Geofencer.h"
+#import "OfficeLocation.h"
 
 @interface OnboardAddOfficeViewController () <UITextFieldDelegate>
 
