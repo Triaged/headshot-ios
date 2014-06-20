@@ -7,8 +7,9 @@
 //
 
 #import "OnboardSelectDepartmentViewController.h"
+#import "TRDataStoreManager.h"
 
-@interface OnboardSelectDepartmentViewController ()
+@interface OnboardSelectDepartmentViewController () <UIAlertViewDelegate>
 
 @end
 
@@ -68,7 +69,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < self.departments.count - 1) {
+    if (indexPath.row < self.departments.count) {
         Department *department = self.departments[indexPath.row];
         if ([self.delegate respondsToSelector:@selector(OnboardSelectDepartmentViewController:didSelectDepartment:)]) {
             [self.delegate OnboardSelectDepartmentViewController:self didSelectDepartment:department];
@@ -81,13 +82,23 @@
 
 - (void)addDepartmentSelected
 {
-    Department *department = [Department MR_createEntity];
-    department.name = @"Test Department";
-    [department postWithSuccess:^(Department *department) {
-        
-    } failure:^(NSError *error) {
-        
-    }];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Department" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView textFieldAtIndex:0].autocapitalizationType = UITextAutocapitalizationTypeSentences;
+    [alertView show];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        UITextField *textField = [alertView textFieldAtIndex:0];
+        Department *department = [Department MR_createInContext:[[TRDataStoreManager sharedInstance] backgroundThreadManagedObjectContext]];
+        department.name = textField.text;
+        [department createWithCompletionHandler:^(id managedObject, NSError *error) {
+            
+        }];
+    }
 }
 
 @end

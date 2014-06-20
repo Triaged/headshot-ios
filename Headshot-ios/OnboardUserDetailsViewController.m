@@ -9,13 +9,13 @@
 #import "OnboardUserDetailsViewController.h"
 #import "FormView.h"
 #import "DatePickerModalView.h"
+#import "EmployeeInfo.h"
 
 typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     UserDetailFormFirstName = 0,
     UserDetailFormLastName,
     UserDetailFormPhone,
     UserDetailFormBirthday,
-    UserDetailFormPassword,
 };
 
 @interface OnboardUserDetailsViewController () <UITextFieldDelegate>
@@ -28,6 +28,7 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 @property (strong, nonatomic) UILabel *welcomeLabel;
 @property (strong, nonatomic) UIButton *nextButton;
 @property (strong, nonatomic) NSDate *birthday;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -89,20 +90,14 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     
     self.phoneFormView = [[FormView alloc] init];
     self.phoneFormView.textField.delegate = self;
-    self.phoneFormView.fieldName = @"Phone Number";
-    self.phoneFormView.textField.placeholder = @"+1 (100) 123-1456";
+    self.phoneFormView.fieldName = @"Cell Number";
+    self.phoneFormView.textField.placeholder = @"(100) 123-1456";
     
     self.birthdayFormView = [[FormView alloc] init];
     self.birthdayFormView.textField.delegate = self;
     self.birthdayFormView.textField.placeholder = @"(Optional)";
     self.birthdayFormView.userInteractionEnabled = NO;
     self.birthdayFormView.fieldName = @"Birthday";
-    
-    self.passwordFormView = [[FormView alloc] init];
-    self.passwordFormView.textField.secureTextEntry = YES;
-    self.passwordFormView.textField.delegate = self;
-    self.passwordFormView.fieldName = @"Password";
-    self.passwordFormView.textField.placeholder = @"At least 6 characters";
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 98)];
     self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,6 +109,9 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     [self.nextButton addTarget:self action:@selector(nextButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:self.nextButton];
     self.tableView.tableFooterView = footerView;
+    
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateFormat = @"d LLLL yyyy";
 }
 
 - (void)setUser:(User *)user
@@ -123,12 +121,14 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     self.welcomeLabel.text = [NSString stringWithFormat:@"Welcome %@", user.fullName];
     self.firstNameFormView.textField.text = user.firstName;
     self.lastNameFormView.textField.text = user.lastName;
+    if (user.employeeInfo.birthDate) {
+        self.birthdayFormView.textField.text = [self.dateFormatter stringFromDate:user.employeeInfo.birthDate];
+    }
+    if (user.employeeInfo.cellPhone) {
+        self.phoneFormView.textField.text = user.employeeInfo.cellPhone;
+    }
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
 
 - (void)nextButtonTouched:(id)sender
 {
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -165,9 +165,6 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     }
     else if (indexPath.row == UserDetailFormBirthday) {
         formView = self.birthdayFormView;
-    }
-    else if (indexPath.row == UserDetailFormPassword) {
-        formView = self.passwordFormView;
     }
     [cell.contentView addSubview:formView];
     formView.frame = cell.contentView.bounds;
@@ -188,7 +185,8 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 - (void)datePickerValueChanged:(UIDatePicker *)datePicker
 {
     self.birthday = datePicker.date;
-    
+    self.user.employeeInfo.birthDate = self.birthday;
+    self.birthdayFormView.textField.text = [self.dateFormatter stringFromDate:self.birthday];
 }
 
 

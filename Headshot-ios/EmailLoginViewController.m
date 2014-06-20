@@ -8,10 +8,14 @@
 
 #import "EmailLoginViewController.h"
 #import "FormView.h"
+#import "CredentialStore.h"
+#import "TRDataStoreManager.h"
+#import "Store.h"
 
 @interface EmailLoginViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) FormView *emailFormView;
+@property (strong, nonatomic) FormView *passwordFormView;
 @property (strong, nonatomic) UIButton *loginButton;
 
 @end
@@ -64,17 +68,49 @@
     self.emailFormView.textField.placeholder = @"Your Company Email Address";
     self.emailFormView.textField.returnKeyType = UIReturnKeyDone;
     self.emailFormView.textField.delegate = self;
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
+    
+    self.passwordFormView = [[FormView alloc] init];
+    self.passwordFormView.fieldName = @"Password";
+    self.passwordFormView.textField.returnKeyType = UIReturnKeyDone;
+    self.passwordFormView.textField.secureTextEntry = YES;
+    self.passwordFormView.textField.delegate = self;
 }
 
 - (void)loginButtonTouched:(id)sender
 {
+    [SVProgressHUD show];
+    
+    id params = @{@"user_login" : @{
+                          @"email": self.emailFormView.textField.text,
+                          @"password": self.passwordFormView.textField.text
+                          }};
+    
+
+    [[HeadshotAPIClient sharedClient] POST:@"sessions/" parameters:params success:^(NSURLSessionDataTask *task, id JSON) {
+        
+        // Set Auth Code
+        NSString *authToken = [JSON valueForKeyPath:@"authentication_token"];
+        Account *account = [Account updatedObjectWithRawJSONDictionary:JSON inManagedObjectContext:[TRDataStoreManager sharedInstance].mainThreadManagedObjectContext];
+        [[CredentialStore sharedClient] setAuthToken:authToken];
+        [[AppDelegate sharedDelegate].store userLoggedInWithAccount:account];
+        [SVProgressHUD dismiss];
+        [self didLogin];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSHTTPURLResponse *response = [error.userInfo objectForKey:@"AFNetworkingOperationFailingURLResponseErrorKey"];
+        if (response.statusCode == 500) {
+            [SVProgressHUD showErrorWithStatus:@"Something went wrong. Please try again."];
+        } else {
+            NSString *errorMessage = [error.userInfo objectForKey:@"JSONResponseSerializerWithDataKey"];
+            [SVProgressHUD showErrorWithStatus:errorMessage];
+        }
+    }];
+}
+
+- (void)didLogin
+{
     if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
-        [self.delegate onboardViewController:self doneButtonTouched:sender];
+        [self.delegate onboardViewController:self doneButtonTouched:nil];
     }
 }
 
@@ -87,7 +123,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,9 +136,21 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell.contentView addSubview:self.emailFormView];
-    self.emailFormView.frame = cell.contentView.bounds;
-    [self.emailFormView addEdge:(UIRectEdgeTop | UIRectEdgeBottom) width:0.5 color:[UIColor colorWithWhite:225/255.0 alpha:1.0]];
+    FormView *formView;
+    if (!indexPath.row) {
+        formView = self.emailFormView;
+    }
+    else {
+        formView = self.passwordFormView;
+    }
+    [cell.contentView addSubview:formView];
+    formView.frame = cell.contentView.bounds;
+    CGFloat edgeWidth = 0.5;
+    UIColor *edgeColor = [UIColor colorWithWhite:225/255.0 alpha:1.0];
+    [formView addEdge:(UIRectEdgeTop) width:edgeWidth color:edgeColor];
+    if (indexPath.row) {
+        [formView addEdge:UIRectEdgeBottom width:edgeWidth color:edgeColor];
+    }
     
     return cell;
 }

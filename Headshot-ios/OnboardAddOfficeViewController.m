@@ -91,7 +91,9 @@
 
 - (void)currentLocationButtonTouched:(id)sender
 {
+    [SVProgressHUD show];
     [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:4 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        [SVProgressHUD dismiss];
         if (currentLocation) {
             [self centerOnCoordinate:currentLocation.coordinate];
         }

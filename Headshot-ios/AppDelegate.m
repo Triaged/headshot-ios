@@ -13,7 +13,9 @@
 #import "TRBackgroundQueue.h"
 #import "Geofencer.h"
 #import "SinchClient.h"
+#import "CredentialStore.h"
 #import "NotificationManager.h"
+#import "OnboardNavigationController.h"
 
 
 @interface NSManagedObjectContext ()
@@ -89,7 +91,12 @@
     
     self.tabBarController = [[TRTabBarController alloc] init];
     
-    [self.window setRootViewController:self.tabBarController];
+    if ([[CredentialStore sharedClient] isLoggedIn]) {
+        [self.window setRootViewController:self.tabBarController];
+    }
+    else {
+        self.window.rootViewController = [[OnboardNavigationController alloc] init];
+    }
 
     [self.window makeKeyAndVisible];
 }

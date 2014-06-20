@@ -48,7 +48,7 @@
     
     self.nameLabel.text = self.user.fullName;
     self.titleLabel.text = self.user.employeeInfo.jobTitle;
-    self.currentOfficeLocationLabel.text = self.user.employeeInfo.currentOfficeLocation.streetAddress;
+    self.currentOfficeLocationLabel.text = self.user.currentOfficeLocation.streetAddress;
     
     self.contactDetailsDataSource = [[ContactDetailsDataSource alloc] initWithUser:self.user];
     self.contactDetailsDataSource.contactVC = self;
@@ -58,8 +58,6 @@
     self.contactDetailsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.contactDetailsTableView registerNib:[UINib nibWithNibName:@"ContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"ContactInfoCell"];
-    
-    [self.user fetchOrgStructure];
     
 }
 

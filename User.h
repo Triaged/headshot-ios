@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "SLRESTfulCoreData.h"
+#import "HeadshotAPIClient.h"
 
 
-@class Company, EmployeeInfo, Department;
+@class Company, EmployeeInfo, Department, OfficeLocation;
 
 @interface User : NSManagedObject
 
@@ -27,8 +28,9 @@
 @property (nonatomic, retain) User *manager;
 @property (nonatomic, retain) Department *department;
 @property (nonatomic, retain) NSSet *subordinates;
+@property (nonatomic, retain) OfficeLocation *currentOfficeLocation;
+@property (nonatomic, retain) OfficeLocation *primaryOfficeLocation;
 
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler;
--(void)fetchOrgStructure;
 
 @end

@@ -17,5 +17,6 @@
 @property (nonatomic, retain) User *currentUser;
 
 + (void)currentAccountWithCompletionHandler:(void(^)(Account *account, NSError *error))completionHandler;
+- (void)updateAccountWithSuccess:(void (^)(Account *account))success failure:(void (^)(NSError *error))failure;
 
 @end

@@ -42,9 +42,6 @@
     self.loginViewController.delegate = self;
     self.viewControllers = @[self.loginViewController];
     
-    self.userDetailsViewController = [[OnboardUserDetailsViewController alloc] initWithUser:[AppDelegate sharedDelegate].store.currentAccount.currentUser];
-    self.userDetailsViewController.delegate = self;
-    
     self.jobViewController = [[OnboardJobViewController alloc] init];
     self.jobViewController.delegate = self;
     
@@ -64,7 +61,15 @@
     self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
     self.pageControl.currentPageIndicatorTintColor = [[ThemeManager sharedTheme] greenColor];
     [self.navigationBar addSubview:self.pageControl];
-    
+}
+
+- (OnboardUserDetailsViewController *)userDetailsViewController
+{
+    if (!_userDetailsViewController) {
+        _userDetailsViewController = [[OnboardUserDetailsViewController alloc] initWithUser:[AppDelegate sharedDelegate].store.currentAccount.currentUser];
+        _userDetailsViewController.delegate = self;
+    }
+    return _userDetailsViewController;
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -84,6 +89,11 @@
     }
     else if (viewController == self.jobViewController) {
         nextViewController = self.selectOfficeViewController;
+        [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:^(Account *account) {
+            
+        } failure:^(NSError *error) {
+            
+        }];
     }
     else if (viewController == self.selectOfficeViewController) {
         nextViewController = self.locationPermissionsViewController;

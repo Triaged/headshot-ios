@@ -32,17 +32,8 @@
     self = [super init];
     if (self) {
         if ([[CredentialStore sharedClient] isLoggedIn]) {
-            [self userLoggedIn];
+            [self userLoggedInWithAccount:[self currentAccount]];
         }
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(userLoggedIn)
-                                                     name:@"login"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(userSignedOut)
-                                                     name:@"logout"
-                                                   object:nil];
     }
     return self;
 }
@@ -65,31 +56,30 @@
 
 
 #pragma mark - User Authentication
-
-- (void) userLoggedIn
+- (void)userLoggedInWithAccount:(Account *)account
 {
-    #if !DEBUG
+#if !DEBUG
     UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
-    #endif
+#endif
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
-        if (error == nil) {
-            [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
-            
-            [Company companyWithCompletionHandler:^(Company *company, NSError *error) {}];
-            [User usersWithCompletionHandler:^(NSArray *users, NSError *error){}];
-        }
-        
-//        Mixpanel *mixpanel = [Mixpanel sharedInstance];
-//        [mixpanel identify:account.identifier];
-//        [mixpanel track:@"signup" properties:@{@"id": account.identifier,
-//                                               @"email" : account.currentUser.email,
-//                                               @"company" : account.companyName}];
-        
-        //[Intercom beginSessionForUserWithUserId:account.identifier andEmail:account.currentUser.email];
-        
-    }];
+    //    [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
+    //        if (error == nil) {
+    [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
+    
+    [Company companyWithCompletionHandler:^(Company *company, NSError *error) {}];
+    [User usersWithCompletionHandler:^(NSArray *users, NSError *error){}];
+    //        }
+    
+    //        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    //        [mixpanel identify:account.identifier];
+    //        [mixpanel track:@"signup" properties:@{@"id": account.identifier,
+    //                                               @"email" : account.currentUser.email,
+    //                                               @"company" : account.companyName}];
+    
+    //[Intercom beginSessionForUserWithUserId:account.identifier andEmail:account.currentUser.email];
+    
+    //    }];
 }
 
 -(void)logout

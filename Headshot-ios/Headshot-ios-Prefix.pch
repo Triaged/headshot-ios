@@ -15,8 +15,10 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import <UIView+Positioning.h>
+    #import <SVProgressHUD.h>
     #import "UIView+Edge.h"
     #import "UIView+Shadow.h"
+    #import "NSDate+BadgeFormattedDate.h"
     #import "User+FindAllExcludeCurrent.h"
     #import "Theme.h"
     #import "AppDelegate.h"
@@ -39,8 +41,6 @@
     #define TITLE_COLOR [[UIColor alloc] initWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
     #define BORDER_COLOR [[UIColor alloc] initWithRed:228.0f/255.0f green:230.0f/255.0f blue:234.0f/255.0f alpha:1.0f];
     #define SHADOW_COLOR [[UIColor alloc] initWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
-    //#define BASE_URL @"https://www.triaged.co"
-    #define BASE_URL  @"http://api.let.io"
 
     #define XXImageFormatNameUserThumbnailSmall @"com.mycompany.myapp.XXImageFormatNameUserThumbnailSmall";
     #define XXImageFormatNameUserThumbnailLarge  @"com.mycompany.myapp.XXImageFormatNameUserThumbnailLarge";

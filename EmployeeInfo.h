@@ -21,7 +21,5 @@
 @property (nonatomic, retain) NSString * officePhone;
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) User *user;
-@property (nonatomic, retain) OfficeLocation *currentOfficeLocation;
-@property (nonatomic, retain) OfficeLocation *homeOfficeLocation;
 
 @end

@@ -10,6 +10,7 @@
 #import "OnboardSelectDepartmentViewController.h"
 #import "OnboardSelectManagersViewControllers.h"
 #import "Department.h"
+#import "EmployeeInfo.h"
 #import "FormView.h"
 
 typedef NS_ENUM(NSUInteger, JobTableRow)  {
@@ -82,13 +83,11 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
-
 - (void)nextButtonTouched:(id)sender
 {
+    NSString *jobTitle = self.jobTitleFormView.textField.text;
+    [AppDelegate sharedDelegate].store.currentAccount.currentUser.employeeInfo.jobTitle = jobTitle;
+    
     if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
         [self.delegate onboardViewController:self doneButtonTouched:sender];
     }
@@ -189,6 +188,7 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 {
     self.selectedDepartment = department;
     self.departmentFormView.textField.text = department.name;
+    [AppDelegate sharedDelegate].store.currentAccount.currentUser.department = department;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -53,7 +53,7 @@
     [self.avatarImageView setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"avatar"]];
     self.nameLabel.text = currentUser.fullName;
     self.titleLabel.text = currentUser.employeeInfo.jobTitle;
-    self.currentOfficeLocationLabel.text = currentUser.employeeInfo.currentOfficeLocation.streetAddress;
+    self.currentOfficeLocationLabel.text = currentUser.currentOfficeLocation.streetAddress;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showOnboard)];
     self.avatarImageView.userInteractionEnabled = YES;
     [self.avatarImageView addGestureRecognizer:tap

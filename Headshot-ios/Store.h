@@ -22,7 +22,7 @@
 - (void) setCurrentAccount: (Account *)account;
 - (void) fetchRemoteUserAccount;
 
-
+- (void)userLoggedInWithAccount:(Account *)account;
 -(void)logout;
 
 @end

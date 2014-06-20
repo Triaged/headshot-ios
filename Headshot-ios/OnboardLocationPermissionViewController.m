@@ -44,11 +44,6 @@
     [self.scrollView addSubview:self.permissionButton];
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
-
 - (void)skipButtonTouched:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {

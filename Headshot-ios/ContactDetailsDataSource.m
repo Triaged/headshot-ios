@@ -52,18 +52,22 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     if (currentUser.employeeInfo.officePhone)
         [contactInfo addObject:@[@"Office", currentUser.employeeInfo.officePhone]];
 
-    if (currentUser.employeeInfo.birthDate)
-        [contactInfo addObject:@[@"Birthday", currentUser.employeeInfo.birthDate]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"d LLLL yyyy";
+    if (currentUser.employeeInfo.birthDate) {
+        [contactInfo addObject:@[@"Birthday", [dateFormatter stringFromDate:currentUser.employeeInfo.birthDate]]];
+    }
 
-    if (currentUser.employeeInfo.jobStartDate)
-        [contactInfo addObject:@[@"Start Date", currentUser.employeeInfo.jobStartDate]];
+    if (currentUser.employeeInfo.jobStartDate) {
+        [contactInfo addObject:@[@"Start Date", [dateFormatter stringFromDate:currentUser.employeeInfo.jobStartDate]]];
+    }
 
     [contactDetailsArray addObject:@{[NSNumber numberWithInt:kContactInfo] : contactInfo}];
 
 }
 
 -(void)setupAvailability {
-    if (currentUser.employeeInfo.currentOfficeLocation) {
+    if (currentUser.currentOfficeLocation) {
         [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[@"In The Office"]}];
     } else {
         [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[@"Out Of Office"]}];

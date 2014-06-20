@@ -65,11 +65,6 @@
     
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
-
 - (void)nextButtonTouched:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
@@ -135,7 +130,9 @@
     }
     else {
         OnboardAddOfficeViewController *addOfficeViewController = [[OnboardAddOfficeViewController alloc] init];
-        [self.navigationController pushViewController:addOfficeViewController animated:YES];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addOfficeViewController];
+        navigationController.navigationBar.translucent = NO;
+        [self presentViewController:navigationController animated:YES completion:nil];
     }
     [tableView reloadData];
 }

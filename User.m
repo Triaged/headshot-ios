@@ -30,14 +30,4 @@
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
 
-
--(void)fetchOrgStructure {
-    NSURL *managerURL = [NSURL URLWithString:[NSString stringWithFormat:@"users/%@/manager", self.identifier]];
-    [self fetchObjectsForRelationship:@"manager" fromURL:managerURL completionHandler:^(NSArray *fetchedObjects, NSError *error) {}];
-    
-    NSURL *subordinatesURL = [NSURL URLWithString:[NSString stringWithFormat:@"users/%@/subordinates", self.identifier]];
-    [self fetchObjectsForRelationship:@"subordinates" fromURL:subordinatesURL completionHandler:^(NSArray *fetchedObjects, NSError *error) {}];
-}
-
-
 @end
