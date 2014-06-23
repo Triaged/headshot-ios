@@ -42,10 +42,12 @@
     
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
     info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
-    [info addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+    [info addTarget:self action:@selector(showSettings) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
     self.navigationItem.rightBarButtonItem = item;
-
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
+                                              
     
     //self.title = @"Account";
     
@@ -94,14 +96,8 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)logout
+-(void)showSettings
 {
-    [[CredentialStore sharedClient] clearSavedCredentials];
-    if (![[CredentialStore sharedClient] isLoggedIn]) {
-        LoginViewController *loginVC = [[LoginViewController alloc] init];
-        [self presentViewController:loginVC animated:NO completion:nil];
-    }
-
     
 }
 
