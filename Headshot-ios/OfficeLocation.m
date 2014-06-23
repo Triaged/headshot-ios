@@ -17,6 +17,7 @@
 @dynamic zipCode;
 @dynamic country;
 @dynamic identifier;
+@dynamic name;
 @dynamic latitude;
 @dynamic longitude;
 

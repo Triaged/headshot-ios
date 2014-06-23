@@ -82,6 +82,7 @@ PODS:
   - SSKeychain (1.2.2)
   - SVProgressHUD (1.0)
   - SVWebViewController (HEAD based on 1.0)
+  - TCCopyableLabel (1.0.0)
   - UITableView-NXEmptyView (0.1.5)
   - UIView+AutoLayout (1.3.0)
   - UIView+Positioning (1.0.1)
@@ -101,6 +102,7 @@ DEPENDENCIES:
   - SSKeychain
   - SVProgressHUD
   - SVWebViewController (HEAD)
+  - TCCopyableLabel
   - UITableView-NXEmptyView
   - UIView+AutoLayout
   - UIView+Positioning
@@ -123,6 +125,7 @@ SPEC CHECKSUMS:
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   SVWebViewController: fbf917baa92744c54cfb89a52a4c056e409973a4
+  TCCopyableLabel: 8016d2cc7000dd979bb358239cbc88ae8551b122
   UITableView-NXEmptyView: 56377099d64bc965f73762d9c272ea729d953c34
   UIView+AutoLayout: dc24ec6114498617510af759148a05b957af1b38
   UIView+Positioning: 870af80983bf495af2cb8a3a15b20e26fcc57ebb

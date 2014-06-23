@@ -60,6 +60,7 @@
 		CB354D30194A48B400E537C2 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB354D2E194A48B400E537C2 /* EventKit.framework */; };
 		CB354D31194A48B400E537C2 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB354D2F194A48B400E537C2 /* EventKitUI.framework */; };
 		CB354D34194B710E00E537C2 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = CB354D33194B710E00E537C2 /* Company.m */; };
+		CB8FF1B019588C7900DDD51B /* MailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8FF1AF19588C7900DDD51B /* MailComposer.m */; };
 		CBA5D0721936B8FA0044BBCC /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA5D0711936B8FA0044BBCC /* Reveal.framework */; };
 		CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0751936BB070044BBCC /* Whitney-Book.otf */; };
 		CBA5D0791936BB2B0044BBCC /* Whitney-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */; };
@@ -206,6 +207,8 @@
 		CB354D2F194A48B400E537C2 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		CB354D32194B710E00E537C2 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		CB354D33194B710E00E537C2 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
+		CB8FF1AE19588C7900DDD51B /* MailComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailComposer.h; sourceTree = "<group>"; };
+		CB8FF1AF19588C7900DDD51B /* MailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailComposer.m; sourceTree = "<group>"; };
 		CBA5D0711936B8FA0044BBCC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = ../Reveal.framework; sourceTree = "<group>"; };
 		CBA5D0751936BB070044BBCC /* Whitney-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Book.otf"; sourceTree = "<group>"; };
 		CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Medium.otf"; sourceTree = "<group>"; };
@@ -549,6 +552,8 @@
 				CBBA689F192FD850005A6949 /* TRBackgroundQueue.m */,
 				CB1F31D719327FC600CDCFD4 /* Geofencer.h */,
 				CB1F31D819327FC600CDCFD4 /* Geofencer.m */,
+				CB8FF1AE19588C7900DDD51B /* MailComposer.h */,
+				CB8FF1AF19588C7900DDD51B /* MailComposer.m */,
 			);
 			name = persistence;
 			sourceTree = "<group>";
@@ -882,6 +887,7 @@
 				CB1F31B41931749D00CDCFD4 /* SinchClient.m in Sources */,
 				964A6BDA194E35DE0024B3C2 /* OnboardNavigationController.m in Sources */,
 				CBBA68E7192FE185005A6949 /* LoginViewController.m in Sources */,
+				CB8FF1B019588C7900DDD51B /* MailComposer.m in Sources */,
 				CBBA68AC192FD8FD005A6949 /* HeadshotAPIClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

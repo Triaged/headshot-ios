@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
 
 -(void)setupAvailability {
     if (currentUser.currentOfficeLocation) {
-        [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[@"In The Office"]}];
+        [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[currentUser.currentOfficeLocation.name]}];
     } else {
         [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[@"Out Of Office"]}];
     }

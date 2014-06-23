@@ -8,11 +8,15 @@
 
 #import "ContactInfoTableViewCell.h"
 
+
 @implementation ContactInfoTableViewCell
 
 - (void)awakeFromNib
 {
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [self.valueLabel setMinimumPressDuration:2];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * zipCode;
 @property (nonatomic, retain) NSString * country;
 @property (nonatomic, retain) NSString * identifier;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
 

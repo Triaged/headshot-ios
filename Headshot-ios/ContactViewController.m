@@ -11,6 +11,7 @@
 #import "OfficeLocation.h"
 #import "MessageThreadViewController.h"
 #import "ContactDetailsDataSource.h"
+#import "MailComposer.h"
 
 
 @interface ContactViewController ()
@@ -87,7 +88,7 @@
 
 - (IBAction)emailTapped:(id)sender {
     if ([MFMailComposeViewController canSendMail]) {
-        MFMailComposeViewController *composeViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
+        MFMailComposeViewController *composeViewController = [MailComposer sharedComposer];
         [composeViewController setMailComposeDelegate:self];
         [composeViewController setToRecipients:@[self.user.email]];
         [self presentViewController:composeViewController animated:YES completion:nil];
@@ -128,6 +129,7 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
     //Add an alert in case of failure
+    controller.mailComposeDelegate = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

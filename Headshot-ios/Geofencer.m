@@ -74,22 +74,12 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
     OfficeLocation *location = [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
     [location enterLocation];
-    
-    UIAlertView *notificationAlert = [[UIAlertView alloc] initWithTitle:@"Entered Region" message:region.identifier
-                                                               delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-    
-    [notificationAlert show];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     OfficeLocation *location = [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
     [location exitLocation];
-    
-    UIAlertView *notificationAlert = [[UIAlertView alloc] initWithTitle:@"Exited Region" message:region.identifier
-                                                               delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-    
-    [notificationAlert show];
 }
 
 @end

@@ -16,6 +16,7 @@
 #import "CredentialStore.h"
 #import "NotificationManager.h"
 #import "OnboardNavigationController.h"
+#import "MailComposer.h"
 
 
 @interface NSManagedObjectContext ()
@@ -105,6 +106,10 @@
 - (void)setupLoggedInUser
 {
     self.store = [[Store alloc] init];
+    
+    // Preload the MailComposer (for speed)
+    [MailComposer sharedComposer];
+    
     
     //  if ([self.store.currentAccount isLoggedIn]) {
      //       if([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
