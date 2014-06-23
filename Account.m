@@ -47,10 +47,24 @@
     NSDictionary *parameters = @{@"user" : userJSON};
     [[HeadshotAPIClient sharedClient] PUT:@"account/" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         Account *account = [Account updatedObjectWithRawJSONDictionary:responseObject inManagedObjectContext:self.managedObjectContext];
-        
+        if (success) {
+            success(account);
+        }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        if (failure) {
+            failure(error);
+        }
     }];
+}
+
+- (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withSuccess:(void (^)())success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+{
+    NSDictionary *parameters = @{@"user": @{@"current_password": currentPassword,
+                                            @"password" :password,
+                                            @"password_confirmation" : confirmedPassword}};
+    [[HeadshotAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+    } failure:failure];
 }
 
 @end

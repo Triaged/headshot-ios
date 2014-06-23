@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     JobTableRowManager,
 };
 
-@interface OnboardJobViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate>
+@interface OnboardJobViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate>
 
 @property (strong, nonatomic) FormView *jobTitleFormView;
 @property (strong, nonatomic) FormView *departmentFormView;
@@ -151,10 +151,9 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     }
     else if (indexPath.row == JobTableRowManager) {
         self.selectManagersViewController = [[OnboardSelectManagersViewControllers alloc] init];
+        self.selectManagersViewController.delegate = self;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.selectManagersViewController];
         navigationController.navigationBar.translucent = NO;
-        self.selectManagersViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(modalCancelButtonTouched:)];
-        self.selectManagersViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneSelectingManagers)];
         [self presentViewController:navigationController animated:YES completion:nil];
     }
 }
@@ -164,30 +163,19 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)doneSelectingManagers
-{
-    NSString *managerText = nil;
-    NSArray *selectedUsers = self.selectManagersViewController.selectedUsers;
-    if (!selectedUsers || !selectedUsers.count) {
-        managerText = nil;
-    }
-    else if (selectedUsers.count == 1) {
-        User *user = [selectedUsers firstObject];
-        managerText = user.fullName;
-    }
-    else {
-        managerText = [NSString stringWithFormat:@"%d people", selectedUsers.count];
-    }
-    self.managerFormView.textField.text = managerText;
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - Select Department View Controller Delegate
 - (void)OnboardSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController didSelectDepartment:(Department *)department
 {
     self.selectedDepartment = department;
     self.departmentFormView.textField.text = department.name;
     [AppDelegate sharedDelegate].store.currentAccount.currentUser.department = department;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Select Managers View Controller Delegate
+- (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUser:(User *)user
+{
+    self.managerFormView.textField.text = user.fullName;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

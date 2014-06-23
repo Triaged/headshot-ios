@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "EditAccountViewController.h"
+#import "ChangePasswordViewController.h"
 
 @interface SettingsViewController ()
 
@@ -125,7 +126,16 @@
         if (!indexPath.row) {
             [self editProfile];
         }
+        else if (indexPath.row == 1) {
+            [self changePassword];
+        }
     }
+}
+
+- (void)changePassword
+{
+    ChangePasswordViewController *changePasswordViewController = [[ChangePasswordViewController alloc] init];
+    [self.navigationController pushViewController:changePasswordViewController animated:YES];
 }
 
 - (void)editProfile

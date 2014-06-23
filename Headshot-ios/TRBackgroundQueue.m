@@ -9,8 +9,6 @@
 #import "TRBackgroundQueue.h"
 #import "CredentialStore.h"
 
-static NSString * const HeadshotAPIBaseURLString = @"http://api.let.io/v1/";
-
 @implementation TRBackgroundQueue
 
 @end

@@ -12,8 +12,6 @@
 #import "Store.h"
 #import "TRJSONResponseSerializerWithData.h"
 
-static NSString * const HeadshotAPIBaseURLString = @"http://api.let.io/v1/";
-
 @implementation HeadshotAPIClient
 
 + (instancetype)sharedClient {

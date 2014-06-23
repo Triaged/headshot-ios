@@ -10,6 +10,7 @@
 		9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA0194AD89300F6A4AF /* DefaultTheme.m */; };
 		9647ACA4194AD89300F6A4AF /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA2194AD89300F6A4AF /* Theme.m */; };
 		964839841958A1E600E4792A /* PhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 964839831958A1E600E4792A /* PhotoManager.m */; };
+		964839871958B8DB00E4792A /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964839861958B8DB00E4792A /* ChangePasswordViewController.m */; };
 		964A6BD3194E2C180024B3C2 /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD0194E2C180024B3C2 /* UIView+Shadow.m */; };
 		964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD2194E2C180024B3C2 /* UIView+Edge.m */; };
 		964A6BD7194E31C40024B3C2 /* OnboardUserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD6194E31C40024B3C2 /* OnboardUserDetailsViewController.m */; };
@@ -126,6 +127,8 @@
 		9647ACA2194AD89300F6A4AF /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		964839821958A1E600E4792A /* PhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoManager.h; sourceTree = "<group>"; };
 		964839831958A1E600E4792A /* PhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoManager.m; sourceTree = "<group>"; };
+		964839851958B8DB00E4792A /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		964839861958B8DB00E4792A /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		964A6BCF194E2C180024B3C2 /* UIView+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shadow.h"; sourceTree = "<group>"; };
 		964A6BD0194E2C180024B3C2 /* UIView+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shadow.m"; sourceTree = "<group>"; };
 		964A6BD1194E2C180024B3C2 /* UIView+Edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Edge.h"; sourceTree = "<group>"; };
@@ -413,6 +416,8 @@
 			children = (
 				96C2CF9D19577EE300E77CFD /* SettingsViewController.h */,
 				96C2CF9E19577EE300E77CFD /* SettingsViewController.m */,
+				964839851958B8DB00E4792A /* ChangePasswordViewController.h */,
+				964839861958B8DB00E4792A /* ChangePasswordViewController.m */,
 			);
 			name = settings;
 			sourceTree = "<group>";
@@ -883,6 +888,7 @@
 				964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */,
 				96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */,
 				969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */,
+				964839871958B8DB00E4792A /* ChangePasswordViewController.m in Sources */,
 				CB1F31C51931A12600CDCFD4 /* NewThreadTableViewController.m in Sources */,
 				96F0B5D5195882F70001A204 /* EditAvatarImageView.m in Sources */,
 				964A6BD7194E31C40024B3C2 /* OnboardUserDetailsViewController.m in Sources */,
