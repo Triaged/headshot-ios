@@ -57,4 +57,14 @@
     }];
 }
 
+- (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withSuccess:(void (^)())success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+{
+    NSDictionary *parameters = @{@"user": @{@"current_password": currentPassword,
+                                            @"password" :password,
+                                            @"password_confirmation" : confirmedPassword}};
+    [[HeadshotAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+    } failure:failure];
+}
+
 @end

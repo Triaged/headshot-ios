@@ -177,15 +177,17 @@
 {
     [[PhotoManager sharedManager] presentImagePickerForSourceType:sourceType fromViewController:self completion:^(UIImage *image, BOOL cancelled) {
         if (image) {
+            UIImage *currentImage=  self.avatarImageView.imageView.image;
+            self.avatarImageView.imageView.image = image;
             NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
-            NSDictionary *parameters = @{@"user" : @{@"avatar" : imageData}};
-            NSString *imageName = @"name";
-            [[HeadshotRequestAPIClient sharedClient] POST:@"account/" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                [formData appendPartWithFileData:imageData name:@"image" fileName:[imageName stringByAppendingString:@".jpg"] mimeType:@"image/jpg"];
+            [SVProgressHUD show];
+            [[HeadshotRequestAPIClient sharedClient] POST:@"account/avatar/" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                [formData appendPartWithFileData:imageData name:@"user[avatar]" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                
+                [SVProgressHUD dismiss];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                
+                [SVProgressHUD dismiss];
+                self.avatarImageView.imageView.image = currentImage;
             }];
         }
     }];
