@@ -7,7 +7,7 @@
 //
 
 #import "SettingsViewController.h"
-#import "EditProfileViewController.h"
+#import "EditAccountViewController.h"
 
 @interface SettingsViewController ()
 
@@ -22,11 +22,11 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:YES animated:YES];
+    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:YES animated:NO];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:YES];
+    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:NO];
 }
 
 
@@ -130,7 +130,7 @@
 
 - (void)editProfile
 {
-    EditProfileViewController *editProfileViewController = [[EditProfileViewController alloc] init];
+    EditAccountViewController *editProfileViewController = [[EditAccountViewController alloc] init];
     [self.navigationController pushViewController:editProfileViewController animated:YES];
 }
 
