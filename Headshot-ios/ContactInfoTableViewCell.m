@@ -22,9 +22,9 @@
     // Configure the view for the selected state
 }
 
-- (void)configureForArray:(NSArray *)array {
-    self.titleLabel.text = [array firstObject];
-    self.valueLabel.text = [array lastObject];
+- (void)configureForLabel:(NSString *)label andValue:(NSString *)value {
+    self.titleLabel.text = label;
+    self.valueLabel.text = value;
 }
 
 @end

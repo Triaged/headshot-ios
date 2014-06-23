@@ -60,6 +60,8 @@
     self.contactsDataSource.tableViewController = self;
     self.tableView.dataSource = self.contactsDataSource;
     self.tableView.delegate = self;
+    
+    self.contactsDataSource.users = [self loadCachedUsers];
 
     
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
@@ -78,8 +80,7 @@
 
 - (void) fetchContacts {
     [User usersWithCompletionHandler:^(NSArray *users, NSError *error) {
-        users = [User MR_findAll];
-        self.contactsDataSource.users = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier]];
+        self.contactsDataSource.users = [self loadCachedUsers];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     }];
@@ -110,6 +111,10 @@
     [self.navigationController pushViewController:contactVC animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(NSArray *)loadCachedUsers {
+    return [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier]];
 }
 
 

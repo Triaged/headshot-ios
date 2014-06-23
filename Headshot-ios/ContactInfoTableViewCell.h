@@ -13,6 +13,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *valueLabel;
 
-- (void)configureForArray:(NSArray *)array;
+- (void)configureForLabel:(NSString *)label andValue:(NSString *)value;
 
 @end

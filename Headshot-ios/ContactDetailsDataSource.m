@@ -187,7 +187,7 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         cell = [[ContactInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    [cell configureForArray:row];
+    [cell configureForLabel:[row firstObject] andValue:[row lastObject]];
     
     return cell;
 }

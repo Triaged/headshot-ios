@@ -48,7 +48,7 @@
 - (void)setupTableView
 {
     self.contactsDataSource = [[ContactsDataSource alloc] init];
-    self.contactsDataSource.users = [User MR_findAll];
+    self.contactsDataSource.users = [self loadCachedUsers];
 //    self.contactsDataSource.fetchedResultsController = [self fetchedResultsController];
     self.contactsDataSource.tableViewController = self;
     self.tableView.dataSource = self.contactsDataSource;
@@ -57,19 +57,10 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (!_fetchedResultsController) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"department == %@", _department];
-        _fetchedResultsController = [User MR_fetchAllSortedBy:nil
-                                                    ascending:NO
-                                                withPredicate:predicate
-                                                      groupBy:nil
-                                                     delegate:self.contactsDataSource];
-        
-    }
-    return _fetchedResultsController;
+-(NSArray *)loadCachedUsers {
+    return [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"department == %@", _department]];
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
