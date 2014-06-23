@@ -91,9 +91,7 @@
         nextViewController = self.selectOfficeViewController;
         [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:^(Account *account) {
             
-        } failure:^(NSError *error) {
-            
-        }];
+        } failure:nil];
     }
     else if (viewController == self.selectOfficeViewController) {
         nextViewController = self.locationPermissionsViewController;

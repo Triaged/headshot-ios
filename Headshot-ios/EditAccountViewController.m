@@ -7,6 +7,7 @@
 //
 
 #import "EditAccountViewController.h"
+#import <AFNetworking/UIKit+AFNetworking.h>
 #import "HeadshotRequestAPIClient.h"
 #import "OnboardSelectDepartmentViewController.h"
 #import "OnboardSelectManagersViewControllers.h"
@@ -32,6 +33,7 @@
 @property (strong, nonatomic) FormView *officeFormView;
 @property (strong, nonatomic) FormView *startDateFormView;
 @property (strong, nonatomic) FormView *birthdayFormView;
+@property (strong, nonatomic) UITextField *activeTextField;
 
 @end
 
@@ -121,10 +123,15 @@
 
 - (void)saveAccount
 {
+    if (self.activeTextField) {
+        [self.activeTextField resignFirstResponder];
+    }
+    [SVProgressHUD show];
     [self.account updateAccountWithSuccess:^(Account *account) {
-        
-    } failure:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
+        [[[UIAlertView alloc] initWithTitle:@"Saved" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
     }];
 }
 
@@ -355,6 +362,36 @@
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.activeTextField = textField;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.activeTextField = nil;
+    User *user = self.account.currentUser;
+    NSString *text = textField.text;
+    if (textField == self.firstNameFormView.textField) {
+        user.firstName = text;
+    }
+    else if (textField == self.lastNameFormView.textField) {
+        user.lastName = text;
+    }
+    else if (textField == self.emailFormView.textField) {
+        user.email = text;
+    }
+    else if (textField == self.homePhoneFormView.textField) {
+        user.employeeInfo.cellPhone = text;
+    }
+    else if (textField == self.workPhoneFormView.textField) {
+        user.employeeInfo.officePhone = text;
+    }
+    else if (textField == self.jobTitleFormView.textField) {
+        user.employeeInfo.jobTitle = text;
+    }
 }
 
 

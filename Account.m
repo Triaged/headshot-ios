@@ -10,6 +10,8 @@
 #import "NSDate+BadgeFormattedDate.h"
 #import "User.h"
 #import "EmployeeInfo.h"
+#import "Department.h"
+#import "OfficeLocation.h"
 #import "SLRESTfulCoreData.h"
 
 
@@ -29,13 +31,20 @@
     [self fetchObjectFromURL:URL completionHandler:completionHandler];
 }
 
-- (void)updateAccountWithSuccess:(void (^)(Account *account))success failure:(void (^)(NSError *error))failure
+- (void)updateAccountWithSuccess:(void (^)(Account *account))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
     NSMutableDictionary *userJSON = [[NSMutableDictionary alloc] init];
     userJSON[@"first_name"] = self.currentUser.firstName;
     userJSON[@"last_name"] = self.currentUser.lastName;
-    userJSON[@"department_id"] = @(2);
-    userJSON[@"primary_office_location_id"] = @(10);
+    if (self.currentUser.department) {
+        userJSON[@"department_id"] = self.currentUser.department.identifier;
+    }
+    if (self.currentUser.primaryOfficeLocation) {
+         userJSON[@"primary_office_location_id"] = self.currentUser.primaryOfficeLocation;
+    }
+    if (self.currentUser.manager) {
+        userJSON[@"manager_id"] = self.currentUser.manager.identifier;
+    }
     NSMutableDictionary *employeeInfoJSON = [[NSMutableDictionary alloc] init];
     employeeInfoJSON[@"job_title"] = self.currentUser.employeeInfo.jobTitle;
     employeeInfoJSON[@"cell_phone"] = self.currentUser.employeeInfo.cellPhone;
@@ -50,11 +59,7 @@
         if (success) {
             success(account);
         }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    } failure:failure];
 }
 
 - (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withSuccess:(void (^)())success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
