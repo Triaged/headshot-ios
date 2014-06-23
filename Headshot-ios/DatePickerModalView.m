@@ -9,6 +9,7 @@
 #import "DatePickerModalView.h"
 #import "UIView+Shadow.h"
 
+
 @interface DatePickerModalView()
 
 @property (strong, nonatomic) UIView *backgroundView;
@@ -33,9 +34,11 @@
     [self addSubview:self.backgroundView];
     
     
-    self.datePicker = [[UIDatePicker alloc] init];
+//    self.datePicker = [[UIDatePicker alloc] init];
+    self.datePicker = [[PMEDatePicker alloc] init];
     self.datePicker.backgroundColor = [UIColor whiteColor];
-    [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+    //[self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+    self.datePicker.dateFormatTemplate = @"MMMd";
     
     self.dateContainerView = [[UIView alloc] init];
     self.dateContainerView.height = 302;
@@ -89,5 +92,7 @@
 - (void)dateChanged:(id)sender
 {
 }
+
+
 
 @end

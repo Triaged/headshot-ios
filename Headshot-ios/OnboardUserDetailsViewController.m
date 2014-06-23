@@ -111,7 +111,7 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     self.tableView.tableFooterView = footerView;
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    self.dateFormatter.dateFormat = @"d LLLL yyyy";
+    self.dateFormatter.dateFormat = @"LLLL d";
 }
 
 - (void)setUser:(User *)user
@@ -175,16 +175,14 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 {
     if (indexPath.row == UserDetailFormBirthday) {
         DatePickerModalView *datePickerModalView = [[DatePickerModalView alloc] init];
-        datePickerModalView.datePicker.datePickerMode = UIDatePickerModeDate;
-        [datePickerModalView.datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+        datePickerModalView.datePicker.dateDelegate = self;
         [datePickerModalView show];
     }
 }
 
 #pragma mark - date picker
-- (void)datePickerValueChanged:(UIDatePicker *)datePicker
-{
-    self.birthday = datePicker.date;
+- (void)datePicker:(PMEDatePicker*)datePicker didSelectDate:(NSDate*)date {
+    self.birthday = date;
     self.user.employeeInfo.birthDate = self.birthday;
     self.birthdayFormView.textField.text = [self.dateFormatter stringFromDate:self.birthday];
 }
