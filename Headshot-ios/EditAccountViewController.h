@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Account.h"
 
-@interface EditProfileViewController : UITableViewController
+@interface EditAccountViewController : UITableViewController
+
+@property (strong, nonatomic) Account *account;
 
 @end
