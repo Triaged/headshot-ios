@@ -12,8 +12,11 @@
 #import "OnboardNavigationController.h"
 #import "CredentialStore.h"
 #import "LoginViewController.h"
+#import "ContactDetailsDataSource.h"
 
 @interface AccountViewController ()
+
+@property (nonatomic, strong) ContactDetailsDataSource *contactDetailsDataSource;
 
 @end
 
@@ -58,6 +61,26 @@
     self.avatarImageView.userInteractionEnabled = YES;
     [self.avatarImageView addGestureRecognizer:tap
      ];
+    
+    self.contactDetailsDataSource = [[ContactDetailsDataSource alloc] initWithUser:currentUser];
+    self.contactDetailsDataSource.contactVC = self;
+    self.contactDetailsTableView.dataSource = self.contactDetailsDataSource;
+    self.contactDetailsTableView.delegate = self.contactDetailsDataSource;
+    self.contactDetailsTableView.scrollEnabled = NO;
+    self.contactDetailsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.contactDetailsTableView registerNib:[UINib nibWithNibName:@"ContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"ContactInfoCell"];
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [self.contactDetailsTableView reloadData];
+}
+
+-(void)viewDidLayoutSubviews
+{
+    CGFloat height = MIN(self.view.bounds.size.height, self.contactDetailsTableView.contentSize.height);
+    self.tableHeightConstraint.constant = height;
+    [self.view layoutIfNeeded];
 }
 
 - (void)showOnboard

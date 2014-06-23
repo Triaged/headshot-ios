@@ -14,7 +14,7 @@
 
 @interface ContactDetailsDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) ContactViewController *contactVC;
+@property (strong, nonatomic) UIViewController *contactVC;
 @property (strong, nonatomic) User *currentUser;
 @property (strong, nonatomic) NSMutableArray *contactDetailsArray;
 
