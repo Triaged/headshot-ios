@@ -47,9 +47,13 @@
     NSDictionary *parameters = @{@"user" : userJSON};
     [[HeadshotAPIClient sharedClient] PUT:@"account/" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         Account *account = [Account updatedObjectWithRawJSONDictionary:responseObject inManagedObjectContext:self.managedObjectContext];
-        
+        if (success) {
+            success(account);
+        }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        if (failure) {
+            failure(error);
+        }
     }];
 }
 

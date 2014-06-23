@@ -12,8 +12,6 @@
 
 @interface OnboardSelectManagersViewControllers ()
 
-@property (strong, nonatomic) NSMutableSet *selectedUserSet;
-
 @end
 
 @implementation OnboardSelectManagersViewControllers
@@ -31,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.selectedUserSet = [[NSMutableSet alloc] init];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTouched:)];
     self.users = [User findAllExcludeCurrent];
 }
 
@@ -41,9 +39,11 @@
     [self.tableView reloadData];
 }
 
-- (NSArray *)selectedUsers
+- (void)cancelButtonTouched:(id)sender
 {
-    return self.selectedUserSet.allObjects;
+    if ([self.delegate respondsToSelector:@selector(didCancelSelectManagersViewController:)]) {
+        [self.delegate didCancelSelectManagersViewController:self];
+    }
 }
 
 #pragma mark - UITableView Data Source
@@ -72,25 +72,15 @@
     }
     User *user = [self userForIndexPath:indexPath];
     cell.user = user;
-    if ([self.selectedUserSet containsObject:user]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     User *user = [self userForIndexPath:indexPath];
-    if ([self.selectedUserSet containsObject:user]) {
-        [self.selectedUserSet removeObject:user];
+    if ([self.delegate respondsToSelector:@selector(selectManagersViewController:didSelectUser:)]) {
+        [self.delegate selectManagersViewController:self didSelectUser:user];
     }
-    else {
-        [self.selectedUserSet addObject:user];
-    }
-    [self.tableView reloadData];
 }
 
 

@@ -28,6 +28,8 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"Department";
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTouched:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -36,9 +38,11 @@
     self.departments = [Department MR_findAll];
 }
 
-- (BOOL)prefersStatusBarHidden
+- (void)cancelButtonTouched:(id)sender
 {
-    return YES;
+    if ([self.delegate respondsToSelector:@selector(didCancelSelectDepartmentViewController:)]) {
+        [self.delegate didCancelSelectDepartmentViewController:self];
+    }
 }
 
 #pragma mark - Table view data source

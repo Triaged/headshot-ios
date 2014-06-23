@@ -12,6 +12,7 @@
 @class OnboardSelectDepartmentViewController;
 @protocol OnboardSelectDepartmentViewControllerDelegate <NSObject>
 
+- (void)didCancelSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController;
 - (void)OnboardSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController didSelectDepartment:(Department *)department;
 
 @end

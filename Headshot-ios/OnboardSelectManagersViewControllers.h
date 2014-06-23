@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
+
+@class OnboardSelectManagersViewControllers;
+@protocol SelectManagersViewControllerDelegate <NSObject>
+
+- (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUser:(User *)user;
+- (void)didCancelSelectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController;
+
+@end
 
 @interface OnboardSelectManagersViewControllers : UITableViewController
 
 @property (strong, nonatomic) NSArray *users;
-@property (readonly) NSArray *selectedUsers;
+@property (weak, nonatomic) id<SelectManagersViewControllerDelegate>delegate;
 
 @end

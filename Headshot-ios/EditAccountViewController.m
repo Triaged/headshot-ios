@@ -8,6 +8,8 @@
 
 #import "EditAccountViewController.h"
 #import "HeadshotRequestAPIClient.h"
+#import "OnboardSelectDepartmentViewController.h"
+#import "OnboardSelectManagersViewControllers.h"
 #import "EditAvatarImageView.h"
 #import "FormView.h"
 #import "PhotoManager.h"
@@ -16,7 +18,7 @@
 #import "OfficeLocation.h"
 #import "EmployeeInfo.h"
 
-@interface EditAccountViewController () <UITextFieldDelegate>
+@interface EditAccountViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate>
 
 @property (strong, nonatomic) EditAvatarImageView *avatarImageView;
 @property (strong, nonatomic) FormView *firstNameFormView;
@@ -48,7 +50,7 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"Edit Profile";
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SAVE" style:UIBarButtonItemStyleDone target:self action:@selector(saveAccount)];
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 166)];
     self.avatarImageView = [[EditAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 105, 105)];
     UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTapped:)];
@@ -78,9 +80,15 @@
     self.jobTitleFormView.fieldName = @"Title";
     
     self.departmentFormView = [[FormView alloc] init];
+    self.departmentFormView.textField.userInteractionEnabled = NO;
+    UITapGestureRecognizer *departmentTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(departmentCellTapped:)];
+    [self.departmentFormView addGestureRecognizer:departmentTap];
     self.departmentFormView.fieldName = @"Department";
     
     self.managerFormView = [[FormView alloc] init];
+    self.managerFormView.textField.userInteractionEnabled = NO;
+    UITapGestureRecognizer *managerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(managerCellTapped:)];
+    [self.managerFormView addGestureRecognizer:managerTap];
     self.managerFormView.fieldName = @"Reporting to";
     
     self.officeFormView = [[FormView alloc] init];
@@ -111,10 +119,24 @@
     [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:NO];
 }
 
+- (void)saveAccount
+{
+    [self.account updateAccountWithSuccess:^(Account *account) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 - (void)setAccount:(Account *)account
 {
     _account = account;
-    User *user = account.currentUser;
+    [self reloadData];
+}
+
+- (void)reloadData
+{
+    User *user = self.account.currentUser;
     NSURL *url = [NSURL URLWithString:user.avatarUrl];
     [self.avatarImageView.imageView setImageWithURL:url];
     
@@ -132,7 +154,10 @@
     if (office) {
         self.officeFormView.textField.text = office.name;
     }
-    
+    User *manager = user.manager;
+    if (manager) {
+        self.managerFormView.textField.text = manager.fullName;
+    }
 }
 
 - (void)avatarTapped:(id)sender
@@ -151,16 +176,18 @@
 - (void)presentPhotoPickerWithSourceType:(UIImagePickerControllerSourceType)sourceType
 {
     [[PhotoManager sharedManager] presentImagePickerForSourceType:sourceType fromViewController:self completion:^(UIImage *image, BOOL cancelled) {
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
-        NSDictionary *parameters = @{@"user" : @{@"avatar" : imageData}};
-        NSString *imageName = @"name";
-        [[HeadshotRequestAPIClient sharedClient] POST:@"account/" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:imageData name:@"image" fileName:[imageName stringByAppendingString:@".jpg"] mimeType:@"image/jpg"];
-        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-        }];
+        if (image) {
+            NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
+            NSDictionary *parameters = @{@"user" : @{@"avatar" : imageData}};
+            NSString *imageName = @"name";
+            [[HeadshotRequestAPIClient sharedClient] POST:@"account/" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                [formData appendPartWithFileData:imageData name:@"image" fileName:[imageName stringByAppendingString:@".jpg"] mimeType:@"image/jpg"];
+            } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+            }];
+        }
     }];
 }
 
@@ -191,8 +218,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    CGFloat height = !section ? 30 : 66;
-    return height;
+    return 30;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 36;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -209,6 +240,13 @@
     label.text = [self tableView:tableView titleForHeaderInSection:section];
     [view addSubview:label];
     
+    return view;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, [self tableView:tableView heightForFooterInSection:section])];
+    view.backgroundColor = [UIColor clearColor];
     return view;
 }
 
@@ -265,6 +303,49 @@
     formView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [cell.contentView addSubview:formView];
     return cell;
+}
+
+- (void)managerCellTapped:(id)sender
+{
+    OnboardSelectManagersViewControllers *selectManagersViewController = [[OnboardSelectManagersViewControllers alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:selectManagersViewController];
+    selectManagersViewController.delegate = self;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)departmentCellTapped:(id)sender
+{
+    OnboardSelectDepartmentViewController *departmentViewController = [[OnboardSelectDepartmentViewController alloc] init];
+    departmentViewController.delegate = self;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:departmentViewController];
+    [self presentViewController:navigationController animated:YES completion:nil];
+    
+}
+
+#pragma mark - Select Department View Controller Delegate
+- (void)didCancelSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)OnboardSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController didSelectDepartment:(Department *)department
+{
+    self.account.currentUser.department = department;
+    [self reloadData];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Select Manager View Controller Delegate
+- (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUser:(User *)user
+{
+    self.account.currentUser.manager = user;
+    [self reloadData];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)didCancelSelectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate
