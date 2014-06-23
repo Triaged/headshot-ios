@@ -120,8 +120,15 @@
 }
 
 - (IBAction)callTapped:(id)sender {
-    if (self.user.employeeInfo.cellPhone) {
+    if (self.user.employeeInfo.cellPhone && self.user.employeeInfo.officePhone) {
+        
+         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Cell Phone", @"Office Phone", nil];
+        
+    } else if (self.user.employeeInfo.cellPhone) {
         NSString *phoneNumber = [@"telprompt://" stringByAppendingString:self.user.employeeInfo.cellPhone];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    } else if (self.user.employeeInfo.officePhone) {
+        NSString *phoneNumber = [@"telprompt://" stringByAppendingString:self.user.employeeInfo.officePhone];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
     }
 }
