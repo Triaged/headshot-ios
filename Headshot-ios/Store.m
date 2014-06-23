@@ -85,7 +85,7 @@
 -(void)logout
 {
     [[CredentialStore sharedClient] clearSavedCredentials];
-    [[NSNotificationCenter defaultCenter] postNotification:@"logout"];
+    //[[NSNotificationCenter defaultCenter] postNotification:@"logout"];
     
 }
 
