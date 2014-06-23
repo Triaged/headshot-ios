@@ -28,7 +28,9 @@
 
 - (BOOL)isLoggedIn {
     NSLog(@"%@", [self authToken]);
-    return [self authToken] != nil;
+    BOOL isLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
+    BOOL hasAuthToken = self.authToken != nil;
+    return isLoggedIn && hasAuthToken;
 }
 
 - (void)clearSavedCredentials {

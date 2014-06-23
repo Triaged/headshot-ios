@@ -32,7 +32,7 @@
     self = [super init];
     if (self) {
         if ([[CredentialStore sharedClient] isLoggedIn]) {
-            [self userLoggedInWithAccount:[self currentAccount]];
+            [self setUpAccount:[self currentAccount]];
         }
     }
     return self;
@@ -57,6 +57,13 @@
 
 #pragma mark - User Authentication
 - (void)userLoggedInWithAccount:(Account *)account
+{
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsLoggedIn];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self setUpAccount:account];
+}
+
+- (void)setUpAccount:(Account *)account
 {
 #if !DEBUG
     UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
@@ -84,6 +91,8 @@
 
 -(void)logout
 {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kUserDefaultsLoggedIn];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [[CredentialStore sharedClient] clearSavedCredentials];
     //[[NSNotificationCenter defaultCenter] postNotification:@"logout"];
     

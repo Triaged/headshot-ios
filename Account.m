@@ -7,6 +7,7 @@
 //
 
 #import "Account.h"
+#import "NSDate+BadgeFormattedDate.h"
 #import "User.h"
 #import "EmployeeInfo.h"
 #import "SLRESTfulCoreData.h"
@@ -38,7 +39,10 @@
     NSMutableDictionary *employeeInfoJSON = [[NSMutableDictionary alloc] init];
     employeeInfoJSON[@"job_title"] = self.currentUser.employeeInfo.jobTitle;
     employeeInfoJSON[@"cell_phone"] = self.currentUser.employeeInfo.cellPhone;
-    employeeInfoJSON[@"job_start_date"] = [[NSDate date] badgeFormattedDate];
+    if (self.currentUser.employeeInfo.birthDate) {
+        employeeInfoJSON[@"birth_date"] = self.currentUser.employeeInfo.birthDate.badgeFormattedDate;
+    }
+    employeeInfoJSON[@"job_start_date"] = [NSDate date].badgeFormattedDate;
     userJSON[@"employee_info_attributes"] = employeeInfoJSON;
     NSDictionary *parameters = @{@"user" : userJSON};
     [[HeadshotAPIClient sharedClient] PUT:@"account/" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
