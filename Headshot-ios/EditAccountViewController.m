@@ -7,8 +7,10 @@
 //
 
 #import "EditAccountViewController.h"
+#import "HeadshotRequestAPIClient.h"
 #import "EditAvatarImageView.h"
 #import "FormView.h"
+#import "PhotoManager.h"
 #import "User.h"
 #import "Department.h"
 #import "OfficeLocation.h"
@@ -49,6 +51,9 @@
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 166)];
     self.avatarImageView = [[EditAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 105, 105)];
+    UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTapped:)];
+    self.avatarImageView.userInteractionEnabled = YES;
+    [self.avatarImageView addGestureRecognizer:avatarTap];
     self.avatarImageView.centerX = headerView.width/2.0;
     self.avatarImageView.centerY = headerView.height/2.0;
     [headerView addSubview:self.avatarImageView];
@@ -128,6 +133,35 @@
         self.officeFormView.textField.text = office.name;
     }
     
+}
+
+- (void)avatarTapped:(id)sender
+{
+    UIActionSheet *actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Edit Photo"];
+    [actionSheet bk_addButtonWithTitle:@"Take Photo" handler:^{
+        [self presentPhotoPickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+    }];
+    [actionSheet bk_addButtonWithTitle:@"Camera Roll" handler:^{
+        [self presentPhotoPickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }];
+    [actionSheet bk_setCancelButtonWithTitle:@"Cancel" handler:nil];
+    [actionSheet showInView:self.tableView];
+}
+
+- (void)presentPhotoPickerWithSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    [[PhotoManager sharedManager] presentImagePickerForSourceType:sourceType fromViewController:self completion:^(UIImage *image, BOOL cancelled) {
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
+        NSDictionary *parameters = @{@"user" : @{@"avatar" : imageData}};
+        NSString *imageName = @"name";
+        [[HeadshotRequestAPIClient sharedClient] POST:@"account/" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:imageData name:@"image" fileName:[imageName stringByAppendingString:@".jpg"] mimeType:@"image/jpg"];
+        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+    }];
 }
 
 #pragma mark - Table view data source

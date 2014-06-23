@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA0194AD89300F6A4AF /* DefaultTheme.m */; };
 		9647ACA4194AD89300F6A4AF /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA2194AD89300F6A4AF /* Theme.m */; };
+		964839841958A1E600E4792A /* PhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 964839831958A1E600E4792A /* PhotoManager.m */; };
 		964A6BD3194E2C180024B3C2 /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD0194E2C180024B3C2 /* UIView+Shadow.m */; };
 		964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD2194E2C180024B3C2 /* UIView+Edge.m */; };
 		964A6BD7194E31C40024B3C2 /* OnboardUserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BD6194E31C40024B3C2 /* OnboardUserDetailsViewController.m */; };
@@ -123,6 +124,8 @@
 		9647ACA0194AD89300F6A4AF /* DefaultTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTheme.m; sourceTree = "<group>"; };
 		9647ACA1194AD89300F6A4AF /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		9647ACA2194AD89300F6A4AF /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
+		964839821958A1E600E4792A /* PhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoManager.h; sourceTree = "<group>"; };
+		964839831958A1E600E4792A /* PhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoManager.m; sourceTree = "<group>"; };
 		964A6BCF194E2C180024B3C2 /* UIView+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shadow.h"; sourceTree = "<group>"; };
 		964A6BD0194E2C180024B3C2 /* UIView+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shadow.m"; sourceTree = "<group>"; };
 		964A6BD1194E2C180024B3C2 /* UIView+Edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Edge.h"; sourceTree = "<group>"; };
@@ -331,6 +334,15 @@
 			name = theme;
 			sourceTree = "<group>";
 		};
+		964839811958A1D900E4792A /* other */ = {
+			isa = PBXGroup;
+			children = (
+				964839821958A1E600E4792A /* PhotoManager.h */,
+				964839831958A1E600E4792A /* PhotoManager.m */,
+			);
+			name = other;
+			sourceTree = "<group>";
+		};
 		964A6BCE194E2BF60024B3C2 /* categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,6 +522,7 @@
 		CBBA686A192FD646005A6949 /* Headshot-ios */ = {
 			isa = PBXGroup;
 			children = (
+				964839811958A1D900E4792A /* other */,
 				964A6BCE194E2BF60024B3C2 /* categories */,
 				96696334194E1F53003B22B5 /* views */,
 				9669632D194B504E003B22B5 /* notifications */,
@@ -913,6 +926,7 @@
 				CB1F31B41931749D00CDCFD4 /* SinchClient.m in Sources */,
 				964A6BDA194E35DE0024B3C2 /* OnboardNavigationController.m in Sources */,
 				CBBA68E7192FE185005A6949 /* LoginViewController.m in Sources */,
+				964839841958A1E600E4792A /* PhotoManager.m in Sources */,
 				CB8FF1B019588C7900DDD51B /* MailComposer.m in Sources */,
 				CBBA68AC192FD8FD005A6949 /* HeadshotAPIClient.m in Sources */,
 			);
