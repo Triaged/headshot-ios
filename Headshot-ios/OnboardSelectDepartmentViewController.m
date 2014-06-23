@@ -30,6 +30,12 @@
     self.navigationItem.title = @"Department";
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.departments = [Department MR_findAll];
+}
+
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
@@ -95,8 +101,11 @@
         UITextField *textField = [alertView textFieldAtIndex:0];
         Department *department = [Department MR_createInContext:[[TRDataStoreManager sharedInstance] backgroundThreadManagedObjectContext]];
         department.name = textField.text;
+        [SVProgressHUD show];
         [department createWithCompletionHandler:^(id managedObject, NSError *error) {
-            
+            [SVProgressHUD dismiss];
+            self.departments = [Department MR_findAll];
+            [self.tableView reloadData];
         }];
     }
 }

@@ -142,7 +142,6 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     if (indexPath.row == JobTableRowDepartment) {
         self.selectDepartmentViewController = [[OnboardSelectDepartmentViewController alloc] init];
         self.selectDepartmentViewController.delegate = self;
-        self.selectDepartmentViewController.departments = [Department MR_findAll];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.selectDepartmentViewController];
         navigationController.navigationBar.translucent = NO;
         self.selectDepartmentViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(modalCancelButtonTouched:)];
