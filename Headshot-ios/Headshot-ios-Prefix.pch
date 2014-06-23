@@ -15,6 +15,7 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import <UIView+Positioning.h>
+    #import <BlocksKit+UIKit.h>
     #import <SVProgressHUD.h>
     #import "UIView+Edge.h"
     #import "UIView+Shadow.h"
