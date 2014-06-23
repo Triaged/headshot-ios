@@ -64,6 +64,7 @@ PODS:
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
   - NSDate+TimeAgo (1.0.3)
+  - PMEDatePicker (0.0.1)
   - RDVTabBarController (1.1.6)
   - SGNavigationProgress (1.2)
   - SLCoreDataStack (0.5.0)
@@ -93,6 +94,7 @@ DEPENDENCIES:
   - MRProgress (~> 0.2)
   - NJKWebViewProgress
   - NSDate+TimeAgo
+  - PMEDatePicker (~> 0.0.1)
   - RDVTabBarController
   - SGNavigationProgress
   - SLRESTfulCoreData
@@ -113,6 +115,7 @@ SPEC CHECKSUMS:
   MRProgress: e588fb8d0fba293715eaf0e485dd8402f4ce1de6
   NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1
   NSDate+TimeAgo: f3533e0198fab05b716368b19f8c2185d53d6f3b
+  PMEDatePicker: a44e15d953cf7c568d2546914d088463431f1f18
   RDVTabBarController: 252dafb16725f9a07026618ff51acf06a12b206b
   SGNavigationProgress: 6c38006ca3c652618411c67d493b263343d5aece
   SLCoreDataStack: 18c6fb041fa421ac6957185732e936fea512d470

@@ -105,6 +105,7 @@
 - (void)setupLoggedInUser
 {
     self.store = [[Store alloc] init];
+    [self.store logout];
     
     //  if ([self.store.currentAccount isLoggedIn]) {
      //       if([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {

@@ -16,4 +16,5 @@ pod 'Vertigo'
 pod 'JSQMessagesViewController'
 pod 'UIView+Positioning'
 pod 'INTULocationManager'
+pod "PMEDatePicker", "~> 0.0.1"
 

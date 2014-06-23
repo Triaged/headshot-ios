@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PMEDatePicker.h"
 
 @interface DatePickerModalView : UIView
 
-@property (strong, nonatomic) UIDatePicker *datePicker;
+@property (strong, nonatomic) PMEDatePicker *datePicker;
 
 - (void)show;
 

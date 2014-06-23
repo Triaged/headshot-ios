@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "OnboardNavigationController.h"
 #import "User.h"
+#import "PMEDatePicker.h"
 
-@interface OnboardUserDetailsViewController : UITableViewController <OnboardViewController>
+@interface OnboardUserDetailsViewController : UITableViewController <OnboardViewController, PMEDatePickerDelegate>
 
 @property (strong, nonatomic) User *user;
 
