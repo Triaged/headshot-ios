@@ -36,8 +36,8 @@
     
     [self setupTableView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"NEW" style:UIBarButtonItemStylePlain target:self action:@selector(newThread)];
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newThread)];
+                                              
 }
 
 - (void)viewWillAppear:(BOOL)animated

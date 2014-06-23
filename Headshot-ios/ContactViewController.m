@@ -121,22 +121,25 @@
 
 - (IBAction)callTapped:(id)sender {
     
-    if (self.user.employeeInfo.cellPhone ) {
-        UIActionSheet *actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Choose Phone"];
-        [actionSheet bk_addButtonWithTitle:@"Cell Phone" handler:^{
-            [self callCellPhone];
-        }];
-        [actionSheet bk_addButtonWithTitle:@"Office Phone" handler:^{
-            [self callOfficePhone];
-        }];
-        [actionSheet bk_setCancelButtonWithTitle:@"Cancel" handler:nil];
-        [actionSheet showFromTabBar:(UITabBar *)[AppDelegate sharedDelegate].tabBarController.tabBar];
-        
+    if (self.user.employeeInfo.cellPhone && self.user.employeeInfo.officePhone) {
+        [self callCellOrOffice];
     } else if (self.user.employeeInfo.cellPhone) {
         [self callCellPhone];
     } else if (self.user.employeeInfo.officePhone) {
         [self callOfficePhone];
            }
+}
+
+- (void) callCellOrOffice {
+    UIActionSheet *actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Choose Phone"];
+    [actionSheet bk_addButtonWithTitle:@"Cell Phone" handler:^{
+        [self callCellPhone];
+    }];
+    [actionSheet bk_addButtonWithTitle:@"Office Phone" handler:^{
+        [self callOfficePhone];
+    }];
+    [actionSheet bk_setCancelButtonWithTitle:@"Cancel" handler:nil];
+    [actionSheet showFromTabBar:(UITabBar *)[AppDelegate sharedDelegate].tabBarController.tabBar];
 }
 
 - (void) callCellPhone {
