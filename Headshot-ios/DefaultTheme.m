@@ -60,6 +60,11 @@
     return [[UIColor alloc] initWithRed:248.0f/255.0f green:172.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
 }
 
+- (UIColor *)tableViewSeparatorColor
+{
+    return [UIColor colorWithRed:200/255.0 green:199/255.0 blue:204/255.0 alpha:1.0];
+}
+
 
 - (void)customizeAppearance
 {

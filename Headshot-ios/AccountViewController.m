@@ -13,6 +13,7 @@
 #import "CredentialStore.h"
 #import "LoginViewController.h"
 #import "ContactDetailsDataSource.h"
+#import "SettingsViewController.h"
 
 @interface AccountViewController ()
 
@@ -87,7 +88,8 @@
 
 - (void)showOnboard
 {
-    [AppDelegate sharedDelegate].window.rootViewController = [[OnboardNavigationController alloc] init];
+//    [AppDelegate sharedDelegate].window.rootViewController = [[OnboardNavigationController alloc] init];
+    [self.navigationController pushViewController:[SettingsViewController new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,7 +100,8 @@
 
 -(void)showSettings
 {
-    
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+    [self.navigationController pushViewController:settingsViewController animated:YES];
 }
 
 @end
