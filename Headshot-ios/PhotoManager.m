@@ -7,7 +7,6 @@
 //
 
 #import "PhotoManager.h"
-#import "UIImage+Resize.h"
 
 typedef void (^PhotoPickerCompletionBlock)(UIImage *image, BOOL cancelled);
 
@@ -42,13 +41,6 @@ typedef void (^PhotoPickerCompletionBlock)(UIImage *image, BOOL cancelled);
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    UIImage *scaledImage;
-    if (image.size.width >= image.size.height) {
-        scaledImage = [image scaledToSize:CGSizeMake(720.0, 720.0*image.size.height/image.size.width)];
-    }
-    else {
-        scaledImage = [image scaledToSize:CGSizeMake(720*image.size.width/image.size.height, 720)];
-    }
     if (self.photoPickerCompletionBlock) {
         self.photoPickerCompletionBlock(image, NO);
     }
