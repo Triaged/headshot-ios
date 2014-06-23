@@ -120,10 +120,34 @@
 }
 
 - (IBAction)callTapped:(id)sender {
-    if (self.user.employeeInfo.cellPhone) {
-        NSString *phoneNumber = [@"telprompt://" stringByAppendingString:self.user.employeeInfo.cellPhone];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
-    }
+    
+    if (self.user.employeeInfo.cellPhone ) {
+        UIActionSheet *actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Choose Phone"];
+        [actionSheet bk_addButtonWithTitle:@"Cell Phone" handler:^{
+            [self callCellPhone];
+        }];
+        [actionSheet bk_addButtonWithTitle:@"Office Phone" handler:^{
+            [self callOfficePhone];
+        }];
+        [actionSheet bk_setCancelButtonWithTitle:@"Cancel" handler:nil];
+        [actionSheet showFromTabBar:(UITabBar *)[AppDelegate sharedDelegate].tabBarController.tabBar];
+        
+    } else if (self.user.employeeInfo.cellPhone) {
+        [self callCellPhone];
+    } else if (self.user.employeeInfo.officePhone) {
+        [self callOfficePhone];
+           }
+}
+
+- (void) callCellPhone {
+    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:self.user.employeeInfo.cellPhone];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+}
+
+- (void) callOfficePhone {
+    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:self.user.employeeInfo.officePhone];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
