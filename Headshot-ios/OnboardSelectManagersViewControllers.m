@@ -7,10 +7,13 @@
 //
 
 #import "OnboardSelectManagersViewControllers.h"
+#import "ContactsDataSource.h"
 #import "ContactCell.h"
 #import "User.h"
 
 @interface OnboardSelectManagersViewControllers ()
+
+@property (strong, nonatomic) ContactsDataSource *contactsDataSource;
 
 @end
 
@@ -30,7 +33,11 @@
 {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTouched:)];
-    self.users = [User findAllExcludeCurrent];
+    self.contactsDataSource = [[ContactsDataSource alloc] init];
+    self.tableView.dataSource = self.contactsDataSource;
+    self.contactsDataSource.users = [User findAllExcludeCurrent];
+    
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (void)setUsers:(NSArray *)users
@@ -60,6 +67,11 @@
 - (User *)userForIndexPath:(NSIndexPath *)indexPath
 {
     return self.users[indexPath.row];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.contactsDataSource tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
