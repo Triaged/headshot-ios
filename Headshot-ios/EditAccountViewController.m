@@ -11,6 +11,7 @@
 #import "HeadshotRequestAPIClient.h"
 #import "OnboardSelectDepartmentViewController.h"
 #import "OnboardSelectManagersViewControllers.h"
+#import "OfficesViewController.h"
 #import "EditAvatarImageView.h"
 #import "FormView.h"
 #import "PhotoManager.h"
@@ -20,7 +21,7 @@
 #import "EmployeeInfo.h"
 #import "DatePickerModalView.h"
 
-@interface EditAccountViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate, PMEDatePickerDelegate>
+@interface EditAccountViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate, OfficesViewControllerDelegate, PMEDatePickerDelegate>
 
 @property (strong, nonatomic) EditAvatarImageView *avatarImageView;
 @property (strong, nonatomic) FormView *firstNameFormView;
@@ -96,6 +97,9 @@
     self.managerFormView.fieldName = @"Reporting to";
     
     self.officeFormView = [[FormView alloc] init];
+    self.officeFormView.textField.userInteractionEnabled = NO;
+    UITapGestureRecognizer *officeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(officeCellTapped:)];
+    [self.officeFormView addGestureRecognizer:officeTap];
     self.officeFormView.fieldName = @"Office";
     
     self.startDateFormView = [[FormView alloc] init];
@@ -334,17 +338,15 @@
 - (void)managerCellTapped:(id)sender
 {
     OnboardSelectManagersViewControllers *selectManagersViewController = [[OnboardSelectManagersViewControllers alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:selectManagersViewController];
     selectManagersViewController.delegate = self;
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self presentViewControllerWithNav:selectManagersViewController animated:YES completion:nil];
 }
 
 - (void)departmentCellTapped:(id)sender
 {
     OnboardSelectDepartmentViewController *departmentViewController = [[OnboardSelectDepartmentViewController alloc] init];
     departmentViewController.delegate = self;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:departmentViewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self presentViewControllerWithNav:departmentViewController animated:YES completion:nil];
     
 }
 
@@ -363,6 +365,13 @@
     datePickerModalView.hidesYear = YES;
     self.selectedDateFormView = self.birthdayFormView;
     [datePickerModalView show];
+}
+
+- (void)officeCellTapped:(id)sender
+{
+    OfficesViewController *officeViewController = [[OfficesViewController alloc] init];
+    officeViewController.delegate = self;
+    [self presentViewControllerWithNav:officeViewController animated:YES completion:nil];
 }
 
 #pragma mark - Select Department View Controller Delegate
@@ -438,6 +447,19 @@
         self.account.currentUser.employeeInfo.jobStartDate = date;
     }
     [self reloadData];
+}
+
+#pragma mark - Office View Controller Delegate
+- (void)didCancelOfficesViewController:(OfficesViewController *)officesViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)officesViewController:(OfficesViewController *)officesViewController didSelectOffice:(OfficeLocation *)office
+{
+    self.account.currentUser.primaryOfficeLocation = office;
+    [self reloadData];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

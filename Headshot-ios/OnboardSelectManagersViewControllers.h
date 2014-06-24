@@ -19,7 +19,6 @@
 
 @interface OnboardSelectManagersViewControllers : UITableViewController
 
-@property (strong, nonatomic) NSArray *users;
 @property (weak, nonatomic) id<SelectManagersViewControllerDelegate>delegate;
 
 @end

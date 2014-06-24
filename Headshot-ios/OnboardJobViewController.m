@@ -142,25 +142,13 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     if (indexPath.row == JobTableRowDepartment) {
         self.selectDepartmentViewController = [[OnboardSelectDepartmentViewController alloc] init];
         self.selectDepartmentViewController.delegate = self;
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.selectDepartmentViewController];
-        navigationController.navigationBar.translucent = NO;
-        self.selectDepartmentViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(modalCancelButtonTouched:)];
-        [self presentViewController:navigationController animated:YES completion:^{
-            
-        }];
+        [self presentViewControllerWithNav:self.selectDepartmentViewController animated:YES completion:nil];
     }
     else if (indexPath.row == JobTableRowManager) {
         self.selectManagersViewController = [[OnboardSelectManagersViewControllers alloc] init];
         self.selectManagersViewController.delegate = self;
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.selectManagersViewController];
-        navigationController.navigationBar.translucent = NO;
-        [self presentViewController:navigationController animated:YES completion:nil];
+        [self presentViewControllerWithNav:self.selectManagersViewController animated:YES completion:nil];
     }
-}
-
-- (void)modalCancelButtonTouched:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Select Department View Controller Delegate
@@ -169,6 +157,11 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     self.selectedDepartment = department;
     self.departmentFormView.textField.text = department.name;
     [AppDelegate sharedDelegate].store.currentAccount.currentUser.department = department;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)didCancelSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

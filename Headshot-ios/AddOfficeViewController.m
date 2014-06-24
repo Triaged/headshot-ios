@@ -6,13 +6,12 @@
 //  Copyright (c) 2014 Charlie White. All rights reserved.
 //
 
-#import "OnboardAddOfficeViewController.h"
+#import "AddOfficeViewController.h"
 #import <INTULocationManager.h>
 #import "FormView.h"
 #import "Geofencer.h"
-#import "OfficeLocation.h"
 
-@interface OnboardAddOfficeViewController () <UITextFieldDelegate>
+@interface AddOfficeViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) FormView *addressFormView;
 @property (strong, nonatomic) FormView *cityFormView;
@@ -24,18 +23,20 @@
 
 @end
 
-@implementation OnboardAddOfficeViewController
+@implementation AddOfficeViewController
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTouched:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButtonTouched:)];
     
     CGFloat formHeight = 44;
     self.formContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, formHeight*2)];
     self.formContainerView.backgroundColor = [UIColor whiteColor];
-    self.formContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.formContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+
     [self.view addSubview:self.formContainerView];
     
     self.addressFormView = [[FormView alloc] initWithFrame:CGRectMake(0, 0, self.formContainerView.width, formHeight)];
@@ -142,9 +143,19 @@
     [self.addressFormView becomeFirstResponder];
 }
 
+- (void)cancelButtonTouched:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(didCancelOfficeViewController:)]) {
+        [self.delegate didCancelOfficeViewController:self];
+    }
+}
+
 - (void)addButtonTouched:(id)sender
 {
     [self.officeLocation postWithSuccess:^(OfficeLocation *officeLocation) {
+        if ([self.delegate respondsToSelector:@selector(addOfficeViewController:didAddOffice:)]) {
+            [self.delegate addOfficeViewController:self didAddOffice:officeLocation];
+        }
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
         

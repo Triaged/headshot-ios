@@ -36,15 +36,16 @@
     NSMutableDictionary *userJSON = [[NSMutableDictionary alloc] init];
     userJSON[@"first_name"] = self.currentUser.firstName;
     userJSON[@"last_name"] = self.currentUser.lastName;
-    if (self.currentUser.department) {
-        userJSON[@"department_id"] = self.currentUser.department.identifier;
-    }
-    if (self.currentUser.primaryOfficeLocation) {
-         userJSON[@"primary_office_location_id"] = self.currentUser.primaryOfficeLocation.identifier;
-    }
-    if (self.currentUser.manager) {
-        userJSON[@"manager_id"] = self.currentUser.manager.identifier;
-    }
+    
+    Department *department = self.currentUser.department;
+    userJSON[@"department_id"] = department ? department.identifier : [NSNull null];
+    
+    OfficeLocation *primaryOfficeLocation = self.currentUser.primaryOfficeLocation;
+    userJSON[@"primary_office_location_id"] = primaryOfficeLocation ? primaryOfficeLocation.identifier : [NSNull null];
+    
+    User *manager = self.currentUser.manager;
+    userJSON[@"manager_id"] = manager ? manager.identifier : [NSNull null];
+
     NSMutableDictionary *employeeInfoJSON = [[NSMutableDictionary alloc] init];
     employeeInfoJSON[@"job_title"] = self.currentUser.employeeInfo.jobTitle;
     employeeInfoJSON[@"cell_phone"] = self.currentUser.employeeInfo.cellPhone;

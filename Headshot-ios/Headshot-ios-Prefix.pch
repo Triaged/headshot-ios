@@ -17,6 +17,7 @@
     #import <UIView+Positioning.h>
     #import <BlocksKit+UIKit.h>
     #import <SVProgressHUD.h>
+    #import "UIViewController+PresentWithNavigationViewController.h"
     #import "UIView+Edge.h"
     #import "UIView+Shadow.h"
     #import "NSDate+BadgeFormattedDate.h"

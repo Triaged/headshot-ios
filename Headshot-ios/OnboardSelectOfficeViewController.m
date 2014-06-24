@@ -7,7 +7,7 @@
 //
 
 #import "OnboardSelectOfficeViewController.h"
-#import "OnboardAddOfficeViewController.h"
+#import "AddOfficeViewController.h"
 #import "OfficeLocation.h"
 
 @interface OnboardSelectOfficeViewController ()
@@ -129,7 +129,7 @@
         self.selectedOffice = nil;
     }
     else {
-        OnboardAddOfficeViewController *addOfficeViewController = [[OnboardAddOfficeViewController alloc] init];
+        AddOfficeViewController *addOfficeViewController = [[AddOfficeViewController alloc] init];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addOfficeViewController];
         navigationController.navigationBar.translucent = NO;
         [self presentViewController:navigationController animated:YES completion:nil];

@@ -40,12 +40,6 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
-- (void)setUsers:(NSArray *)users
-{
-    _users = users;
-    [self.tableView reloadData];
-}
-
 - (void)cancelButtonTouched:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(didCancelSelectManagersViewController:)]) {
@@ -54,42 +48,17 @@
 }
 
 #pragma mark - UITableView Data Source
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.users.count;
-}
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (User *)userForIndexPath:(NSIndexPath *)indexPath
-{
-    return self.users[indexPath.row];
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self.contactsDataSource tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"CellIndentifer";
-    ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[ContactCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    User *user = [self userForIndexPath:indexPath];
-    cell.user = user;
-    return cell;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    User *user = [self userForIndexPath:indexPath];
+    User *user = [self.contactsDataSource userAtIndexPath:indexPath];
     if ([self.delegate respondsToSelector:@selector(selectManagersViewController:didSelectUser:)]) {
         [self.delegate selectManagersViewController:self didSelectUser:user];
     }
