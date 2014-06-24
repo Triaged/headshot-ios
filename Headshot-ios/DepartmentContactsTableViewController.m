@@ -61,6 +61,11 @@
     return [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"department == %@", _department]];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.contactsDataSource tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
