@@ -18,8 +18,9 @@
 #import "Department.h"
 #import "OfficeLocation.h"
 #import "EmployeeInfo.h"
+#import "DatePickerModalView.h"
 
-@interface EditAccountViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate>
+@interface EditAccountViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate, PMEDatePickerDelegate>
 
 @property (strong, nonatomic) EditAvatarImageView *avatarImageView;
 @property (strong, nonatomic) FormView *firstNameFormView;
@@ -34,6 +35,7 @@
 @property (strong, nonatomic) FormView *startDateFormView;
 @property (strong, nonatomic) FormView *birthdayFormView;
 @property (strong, nonatomic) UITextField *activeTextField;
+@property (strong, nonatomic) FormView *selectedDateFormView;
 
 @end
 
@@ -97,9 +99,15 @@
     self.officeFormView.fieldName = @"Office";
     
     self.startDateFormView = [[FormView alloc] init];
+    self.startDateFormView.textField.userInteractionEnabled = NO;
+    UITapGestureRecognizer *startDateTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startDateCellTapped:)];
+    [self.startDateFormView addGestureRecognizer:startDateTap];
     self.startDateFormView.fieldName = @"Start Date";
     
     self.birthdayFormView = [[FormView alloc] init];
+    self.birthdayFormView.textField.userInteractionEnabled = NO;
+    UITapGestureRecognizer *birthdayTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(birthdayCellTapped:)];
+    [self.birthdayFormView addGestureRecognizer:birthdayTap];
     self.birthdayFormView.fieldName = @"Birthday";
     
     for (FormView *formView in @[self.firstNameFormView, self.lastNameFormView, self.emailFormView, self.workPhoneFormView, self.homePhoneFormView, self.jobTitleFormView, self.departmentFormView, self.managerFormView, self.officeFormView, self.startDateFormView, self.birthdayFormView]) {
@@ -164,6 +172,15 @@
     User *manager = user.manager;
     if (manager) {
         self.managerFormView.textField.text = manager.fullName;
+    }
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    if (user.employeeInfo.birthDate) {
+        dateFormatter.dateFormat = @"MMM d";
+        self.birthdayFormView.textField.text = [dateFormatter stringFromDate:user.employeeInfo.birthDate];
+    }
+    if (user.employeeInfo.jobStartDate) {
+        dateFormatter.dateFormat = @"MMM d yyyy";
+        self.startDateFormView.textField.text = [dateFormatter stringFromDate:user.employeeInfo.jobStartDate];
     }
 }
 
@@ -331,6 +348,23 @@
     
 }
 
+- (void)startDateCellTapped:(id)sender
+{
+    DatePickerModalView *datePickerModalView = [[DatePickerModalView alloc] init];
+    datePickerModalView.datePicker.dateDelegate = self;
+    self.selectedDateFormView = self.startDateFormView;
+    [datePickerModalView show];
+}
+
+- (void)birthdayCellTapped:(id)sender
+{
+    DatePickerModalView *datePickerModalView = [[DatePickerModalView alloc] init];
+    datePickerModalView.datePicker.dateDelegate = self;
+    datePickerModalView.hidesYear = YES;
+    self.selectedDateFormView = self.birthdayFormView;
+    [datePickerModalView show];
+}
+
 #pragma mark - Select Department View Controller Delegate
 - (void)didCancelSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController
 {
@@ -394,5 +428,16 @@
     }
 }
 
+#pragma mark - data picker did select date
+- (void)datePicker:(PMEDatePicker *)datePicker didSelectDate:(NSDate *)date
+{
+    if (self.selectedDateFormView == self.birthdayFormView) {
+        self.account.currentUser.employeeInfo.birthDate = date;
+    }
+    else if (self.selectedDateFormView == self.startDateFormView) {
+        self.account.currentUser.employeeInfo.jobStartDate = date;
+    }
+    [self reloadData];
+}
 
 @end

@@ -12,6 +12,7 @@
 @interface DatePickerModalView : UIView
 
 @property (strong, nonatomic) PMEDatePicker *datePicker;
+@property (assign, nonatomic) BOOL hidesYear;
 
 - (void)show;
 

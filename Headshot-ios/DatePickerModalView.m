@@ -37,8 +37,8 @@
 //    self.datePicker = [[UIDatePicker alloc] init];
     self.datePicker = [[PMEDatePicker alloc] init];
     self.datePicker.backgroundColor = [UIColor whiteColor];
+    self.hidesYear = NO;
     //[self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
-    self.datePicker.dateFormatTemplate = @"MMMd";
     
     self.dateContainerView = [[UIView alloc] init];
     self.dateContainerView.height = 302;
@@ -62,6 +62,12 @@
     [self.dateContainerView addSubview:toolBar];
     
     return self;
+}
+
+- (void)setHidesYear:(BOOL)hidesYear
+{
+    _hidesYear = hidesYear;
+    self.datePicker.dateFormatTemplate = hidesYear ? @"MMMd" : @"yyyyMMMd";
 }
 
 - (void)show

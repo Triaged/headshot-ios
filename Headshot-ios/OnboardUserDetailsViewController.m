@@ -175,6 +175,7 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 {
     if (indexPath.row == UserDetailFormBirthday) {
         DatePickerModalView *datePickerModalView = [[DatePickerModalView alloc] init];
+        datePickerModalView.hidesYear = YES;
         datePickerModalView.datePicker.dateDelegate = self;
         [datePickerModalView show];
     }
