@@ -40,7 +40,7 @@
         userJSON[@"department_id"] = self.currentUser.department.identifier;
     }
     if (self.currentUser.primaryOfficeLocation) {
-         userJSON[@"primary_office_location_id"] = self.currentUser.primaryOfficeLocation;
+         userJSON[@"primary_office_location_id"] = self.currentUser.primaryOfficeLocation.identifier;
     }
     if (self.currentUser.manager) {
         userJSON[@"manager_id"] = self.currentUser.manager.identifier;
