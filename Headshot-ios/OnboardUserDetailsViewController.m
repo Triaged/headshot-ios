@@ -99,7 +99,7 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     self.birthdayFormView.userInteractionEnabled = NO;
     self.birthdayFormView.fieldName = @"Birthday";
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 98)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 122)];
     self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.nextButton.size = CGSizeMake(footerView.width, 60);
     self.nextButton.bottom = footerView.height;

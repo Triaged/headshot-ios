@@ -117,12 +117,17 @@
         [self setNavigationBarHidden:NO animated:YES];
     }
 //    viewController.navigationItem.titleView = self.pageControl;
-    self.pageControl.currentPage = navigationController.viewControllers.count;
-    if (navigationController.viewControllers.count < 2) {
-        return;
+    NSInteger vcCount = navigationController.viewControllers.count;
+    BOOL showPageControl = vcCount > 1 && vcCount <= 4;
+    self.pageControl.hidden = !showPageControl;
+    if (showPageControl) {
+        self.pageControl.currentPage = vcCount - 2;
     }
-    UIViewController *previous = navigationController.viewControllers[navigationController.viewControllers.count - 2];
-    previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    if (vcCount >= 2) {
+        UIViewController *previous = navigationController.viewControllers[navigationController.viewControllers.count - 2];
+        previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    }
 }
 
 

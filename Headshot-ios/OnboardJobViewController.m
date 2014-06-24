@@ -70,7 +70,7 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     self.managerFormView.userInteractionEnabled = NO;
  
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 143)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 123)];
     self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.nextButton.size = CGSizeMake(self.view.width, 60);
     self.nextButton.bottom = footerView.height;

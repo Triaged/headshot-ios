@@ -98,14 +98,8 @@
         [self didLogin];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD dismiss];
         [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
-        NSHTTPURLResponse *response = [error.userInfo objectForKey:@"AFNetworkingOperationFailingURLResponseErrorKey"];
-//        if (response.statusCode == 500) {
-//            [SVProgressHUD showErrorWithStatus:@"Something went wrong. Please try again."];
-//        } else {
-//            NSString *errorMessage = [error.userInfo objectForKey:@"JSONResponseSerializerWithDataKey"];
-//            [SVProgressHUD showErrorWithStatus:errorMessage];
-//        }
     }];
 }
 
