@@ -8,6 +8,7 @@
 
 #import "NewThreadTableViewController.h"
 #import "ContactsDataSource.h"
+#import "TRSearchBar.h"
 
 @interface NewThreadTableViewController ()
 
@@ -50,16 +51,19 @@
     self.tableView.delegate = self;
     
     
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-    
-    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    TRSearchBar *searchBar = [[TRSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    searchBar.placeholder = @"Who would you like to message?";
     
     self.searchController = [[UISearchDisplayController alloc]
                         initWithSearchBar:searchBar contentsController:self];
     self.searchController.delegate =  self.contactsDataSource;
     self.searchController.searchResultsDataSource =  self.contactsDataSource;
     self.searchController.searchResultsDelegate =  self;
-    self.tableView.tableHeaderView = searchBar;
+    UIView *headerView = [[UIView alloc] initWithFrame:searchBar.bounds];
+    [headerView addSubview:searchBar];
+    [headerView addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+    
+    self.tableView.tableHeaderView = headerView;
     
     self.tableView.tableFooterView = [[UIView alloc] init];
 }

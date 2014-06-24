@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		962FD81A1959DCEB00A313AC /* UIImage+SolidColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */; };
+		962FD81D1959E2E000A313AC /* TRSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FD81C1959E2E000A313AC /* TRSearchBar.m */; };
 		9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA0194AD89300F6A4AF /* DefaultTheme.m */; };
 		9647ACA4194AD89300F6A4AF /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA2194AD89300F6A4AF /* Theme.m */; };
 		964839841958A1E600E4792A /* PhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 964839831958A1E600E4792A /* PhotoManager.m */; };
@@ -121,6 +123,10 @@
 /* Begin PBXFileReference section */
 		30B39923FA64452EB4653D38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		426C573043D24799B16F4828 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		962FD8181959DCEB00A313AC /* UIImage+SolidColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SolidColor.h"; sourceTree = "<group>"; };
+		962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SolidColor.m"; sourceTree = "<group>"; };
+		962FD81B1959E2E000A313AC /* TRSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSearchBar.h; sourceTree = "<group>"; };
+		962FD81C1959E2E000A313AC /* TRSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRSearchBar.m; sourceTree = "<group>"; };
 		9647AC9F194AD89300F6A4AF /* DefaultTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTheme.h; sourceTree = "<group>"; };
 		9647ACA0194AD89300F6A4AF /* DefaultTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTheme.m; sourceTree = "<group>"; };
 		9647ACA1194AD89300F6A4AF /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
@@ -357,6 +363,8 @@
 				964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */,
 				968254DC195494770036955A /* NSDate+BadgeFormattedDate.h */,
 				968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */,
+				962FD8181959DCEB00A313AC /* UIImage+SolidColor.h */,
+				962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -380,6 +388,8 @@
 				964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */,
 				96F0B5D3195882F70001A204 /* EditAvatarImageView.h */,
 				96F0B5D4195882F70001A204 /* EditAvatarImageView.m */,
+				962FD81B1959E2E000A313AC /* TRSearchBar.h */,
+				962FD81C1959E2E000A313AC /* TRSearchBar.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -898,6 +908,7 @@
 				CB04186B194A338900B3DE97 /* DepartmentContactsTableViewController.m in Sources */,
 				96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */,
 				CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */,
+				962FD81A1959DCEB00A313AC /* UIImage+SolidColor.m in Sources */,
 				964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */,
 				CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */,
 				964A6BDD194E5E120024B3C2 /* OnboardJobViewController.m in Sources */,
@@ -913,6 +924,7 @@
 				CB1F31AC1931599100CDCFD4 /* Message.m in Sources */,
 				964A6BE6194F2FB90024B3C2 /* DatePickerModalView.m in Sources */,
 				964A6BD3194E2C180024B3C2 /* UIView+Shadow.m in Sources */,
+				962FD81D1959E2E000A313AC /* TRSearchBar.m in Sources */,
 				CB041868194A2FFE00B3DE97 /* Department.m in Sources */,
 				CB354D34194B710E00E537C2 /* Company.m in Sources */,
 				CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */,
