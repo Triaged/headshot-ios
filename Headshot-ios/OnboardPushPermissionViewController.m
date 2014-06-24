@@ -30,10 +30,28 @@
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.scrollView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.scrollView];
-    UIImageView *locationImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"onboarding-push"]];
-    locationImageView.y = 67;
-    locationImageView.centerX = self.view.width/2.0;
-    [self.scrollView addSubview:locationImageView];
+    UIImageView *messageImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"onboarding-push"]];
+    messageImageView.y = 67;
+    messageImageView.centerX = self.view.width/2.0;
+    [self.scrollView addSubview:messageImageView];
+    
+    UILabel *enablePushLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, messageImageView.bottom + 37, self.view.width, 31)];
+    enablePushLabel.text = @"Enable Push Messages";
+    enablePushLabel.font = [ThemeManager regularFontOfSize:26];
+    enablePushLabel.textAlignment = NSTextAlignmentCenter;
+    enablePushLabel.textColor = [[ThemeManager sharedTheme] greenColor];
+    [self.scrollView addSubview:enablePushLabel];
+    
+    UILabel *descriptionLabel = [[UILabel alloc] init];
+    descriptionLabel.size = CGSizeMake(200, 100);
+    descriptionLabel.centerX = self.view.width/2.0;
+    descriptionLabel.y = enablePushLabel.bottom;
+    descriptionLabel.text = @"Get notified when your teammate sends you a message";
+    descriptionLabel.numberOfLines = 2;
+    descriptionLabel.font = [ThemeManager regularFontOfSize:15];
+    descriptionLabel.textAlignment = NSTextAlignmentCenter;
+    descriptionLabel.textColor = [[ThemeManager sharedTheme] lightGrayTextColor];
+    [self.scrollView addSubview:descriptionLabel];
     
     self.permissionButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.permissionButton.size = CGSizeMake(self.view.width, 60);
@@ -58,15 +76,5 @@
         [self.delegate onboardViewController:self doneButtonTouched:sender];
     }
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
