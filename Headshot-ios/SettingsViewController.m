@@ -130,6 +130,24 @@
             [self changePassword];
         }
     }
+    else if (indexPath.section == 1) {
+        if (!indexPath.row) {
+            [self aboutSelected];
+        }
+        else {
+            [self logoutSelected];
+        }
+    }
+}
+
+- (void)aboutSelected
+{
+    
+}
+
+- (void)logoutSelected
+{
+    [[AppDelegate sharedDelegate] logout];
 }
 
 - (void)changePassword

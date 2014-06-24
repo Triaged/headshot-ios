@@ -140,7 +140,12 @@
     [SLAttributeMapping registerDefaultObjcNamingConvention:@"identifier" forJSONNamingConvention:@"id"];
     
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Headshot.sqlite"];
-    
+}
+
+- (void)logout
+{
+    [self.store logout];
+    self.window.rootViewController = [[OnboardNavigationController alloc] init];
 }
 
 @end

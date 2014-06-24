@@ -26,5 +26,7 @@
 
 + (instancetype)sharedDelegate;
 
+- (void)logout;
+
 
 @end
