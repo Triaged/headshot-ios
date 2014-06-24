@@ -38,7 +38,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.imageView.size = CGSizeMake(50, 50);
+    self.imageView.size = CGSizeMake(40, 40);
     self.imageView.centerY = self.height/2.0;
     self.textLabel.x = self.imageView.right + 15;
     self.detailTextLabel.x = self.textLabel.x;

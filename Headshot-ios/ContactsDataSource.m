@@ -38,6 +38,12 @@ NSString * const Alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return self;
 }
 
+- (void)setTableViewController:(UITableViewController *)tableViewController
+{
+    _tableViewController = tableViewController;
+    tableViewController.tableView.separatorInset = UIEdgeInsetsMake(0, 70, 0, 0);
+}
+
 - (void)setUsers:(NSArray *)users
 {
     _users = users;
@@ -106,6 +112,19 @@ NSString * const Alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return height;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    CGFloat height = 0;
+    if (!self.separateSectionsForNames) {
+        return height;
+    }
+    NSArray *usersInSection = [self usersInSection:section];
+    if (usersInSection) {
+        height = 10;
+    }
+    return height;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60;
@@ -124,9 +143,21 @@ NSString * const Alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         titleLabel.x = 15;
         titleLabel.tag = HeaderLabelTag;
         [view addSubview:titleLabel];
+        [view addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
     }
     UILabel *titleLabel = (UILabel *)[view viewWithTag:HeaderLabelTag];
     titleLabel.text = [Alphabet substringWithRange:NSMakeRange(section, 1)];
+    return view;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    static NSString *FooterIdentifier = @"FooterIdentifier";
+    UIView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:FooterIdentifier];
+    if (!view) {
+        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, [self tableView:tableView heightForFooterInSection:section])];
+        view.backgroundColor = [UIColor clearColor];
+    }
     return view;
 }
 
