@@ -50,6 +50,7 @@
     NSDictionary *parameters = @{@"office_location" : officeJSON};
     [[HeadshotRequestAPIClient sharedClient] POST:@"office_locations/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self updateWithRawJSONDictionary:responseObject];
+        [self.managedObjectContext MR_saveToPersistentStoreAndWait];
         if (completion) {
             completion(self, nil);
         }

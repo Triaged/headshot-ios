@@ -74,8 +74,6 @@
     [self.currentLocationButton setImage:[UIImage imageNamed:@"onboarding-icn-map-active"] forState:UIControlStateSelected];
     [self.currentLocationButton addTarget:self action:@selector(currentLocationButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.currentLocationButton];
-    
-    self.officeLocation = [OfficeLocation MR_createEntity];
 }
 
 - (void)geocodeLocationFromFields
