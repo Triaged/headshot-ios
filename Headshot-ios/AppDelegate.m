@@ -42,7 +42,6 @@
     [[ThemeManager sharedTheme] customizeAppearance];
     [self setupLoggedInUser];
     [self setWindowAndRootVC];
-    
     return YES;
 }
 
@@ -81,12 +80,6 @@
     [MagicalRecord cleanUp];
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    // get previously initiated Sinch client
-    id<SINClient> client = [SinchClient sharedClient].client;
-    [client registerPushNotificationData:deviceToken];
-}
-
 - (void)setWindowAndRootVC {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -121,8 +114,8 @@
     //    }
     
     self.geofencer = [Geofencer sharedClient];
-
 }
+
 
 -(void)setDataStore{
     
@@ -146,6 +139,17 @@
 {
     [self.store logout];
     self.window.rootViewController = [[OnboardNavigationController alloc] init];
+}
+
+#pragma mark - notifications
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [[NotificationManager sharedManager] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    [[NotificationManager sharedManager] application:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
 @end

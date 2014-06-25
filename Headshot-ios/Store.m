@@ -13,6 +13,7 @@
 #import "SinchClient.h"
 #import "User.h"
 #import "LoginViewController.h"
+#import "NotificationManager.h"
 
 
 
@@ -65,10 +66,9 @@
 
 - (void)setUpAccount:(Account *)account
 {
-#if !DEBUG
-    UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
-#endif
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasRequestedPushPermission]) {
+        [[NotificationManager sharedManager] registerForRemoteNotificationsWithCompletion:nil];
+    }
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     //    [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
     //        if (error == nil) {

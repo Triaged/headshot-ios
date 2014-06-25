@@ -7,6 +7,7 @@
 //
 
 #import "OnboardPushPermissionViewController.h"
+#import "NotificationManager.h"
 
 @interface OnboardPushPermissionViewController ()
 
@@ -72,9 +73,13 @@
 
 - (void)permissionButtonTouched:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
-        [self.delegate onboardViewController:self doneButtonTouched:sender];
-    }
+    [[NotificationManager sharedManager] registerForRemoteNotificationsWithCompletion:^(NSData *devToken, NSError *error) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsHasRequestedPushPermission];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
+            [self.delegate onboardViewController:self doneButtonTouched:sender];
+        }
+    }];
 }
 
 @end

@@ -15,5 +15,9 @@
 @property (strong, nonatomic) MessageThreadViewController *visibleMessageThreadViewController;
 
 + (NotificationManager *)sharedManager;
+- (void)registerForRemoteNotificationsWithCompletion:(void (^)(NSData *devToken, NSError *error))completion;
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 
 @end

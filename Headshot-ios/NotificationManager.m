@@ -11,10 +11,14 @@
 #import "MessageThread.h"
 #import "User.h"
 #import "MessageThreadViewController.h"
+#import "SinchClient.h"
+
+typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *error);
 
 @interface NotificationManager() <UIAlertViewDelegate>
 
 @property (assign, nonatomic) BOOL isDisplayingAlert;
+@property (strong, nonatomic) RemoteNotificationRegistrationBlock remoteNotificationRegistrationCompletion;
 
 @end
 
@@ -39,6 +43,42 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
     
     return self;
+}
+
+- (void)registerForRemoteNotificationsWithCompletion:(void (^)(NSData *, NSError *))completion
+{
+    self.remoteNotificationRegistrationCompletion = completion;
+#if !DEBUG
+    UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
+    self.remoteNotificationRegistrationCompletion = completion;
+#else
+    NSError *error = nil;
+    [self executePushNotificationRegistrationCompletionBlockWithDeviceToken:nil error:error];
+#endif
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // get previously initiated Sinch client
+    id<SINClient> client = [SinchClient sharedClient].client;
+    [client registerPushNotificationData:deviceToken];
+    if (self.remoteNotificationRegistrationCompletion) {
+        self.remoteNotificationRegistrationCompletion(deviceToken, nil);
+    }
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    [self executePushNotificationRegistrationCompletionBlockWithDeviceToken:nil error:error];
+}
+
+- (void)executePushNotificationRegistrationCompletionBlockWithDeviceToken:(NSData *)deviceToken error:(NSError *)error
+{
+    if (self.remoteNotificationRegistrationCompletion) {
+        self.remoteNotificationRegistrationCompletion(deviceToken, nil);
+        self.remoteNotificationRegistrationCompletion = nil;
+    }
 }
 
 - (void)receivedNewMessageNotification:(NSNotification *)notification
