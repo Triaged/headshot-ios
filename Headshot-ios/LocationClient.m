@@ -38,7 +38,7 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
         [self.locationManager setDelegate:self];
         [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasRequestedLocationPermission]) {
-            [self.locationManager startMonitoringSignificantLocationChanges];
+            [self startMonitoringOffices];
         }
     }
     return self;
@@ -56,8 +56,8 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
     }
 }
 
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+- (void)startMonitoringOffices
+{
     [OfficeLocation officeLocationsWithCompletionHandler:^(NSArray *locations, NSError *error) {
         
         for (OfficeLocation *location in locations) {
@@ -71,14 +71,12 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
             
             if (shouldCreateRegion) {
                 CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake([location.latitude doubleValue], [location.longitude doubleValue]);
-
+                
                 CLCircularRegion *region =  [[CLCircularRegion alloc] initWithCenter:centerCoordinate
                                                                               radius:kCLLocationAccuracyHundredMeters
                                                                           identifier:location.identifier];
                 // Start Monitoring Region
                 [self.locationManager startMonitoringForRegion:region];
-                [self.locationManager stopUpdatingLocation];
-                
             }
         }
     }];

@@ -16,5 +16,6 @@
 + (instancetype)sharedClient;
 
 - (void)requestLocationPermissions:(void (^)(CLAuthorizationStatus authorizationStatus))response;
+- (void)startMonitoringOffices;
 
 @end
