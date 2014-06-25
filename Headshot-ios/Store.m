@@ -14,6 +14,7 @@
 #import "User.h"
 #import "LoginViewController.h"
 #import "NotificationManager.h"
+#import "Device.h"
 
 
 
@@ -69,9 +70,11 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasRequestedPushPermission]) {
         [[NotificationManager sharedManager] registerForRemoteNotificationsWithCompletion:nil];
     }
+    
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     //    [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
     //        if (error == nil) {
+    [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:nil] postDeviceWithSuccess:nil failure:nil];
     [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
     
     [Company companyWithCompletionHandler:^(Company *company, NSError *error) {}];

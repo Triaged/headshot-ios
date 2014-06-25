@@ -33,6 +33,7 @@
 		9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669633A194E262F003B22B5 /* EmailLoginViewController.m */; };
 		968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */; };
 		969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */; };
+		96A0888A195B2171008F329E /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A08889195B2171008F329E /* Device.m */; };
 		96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */; };
 		96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9E19577EE300E77CFD /* SettingsViewController.m */; };
 		96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */; };
@@ -177,6 +178,8 @@
 		968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BadgeFormattedDate.m"; sourceTree = "<group>"; };
 		969B86FE195285DF00090B49 /* OnboardSelectDepartmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectDepartmentViewController.h; sourceTree = "<group>"; };
 		969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectDepartmentViewController.m; sourceTree = "<group>"; };
+		96A08888195B2171008F329E /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		96A08889195B2171008F329E /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
 		96C2CF9919577EBC00E77CFD /* EditAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAccountViewController.h; sourceTree = "<group>"; };
 		96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAccountViewController.m; sourceTree = "<group>"; };
 		96C2CF9D19577EE300E77CFD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -657,6 +660,8 @@
 				CB1F31D319327B6000CDCFD4 /* OfficeLocation.m */,
 				CB041866194A2FFE00B3DE97 /* Department.h */,
 				CB041867194A2FFE00B3DE97 /* Department.m */,
+				96A08888195B2171008F329E /* Device.h */,
+				96A08889195B2171008F329E /* Device.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -900,6 +905,7 @@
 				96467B81195A01D000B45C5D /* OfficesViewController.m in Sources */,
 				96696337194E2018003B22B5 /* FormView.m in Sources */,
 				CBB5183D194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m in Sources */,
+				96A0888A195B2171008F329E /* Device.m in Sources */,
 				CBBA68DE192FE0B5005A6949 /* User.m in Sources */,
 				CBBA6875192FD646005A6949 /* AppDelegate.m in Sources */,
 				964A6BE3194E6B9B0024B3C2 /* AddOfficeViewController.m in Sources */,

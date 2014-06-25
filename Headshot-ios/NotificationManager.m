@@ -12,6 +12,7 @@
 #import "User.h"
 #import "MessageThreadViewController.h"
 #import "SinchClient.h"
+#import "Device.h"
 
 typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *error);
 
@@ -48,14 +49,16 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 - (void)registerForRemoteNotificationsWithCompletion:(void (^)(NSData *, NSError *))completion
 {
     self.remoteNotificationRegistrationCompletion = completion;
-#if !DEBUG
-    UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
-    self.remoteNotificationRegistrationCompletion = completion;
-#else
-    NSError *error = nil;
-    [self executePushNotificationRegistrationCompletionBlockWithDeviceToken:nil error:error];
-#endif
+    BOOL shouldRegisterForPush = DEBUG;
+    if (shouldRegisterForPush) {
+        UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
+        self.remoteNotificationRegistrationCompletion = completion;
+    }
+    else {
+        NSError *error = nil;
+        [self executePushNotificationRegistrationCompletionBlockWithDeviceToken:nil error:error];
+    }
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -63,6 +66,7 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     // get previously initiated Sinch client
     id<SINClient> client = [SinchClient sharedClient].client;
     [client registerPushNotificationData:deviceToken];
+    [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:deviceToken] postDeviceWithSuccess:nil failure:nil];
     if (self.remoteNotificationRegistrationCompletion) {
         self.remoteNotificationRegistrationCompletion(deviceToken, nil);
     }
