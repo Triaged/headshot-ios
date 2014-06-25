@@ -9,6 +9,14 @@
 #import "Geofencer.h"
 #import "OfficeLocation.h"
 
+typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
+
+@interface Geofencer()
+
+@property (strong, nonatomic) LocationPermissionRequestBlock locationPermissionRequestBlock;
+
+@end
+
 @implementation Geofencer
 
 + (instancetype)sharedClient {
@@ -31,10 +39,23 @@
         // Configure Location Manager
         [self.locationManager setDelegate:self];
         [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
-        
-         [self.locationManager startMonitoringSignificantLocationChanges];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasRequestedLocationPermission]) {
+            [self.locationManager startMonitoringSignificantLocationChanges];
+        }
     }
     return self;
+}
+
+- (void)requestLocationPermissions:(void (^)(CLAuthorizationStatus authorizationStatus))response
+{
+    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+    if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+        self.locationPermissionRequestBlock = response;
+        [self.locationManager startMonitoringSignificantLocationChanges];
+    }
+    else {
+        response(authorizationStatus);
+    }
 }
 
 
@@ -63,6 +84,14 @@
             }
         }
     }];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    if (self.locationPermissionRequestBlock) {
+        self.locationPermissionRequestBlock(status);
+        self.locationPermissionRequestBlock = nil;
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region

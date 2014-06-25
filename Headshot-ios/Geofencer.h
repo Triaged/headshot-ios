@@ -15,4 +15,6 @@
 
 + (instancetype)sharedClient;
 
+- (void)requestLocationPermissions:(void (^)(CLAuthorizationStatus authorizationStatus))response;
+
 @end
