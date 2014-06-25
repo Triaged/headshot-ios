@@ -40,7 +40,6 @@
     self.delegate = self;
     self.loginViewController = [[EmailLoginViewController alloc] init];
     self.loginViewController.delegate = self;
-    self.viewControllers = @[self.loginViewController];
     
     self.jobViewController = [[OnboardJobViewController alloc] init];
     self.jobViewController.delegate = self;
@@ -61,6 +60,11 @@
     self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
     self.pageControl.currentPageIndicatorTintColor = [[ThemeManager sharedTheme] greenColor];
     [self.navigationBar addSubview:self.pageControl];
+    
+    self.viewControllers = @[self.loginViewController];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn]) {
+        [self pushViewController:self.jobViewController animated:NO];
+    }
 }
 
 - (OnboardUserDetailsViewController *)userDetailsViewController
@@ -103,6 +107,8 @@
         [self pushViewController:nextViewController animated:YES];
     }
     else {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsHasFinishedOnboarding];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [AppDelegate sharedDelegate].window.rootViewController = [AppDelegate sharedDelegate].tabBarController;
     }
 }

@@ -8,4 +8,5 @@ extern NSString * const kReceivedNewMessageNotification;
 extern NSString * const kUserDefaultsLoggedIn;
 extern NSString * const kUserDefaultsHasRequestedLocationPermission;
 extern NSString * const kUserDefaultsHasRequestedPushPermission;
+extern NSString * const kUserDefaultsHasFinishedOnboarding;
 

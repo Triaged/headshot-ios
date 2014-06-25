@@ -23,6 +23,6 @@
 - (void) fetchRemoteUserAccount;
 
 - (void)userLoggedInWithAccount:(Account *)account;
--(void)logout;
+- (void)logout;
 
 @end

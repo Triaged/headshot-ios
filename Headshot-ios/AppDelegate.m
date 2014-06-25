@@ -85,7 +85,7 @@
     
     self.tabBarController = [[TRTabBarController alloc] init];
     
-    if ([[CredentialStore sharedClient] isLoggedIn]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasFinishedOnboarding]) {
         [self.window setRootViewController:self.tabBarController];
     }
     else {
