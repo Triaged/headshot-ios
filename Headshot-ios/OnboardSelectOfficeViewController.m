@@ -63,6 +63,11 @@
     
     self.offices = [OfficeLocation MR_findAll];
     
+//    default to first office if only one
+    if (self.offices && self.offices.count == 1) {
+        self.selectedOffice = [self.offices firstObject];
+    }
+    
 }
 
 - (void)nextButtonTouched:(id)sender
