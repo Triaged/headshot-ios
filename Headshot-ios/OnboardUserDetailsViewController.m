@@ -92,6 +92,12 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     self.phoneFormView.textField.delegate = self;
     self.phoneFormView.fieldName = @"Cell Number";
     self.phoneFormView.textField.placeholder = @"(100) 123-1456";
+    self.phoneFormView.textField.inputAccessoryView = [[TRKeyboardAccessoryView alloc] initWithCancel:^{
+        [self.phoneFormView.textField resignFirstResponder];
+    } doneBlock:^{
+        [self.phoneFormView.textField resignFirstResponder];
+    }];
+    self.phoneFormView.textField.keyboardType = UIKeyboardTypeNumberPad;
     
     self.birthdayFormView = [[FormView alloc] init];
     self.birthdayFormView.textField.delegate = self;

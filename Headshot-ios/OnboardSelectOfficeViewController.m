@@ -139,6 +139,12 @@
         navigationController.navigationBar.translucent = NO;
         [self presentViewController:navigationController animated:YES completion:nil];
     }
+    if (self.noOffice) {
+        [AppDelegate sharedDelegate].store.currentAccount.currentUser.primaryOfficeLocation = nil;
+    }
+    else if (self.selectedOffice) {
+        [AppDelegate sharedDelegate].store.currentAccount.currentUser.primaryOfficeLocation = self.selectedOffice;
+    }
     [tableView reloadData];
 }
 

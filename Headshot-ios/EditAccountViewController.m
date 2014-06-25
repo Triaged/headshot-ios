@@ -76,9 +76,21 @@
     self.emailFormView.fieldName = @"Email";
     
     self.workPhoneFormView = [[FormView alloc] init];
+    self.workPhoneFormView.textField.keyboardType = UIKeyboardTypeNumberPad;
+    self.workPhoneFormView.textField.inputAccessoryView = [[TRKeyboardAccessoryView alloc] initWithCancel:^{
+        [self.workPhoneFormView.textField resignFirstResponder];
+    } doneBlock:^{
+        [self.workPhoneFormView.textField resignFirstResponder];
+    }];
     self.workPhoneFormView.fieldName = @"Office Phone";
     
     self.homePhoneFormView = [[FormView alloc] init];
+    self.homePhoneFormView.textField.keyboardType = UIKeyboardTypeNumberPad;
+    self.homePhoneFormView.textField.inputAccessoryView = [[TRKeyboardAccessoryView alloc] initWithCancel:^{
+        [self.homePhoneFormView.textField resignFirstResponder];
+    } doneBlock:^{
+        [self.homePhoneFormView.textField resignFirstResponder];
+    }];
     self.homePhoneFormView.fieldName = @"Cell Phone";
     
     self.jobTitleFormView = [[FormView alloc] init];

@@ -93,11 +93,11 @@
     }
     else if (viewController == self.jobViewController) {
         nextViewController = self.selectOfficeViewController;
+    }
+    else if (viewController == self.selectOfficeViewController) {
         [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:^(Account *account) {
             
         } failure:nil];
-    }
-    else if (viewController == self.selectOfficeViewController) {
         nextViewController = self.locationPermissionsViewController;
     }
     else if (viewController == self.locationPermissionsViewController) {

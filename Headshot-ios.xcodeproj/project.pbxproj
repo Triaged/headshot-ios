@@ -34,6 +34,7 @@
 		968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */; };
 		969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */; };
 		96A0888A195B2171008F329E /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A08889195B2171008F329E /* Device.m */; };
+		96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */; };
 		96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */; };
 		96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9E19577EE300E77CFD /* SettingsViewController.m */; };
 		96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */; };
@@ -180,6 +181,9 @@
 		969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectDepartmentViewController.m; sourceTree = "<group>"; };
 		96A08888195B2171008F329E /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
 		96A08889195B2171008F329E /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
+		96A0888B195B42AD008F329E /* TRKeyboardAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRKeyboardAccessoryView.h; sourceTree = "<group>"; };
+		96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRKeyboardAccessoryView.m; sourceTree = "<group>"; };
+		96A0888E195B4648008F329E /* TRUIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRUIKit.h; sourceTree = "<group>"; };
 		96C2CF9919577EBC00E77CFD /* EditAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAccountViewController.h; sourceTree = "<group>"; };
 		96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAccountViewController.m; sourceTree = "<group>"; };
 		96C2CF9D19577EE300E77CFD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -410,6 +414,9 @@
 				96F0B5D4195882F70001A204 /* EditAvatarImageView.m */,
 				962FD81B1959E2E000A313AC /* TRSearchBar.h */,
 				962FD81C1959E2E000A313AC /* TRSearchBar.m */,
+				96A0888B195B42AD008F329E /* TRKeyboardAccessoryView.h */,
+				96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */,
+				96A0888E195B4648008F329E /* TRUIKit.h */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -968,6 +975,7 @@
 				CB04186E194A358600B3DE97 /* DepartmentCell.m in Sources */,
 				CBBA68A0192FD850005A6949 /* Store.m in Sources */,
 				CB1F31B41931749D00CDCFD4 /* SinchClient.m in Sources */,
+				96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */,
 				964A6BDA194E35DE0024B3C2 /* OnboardNavigationController.m in Sources */,
 				CBBA68E7192FE185005A6949 /* LoginViewController.m in Sources */,
 				964839841958A1E600E4792A /* PhotoManager.m in Sources */,

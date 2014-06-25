@@ -169,6 +169,7 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 - (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUser:(User *)user
 {
     self.managerFormView.textField.text = user.fullName;
+    [AppDelegate sharedDelegate].store.currentAccount.currentUser.manager = user;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
