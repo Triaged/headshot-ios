@@ -14,6 +14,7 @@
 @interface OnboardSelectManagersViewControllers ()
 
 @property (strong, nonatomic) ContactsDataSource *contactsDataSource;
+@property (strong, nonatomic) UISearchDisplayController *searchController;
 
 @end
 
@@ -33,9 +34,27 @@
 {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTouched:)];
+    
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    [self setupTableView];
+}
+
+- (void)setupTableView
+{
     self.contactsDataSource = [[ContactsDataSource alloc] init];
-    self.tableView.dataSource = self.contactsDataSource;
     self.contactsDataSource.users = [User findAllExcludeCurrent];
+    self.contactsDataSource.tableViewController = self;
+    self.tableView.dataSource = self.contactsDataSource;
+    self.tableView.delegate = self;
+    
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    self.searchController = [[UISearchDisplayController alloc]
+                        initWithSearchBar:searchBar contentsController:self];
+    self.searchController.delegate =  self.contactsDataSource;
+    self.searchController.searchResultsDataSource =  self.contactsDataSource;
+    self.searchController.searchResultsDelegate =  self;
+    self.tableView.tableHeaderView = searchBar;
     
     self.tableView.tableFooterView = [[UIView alloc] init];
 }
@@ -53,6 +72,16 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self.contactsDataSource tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return [self.contactsDataSource tableView:tableView heightForHeaderInSection:section];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [self.contactsDataSource tableView:tableView viewForHeaderInSection:section];
 }
 
 
