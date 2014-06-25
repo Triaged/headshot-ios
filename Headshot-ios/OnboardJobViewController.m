@@ -172,4 +172,9 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)didCancelSelectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
