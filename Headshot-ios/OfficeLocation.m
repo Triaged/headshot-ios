@@ -9,6 +9,7 @@
 #import "OfficeLocation.h"
 #import "SLRESTfulCoreData.h"
 
+
 @implementation OfficeLocation
 
 @dynamic streetAddress;
@@ -20,13 +21,20 @@
 @dynamic name;
 @dynamic latitude;
 @dynamic longitude;
+@dynamic company;
 
 + (void)officeLocationsWithCompletionHandler:(void(^)(NSArray *locations, NSError *error))completionHandler {
-    NSURL *URL = [NSURL URLWithString:@"office_locations.json"];
+    NSURL *URL = [NSURL URLWithString:@"office_locations"];
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
 
-- (void)postWithSuccess:(void(^)(OfficeLocation *officeLocation))success failure:(void(^)(NSError *error))failure
++ (void)initialize
+{
+    [self registerCRUDBaseURL:[NSURL URLWithString:@"office_locations/"]];
+    [self registerJSONPrefix:@"office_location"];
+}
+
+- (void)postWithCompletion:(void(^)(OfficeLocation *officeLocation, NSError *error))completion
 {
     NSMutableDictionary *officeJSON = [[NSMutableDictionary alloc] init];
     [officeJSON setObject:self.streetAddress forKey:@"street_address"];
@@ -41,10 +49,13 @@
     
     NSDictionary *parameters = @{@"office_location" : officeJSON};
     [[HeadshotRequestAPIClient sharedClient] POST:@"office_locations/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+        [self updateWithRawJSONDictionary:responseObject];
+        if (completion) {
+            completion(self, nil);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (error) {
-            failure(error);
+            completion(nil, error);
         }
     }];
 }

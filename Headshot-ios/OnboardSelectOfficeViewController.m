@@ -10,7 +10,7 @@
 #import "AddOfficeViewController.h"
 #import "OfficeLocation.h"
 
-@interface OnboardSelectOfficeViewController ()
+@interface OnboardSelectOfficeViewController () <AddOfficeViewControllerDelegate>
 
 @property (strong, nonatomic) UIButton *nextButton;
 @property (strong, nonatomic) OfficeLocation *selectedOffice;
@@ -141,9 +141,8 @@
     }
     else {
         AddOfficeViewController *addOfficeViewController = [[AddOfficeViewController alloc] init];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addOfficeViewController];
-        navigationController.navigationBar.translucent = NO;
-        [self presentViewController:navigationController animated:YES completion:nil];
+        addOfficeViewController.delegate = self;
+        [self presentViewControllerWithNav:addOfficeViewController animated:YES completion:nil];
     }
     if (self.noOffice) {
         [AppDelegate sharedDelegate].store.currentAccount.currentUser.primaryOfficeLocation = nil;
@@ -152,6 +151,19 @@
         [AppDelegate sharedDelegate].store.currentAccount.currentUser.primaryOfficeLocation = self.selectedOffice;
     }
     [tableView reloadData];
+}
+
+#pragma mark - add office view controller delegate
+- (void)didCancelOfficeViewController:(AddOfficeViewController *)addOfficeViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)addOfficeViewController:(AddOfficeViewController *)addOfficeViewController didAddOffice:(OfficeLocation *)office
+{
+    self.selectedOffice = office;
+    [self.tableView reloadData];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

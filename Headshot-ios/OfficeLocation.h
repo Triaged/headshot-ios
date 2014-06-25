@@ -28,8 +28,7 @@
 
 
 + (void)officeLocationsWithCompletionHandler:(void(^)(NSArray *locations, NSError *error))completionHandler;
-- (void)postWithSuccess:(void(^)(OfficeLocation *officeLocation))success failure:(void(^)(NSError *error))failure;
-
+- (void)postWithCompletion:(void(^)(OfficeLocation *officeLocation, NSError *error))completion;
 - (void)enterLocation;
 - (void)exitLocation;
 

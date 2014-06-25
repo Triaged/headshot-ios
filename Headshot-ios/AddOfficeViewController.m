@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.title = @"Add Office";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTouched:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButtonTouched:)];
     
@@ -69,7 +70,8 @@
     self.currentLocationButton.size = CGSizeMake(38, 38);
     self.currentLocationButton.x = 8;
     self.currentLocationButton.y = self.formContainerView.bottom + 8;
-    self.currentLocationButton.backgroundColor = [UIColor whiteColor];
+    [self.currentLocationButton setImage:[UIImage imageNamed:@"onboarding-icn-map-inactive"] forState:UIControlStateNormal];
+    [self.currentLocationButton setImage:[UIImage imageNamed:@"onboarding-icn-map-active"] forState:UIControlStateSelected];
     [self.currentLocationButton addTarget:self action:@selector(currentLocationButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.currentLocationButton];
     
@@ -92,6 +94,7 @@
 
 - (void)currentLocationButtonTouched:(id)sender
 {
+    self.currentLocationButton.selected = YES;
     [SVProgressHUD show];
     [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:4 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         [SVProgressHUD dismiss];
@@ -137,6 +140,15 @@
     return officeLocation;
 }
 
+- (OfficeLocation *)officeLocationFromFields
+{
+    OfficeLocation *officeLocation = [OfficeLocation MR_createEntity];
+    officeLocation.streetAddress = self.addressFormView.textField.text;
+    officeLocation.city = self.cityFormView.textField.text;
+    officeLocation.state = self.stateFormView.textField.text;
+    return officeLocation;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -152,14 +164,33 @@
 
 - (void)addButtonTouched:(id)sender
 {
-    [self.officeLocation postWithSuccess:^(OfficeLocation *officeLocation) {
-        if ([self.delegate respondsToSelector:@selector(addOfficeViewController:didAddOffice:)]) {
-            [self.delegate addOfficeViewController:self didAddOffice:officeLocation];
+    if (![self validateFields]) {
+        return;
+    }
+    if (!self.currentLocationButton.selected) {
+        self.officeLocation = [self officeLocationFromFields];
+    }
+    [SVProgressHUD show];
+    [self.officeLocation postWithCompletion:^(OfficeLocation *officeLocation, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (!error) {
+            if ([self.delegate respondsToSelector:@selector(addOfficeViewController:didAddOffice:)]) {
+                [self.delegate addOfficeViewController:self didAddOffice:officeLocation];
+            }
         }
-        [self.navigationController popViewControllerAnimated:YES];
-    } failure:^(NSError *error) {
-        
     }];
+}
+
+- (BOOL)validateFields
+{
+    BOOL complete = YES;
+    for (NSString *text in @[self.addressFormView.textField.text, self.cityFormView.textField.text, self.stateFormView.textField.text]) {
+        complete = complete && text && text.length;
+    }
+    if (!complete) {
+        [[[UIAlertView alloc] initWithTitle:nil message:@"Please fill out the address, city, and state" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+    return complete;
 }
 
 #pragma mark - UITextFieldDelegate
