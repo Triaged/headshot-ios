@@ -61,13 +61,19 @@
     
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.nextButton.height, 0);
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     self.offices = [OfficeLocation MR_findAll];
     
-//    default to first office if only one
-    if (self.offices && self.offices.count == 1) {
+    //    default to first office if only one
+    if (!self.selectedOffice && self.offices && self.offices.count == 1) {
         self.selectedOffice = [self.offices firstObject];
     }
-    
+    [self.tableView reloadData];
 }
 
 - (void)nextButtonTouched:(id)sender

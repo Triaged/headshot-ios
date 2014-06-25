@@ -9,13 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class User;
+@class User, OfficeLocation;
 
 @interface Company : NSManagedObject
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * usesDepartments;
+@property (nonatomic, retain) NSSet *officeLocations;
 @property (nonatomic, retain) NSSet *users;
 
 + (void)companyWithCompletionHandler:(void(^)(Company *company, NSError *error))completionHandler;
@@ -29,5 +30,7 @@
 - (void)removeUsersObject:(User *)value;
 - (void)addUsers:(NSSet *)values;
 - (void)removeUsers:(NSSet *)values;
+- (void)addOfficeLocations:(NSSet *)values;
+- (void)removeOfficeLocations:(NSSet *)values;
 
 @end

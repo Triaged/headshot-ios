@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="14A238x" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="14A261i" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Account" representedClassName="Account" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="currentUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="account" inverseEntity="User" syncable="YES"/>
@@ -8,6 +8,7 @@
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="usesDepartments" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="officeLocations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OfficeLocation" inverseName="company" inverseEntity="OfficeLocation" syncable="YES"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="company" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Department" representedClassName="Department" syncable="YES">
@@ -47,6 +48,7 @@
         <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="streetAddress" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zipCode" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="officeLocations" inverseEntity="Company" syncable="YES"/>
         <relationship name="currentEmployees" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="currentOfficeLocation" inverseEntity="User" syncable="YES"/>
         <relationship name="primaryEmployees" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="primaryOfficeLocation" inverseEntity="User" syncable="YES"/>
     </entity>
@@ -71,12 +73,12 @@
     </entity>
     <elements>
         <element name="Account" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="Company" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="Company" positionX="0" positionY="0" width="128" height="118"/>
         <element name="Department" positionX="0" positionY="0" width="128" height="105"/>
         <element name="EmployeeInfo" positionX="0" positionY="0" width="128" height="148"/>
         <element name="Message" positionX="0" positionY="0" width="128" height="120"/>
         <element name="MessageThread" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="OfficeLocation" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="OfficeLocation" positionX="0" positionY="0" width="128" height="223"/>
         <element name="User" positionX="0" positionY="0" width="128" height="298"/>
     </elements>
 </model>
