@@ -13,7 +13,7 @@
 
 
 @class Store;
-@class Geofencer;
+@class LocationClient;
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -21,7 +21,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) TRTabBarController *tabBarController;
 @property (nonatomic, strong) Store* store;
-@property (nonatomic, strong) Geofencer* geofencer;
+@property (nonatomic, strong) LocationClient* geofencer;
 
 
 + (instancetype)sharedDelegate;

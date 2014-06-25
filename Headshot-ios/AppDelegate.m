@@ -11,7 +11,7 @@
 #import "Store.h"
 #import "TRDataStoreManager.h"
 #import "TRBackgroundQueue.h"
-#import "Geofencer.h"
+#import "LocationClient.h"
 #import "SinchClient.h"
 #import "CredentialStore.h"
 #import "NotificationManager.h"
@@ -113,7 +113,7 @@
     //        }
     //    }
     
-    self.geofencer = [Geofencer sharedClient];
+    self.geofencer = [LocationClient sharedClient];
 }
 
 

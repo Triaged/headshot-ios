@@ -9,7 +9,7 @@
 #import "AddOfficeViewController.h"
 #import <INTULocationManager.h>
 #import "FormView.h"
-#import "Geofencer.h"
+#import "LocationClient.h"
 
 @interface AddOfficeViewController () <UITextFieldDelegate>
 
@@ -100,7 +100,7 @@
         }
         self.mapView.showsUserLocation = YES;
         CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
-        [geoCoder reverseGeocodeLocation:[Geofencer sharedClient].locationManager.location completionHandler:^(NSArray *placemarks, NSError *error) {
+        [geoCoder reverseGeocodeLocation:[LocationClient sharedClient].locationManager.location completionHandler:^(NSArray *placemarks, NSError *error) {
             if (placemarks && placemarks.count) {
                 CLPlacemark *placemark = [placemarks firstObject];
                 self.officeLocation = [self officeLocationFromPlacemark:placemark];

@@ -7,7 +7,7 @@
 //
 
 #import "OnboardLocationPermissionViewController.h"
-#import "Geofencer.h"
+#import "LocationClient.h"
 
 @interface OnboardLocationPermissionViewController ()
 
@@ -79,7 +79,7 @@
 
 - (void)permissionButtonTouched:(id)sender
 {
-    [[Geofencer sharedClient] requestLocationPermissions:^(CLAuthorizationStatus authorizationStatus) {
+    [[LocationClient sharedClient] requestLocationPermissions:^(CLAuthorizationStatus authorizationStatus) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsHasRequestedLocationPermission];
         [[NSUserDefaults standardUserDefaults] synchronize];
         if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {

@@ -6,26 +6,25 @@
 //  Copyright (c) 2014 Charlie White. All rights reserved.
 //
 
-#import "Geofencer.h"
+#import "LocationClient.h"
 #import "OfficeLocation.h"
 
 typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 
-@interface Geofencer()
+@interface LocationClient()
 
 @property (strong, nonatomic) LocationPermissionRequestBlock locationPermissionRequestBlock;
 
 @end
 
-@implementation Geofencer
+@implementation LocationClient
 
 + (instancetype)sharedClient {
-    static Geofencer *_sharedClient = nil;
+    static LocationClient *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[Geofencer alloc] init];
+        _sharedClient = [[LocationClient alloc] init];
     });
-    
     return _sharedClient;
 }
 
@@ -35,7 +34,6 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
     if (self) {
         // Initialize Location Manager
         self.locationManager = [[CLLocationManager alloc] init];
-        
         // Configure Location Manager
         [self.locationManager setDelegate:self];
         [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
