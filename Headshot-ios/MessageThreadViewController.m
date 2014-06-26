@@ -75,6 +75,19 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.title = self.messageThread.recipient.fullName;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     
+    NSString *sendTitle = NSLocalizedString(@"Send", @"Text for the send button on the messages view toolbar");
+    UIButton *sendButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    [sendButton setTitle:sendTitle forState:UIControlStateNormal];
+    [sendButton setTitleColor:[[ThemeManager sharedTheme] greenColor]  forState:UIControlStateNormal];
+    [sendButton setTitleColor:[[[ThemeManager sharedTheme] greenColor] jsq_colorByDarkeningColorWithValue:0.1f] forState:UIControlStateHighlighted];
+    [sendButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+    sendButton.contentMode = UIViewContentModeCenter;
+    sendButton.backgroundColor = [UIColor clearColor];
+    sendButton.tintColor = [[ThemeManager sharedTheme] greenColor];
+    sendButton.enabled = NO;
+    self.inputToolbar.contentView.rightBarButtonItem = sendButton;
+    
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
     info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
     [info addTarget:self action:@selector(showContact) forControlEvents:UIControlEventTouchUpInside];
