@@ -29,7 +29,7 @@
     self.textLabel.textColor = [[ThemeManager sharedTheme] orangeColor];
     self.detailTextLabel.font = [ThemeManager regularFontOfSize:12];
     self.detailTextLabel.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
-    self.detailTextLabel.numberOfLines = 0;
+    self.detailTextLabel.numberOfLines = 3;
     
     self.timeLabel = [[UILabel alloc] init];
     self.timeLabel.size = CGSizeMake(100, 31);
