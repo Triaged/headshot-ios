@@ -11,7 +11,6 @@
 #import "OfficeLocation.h"
 #import "OnboardNavigationController.h"
 #import "CredentialStore.h"
-#import "LoginViewController.h"
 #import "ContactDetailsDataSource.h"
 #import "SettingsViewController.h"
 

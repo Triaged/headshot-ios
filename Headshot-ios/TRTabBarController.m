@@ -13,7 +13,6 @@
 #import "MessagesTableViewController.h"
 #import "CredentialStore.h"
 #import "RDVTabBarItem.h"
-#import "LoginViewController.h"
 #import "SDCSegmentedViewController.h"
 #import "DepartmentsTableViewController.h"
 
@@ -107,16 +106,6 @@
 
     [self setSelectedIndex:1];
 	// Do any additional setup after loading the view.
-}
-
-
--(void)viewDidAppear:(BOOL)animated
-{
-    // Check for authentication
-    if (![[CredentialStore sharedClient] isLoggedIn]) {
-        LoginViewController *loginVC = [[LoginViewController alloc] init];
-        [self presentViewController:loginVC animated:NO completion:nil];
-    }
 }
 
 - (void)didReceiveMemoryWarning

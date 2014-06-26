@@ -58,6 +58,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = self.messageThread.recipient.fullName;
+    self.inputToolbar.contentView.leftBarButtonItem = nil;
     
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
     info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
@@ -67,7 +68,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
 
-    
+
     
     currentUser = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
     self.sender =  currentUser.fullName;
@@ -97,12 +98,16 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:YES animated:YES];
     self.navigationController.navigationBar.shadowImage = nil;
     [NotificationManager sharedManager].visibleMessageThreadViewController = self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
     [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:YES];
     [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
 }

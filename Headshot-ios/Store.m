@@ -12,7 +12,6 @@
 #import "CredentialStore.h"
 #import "SinchClient.h"
 #import "User.h"
-#import "LoginViewController.h"
 #import "NotificationManager.h"
 #import "Device.h"
 

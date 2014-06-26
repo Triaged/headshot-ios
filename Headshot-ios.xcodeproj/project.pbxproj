@@ -72,6 +72,9 @@
 		CB354D31194A48B400E537C2 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB354D2F194A48B400E537C2 /* EventKitUI.framework */; };
 		CB354D34194B710E00E537C2 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = CB354D33194B710E00E537C2 /* Company.m */; };
 		CB8FF1B019588C7900DDD51B /* MailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8FF1AF19588C7900DDD51B /* MailComposer.m */; };
+		CB8FF1B5195C739200DDD51B /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8FF1B4195C739200DDD51B /* libicucore.dylib */; };
+		CB8FF1B7195C739F00DDD51B /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8FF1B6195C739F00DDD51B /* libc++.dylib */; };
+		CB8FF1B9195C73A600DDD51B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8FF1B8195C73A600DDD51B /* CFNetwork.framework */; };
 		CBA5D0721936B8FA0044BBCC /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA5D0711936B8FA0044BBCC /* Reveal.framework */; };
 		CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0751936BB070044BBCC /* Whitney-Book.otf */; };
 		CBA5D0791936BB2B0044BBCC /* Whitney-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */; };
@@ -105,8 +108,6 @@
 		CBBA68DB192FE0B5005A6949 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68DA192FE0B5005A6949 /* Account.m */; };
 		CBBA68DE192FE0B5005A6949 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68DD192FE0B5005A6949 /* User.m */; };
 		CBBA68E2192FE16F005A6949 /* TRTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68E1192FE16F005A6949 /* TRTabBarController.m */; };
-		CBBA68E7192FE185005A6949 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68E5192FE185005A6949 /* LoginViewController.m */; };
-		CBBA68E8192FE185005A6949 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBBA68E6192FE185005A6949 /* LoginViewController.xib */; };
 		CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68EA192FE19D005A6949 /* TRNavigationController.m */; };
 		CBBA68F7192FE262005A6949 /* ContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68F6192FE262005A6949 /* ContactsTableViewController.m */; };
 		CBBA68FA192FE26C005A6949 /* MessagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68F9192FE26C005A6949 /* MessagesTableViewController.m */; };
@@ -243,6 +244,9 @@
 		CB354D33194B710E00E537C2 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
 		CB8FF1AE19588C7900DDD51B /* MailComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailComposer.h; sourceTree = "<group>"; };
 		CB8FF1AF19588C7900DDD51B /* MailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailComposer.m; sourceTree = "<group>"; };
+		CB8FF1B4195C739200DDD51B /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		CB8FF1B6195C739F00DDD51B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		CB8FF1B8195C73A600DDD51B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CBA5D0711936B8FA0044BBCC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = ../Reveal.framework; sourceTree = "<group>"; };
 		CBA5D0751936BB070044BBCC /* Whitney-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Book.otf"; sourceTree = "<group>"; };
 		CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Medium.otf"; sourceTree = "<group>"; };
@@ -293,9 +297,6 @@
 		CBBA68DD192FE0B5005A6949 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = ../User.m; sourceTree = "<group>"; };
 		CBBA68E0192FE16F005A6949 /* TRTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTabBarController.h; sourceTree = "<group>"; };
 		CBBA68E1192FE16F005A6949 /* TRTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRTabBarController.m; sourceTree = "<group>"; };
-		CBBA68E4192FE185005A6949 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		CBBA68E5192FE185005A6949 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		CBBA68E6192FE185005A6949 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		CBBA68E9192FE19D005A6949 /* TRNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRNavigationController.h; sourceTree = "<group>"; };
 		CBBA68EA192FE19D005A6949 /* TRNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRNavigationController.m; sourceTree = "<group>"; };
 		CBBA68F5192FE262005A6949 /* ContactsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsTableViewController.h; sourceTree = "<group>"; };
@@ -311,6 +312,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB8FF1B9195C73A600DDD51B /* CFNetwork.framework in Frameworks */,
+				CB8FF1B7195C739F00DDD51B /* libc++.dylib in Frameworks */,
+				CB8FF1B5195C739200DDD51B /* libicucore.dylib in Frameworks */,
 				CB354D30194A48B400E537C2 /* EventKit.framework in Frameworks */,
 				CB354D31194A48B400E537C2 /* EventKitUI.framework in Frameworks */,
 				CB1F31D619327BAA00CDCFD4 /* CoreLocation.framework in Frameworks */,
@@ -540,6 +544,9 @@
 		CBBA6861192FD646005A6949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB8FF1B8195C73A600DDD51B /* CFNetwork.framework */,
+				CB8FF1B6195C739F00DDD51B /* libc++.dylib */,
+				CB8FF1B4195C739200DDD51B /* libicucore.dylib */,
 				CB354D2E194A48B400E537C2 /* EventKit.framework */,
 				CB354D2F194A48B400E537C2 /* EventKitUI.framework */,
 				CB1F31D519327BAA00CDCFD4 /* CoreLocation.framework */,
@@ -692,9 +699,6 @@
 		CBBA68E3192FE17C005A6949 /* login */ = {
 			isa = PBXGroup;
 			children = (
-				CBBA68E4192FE185005A6949 /* LoginViewController.h */,
-				CBBA68E5192FE185005A6949 /* LoginViewController.m */,
-				CBBA68E6192FE185005A6949 /* LoginViewController.xib */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -840,7 +844,6 @@
 				CBBA686F192FD646005A6949 /* InfoPlist.strings in Resources */,
 				CB1F31CA19325D8600CDCFD4 /* ContactViewController.xib in Resources */,
 				CBBA687A192FD646005A6949 /* Images.xcassets in Resources */,
-				CBBA68E8192FE185005A6949 /* LoginViewController.xib in Resources */,
 				CB1F31D11932746F00CDCFD4 /* AccountViewController.xib in Resources */,
 				CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */,
 				CBA5D07A1936BB2D0044BBCC /* Whitney-Semibold.otf in Resources */,
@@ -977,7 +980,6 @@
 				CB1F31B41931749D00CDCFD4 /* SinchClient.m in Sources */,
 				96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */,
 				964A6BDA194E35DE0024B3C2 /* OnboardNavigationController.m in Sources */,
-				CBBA68E7192FE185005A6949 /* LoginViewController.m in Sources */,
 				964839841958A1E600E4792A /* PhotoManager.m in Sources */,
 				CB8FF1B019588C7900DDD51B /* MailComposer.m in Sources */,
 				CBBA68AC192FD8FD005A6949 /* HeadshotAPIClient.m in Sources */,
