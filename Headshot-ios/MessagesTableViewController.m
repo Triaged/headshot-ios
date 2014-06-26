@@ -43,7 +43,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.messageThreads = [MessageThread MR_findAll];
+    self.messageThreads = [MessageThread MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messages.@count > 0"]];
 }
 
 - (void)newThread
