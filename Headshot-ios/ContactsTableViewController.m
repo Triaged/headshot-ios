@@ -107,7 +107,6 @@
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
     
     ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
-    self.navigationController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:contactVC animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

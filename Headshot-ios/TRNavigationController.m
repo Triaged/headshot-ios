@@ -29,6 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.delegate = self;
+    
 	// Do any additional setup after loading the view.
 //    for (UIView *view in self.navigationBar.subviews) {
 //        for (UIView *view2 in view.subviews) {
@@ -44,8 +46,14 @@
     self.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationBar.translucent = NO;
     
+}
 
-    
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    navigationController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    navigationController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 

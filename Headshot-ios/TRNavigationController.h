@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TRNavigationController : UINavigationController
+@interface TRNavigationController : UINavigationController <UINavigationControllerDelegate>
 
 @property (strong, nonatomic)  UIProgressView *progress;
 
