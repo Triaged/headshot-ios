@@ -37,13 +37,24 @@
     [self setupTableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newThread)];
-                                              
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self reloadData];
+}
+
+- (void)reloadData
+{
     self.messageThreads = [MessageThread MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messages.@count > 0"]];
+    [self.tableView reloadData];
+}
+
+- (void)receivedNewMessageNotification:(NSNotification *)notification
+{
+    [self reloadData];
 }
 
 - (void)newThread
