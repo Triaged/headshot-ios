@@ -7,12 +7,13 @@
 //
 
 #import "UIViewController+PresentWithNavigationViewController.h"
+#import "TRNavigationController.h"
 
 @implementation UIViewController (PresentWithNavigationViewController)
 
 - (void)presentViewControllerWithNav:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion
 {
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewControllerToPresent];
+    TRNavigationController *navigationController = [[TRNavigationController alloc] initWithRootViewController:viewControllerToPresent];
     navigationController.navigationBar.translucent = NO;
     [self presentViewController:navigationController animated:flag completion:completion];
 }
