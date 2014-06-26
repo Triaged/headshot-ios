@@ -80,6 +80,11 @@
 
 - (void)messageClient:(id<SINMessageClient>)messageClient didReceiveIncomingMessage:(id<SINMessage>)message {
     NSLog(@"did receive incoming message");
+    
+//    HACK: do nothing if the user hasn't finished onboarding yet. Prevents onslaught of old messages
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasFinishedOnboarding]) {
+        return;
+    }
     //find or create message thread
     NSString *identifier = message.senderId;
     User *sender = [User MR_findFirstByAttribute:@"identifier" withValue:identifier];
@@ -151,6 +156,13 @@
     
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     return newMesage;
+}
+
+- (NSString *)userIDForSIN:(NSString *)sin
+{
+    id<SINNotificationResult> result = [self.client relayRemotePushNotificationPayload:sin];
+    NSString *senderID = [[result messageResult] senderId];
+    return senderID;
 }
 
 @end

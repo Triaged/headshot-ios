@@ -22,6 +22,7 @@
 @property (strong, nonatomic) User *currentUser;
 
 -(id)initWithMessageThread:(MessageThread *)messageThread;
+- (id)initWithRecipient:(User *)recipient;
 -(void)createOrFindThreadForRecipient:(User *)recipient;
 
 

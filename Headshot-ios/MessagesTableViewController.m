@@ -63,18 +63,7 @@
 
 -(void)createOrFindThreadForRecipient:(User *)recipient
 {
-    
-    MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];
-    if (thread == nil) {
-        
-        thread = [MessageThread MR_createEntity];
-        thread.lastMessageTimeStamp = [NSDate date];
-        thread.recipient = recipient;
-        
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-    }
-    
-    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
+    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithRecipient:recipient];
     [self.navigationController pushViewController:messageThreadVC animated:NO];
 }
 

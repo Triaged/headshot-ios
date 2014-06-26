@@ -108,10 +108,10 @@
 	// Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
+- (void)selectMessagesViewController
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self view];
+    [self setSelectedIndex:0];
 }
 
 @end

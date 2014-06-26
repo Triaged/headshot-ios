@@ -7,6 +7,7 @@
 //
 
 #import "NotificationManager.h"
+#import <CMNavBarNotificationView.h>
 #import "Message.h"
 #import "MessageThread.h"
 #import "User.h"
@@ -49,16 +50,16 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 - (void)registerForRemoteNotificationsWithCompletion:(void (^)(NSData *, NSError *))completion
 {
     self.remoteNotificationRegistrationCompletion = completion;
-    BOOL shouldRegisterForPush = DEBUG;
-    if (shouldRegisterForPush) {
+//    BOOL shouldRegisterForPush = DEBUG;
+//    if (shouldRegisterForPush) {
         UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
         self.remoteNotificationRegistrationCompletion = completion;
-    }
-    else {
-        NSError *error = nil;
-        [self executePushNotificationRegistrationCompletionBlockWithDeviceToken:nil error:error];
-    }
+//    }
+//    else {
+//        NSError *error = nil;
+//        [self executePushNotificationRegistrationCompletionBlockWithDeviceToken:nil error:error];
+//    }
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -75,6 +76,28 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     [self executePushNotificationRegistrationCompletionBlockWithDeviceToken:nil error:error];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    if (application.applicationState == UIApplicationStateActive) {
+        return;
+    }
+    [self launchMessageThreadFromNotification:userInfo];
+}
+
+- (void)application:(UIApplication *)application didLaunchFromRemotePush:(NSDictionary *)userInfo
+{
+    [self launchMessageThreadFromNotification:userInfo];
+}
+
+- (void)launchMessageThreadFromNotification:(NSDictionary *)userInfo
+{
+    NSString *SIN = userInfo[@"SIN"];
+    if (SIN) {
+        NSString *userID = [[SinchClient sharedClient] userIDForSIN:SIN];
+        [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithAuthorID:userID];
+    }
 }
 
 - (void)executePushNotificationRegistrationCompletionBlockWithDeviceToken:(NSData *)deviceToken error:(NSError *)error
@@ -96,9 +119,11 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
         [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
     }
     else if (!self.visibleMessageThreadViewController || (![thread.objectID isEqual:self.visibleMessageThreadViewController.messageThread.objectID])) {
-        NSString *text = [NSString stringWithFormat:@"%@: %@", message.author.firstName, message.text];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New Message" message:text delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [self showAlertView:alertView];
+        CMNavBarNotificationView *notificationView = [CMNavBarNotificationView notifyWithText:message.author.firstName detail:message.text image:nil duration:5 andTouchBlock:^(id object) {
+            [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithAuthorID:message.author.identifier];
+        }];
+        NSURL *avatarURL = [NSURL URLWithString:message.author.avatarFaceUrl];
+        [notificationView.imageView setImageWithURL:avatarURL];
     }
 }
 

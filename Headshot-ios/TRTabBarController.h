@@ -11,4 +11,6 @@
 
 @interface TRTabBarController : RDVTabBarController <RDVTabBarControllerDelegate>
 
+- (void)selectMessagesViewController;
+
 @end

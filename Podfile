@@ -13,9 +13,10 @@ pod 'UIView+AutoLayout'
 pod 'SLRESTfulCoreData'
 pod "MagicalRecord"
 pod 'Vertigo'
-pod 'JSQMessagesViewController'
+pod 'JSQMessagesViewController', :git => 'https://github.com/Triaged/JSQMessagesViewController.git'
 pod 'UIView+Positioning'
 pod 'INTULocationManager'
 pod "PMEDatePicker", "~> 0.0.1"
 pod 'TCCopyableLabel'
 pod 'BlocksKit'
+pod 'CMNavBarNotificationView'

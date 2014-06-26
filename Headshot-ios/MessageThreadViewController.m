@@ -37,6 +37,21 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     return self;
 }
 
+- (id)initWithRecipient:(User *)recipient
+{
+    MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];
+    if (thread == nil) {
+        
+        thread = [MessageThread MR_createEntity];
+        thread.lastMessageTimeStamp = [NSDate date];
+        thread.recipient = recipient;
+        
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    }
+    self = [self initWithMessageThread:thread];
+    return self;
+}
+
 -(void)createOrFindThreadForRecipient:(User *)recipient {
     
     MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];

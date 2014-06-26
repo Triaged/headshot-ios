@@ -16,6 +16,7 @@
 #import "CredentialStore.h"
 #import "NotificationManager.h"
 #import "OnboardNavigationController.h"
+#import "MessageThreadViewController.h"
 #import "MailComposer.h"
 
 
@@ -41,7 +42,7 @@
     [self setDataStore];
     [[ThemeManager sharedTheme] customizeAppearance];
     [self setupLoggedInUser];
-    [self setWindowAndRootVC];
+    [self setWindowAndRootVCForApplication:application withLaunchOptions:launchOptions];
     return YES;
 }
 
@@ -80,12 +81,17 @@
     [MagicalRecord cleanUp];
 }
 
-- (void)setWindowAndRootVC {
+- (void)setWindowAndRootVCForApplication:(UIApplication *)application withLaunchOptions:(NSDictionary *)launchOptions
+{
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.tabBarController = [[TRTabBarController alloc] init];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasFinishedOnboarding]) {
+    NSDictionary* remotePush = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remotePush) {
+        [[NotificationManager sharedManager] application:application didLaunchFromRemotePush:remotePush];
+    }
+    else if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasFinishedOnboarding]) {
         [self.window setRootViewController:self.tabBarController];
     }
     else {
@@ -141,6 +147,16 @@
     self.window.rootViewController = [[OnboardNavigationController alloc] init];
 }
 
+- (void)setTopViewControllerToMessageThreadViewControllerWithAuthorID:(NSString *)authorID
+{
+    User *user = [User MR_findFirstByAttribute:@"identifier" withValue:authorID];
+    MessageThreadViewController *messageThreadViewControllor = [[MessageThreadViewController alloc] initWithRecipient:user];
+    self.window.rootViewController = self.tabBarController;
+    [self.tabBarController selectMessagesViewController];
+    UINavigationController *navigationController = (UINavigationController *)self.tabBarController.selectedViewController;
+    [navigationController pushViewController:messageThreadViewControllor animated:NO];
+}
+
 #pragma mark - notifications
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
@@ -150,6 +166,11 @@
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     [[NotificationManager sharedManager] application:application didFailToRegisterForRemoteNotificationsWithError:error];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [[NotificationManager sharedManager] application:application didReceiveRemoteNotification:userInfo];
 }
 
 @end
