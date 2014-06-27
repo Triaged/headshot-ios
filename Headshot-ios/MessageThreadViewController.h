@@ -12,7 +12,7 @@
 #import <JSQMessagesViewController/JSQMessages.h>
 #import <Sinch/Sinch.h>
 
-@interface MessageThreadViewController : JSQMessagesViewController <SINMessageClientDelegate, JSQMessagesCollectionViewCellDelegate>
+@interface MessageThreadViewController : JSQMessagesViewController <JSQMessagesCollectionViewCellDelegate>
 
 @property (strong, nonatomic) MessageThread *messageThread;
 @property (strong, nonatomic) NSMutableArray *messages;
