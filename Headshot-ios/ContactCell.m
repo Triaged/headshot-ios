@@ -36,11 +36,9 @@
 }
 
 -(void)displayCustomSeparator {
-    UIImage *lineSeparator = [UIImage imageNamed:@"line.png"];
-    UIImageView *lineView = [[UIImageView alloc] initWithImage:lineSeparator];
-    lineView.frame = CGRectMake(15, 0, 305, 1.0);
-    [self.contentView addSubview: lineView];
+    [self addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
 }
+
 
 - (void)layoutSubviews
 {
