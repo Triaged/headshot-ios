@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "HeadshotRequestAPIClient.h"
 
-@class User;
+@class User, Company;
 
 @interface Department : NSManagedObject
 
@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * usersCount;
 @property (nonatomic, retain) NSSet *users;
+@property (nonatomic, retain) Company *company;
 
 + (void)departmentsWithCompletionHandler:(void(^)(NSArray *departments, NSError *error))completionHandler;
 - (void)postWithSuccess:(void(^)(Department *department))success failure:(void(^)(NSError *error))failure;

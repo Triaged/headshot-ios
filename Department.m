@@ -16,6 +16,7 @@
 @dynamic name;
 @dynamic usersCount;
 @dynamic users;
+@dynamic company;
 
 + (void)initialize
 {
