@@ -13,6 +13,8 @@
 
 @implementation Message
 
+@dynamic uniqueID;
+@dynamic failed;
 @dynamic messageID;
 @dynamic messageText;
 @dynamic timestamp;

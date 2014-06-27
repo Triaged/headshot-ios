@@ -14,6 +14,8 @@
 
 @interface Message : NSManagedObject <JSQMessageData>
 
+@property (nonatomic, retain) NSString * uniqueID;
+@property (nonatomic, retain) NSNumber * failed;
 @property (nonatomic, retain) NSString * messageID;
 @property (nonatomic, retain) NSString * messageText;
 @property (nonatomic, retain) NSDate * timestamp;
