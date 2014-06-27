@@ -133,17 +133,7 @@
     self.account = [AppDelegate sharedDelegate].store.currentAccount;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:YES animated:NO];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:NO];
-}
 
 - (void)saveAccount
 {
