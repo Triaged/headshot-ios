@@ -8,12 +8,14 @@
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="usesDepartments" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="departments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Department" inverseName="company" inverseEntity="Department" syncable="YES"/>
         <relationship name="officeLocations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OfficeLocation" inverseName="company" inverseEntity="OfficeLocation" syncable="YES"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="company" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Department" representedClassName="Department" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="departments" inverseEntity="Company" syncable="YES"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="department" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="EmployeeInfo" representedClassName="EmployeeInfo" syncable="YES">
@@ -74,8 +76,13 @@
     </entity>
     <elements>
         <element name="Account" positionX="0" positionY="0" width="128" height="75"/>
+<<<<<<< HEAD
         <element name="Company" positionX="0" positionY="0" width="128" height="118"/>
         <element name="Department" positionX="0" positionY="0" width="128" height="90"/>
+=======
+        <element name="Company" positionX="0" positionY="0" width="128" height="133"/>
+        <element name="Department" positionX="0" positionY="0" width="128" height="120"/>
+>>>>>>> 743cbca2539461b7d0e53bf8fd8d607853518a10
         <element name="EmployeeInfo" positionX="0" positionY="0" width="128" height="148"/>
         <element name="Message" positionX="0" positionY="0" width="128" height="150"/>
         <element name="MessageThread" positionX="0" positionY="0" width="128" height="90"/>

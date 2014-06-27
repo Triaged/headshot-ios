@@ -18,6 +18,7 @@
 @dynamic usesDepartments;
 @dynamic users;
 @dynamic officeLocations;
+@dynamic departments;
 
 + (void)companyWithCompletionHandler:(void(^)(Company *company, NSError *error))completionHandler {
     NSURL *URL = [NSURL URLWithString:@"company.json"];

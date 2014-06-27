@@ -6,6 +6,7 @@ NSString * const kReceivedNewMessageNotification = @"ReceivedNewMessageNotificat
 
 NSString * const kMessageFailedNotification = @"MessageFailedNotification";
 NSString * const kMessageSentNotification = @"MessageSentNotification";
+NSString * const kHasStoredCompanyNotification = @"HasStoredCompany";
 
 NSString * const kUserDefaultsHasRequestedLocationPermission = @"HasRequestedLocationPermission";
 NSString * const kUserDefaultsHasRequestedPushPermission = @"HasRequestedPushPermission";

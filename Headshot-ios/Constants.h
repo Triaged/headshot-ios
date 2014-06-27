@@ -6,6 +6,7 @@ extern NSString * const kReceivedNewMessageNotification;
 
 extern NSString * const kMessageFailedNotification;
 extern NSString * const kMessageSentNotification;
+extern NSString * const kHasStoredCompanyNotification;
 
 
 //user defaults

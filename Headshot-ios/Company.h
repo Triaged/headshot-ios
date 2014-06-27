@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * usesDepartments;
 @property (nonatomic, retain) NSSet *officeLocations;
+@property (nonatomic, retain) NSSet *departments;
 @property (nonatomic, retain) NSSet *users;
 
 + (void)companyWithCompletionHandler:(void(^)(Company *company, NSError *error))completionHandler;
@@ -32,5 +33,9 @@
 - (void)removeUsers:(NSSet *)values;
 - (void)addOfficeLocations:(NSSet *)values;
 - (void)removeOfficeLocations:(NSSet *)values;
+- (void)addDepartmentObject:(Department *)value;
+- (void)removeDepartmentObject:(Department *)value;
+- (void)addDepartments:(NSSet *)values;
+- (void)removeDepartments:(NSSet *)values;
 
 @end

@@ -15,6 +15,7 @@
 @dynamic identifier;
 @dynamic name;
 @dynamic users;
+@dynamic company;
 
 + (void)initialize
 {

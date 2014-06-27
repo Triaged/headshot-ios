@@ -411,18 +411,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-//- (void)cellTapped:(UITapGestureRecognizer *)tapGestureRecognizer
-//{
-//    JSQMessagesCollectionViewCell *cell = tapGestureRecognizer.view;
-//    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-//}
-
-
 #pragma mark - JSQMessages collection view flow layout delegate
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView

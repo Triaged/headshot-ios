@@ -82,7 +82,10 @@
     [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:nil] postDeviceWithSuccess:nil failure:nil];
     [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
     
-    [Company companyWithCompletionHandler:^(Company *company, NSError *error) {}];
+    [Company companyWithCompletionHandler:^(Company *company, NSError *error) {
+        self.hasStoredCompany = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHasStoredCompanyNotification object:nil];
+    }];
     //        }
     
     //        Mixpanel *mixpanel = [Mixpanel sharedInstance];
