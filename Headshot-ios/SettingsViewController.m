@@ -22,14 +22,6 @@
     self.navigationItem.title = @"Settings";
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:YES animated:NO];
-}
-
--(void)viewWillDisappear:(BOOL)animated {
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:NO];
-}
-
 
 #pragma mark - Table view data source
 
