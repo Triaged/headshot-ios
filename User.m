@@ -25,9 +25,13 @@
 @dynamic manager;
 @dynamic subordinates;
 
++ (void)initialize
+{
+    [self registerCRUDBaseURL:[NSURL URLWithString:@"users"]];
+}
+
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler {
     NSURL *URL = [NSURL URLWithString:@"users.json"];
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
-
 @end

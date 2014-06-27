@@ -113,7 +113,8 @@
 }
 
 -(NSArray *)loadCachedUsers {
-    return [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier]];
+    NSArray *users = [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier]];
+    return users;
 }
 
 

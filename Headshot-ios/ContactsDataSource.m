@@ -11,7 +11,7 @@
 #import "EmployeeInfo.h"
 #import "ContactCell.h"
 
-NSString * const Alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 @interface ContactsDataSource()
 
 @property (strong, nonatomic) NSDictionary *userDictionary;

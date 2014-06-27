@@ -41,8 +41,8 @@
     // Do any additional setup after loading the view from its nib.
     // Set the background and shadow image to get rid of the line.
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
+    [self refreshUser];
     
     NSURL *avatarUrl = [NSURL URLWithString:self.user.avatarFaceUrl];
     [avatarImageView setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"avatar"]];
@@ -56,13 +56,21 @@
     self.contactDetailsTableView.dataSource = self.contactDetailsDataSource;
     self.contactDetailsTableView.delegate = self.contactDetailsDataSource;
     self.contactDetailsTableView.scrollEnabled = NO;
-    self.contactDetailsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //self.contactDetailsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.contactDetailsTableView registerNib:[UINib nibWithNibName:@"ContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"ContactInfoCell"];
     
 }
 
+- (void) refreshUser {
+    [self.user updateWithCompletionHandler:^(User *user, NSError *error) {
+        self.user = user;
+        [self.view setNeedsDisplay];
+    }];
+}
+
 -(void) viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     [self.contactDetailsTableView reloadData];
 }
 

@@ -24,7 +24,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VJH-ss-uvJ">
-                            <rect key="frame" x="108" y="0.0" width="105" height="105"/>
+                            <rect key="frame" x="108" y="2" width="105" height="105"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="105" id="DcB-Do-6yB"/>
                                 <constraint firstAttribute="width" constant="105" id="kNl-CU-fAl"/>
@@ -107,7 +107,7 @@
                         <constraint firstItem="yx4-tP-joF" firstAttribute="top" secondItem="YqI-mJ-fvb" secondAttribute="bottom" constant="17" id="Lpx-zm-8b5"/>
                         <constraint firstItem="VJH-ss-uvJ" firstAttribute="centerX" secondItem="18x-wu-T4t" secondAttribute="centerX" id="Nbq-Yr-98H"/>
                         <constraint firstItem="EOk-K1-Nwj" firstAttribute="leading" secondItem="yx4-tP-joF" secondAttribute="trailing" constant="20" id="P4O-EE-2T7"/>
-                        <constraint firstItem="18x-wu-T4t" firstAttribute="top" secondItem="VJH-ss-uvJ" secondAttribute="bottom" constant="8" symbolic="YES" id="Smh-yJ-sdY"/>
+                        <constraint firstItem="18x-wu-T4t" firstAttribute="top" secondItem="VJH-ss-uvJ" secondAttribute="bottom" constant="6" id="Smh-yJ-sdY"/>
                         <constraint firstAttribute="bottom" secondItem="9gz-kL-zQ3" secondAttribute="bottom" id="VkP-tI-eDP"/>
                         <constraint firstItem="EOk-K1-Nwj" firstAttribute="centerX" secondItem="YqI-mJ-fvb" secondAttribute="centerX" id="Wib-gw-g9x"/>
                         <constraint firstItem="aga-IV-wv2" firstAttribute="top" secondItem="EOk-K1-Nwj" secondAttribute="bottom" constant="8" symbolic="YES" id="Wv7-9A-3uC"/>
@@ -123,7 +123,7 @@
                         <constraint firstItem="9gz-kL-zQ3" firstAttribute="leading" secondItem="DrD-vH-9Xm" secondAttribute="leading" id="szT-jW-JBC"/>
                         <constraint firstItem="EOk-K1-Nwj" firstAttribute="centerX" secondItem="aga-IV-wv2" secondAttribute="centerX" id="x7i-SP-RcB"/>
                         <constraint firstItem="und-Hm-2TP" firstAttribute="top" secondItem="2U5-vF-bfe" secondAttribute="bottom" constant="8" symbolic="YES" id="ym3-fi-td0"/>
-                        <constraint firstItem="VJH-ss-uvJ" firstAttribute="top" secondItem="DrD-vH-9Xm" secondAttribute="top" id="zNx-aN-34r"/>
+                        <constraint firstItem="VJH-ss-uvJ" firstAttribute="top" secondItem="DrD-vH-9Xm" secondAttribute="top" constant="2" id="zNx-aN-34r"/>
                     </constraints>
                 </scrollView>
             </subviews>

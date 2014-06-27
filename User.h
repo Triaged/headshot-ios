@@ -34,3 +34,9 @@
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler;
 
 @end
+
+@interface NSManagedObject (SLRESTfulCoreDataQueryInterface)
+
+- (void)updateWithCompletionHandler:(void(^)(id managedObject, NSError *error))completionHandler;
+
+@end
