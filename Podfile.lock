@@ -96,7 +96,7 @@ PODS:
     - SLRESTfulCoreData/Core
   - SLRESTfulCoreData/Core (1.8.2)
   - SSKeychain (1.2.2)
-  - SVProgressHUD (1.0)
+  - SVProgressHUD (HEAD based on 1.0)
   - SVWebViewController (HEAD based on 1.0)
   - TCCopyableLabel (1.0.0)
   - UITableView-NXEmptyView (0.1.6)
@@ -118,7 +118,7 @@ DEPENDENCIES:
   - SGNavigationProgress
   - SLRESTfulCoreData
   - SSKeychain
-  - SVProgressHUD
+  - SVProgressHUD (HEAD)
   - SVWebViewController (HEAD)
   - TCCopyableLabel
   - UITableView-NXEmptyView

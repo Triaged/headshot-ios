@@ -3,6 +3,7 @@
 NSString * const HeadshotAPIBaseURLString = @"http://api.badge.co/v1/";
 
 NSString * const kReceivedNewMessageNotification = @"ReceivedNewMessageNotification";
+NSString * const kAccountUpdatedNotification = @"AccountUpdatedNotification";
 
 NSString * const kUserDefaultsHasRequestedLocationPermission = @"HasRequestedLocationPermission";
 NSString * const kUserDefaultsHasRequestedPushPermission = @"HasRequestedPushPermission";

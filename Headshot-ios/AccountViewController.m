@@ -13,6 +13,7 @@
 #import "CredentialStore.h"
 #import "ContactDetailsDataSource.h"
 #import "SettingsViewController.h"
+#import "Constants.h"
 
 @interface AccountViewController ()
 
@@ -37,6 +38,7 @@
 {
     [super viewDidLoad];
     
+    
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
@@ -48,11 +50,16 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
                                               
+    [self loadViewFromData];
     
-    //self.title = @"Account";
-    
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [self loadViewFromData];
+}
+
+-(void)loadViewFromData {
     currentUser = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-    // Do any additional setup after loading the view from its nib.
     
     NSURL *avatarUrl = [NSURL URLWithString:currentUser.avatarFaceUrl];
     [self.avatarImageView setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"avatar"]];
@@ -72,9 +79,7 @@
     self.contactDetailsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.contactDetailsTableView registerNib:[UINib nibWithNibName:@"ContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"ContactInfoCell"];
-}
-
--(void) viewWillAppear:(BOOL)animated {
+    
     [self.contactDetailsTableView reloadData];
 }
 

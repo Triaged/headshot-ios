@@ -85,6 +85,9 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [UINavigationBar appearance].backIndicatorImage = [[UIImage imageNamed:@"navbar_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [UINavigationBar appearance].backIndicatorTransitionMaskImage = [[UIImage imageNamed:@"navbar_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    [SVProgressHUD setBackgroundColor:[self orangeColor]];
+    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
 }
 
 @end

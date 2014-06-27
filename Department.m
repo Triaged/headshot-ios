@@ -14,7 +14,6 @@
 
 @dynamic identifier;
 @dynamic name;
-@dynamic usersCount;
 @dynamic users;
 
 + (void)initialize

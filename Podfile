@@ -1,7 +1,7 @@
 platform :ios, '7.0'
 
 pod 'SSKeychain'
-pod 'SVProgressHUD'
+pod 'SVProgressHUD', :head
 pod 'NSDate+TimeAgo'
 pod 'SGNavigationProgress'
 pod 'MRProgress', '~> 0.2'

@@ -153,7 +153,6 @@
     [SVProgressHUD show];
     [self.account updateAccountWithSuccess:^(Account *account) {
         [SVProgressHUD dismiss];
-        [[[UIAlertView alloc] initWithTitle:@"Saved" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
     }];

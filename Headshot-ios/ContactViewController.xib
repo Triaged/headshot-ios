@@ -43,7 +43,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yx4-tP-joF">
-                            <rect key="frame" x="50" y="181" width="60" height="60"/>
+                            <rect key="frame" x="35" y="181" width="60" height="60"/>
                             <state key="normal" image="profile-message">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -52,7 +52,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2U5-vF-bfe">
-                            <rect key="frame" x="210" y="181" width="60" height="60"/>
+                            <rect key="frame" x="225" y="181" width="60" height="60"/>
                             <state key="normal" image="profile-email">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -65,18 +65,19 @@
                             <state key="normal" image="profile-call">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <state key="disabled" image="profile-call-disabled"/>
                             <connections>
                                 <action selector="callTapped:" destination="-1" eventType="touchUpInside" id="LpX-Be-SlM"/>
                             </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUs-y9-JXK">
-                            <rect key="frame" x="58" y="249" width="46" height="15"/>
+                            <rect key="frame" x="43" y="249" width="46" height="15"/>
                             <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
                             <color key="textColor" red="0.97254901960784312" green="0.67450980392156867" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="und-Hm-2TP">
-                            <rect key="frame" x="217" y="249" width="46" height="15"/>
+                            <rect key="frame" x="235" y="249" width="46" height="15"/>
                             <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
                             <color key="textColor" red="0.97254901959999995" green="0.67450980390000004" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
@@ -100,20 +101,20 @@
                         <constraint firstItem="YqI-mJ-fvb" firstAttribute="trailing" secondItem="18x-wu-T4t" secondAttribute="trailing" id="1yO-Vr-zoZ"/>
                         <constraint firstItem="18x-wu-T4t" firstAttribute="leading" secondItem="YqI-mJ-fvb" secondAttribute="leading" id="20Z-p0-iQ0"/>
                         <constraint firstAttribute="trailing" secondItem="18x-wu-T4t" secondAttribute="trailing" id="4QQ-cN-PWE"/>
-                        <constraint firstItem="aga-IV-wv2" firstAttribute="leading" secondItem="LUs-y9-JXK" secondAttribute="trailing" constant="33" id="53D-9J-GRy"/>
+                        <constraint firstItem="aga-IV-wv2" firstAttribute="leading" secondItem="LUs-y9-JXK" secondAttribute="trailing" constant="48" id="53D-9J-GRy"/>
                         <constraint firstItem="LUs-y9-JXK" firstAttribute="baseline" secondItem="aga-IV-wv2" secondAttribute="baseline" id="99c-7F-T9V"/>
                         <constraint firstItem="9gz-kL-zQ3" firstAttribute="leading" secondItem="YqI-mJ-fvb" secondAttribute="leading" id="FBj-Bi-e1b"/>
-                        <constraint firstItem="2U5-vF-bfe" firstAttribute="leading" secondItem="EOk-K1-Nwj" secondAttribute="trailing" constant="20" id="Fq7-gT-kSd"/>
+                        <constraint firstItem="2U5-vF-bfe" firstAttribute="leading" secondItem="EOk-K1-Nwj" secondAttribute="trailing" constant="35" id="Fq7-gT-kSd"/>
                         <constraint firstItem="yx4-tP-joF" firstAttribute="top" secondItem="YqI-mJ-fvb" secondAttribute="bottom" constant="17" id="Lpx-zm-8b5"/>
                         <constraint firstItem="VJH-ss-uvJ" firstAttribute="centerX" secondItem="18x-wu-T4t" secondAttribute="centerX" id="Nbq-Yr-98H"/>
-                        <constraint firstItem="EOk-K1-Nwj" firstAttribute="leading" secondItem="yx4-tP-joF" secondAttribute="trailing" constant="20" id="P4O-EE-2T7"/>
+                        <constraint firstItem="EOk-K1-Nwj" firstAttribute="leading" secondItem="yx4-tP-joF" secondAttribute="trailing" constant="35" id="P4O-EE-2T7"/>
                         <constraint firstItem="18x-wu-T4t" firstAttribute="top" secondItem="VJH-ss-uvJ" secondAttribute="bottom" constant="6" id="Smh-yJ-sdY"/>
                         <constraint firstAttribute="bottom" secondItem="9gz-kL-zQ3" secondAttribute="bottom" id="VkP-tI-eDP"/>
                         <constraint firstItem="EOk-K1-Nwj" firstAttribute="centerX" secondItem="YqI-mJ-fvb" secondAttribute="centerX" id="Wib-gw-g9x"/>
                         <constraint firstItem="aga-IV-wv2" firstAttribute="top" secondItem="EOk-K1-Nwj" secondAttribute="bottom" constant="8" symbolic="YES" id="Wv7-9A-3uC"/>
-                        <constraint firstItem="und-Hm-2TP" firstAttribute="leading" secondItem="aga-IV-wv2" secondAttribute="trailing" constant="34" id="eKC-PX-TO7"/>
-                        <constraint firstItem="LUs-y9-JXK" firstAttribute="leading" secondItem="DrD-vH-9Xm" secondAttribute="leading" constant="58" id="g8W-f8-d1Q"/>
-                        <constraint firstItem="und-Hm-2TP" firstAttribute="centerX" secondItem="2U5-vF-bfe" secondAttribute="centerX" id="iMa-1U-NST"/>
+                        <constraint firstItem="und-Hm-2TP" firstAttribute="leading" secondItem="aga-IV-wv2" secondAttribute="trailing" constant="52" id="eKC-PX-TO7"/>
+                        <constraint firstItem="LUs-y9-JXK" firstAttribute="leading" secondItem="DrD-vH-9Xm" secondAttribute="leading" constant="43" id="g8W-f8-d1Q"/>
+                        <constraint firstItem="und-Hm-2TP" firstAttribute="centerX" secondItem="2U5-vF-bfe" secondAttribute="centerX" constant="3" id="iMa-1U-NST"/>
                         <constraint firstItem="LUs-y9-JXK" firstAttribute="top" secondItem="yx4-tP-joF" secondAttribute="bottom" constant="8" symbolic="YES" id="jD3-LM-fsX"/>
                         <constraint firstItem="YqI-mJ-fvb" firstAttribute="top" secondItem="18x-wu-T4t" secondAttribute="bottom" constant="2" id="lrs-6K-CQv"/>
                         <constraint firstItem="9gz-kL-zQ3" firstAttribute="top" secondItem="LUs-y9-JXK" secondAttribute="bottom" constant="35" id="mni-gz-eGA"/>
@@ -141,6 +142,7 @@
     </objects>
     <resources>
         <image name="profile-call" width="60" height="60"/>
+        <image name="profile-call-disabled" width="60" height="60"/>
         <image name="profile-email" width="60" height="60"/>
         <image name="profile-message" width="60" height="60"/>
     </resources>
