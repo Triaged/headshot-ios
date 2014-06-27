@@ -64,7 +64,7 @@
 
 - (void) refreshUser {
     [self.user updateWithCompletionHandler:^(User *user, NSError *error) {
-        self.user = user;
+        self.user = (User *)[[NSManagedObjectContext MR_contextForCurrentThread] existingObjectWithID:user.objectID error:nil];
         [self.view setNeedsDisplay];
     }];
 }
@@ -88,8 +88,7 @@
 }
 
 - (IBAction)messageTapped:(id)sender {
-    MessageThreadViewController *threadVC = [[MessageThreadViewController alloc] init];
-    [threadVC createOrFindThreadForRecipient:self.user];
+    MessageThreadViewController *threadVC = [[MessageThreadViewController alloc] initWithRecipient:self.user];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:threadVC animated:YES];
 }
