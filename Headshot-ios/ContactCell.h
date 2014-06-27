@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) User *user;
 
+-(void)displayCustomSeparator;
+
 @end

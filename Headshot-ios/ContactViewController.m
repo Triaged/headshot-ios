@@ -43,7 +43,21 @@
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     
     [self refreshUser];
-    
+}
+
+- (void) refreshUser {
+    [self.user updateWithCompletionHandler:^(User *user, NSError *error) {
+        self.user = (User *)[[NSManagedObjectContext MR_contextForCurrentThread] existingObjectWithID:user.objectID error:nil];
+        [self loadViewFromData];
+    }];
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    [self loadViewFromData];
+}
+
+-(void)loadViewFromData {
     NSURL *avatarUrl = [NSURL URLWithString:self.user.avatarFaceUrl];
     [avatarImageView setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"avatar"]];
     
@@ -56,22 +70,14 @@
     self.contactDetailsTableView.dataSource = self.contactDetailsDataSource;
     self.contactDetailsTableView.delegate = self.contactDetailsDataSource;
     self.contactDetailsTableView.scrollEnabled = NO;
-    //self.contactDetailsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    self.contactDetailsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.contactDetailsTableView registerNib:[UINib nibWithNibName:@"ContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"ContactInfoCell"];
-    
-}
-
-- (void) refreshUser {
-    [self.user updateWithCompletionHandler:^(User *user, NSError *error) {
-        self.user = user;
-        [self.view setNeedsDisplay];
-    }];
-}
-
--(void) viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     [self.contactDetailsTableView reloadData];
+    
+    if (!self.user.employeeInfo.hasPhoneNumber) {
+        self.callButton.enabled = NO;
+    }
+
 }
 
 -(void)viewDidLayoutSubviews
@@ -88,8 +94,7 @@
 }
 
 - (IBAction)messageTapped:(id)sender {
-    MessageThreadViewController *threadVC = [[MessageThreadViewController alloc] init];
-    [threadVC createOrFindThreadForRecipient:self.user];
+    MessageThreadViewController *threadVC = [[MessageThreadViewController alloc] initWithRecipient:self.user];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:threadVC animated:YES];
 }

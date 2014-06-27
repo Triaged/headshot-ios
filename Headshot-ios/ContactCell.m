@@ -35,6 +35,13 @@
     self.detailTextLabel.text = user.employeeInfo.jobTitle;
 }
 
+-(void)displayCustomSeparator {
+    UIImage *lineSeparator = [UIImage imageNamed:@"line.png"];
+    UIImageView *lineView = [[UIImageView alloc] initWithImage:lineSeparator];
+    lineView.frame = CGRectMake(15, 0, 305, 1.0);
+    [self.contentView addSubview: lineView];
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -43,6 +50,8 @@
     self.textLabel.x = self.imageView.right + 15;
     self.detailTextLabel.x = self.textLabel.x;
 }
+
+
 
 
 

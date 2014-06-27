@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *currentOfficeLocationLabel;
+@property (strong, nonatomic) IBOutlet UIButton *callButton;
 @property (strong, nonatomic) IBOutlet UITableView *contactDetailsTableView;
 @property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
 

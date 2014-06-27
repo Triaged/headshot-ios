@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactViewController">
             <connections>
                 <outlet property="avatarImageView" destination="VJH-ss-uvJ" id="jkH-C2-4lQ"/>
+                <outlet property="callButton" destination="EOk-K1-Nwj" id="cJU-ji-5hY"/>
                 <outlet property="contactDetailsTableView" destination="9gz-kL-zQ3" id="zAQ-KM-mNd"/>
                 <outlet property="nameLabel" destination="18x-wu-T4t" id="L3K-EP-pqd"/>
                 <outlet property="tableHeightConstraint" destination="XJ3-NX-Csn" id="lbk-JP-fxd"/>
@@ -21,7 +22,6 @@
             <subviews>
                 <scrollView appearanceType="aqua" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DrD-vH-9Xm">
                     <rect key="frame" x="0.0" y="-1" width="320" height="505"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VJH-ss-uvJ">
                             <rect key="frame" x="108" y="2" width="105" height="105"/>
@@ -71,13 +71,13 @@
                             </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUs-y9-JXK">
-                            <rect key="frame" x="43" y="249" width="46" height="15"/>
+                            <rect key="frame" x="42" y="249" width="46" height="15"/>
                             <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
                             <color key="textColor" red="0.97254901960784312" green="0.67450980392156867" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="und-Hm-2TP">
-                            <rect key="frame" x="235" y="249" width="46" height="15"/>
+                            <rect key="frame" x="232" y="249" width="46" height="15"/>
                             <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
                             <color key="textColor" red="0.97254901959999995" green="0.67450980390000004" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
@@ -89,8 +89,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="9gz-kL-zQ3">
-                            <rect key="frame" x="0.0" y="299" width="320" height="206"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <rect key="frame" x="0.0" y="284" width="320" height="206"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="206" id="XJ3-NX-Csn"/>
@@ -101,7 +100,7 @@
                         <constraint firstItem="YqI-mJ-fvb" firstAttribute="trailing" secondItem="18x-wu-T4t" secondAttribute="trailing" id="1yO-Vr-zoZ"/>
                         <constraint firstItem="18x-wu-T4t" firstAttribute="leading" secondItem="YqI-mJ-fvb" secondAttribute="leading" id="20Z-p0-iQ0"/>
                         <constraint firstAttribute="trailing" secondItem="18x-wu-T4t" secondAttribute="trailing" id="4QQ-cN-PWE"/>
-                        <constraint firstItem="aga-IV-wv2" firstAttribute="leading" secondItem="LUs-y9-JXK" secondAttribute="trailing" constant="48" id="53D-9J-GRy"/>
+                        <constraint firstItem="aga-IV-wv2" firstAttribute="leading" secondItem="LUs-y9-JXK" secondAttribute="trailing" constant="49" id="53D-9J-GRy"/>
                         <constraint firstItem="LUs-y9-JXK" firstAttribute="baseline" secondItem="aga-IV-wv2" secondAttribute="baseline" id="99c-7F-T9V"/>
                         <constraint firstItem="9gz-kL-zQ3" firstAttribute="leading" secondItem="YqI-mJ-fvb" secondAttribute="leading" id="FBj-Bi-e1b"/>
                         <constraint firstItem="2U5-vF-bfe" firstAttribute="leading" secondItem="EOk-K1-Nwj" secondAttribute="trailing" constant="35" id="Fq7-gT-kSd"/>
@@ -112,12 +111,12 @@
                         <constraint firstAttribute="bottom" secondItem="9gz-kL-zQ3" secondAttribute="bottom" id="VkP-tI-eDP"/>
                         <constraint firstItem="EOk-K1-Nwj" firstAttribute="centerX" secondItem="YqI-mJ-fvb" secondAttribute="centerX" id="Wib-gw-g9x"/>
                         <constraint firstItem="aga-IV-wv2" firstAttribute="top" secondItem="EOk-K1-Nwj" secondAttribute="bottom" constant="8" symbolic="YES" id="Wv7-9A-3uC"/>
-                        <constraint firstItem="und-Hm-2TP" firstAttribute="leading" secondItem="aga-IV-wv2" secondAttribute="trailing" constant="52" id="eKC-PX-TO7"/>
-                        <constraint firstItem="LUs-y9-JXK" firstAttribute="leading" secondItem="DrD-vH-9Xm" secondAttribute="leading" constant="43" id="g8W-f8-d1Q"/>
-                        <constraint firstItem="und-Hm-2TP" firstAttribute="centerX" secondItem="2U5-vF-bfe" secondAttribute="centerX" constant="3" id="iMa-1U-NST"/>
+                        <constraint firstItem="und-Hm-2TP" firstAttribute="leading" secondItem="aga-IV-wv2" secondAttribute="trailing" constant="49" id="eKC-PX-TO7"/>
+                        <constraint firstItem="LUs-y9-JXK" firstAttribute="leading" secondItem="DrD-vH-9Xm" secondAttribute="leading" constant="42" id="g8W-f8-d1Q"/>
+                        <constraint firstItem="und-Hm-2TP" firstAttribute="centerX" secondItem="2U5-vF-bfe" secondAttribute="centerX" id="iMa-1U-NST"/>
                         <constraint firstItem="LUs-y9-JXK" firstAttribute="top" secondItem="yx4-tP-joF" secondAttribute="bottom" constant="8" symbolic="YES" id="jD3-LM-fsX"/>
                         <constraint firstItem="YqI-mJ-fvb" firstAttribute="top" secondItem="18x-wu-T4t" secondAttribute="bottom" constant="2" id="lrs-6K-CQv"/>
-                        <constraint firstItem="9gz-kL-zQ3" firstAttribute="top" secondItem="LUs-y9-JXK" secondAttribute="bottom" constant="35" id="mni-gz-eGA"/>
+                        <constraint firstItem="9gz-kL-zQ3" firstAttribute="top" secondItem="LUs-y9-JXK" secondAttribute="bottom" constant="20" id="mni-gz-eGA"/>
                         <constraint firstItem="YqI-mJ-fvb" firstAttribute="trailing" secondItem="9gz-kL-zQ3" secondAttribute="trailing" id="oCg-pk-qZ0"/>
                         <constraint firstItem="und-Hm-2TP" firstAttribute="baseline" secondItem="aga-IV-wv2" secondAttribute="baseline" id="q2b-5M-0lh"/>
                         <constraint firstItem="EOk-K1-Nwj" firstAttribute="centerX" secondItem="DrD-vH-9Xm" secondAttribute="centerX" id="snw-Ah-p4t"/>

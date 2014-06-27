@@ -22,4 +22,6 @@
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) User *user;
 
+- (BOOL) hasPhoneNumber;
+
 @end

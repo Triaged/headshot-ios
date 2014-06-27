@@ -3,7 +3,10 @@ extern NSString * const HeadshotAPIBaseURLString;
 
 //notification center
 extern NSString * const kReceivedNewMessageNotification;
-extern NSString * const kAccountUpdatedNotification; 
+
+extern NSString * const kMessageFailedNotification;
+extern NSString * const kMessageSentNotification;
+
 
 //user defaults
 extern NSString * const kUserDefaultsLoggedIn;

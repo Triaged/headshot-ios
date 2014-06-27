@@ -175,6 +175,8 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         cell = [[ContactCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.user = user;
+    [cell displayCustomSeparator];
+    
     return cell;
 }
 

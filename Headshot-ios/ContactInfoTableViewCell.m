@@ -17,6 +17,11 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     [self.valueLabel setMinimumPressDuration:1];
+    
+    UIImage *lineSeparator = [UIImage imageNamed:@"line.png"];
+    UIImageView *lineView = [[UIImageView alloc] initWithImage:lineSeparator];
+    lineView.frame = CGRectMake(15, 0, 305, 1.0);
+    [self.contentView addSubview: lineView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

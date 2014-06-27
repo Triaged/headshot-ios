@@ -21,4 +21,9 @@
 @dynamic identifier;
 @dynamic user;
 
+
+- (BOOL) hasPhoneNumber {
+    return (self.cellPhone || self.officePhone);
+}
+
 @end

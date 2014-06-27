@@ -49,6 +49,7 @@
     NSMutableDictionary *employeeInfoJSON = [[NSMutableDictionary alloc] init];
     employeeInfoJSON[@"job_title"] = self.currentUser.employeeInfo.jobTitle;
     employeeInfoJSON[@"cell_phone"] = self.currentUser.employeeInfo.cellPhone;
+    employeeInfoJSON[@"office_phone"] = self.currentUser.employeeInfo.officePhone;
     if (self.currentUser.employeeInfo.birthDate) {
         employeeInfoJSON[@"birth_date"] = self.currentUser.employeeInfo.birthDate.badgeFormattedDate;
     }
