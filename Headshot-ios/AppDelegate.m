@@ -18,6 +18,7 @@
 #import "OnboardNavigationController.h"
 #import "MessageThreadViewController.h"
 #import "MailComposer.h"
+#import <Crashlytics/Crashlytics.h>
 
 
 @interface NSManagedObjectContext ()
@@ -42,6 +43,7 @@
     [self setDataStore];
     [[ThemeManager sharedTheme] customizeAppearance];
     [self setupLoggedInUser];
+    [self setupLogging];
     [self setWindowAndRootVCForApplication:application withLaunchOptions:launchOptions];
     return YES;
 }
@@ -120,6 +122,10 @@
     //    }
     
     self.geofencer = [LocationClient sharedClient];
+}
+
+-(void) setupLogging {
+    [Crashlytics startWithAPIKey:@"2776a41715c04dde4ba5d15b716b66a51e353b0f"];
 }
 
 

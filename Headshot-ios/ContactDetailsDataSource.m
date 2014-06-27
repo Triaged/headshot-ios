@@ -162,6 +162,7 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
             break;
     }
     
+    
     return cell;
     }
 

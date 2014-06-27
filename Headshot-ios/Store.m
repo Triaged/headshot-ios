@@ -70,6 +70,12 @@
         [[NotificationManager sharedManager] registerForRemoteNotificationsWithCompletion:nil];
     }
     
+    // Reset Badge Count
+    if([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        [account resetBadgeCount];
+    }
+    
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     //    [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
     //        if (error == nil) {
@@ -77,7 +83,6 @@
     [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
     
     [Company companyWithCompletionHandler:^(Company *company, NSError *error) {}];
-    [User usersWithCompletionHandler:^(NSArray *users, NSError *error){}];
     //        }
     
     //        Mixpanel *mixpanel = [Mixpanel sharedInstance];

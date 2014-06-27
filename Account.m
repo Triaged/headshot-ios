@@ -73,4 +73,9 @@
     } failure:failure];
 }
 
+- (void)resetBadgeCount {
+    NSURL *URL = [NSURL URLWithString:@"account/reset_count.json"];
+    [self postToURL:URL completionHandler:nil];
+}
+
 @end

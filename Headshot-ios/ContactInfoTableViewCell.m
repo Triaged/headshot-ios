@@ -16,7 +16,7 @@
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    [self.valueLabel setMinimumPressDuration:2];
+    [self.valueLabel setMinimumPressDuration:1];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

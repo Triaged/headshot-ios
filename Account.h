@@ -19,5 +19,6 @@
 + (void)currentAccountWithCompletionHandler:(void(^)(Account *account, NSError *error))completionHandler;
 - (void)updateAccountWithSuccess:(void (^)(Account *account))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 - (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withSuccess:(void (^)())success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+- (void)resetBadgeCount;
 
 @end

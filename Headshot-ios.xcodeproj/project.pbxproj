@@ -82,6 +82,7 @@
 		CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA5D0821936BD4D0044BBCC /* ContactCell.m */; };
 		CBB5183D194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB5183A194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m */; };
 		CBB5183E194A3F04001C2E0C /* SDCSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB5183C194A3F04001C2E0C /* SDCSegmentedViewController.m */; };
+		CBB53206195CCE3200E33724 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB53205195CCE3200E33724 /* Crashlytics.framework */; };
 		CBBA6863192FD646005A6949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBA6862192FD646005A6949 /* Foundation.framework */; };
 		CBBA6865192FD646005A6949 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBA6864192FD646005A6949 /* CoreGraphics.framework */; };
 		CBBA6867192FD646005A6949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBA6866192FD646005A6949 /* UIKit.framework */; };
@@ -257,6 +258,7 @@
 		CBB5183A194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCEmbeddedSegmentSegue.m; sourceTree = "<group>"; };
 		CBB5183B194A3F04001C2E0C /* SDCSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCSegmentedViewController.h; sourceTree = "<group>"; };
 		CBB5183C194A3F04001C2E0C /* SDCSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCSegmentedViewController.m; sourceTree = "<group>"; };
+		CBB53205195CCE3200E33724 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		CBBA685F192FD646005A6949 /* Headshot-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Headshot-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBBA6862192FD646005A6949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CBBA6864192FD646005A6949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -325,6 +327,7 @@
 				CB1F31C01931853200CDCFD4 /* Sinch.framework in Frameworks */,
 				CB1F31BA193178FF00CDCFD4 /* AudioToolbox.framework in Frameworks */,
 				CB1F31B8193178EE00CDCFD4 /* Security.framework in Frameworks */,
+				CBB53206195CCE3200E33724 /* Crashlytics.framework in Frameworks */,
 				CB1F31B6193178E400CDCFD4 /* libsqlite3.dylib in Frameworks */,
 				CBBA6865192FD646005A6949 /* CoreGraphics.framework in Frameworks */,
 				CBBA6869192FD646005A6949 /* CoreData.framework in Frameworks */,
@@ -477,6 +480,7 @@
 		CBA5D0731936BAE40044BBCC /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				CBB53205195CCE3200E33724 /* Crashlytics.framework */,
 				CBB5183F194A3F25001C2E0C /* SDCEmbeddedSegmentSegue */,
 				CBA5D0711936B8FA0044BBCC /* Reveal.framework */,
 				CBA5D0741936BAEB0044BBCC /* fonts */,
@@ -771,6 +775,7 @@
 				CBBA685D192FD646005A6949 /* Resources */,
 				1C561DCFFC8448FF87242050 /* Copy Pods Resources */,
 				CB6F2EDF19381CA300ADFC5E /* ShellScript */,
+				CBB53204195CCE0A00E33724 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -904,6 +909,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/bash -e";
 			shellScript = "#mdfind -onlyin \"${SRCROOT}\" \"kMDItemContentTypeTree == public.font\" -0 | sort -z | xargs -0 /usr/local/bin/moarfonts install";
+		};
+		CBB53204195CCE0A00E33724 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 2776a41715c04dde4ba5d15b716b66a51e353b0f 8b7fa703f78b5486e1ea0ee6e468c365d75c06ebf5c0b8a9317712c6b6f24fce";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1102,9 +1120,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Richardson White (4AM4VLZM5Y)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Richardson White (4AM4VLZM5Y)";
+				CURRENT_PROJECT_VERSION = 0;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Headshot-ios",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Headshot-ios/Headshot-ios-Prefix.pch";
@@ -1129,9 +1149,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Richardson White (4AM4VLZM5Y)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Richardson White (4AM4VLZM5Y)";
+				CURRENT_PROJECT_VERSION = 0;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Headshot-ios",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Headshot-ios/Headshot-ios-Prefix.pch";
