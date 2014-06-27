@@ -67,7 +67,7 @@
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (!_fetchedResultsController) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"usersCount > 0"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"users.@count > 0"];
         _fetchedResultsController = [Department MR_fetchAllSortedBy:nil
                                                     ascending:NO
                                                 withPredicate:predicate
