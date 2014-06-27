@@ -95,7 +95,24 @@
 }
 
 - (void)messageSent:(id<SINMessage>)message recipientId:(NSString *)recipientId {
-    NSLog(@"Message sent to %@", recipientId);
+    Message *sentMessage = [self messageForSINMessage:message];
+    sentMessage.failed = @(NO);
+    sentMessage.timestamp = [message timestamp];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMessageSentNotification object:nil userInfo:@{@"message" : sentMessage.objectID}];
+}
+    
+- (void)messageDelivered:(id<SINMessageDeliveryInfo>)info {
+    NSLog(@"Message to %@ was successfully delivered", info.recipientId);
+}
+
+- (void)messageFailed:(id<SINMessage>)message info:(id<SINMessageFailureInfo>)failureInfo {
+    NSLog(@"Failed delivering message to %@. Reason: %@", failureInfo.recipientId,
+          [failureInfo.error localizedDescription]);
+    Message *failedMessage = [self messageForSINMessage:message];
+    failedMessage.failed = @(YES);
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMessageFailedNotification object:nil userInfo:@{@"message" : failedMessage.objectID}];
 }
 
 - (void)message:(id<SINMessage>)message shouldSendPushNotifications:(NSArray *)pushPairs {
@@ -123,13 +140,9 @@
                                    }];
 }
 
-- (void)messageDelivered:(id<SINMessageDeliveryInfo>)info {
-    NSLog(@"Message to %@ was successfully delivered", info.recipientId);
-}
-
-- (void)messageFailed:(id<SINMessage>)message info:(id<SINMessageFailureInfo>)failureInfo {
-    NSLog(@"Failed delivering message to %@. Reason: %@", failureInfo.recipientId,
-          [failureInfo.error localizedDescription]);
+- (Message *)messageForSINMessage:(id<SINMessage>)message
+{
+    return [Message MR_findFirstByAttribute:@"uniqueID" withValue:[message messageId]];
 }
 
 -(MessageThread *)createOrFindThreadForRecipient:(User *)recipient {

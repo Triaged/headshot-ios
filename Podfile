@@ -20,3 +20,4 @@ pod "PMEDatePicker", "~> 0.0.1"
 pod 'TCCopyableLabel'
 pod 'BlocksKit'
 pod 'CMNavBarNotificationView'
+pod 'SGNavigationProgress'

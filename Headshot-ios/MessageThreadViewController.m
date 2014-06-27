@@ -7,6 +7,7 @@
 //
 
 #import "MessageThreadViewController.h"
+#import <UINavigationController+SGProgress.h>
 #import "User.h"
 #import "SinchClient.h"
 #import "ContactViewController.h"
@@ -16,6 +17,12 @@
 
 @property (strong, nonatomic) NSDictionary *avatarImageURLs;
 @property (assign, nonatomic) CGSize avatarImageSize;
+@property (strong, nonatomic) NSMutableOrderedSet *messageQueue;
+@property (strong, nonatomic) NSDate *lastSentMessageDate;
+@property (strong, nonatomic) NSTimer *progressTimer;
+@property (assign, nonatomic) NSTimeInterval progressDuration;
+@property (assign, nonatomic) CGFloat progressPercentage;
+@property (assign, nonatomic) CGFloat progressUpdateInterval;
 
 @end
 
@@ -33,6 +40,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     if (self) {
         // Custom initialization
         self.messageThread = messageThread;
+        self.messageQueue = [[NSMutableOrderedSet alloc] init];
     }
     return self;
 }
@@ -95,7 +103,8 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.navigationItem.rightBarButtonItem = item;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedMessageSentNotification:) name:kMessageSentNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedMessageFailedNotification:) name:kMessageFailedNotification object:nil];
 
     
     currentUser = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
@@ -111,6 +120,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory
                                     incomingMessageBubbleImageViewWithColor:
                                     [[ThemeManager sharedTheme] incomingMessageBubbleColor]];
+    self.failedBubbleImageView = [JSQMessagesBubbleImageFactory outgoingMessageBubbleImageViewWithColor:[UIColor redColor]];
     
     self.avatarImageSize = CGSizeMake(40, 40);
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = self.avatarImageSize;
@@ -123,6 +133,23 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     if ([thread.objectID isEqual:self.messageThread.objectID]) {
         [self fetchMessages];
     }
+}
+
+- (void)receivedMessageFailedNotification:(NSNotification *)notification
+{
+    [self fetchMessages];
+    [self cancelProgressBar];
+}
+
+- (void)receivedMessageSentNotification:(NSNotification *)notification
+{
+    NSManagedObjectID *objectID = notification.userInfo[@"message"];
+    Message *message = (Message *)[[NSManagedObjectContext MR_contextForCurrentThread] existingObjectWithID:objectID error:nil];
+    if (message) {
+        [self.messageQueue removeObject:message.uniqueID];
+        [self updateProgressBar];
+    }
+    [self fetchMessages];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -138,6 +165,41 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:YES];
     [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
+    [self.navigationController setSGProgressPercentage:0];
+}
+
+
+- (void)updateProgressBar
+{
+    if (!self.messageQueue.count) {
+        [self finishProgressBar];
+    }
+    else {
+        self.progressPercentage += 100*self.progressUpdateInterval/(self.progressDuration);
+        self.progressPercentage = MIN(75, self.progressPercentage);
+        [self.navigationController setSGProgressPercentage:self.progressPercentage andTintColor:[[ThemeManager sharedTheme] orangeColor]];
+    }
+}
+
+- (void)startProgressBar
+{
+    self.progressDuration = 1.5;
+    self.progressUpdateInterval = 0.1;
+    self.progressPercentage = 0;
+    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:self.progressUpdateInterval target:self selector:@selector(updateProgressBar) userInfo:nil repeats:YES];
+    [self updateProgressBar];
+}
+
+- (void)finishProgressBar
+{
+    [self.navigationController setSGProgressPercentage:100 andTintColor:[[ThemeManager sharedTheme] orangeColor]];
+    [self.progressTimer invalidate];
+}
+
+- (void)cancelProgressBar
+{
+    [self.navigationController setSGProgressPercentage:0 andTintColor:[UIColor redColor]];
+    [self.progressTimer invalidate];
 }
 
 
@@ -160,8 +222,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 }
 
 - (void)fetchMessages {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"messageThread == %@", self.messageThread];
-    self.messages = [NSMutableArray arrayWithArray:[Message MR_findAllWithPredicate:predicate]];
+    self.messages = [NSMutableArray arrayWithArray:[Message MR_findByAttribute:@"messageThread" withValue:self.messageThread andOrderBy:@"timestamp" ascending:YES]];
     [self finishSendingMessage];
 }
 
@@ -188,55 +249,66 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      */
     
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
-    [self createMessageWithText:text andAuthor:currentUser];
     
-    
-    SINOutgoingMessage *message = [SINOutgoingMessage messageWithRecipient:self.messageThread.recipient.identifier text:text];
-    [[SinchClient sharedClient].client.messageClient sendMessage:message];
-
+    Message *message = [self createMessageWithText:text andAuthor:currentUser];
+    [self sendMessage:message];
     
     [self fetchMessages];
     [self finishSendingMessage];
-    
 }
 
-- (void)createMessageWithText:(NSString *)text andAuthor:(User *)user {
-    Message *newMesage = [Message MR_createEntity];
-    newMesage.timestamp = [NSDate date];
-    newMesage.author = user;
-    newMesage.messageThread = self.messageThread;
-    newMesage.messageText = text;
-    
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-}
-
-- (void)didPressAccessoryButton:(UIButton *)sender
+- (void)sendMessage:(Message *)message
 {
-    NSLog(@"Camera pressed!");
-    /**
-     *  Accessory button has no default functionality, yet.
-     */
+    SINOutgoingMessage *sinMessage = [SINOutgoingMessage messageWithRecipient:self.messageThread.recipient.identifier text:message.text];
+    message.uniqueID = sinMessage.messageId;
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    [[SinchClient sharedClient].client.messageClient sendMessage:sinMessage];
+    [self.messageQueue addObject:message.uniqueID];
+    [self startProgressBar];
+}
+
+- (void)resendMessage:(Message *)message
+{
+    [self sendMessage:message];
+}
+
+- (Message *)createMessageWithText:(NSString *)text andAuthor:(User *)user {
+    Message *newMessage = [Message MR_createEntity];
+    newMessage.timestamp = [NSDate date];
+    newMessage.author = user;
+    newMessage.messageThread = self.messageThread;
+    newMessage.messageText = text;
+    return newMessage;
 }
 
 #pragma mark - JSQMessages CollectionView DataSource
 
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.messages objectAtIndex:indexPath.item];
+    return [self messageForIndexPath:indexPath];
 }
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView bubbleImageViewForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
+    Message *message = [self.messages objectAtIndex:indexPath.item];
     
     
+    UIImageView *imageView;
     if ([message.sender isEqualToString:self.sender]) {
-        return [[UIImageView alloc] initWithImage:self.outgoingBubbleImageView.image
-                                 highlightedImage:self.outgoingBubbleImageView.highlightedImage];
+        if (message.failed.boolValue) {
+            imageView = [[UIImageView alloc] initWithImage:self.failedBubbleImageView.image highlightedImage:self.failedBubbleImageView.highlightedImage];
+        }
+        else {
+            imageView = [[UIImageView alloc] initWithImage:self.outgoingBubbleImageView.image
+                                          highlightedImage:self.outgoingBubbleImageView.highlightedImage];
+        }
     }
-    
-    return [[UIImageView alloc] initWithImage:self.incomingBubbleImageView.image
-                             highlightedImage:self.incomingBubbleImageView.highlightedImage];
+    else {
+        
+        imageView = [[UIImageView alloc] initWithImage:self.incomingBubbleImageView.image
+                                      highlightedImage:self.incomingBubbleImageView.highlightedImage];
+    }
+    return imageView;
 }
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageViewForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -257,7 +329,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      *  Show a timestamp for every 3rd message
      */
     if (indexPath.item % 3 == 0) {
-        JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
+        Message *message = [self messageForIndexPath:indexPath];
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
     }
     
@@ -295,6 +367,11 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 #pragma mark - UICollectionView DataSource
 
+- (Message *)messageForIndexPath:(NSIndexPath *)indexPath
+{
+    return self.messages[indexPath.item];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [self.messages count];
@@ -321,7 +398,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
      *  Instead, override the properties you want on `self.collectionView.collectionViewLayout` from `viewDidLoad`
      */
     
-    JSQMessage *msg = [self.messages objectAtIndex:indexPath.item];
+    Message *msg = [self messageForIndexPath:indexPath];
     
     if ([msg.sender isEqualToString:self.sender]) {
         cell.textView.textColor = [UIColor whiteColor];
@@ -333,10 +410,31 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
                                           NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapon:)];
+//    [cell addGestureRecognizer:tap];
     
     return cell;
 }
 
+- (void)messagesCollectionViewCellDidTapAvatar:(JSQMessagesCollectionViewCell *)cell
+{
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    Message *message = [self messageForIndexPath:indexPath];
+    if (message.failed.boolValue) {
+        [self resendMessage:message];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+//- (void)cellTapped:(UITapGestureRecognizer *)tapGestureRecognizer
+//{
+//    JSQMessagesCollectionViewCell *cell = tapGestureRecognizer.view;
+//    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+//}
 
 
 #pragma mark - JSQMessages collection view flow layout delegate
