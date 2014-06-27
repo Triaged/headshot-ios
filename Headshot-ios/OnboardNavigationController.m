@@ -19,6 +19,7 @@
 
 @interface OnboardNavigationController () <UINavigationControllerDelegate>
 
+@property (assign, nonatomic) BOOL waitingToShowNextViewController;
 @property (strong, nonatomic) UIPageControl *pageControl;
 @property (strong, nonatomic) EmailLoginViewController *loginViewController;
 @property (strong, nonatomic) OnboardUserDetailsViewController *userDetailsViewController;
@@ -65,6 +66,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn]) {
         [self pushViewController:self.userDetailsViewController animated:NO];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hasStoredCompany) name:kHasStoredCompanyNotification object:nil];
 }
 
 - (OnboardUserDetailsViewController *)userDetailsViewController
@@ -81,26 +83,45 @@
     return YES;
 }
 
+- (void)hasStoredCompany
+{
+    if (self.waitingToShowNextViewController) {
+        [SVProgressHUD dismiss];
+        [self showNextViewController:self.topViewController];
+        self.waitingToShowNextViewController = NO;
+    }
+}
+
 #pragma mark - Onboard View Controller delegate
 - (void)onboardViewController:(UIViewController *)viewController doneButtonTouched:(id)sender
 {
+    [self showNextViewController:viewController];
+}
+
+- (void)showNextViewController:(UIViewController *)previousViewController
+{
     UIViewController *nextViewController;
-    if (viewController == self.loginViewController) {
+    if (previousViewController == self.loginViewController) {
         nextViewController = self.userDetailsViewController;
     }
-    else if (viewController == self.userDetailsViewController) {
+    else if (previousViewController == self.userDetailsViewController) {
+        if (![AppDelegate sharedDelegate].store.hasStoredCompany) {
+            self.waitingToShowNextViewController = YES;
+            [SVProgressHUD show];
+            return;
+        }
         nextViewController = self.jobViewController;
     }
-    else if (viewController == self.jobViewController) {
+    else if (previousViewController == self.jobViewController) {
         nextViewController = self.selectOfficeViewController;
     }
-    else if (viewController == self.selectOfficeViewController) {
+    else if (previousViewController == self.selectOfficeViewController) {
         [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:^(Account *account) {
             
         } failure:nil];
         nextViewController = self.locationPermissionsViewController;
     }
-    else if (viewController == self.locationPermissionsViewController) {
+    else if (previousViewController == self.locationPermissionsViewController) {
         nextViewController = self.pushPermissionsViewController;
     }
     if (nextViewController) {

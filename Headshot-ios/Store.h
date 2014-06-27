@@ -14,6 +14,8 @@
 
 @interface Store : NSObject
 
+@property (assign, nonatomic) BOOL hasStoredCompany;
+
 + (instancetype)store;
 
 - (Account *) currentAccount;
