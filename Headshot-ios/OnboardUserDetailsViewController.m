@@ -138,8 +138,28 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 
 - (void)nextButtonTouched:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
-        [self.delegate onboardViewController:self doneButtonTouched:sender];
+    [self validateFields:^(BOOL valid, NSString *message) {
+        if (!valid) {
+            [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+        else {
+            if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
+                [self.delegate onboardViewController:self doneButtonTouched:sender];
+            }
+        }
+    }];
+}
+
+- (void)validateFields:(void (^)(BOOL valid, NSString *message))validationBlock
+{
+    BOOL valid = YES;
+    NSString *message;
+    if (!self.phoneFormView.textField.text || !self.phoneFormView.textField.text.length) {
+        valid = NO;
+        message = @"Please enter a phone number";
+    }
+    if (validationBlock) {
+        validationBlock(valid, message);
     }
 }
 
@@ -200,6 +220,20 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    NSString *text = textField.text;
+    if (textField == self.phoneFormView.textField) {
+        self.user.employeeInfo.cellPhone = text;
+    }
+    else if (textField == self.firstNameFormView.textField) {
+        self.user.firstName = text;
+    }
+    else if (textField == self.lastNameFormView.textField) {
+        self.user.lastName = text;
+    }
 }
 
 @end

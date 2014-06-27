@@ -63,7 +63,7 @@
     
     self.viewControllers = @[self.loginViewController];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn]) {
-        [self pushViewController:self.jobViewController animated:NO];
+        [self pushViewController:self.userDetailsViewController animated:NO];
     }
 }
 
