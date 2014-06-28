@@ -175,7 +175,11 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         cell = [[ContactCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.user = user;
-    [cell displayCustomSeparator];
+    
+    NSInteger totalRow = [tableView numberOfRowsInSection:indexPath.section];//first get total rows in that section by current indexPath.
+    if(indexPath.row != totalRow -1){
+        [cell displayCustomSeparator];
+    }
     
     return cell;
 }

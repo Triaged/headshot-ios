@@ -76,6 +76,7 @@
     
     if (!self.user.employeeInfo.hasPhoneNumber) {
         self.callButton.enabled = NO;
+        self.callLabel.textColor = [[ThemeManager sharedTheme] disabledGrayTextColor];
     }
 
 }
@@ -145,6 +146,7 @@
 
 - (void) callCellOrOffice {
     UIActionSheet *actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Choose Phone"];
+    actionSheet.delegate = self;
     [actionSheet bk_addButtonWithTitle:@"Cell Phone" handler:^{
         [self callCellPhone];
     }];
@@ -153,6 +155,16 @@
     }];
     [actionSheet bk_setCancelButtonWithTitle:@"Cancel" handler:nil];
     [actionSheet showFromTabBar:(UITabBar *)[AppDelegate sharedDelegate].tabBarController.tabBar];
+}
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet
+{
+    for (UIView *subview in actionSheet.subviews) {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)subview;
+            button.titleLabel.textColor = [[ThemeManager sharedTheme] buttonTintColor];
+        }
+    }
 }
 
 - (void) callCellPhone {

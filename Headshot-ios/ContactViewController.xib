@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactViewController">
             <connections>
                 <outlet property="avatarImageView" destination="VJH-ss-uvJ" id="jkH-C2-4lQ"/>
                 <outlet property="callButton" destination="EOk-K1-Nwj" id="cJU-ji-5hY"/>
+                <outlet property="callLabel" destination="aga-IV-wv2" id="Guu-qF-40V"/>
                 <outlet property="contactDetailsTableView" destination="9gz-kL-zQ3" id="zAQ-KM-mNd"/>
                 <outlet property="nameLabel" destination="18x-wu-T4t" id="L3K-EP-pqd"/>
                 <outlet property="tableHeightConstraint" destination="XJ3-NX-Csn" id="lbk-JP-fxd"/>

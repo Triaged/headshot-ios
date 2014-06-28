@@ -18,6 +18,7 @@
 - (UIColor *)greenColor;
 - (UIColor *)darkGrayTextColor;
 - (UIColor *)lightGrayTextColor;
+- (UIColor *)disabledGrayTextColor;
 - (UIColor *)buttonTintColor;
 - (UIColor *)tableViewSeparatorColor;
 - (UIColor *)incomingMessageBubbleColor;
