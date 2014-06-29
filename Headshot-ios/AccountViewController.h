@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
+#import "TRAvatarImageView.h"
 
 @interface AccountViewController : UIViewController
 @property (strong, nonatomic)  User *currentUser;
-@property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (strong, nonatomic) IBOutlet TRAvatarImageView *avatarImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *currentOfficeLocationLabel;

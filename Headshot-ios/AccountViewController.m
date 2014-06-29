@@ -60,9 +60,7 @@
 
 -(void)loadViewFromData {
     currentUser = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-    
-    NSURL *avatarUrl = [NSURL URLWithString:currentUser.avatarFaceUrl];
-    [self.avatarImageView setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"avatar"]];
+    self.avatarImageView.user = currentUser;
     self.nameLabel.text = currentUser.fullName;
     self.titleLabel.text = currentUser.employeeInfo.jobTitle;
     self.currentOfficeLocationLabel.text = currentUser.currentOfficeLocation.streetAddress;
