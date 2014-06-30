@@ -83,6 +83,19 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
+    self.jobTitleFormView.textField.text = user.employeeInfo.jobTitle;
+    if (user.department) {
+        self.departmentFormView.textField.text = user.department.name;
+    }
+    if (user.manager) {
+        self.managerFormView.textField.text = user.manager.fullName;
+    }
+}
+
 - (void)nextButtonTouched:(id)sender
 {
     NSString *jobTitle = self.jobTitleFormView.textField.text;
