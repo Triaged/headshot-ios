@@ -55,6 +55,9 @@
     if (self.currentUser.employeeInfo.birthDate) {
         employeeInfoJSON[@"birth_date"] = self.currentUser.employeeInfo.birthDate.badgeFormattedDate;
     }
+    if (self.currentUser.sharingOfficeLocation) {
+        userJSON[@"sharing_office_location"] = self.currentUser.sharingOfficeLocation;
+    }
     employeeInfoJSON[@"job_start_date"] = [NSDate date].badgeFormattedDate;
     userJSON[@"employee_info_attributes"] = employeeInfoJSON;
     NSDictionary *parameters = @{@"user" : userJSON};

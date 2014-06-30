@@ -18,6 +18,7 @@
 @dynamic lastName;
 @dynamic fullName;
 @dynamic installedApp;
+@dynamic sharingOfficeLocation;
 @dynamic email;
 @dynamic avatarFaceUrl;
 @dynamic avatarUrl;
