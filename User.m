@@ -17,6 +17,7 @@
 @dynamic firstName;
 @dynamic lastName;
 @dynamic fullName;
+@dynamic installedApp;
 @dynamic email;
 @dynamic avatarFaceUrl;
 @dynamic avatarUrl;
@@ -33,6 +34,21 @@
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler {
     NSURL *URL = [NSURL URLWithString:@"users.json"];
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
+}
+
+- (void)emailMessage:(NSString *)messageText withCompletion:(void (^)(NSError *error))completion
+{
+    NSString *path = [NSString stringWithFormat:@"users/%@/email_message", self.identifier];
+    NSDictionary *parameters = @{@"message" : @{@"body": messageText}};
+    [[HeadshotRequestAPIClient sharedClient] POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (completion) {
+            completion(nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion) {
+            completion(error);
+        }
+    }];
 }
 
 - (NSString *)nameInitials
