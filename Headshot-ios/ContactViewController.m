@@ -49,7 +49,7 @@
 
 - (void) refreshUser {
     [self.user updateWithCompletionHandler:^(User *user, NSError *error) {
-        self.user = (User *)[[NSManagedObjectContext MR_contextForCurrentThread] existingObjectWithID:user.objectID error:nil];
+        self.user = user;
         [self loadViewFromData];
     }];
 }
