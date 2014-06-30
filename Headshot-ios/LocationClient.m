@@ -105,12 +105,23 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
+    OfficeLocation *location = [self officeLocationForRegion:region];
+    if (state == CLRegionStateInside) {
+        [location enterLocation];
+    }
+    else {
+        [location exitLocation];
+    }
+}
+
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = @"Entered Region";
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-    OfficeLocation *location = [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
+    OfficeLocation *location = [self officeLocationForRegion:region];
     [location enterLocation];
 }
 
@@ -119,8 +130,13 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = @"Entered Region";
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-    OfficeLocation *location = [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
+    OfficeLocation *location = [self officeLocationForRegion:region];
     [location exitLocation];
+}
+
+- (OfficeLocation *)officeLocationForRegion:(CLRegion *)region
+{
+        return [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
 }
 
 @end
