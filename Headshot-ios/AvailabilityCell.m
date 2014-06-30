@@ -43,7 +43,7 @@
 
 -(void) setOfficeLocation:(OfficeLocation *)officeLocation {
     _officeLocation = officeLocation;
-    if (_officeLocation != nil) {
+    if (_officeLocation != [NSNull null]) {
         self.iconImageView.image = [UIImage imageNamed:@"profile-at-office"];
         self.textLabel.textColor = [[ThemeManager sharedTheme] greenColor];
         self.textLabel.text = _officeLocation.name;
