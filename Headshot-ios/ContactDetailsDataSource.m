@@ -98,16 +98,16 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     
      switch (contactDetailType) {
         case kAvailability:
-            sectionTitle = @"Availability";
+            sectionTitle = @"AVAILABILITY";
             break;
         case kReportsTo:
-            sectionTitle =  @"Reports To";
+            sectionTitle =  @"REPORTS TO";
             break;
         case kReports:
-            sectionTitle = @"Direct Reports";
+            sectionTitle = @"DIRECT REPORTS";
             break;
         case kContactInfo:
-            sectionTitle = @"Contact Information";
+            sectionTitle = @"CONTACT INFO";
             break;
     }
     

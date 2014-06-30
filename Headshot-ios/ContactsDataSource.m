@@ -174,6 +174,22 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return cell;
 }
 
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    searchBar.showsScopeBar = YES;
+    [searchBar sizeToFit];
+    [searchBar setShowsCancelButton:YES animated:YES];
+    
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
+    searchBar.showsScopeBar = NO;
+    [searchBar sizeToFit];
+    [searchBar setShowsCancelButton:NO animated:YES];
+    
+    return YES;
+}
+
 
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
@@ -190,7 +206,6 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                                scope:[[self.tableViewController.searchDisplayController.searchBar scopeButtonTitles]
                                       objectAtIndex:[self.tableViewController.searchDisplayController.searchBar
                                                      selectedScopeButtonIndex]]];
-    
     return YES;
 }
 

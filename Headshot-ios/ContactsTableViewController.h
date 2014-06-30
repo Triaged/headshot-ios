@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SDCSegmentedViewController.h"
 
-@interface ContactsTableViewController : UITableViewController <UITableViewDelegate>
+@interface ContactsTableViewController : UITableViewController <UITableViewDelegate, UISearchBarDelegate>
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
-@property (nonatomic, strong) UIViewController *segmentController;
+@property (nonatomic, strong) SDCSegmentedViewController *segmentViewController;
 
 @end

@@ -57,7 +57,7 @@
         
         SDCSegmentedViewController *segmentedController = [[SDCSegmentedViewController alloc] initWithViewControllers:@[contactsTableView, deptsTableView] titles:@[@"Contacts", @"Departments"]];
         segmentedController.segmentedControl.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
-        contactsTableView.segmentController = segmentedController;
+        contactsTableView.segmentViewController = segmentedController;
         TRNavigationController *segmentNav = [[TRNavigationController alloc] initWithRootViewController:segmentedController];
         
         [self setViewControllers:[NSArray arrayWithObjects:messagesNav, segmentNav, accountNav, nil]];
@@ -69,9 +69,9 @@
     }
     
     
-    self.tabBar.opaque = YES;
-    [self.tabBar setTintColor:[UIColor whiteColor]];
-    [self.tabBar setBackgroundColor:[UIColor whiteColor]];
+    self.tabBar.opaque = NO;
+    //[self.tabBar setTintColor:[UIColor whiteColor]];
+    //[self.tabBar setBackgroundColor:[UIColor whiteColor]];
     
     
 
@@ -96,14 +96,6 @@
         index++;
     }
     
-    
-    
-//    [homeNav.view makeConstraints:^(MASConstraintMaker *make) {
-//        //UIView *topLayoutGuide = (id)self.topLayoutGuide;
-//        make.bottom.equalTo(@300);
-//    }];
-
-
     [self setSelectedIndex:1];
 	// Do any additional setup after loading the view.
 }

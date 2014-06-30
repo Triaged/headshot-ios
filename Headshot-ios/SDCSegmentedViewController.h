@@ -35,4 +35,8 @@ typedef NS_ENUM(NSInteger, SDCSegmentedViewControllerControlPosition) {
 // Add segments from storyboard. The strings in the array should match segue identifiers in the storyboard.
 - (void)addStoryboardSegments:(NSArray *)segments;
 
+
+-(void)hideNavBar;
+-(void)showNavBar;
+
 @end

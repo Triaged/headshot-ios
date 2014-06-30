@@ -59,6 +59,7 @@
     self.searchController.delegate =  self.contactsDataSource;
     self.searchController.searchResultsDataSource =  self.contactsDataSource;
     self.searchController.searchResultsDelegate =  self;
+    self.searchController.searchResultsTableView.tableFooterView = [[UIView alloc] init];
     UIView *headerView = [[UIView alloc] initWithFrame:searchBar.bounds];
     [headerView addSubview:searchBar];
     [headerView addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];

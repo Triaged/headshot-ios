@@ -57,6 +57,10 @@
     [self loadViewFromData];
 }
 
+-(void) viewWillDisappear:(BOOL)animated {
+    self.navigationController.navigationBar.shadowImage = nil;
+}
+
 -(void)loadViewFromData {
     NSURL *avatarUrl = [NSURL URLWithString:self.user.avatarFaceUrl];
     [avatarImageView setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"avatar"]];
