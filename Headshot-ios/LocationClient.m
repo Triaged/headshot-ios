@@ -73,7 +73,7 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
                 CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake([location.latitude doubleValue], [location.longitude doubleValue]);
                 
                 CLCircularRegion *region =  [[CLCircularRegion alloc] initWithCenter:centerCoordinate
-                                                                              radius:kCLLocationAccuracyHundredMeters
+                                                                              radius:100.0
                                                                           identifier:location.identifier];
                 // Start Monitoring Region
                 [self.locationManager startMonitoringForRegion:region];

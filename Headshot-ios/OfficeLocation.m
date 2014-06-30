@@ -63,15 +63,20 @@
 
 - (void)enterLocation {
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/entered", self.identifier]];
-    [self postToURL:URL completionHandler:nil];
+    [self postToURL:URL completionHandler:^(id JSONObject, NSError *error) {
+        [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = self;
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    }];
     NSLog(@"entered location");
 }
 
 
 - (void)exitLocation {
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/exited", self.identifier]];
-    [self deleteToURL:URL completionHandler:nil];
-        NSLog(@"exited location");
+    [self deleteToURL:URL completionHandler:^(NSError *error) {
+        [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = nil;
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    }];
 }
 
     
