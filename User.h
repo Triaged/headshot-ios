@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "SLRESTfulCoreData.h"
 #import "HeadshotAPIClient.h"
+#import "HeadshotRequestAPIClient.h"
 
 
 @class Company, EmployeeInfo, Department, OfficeLocation;
@@ -23,6 +24,7 @@
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSString * avatarFaceUrl;
 @property (nonatomic, retain) NSString * avatarUrl;
+@property (nonatomic, retain) NSNumber * installedApp;
 @property (nonatomic, retain) EmployeeInfo *employeeInfo;
 @property (nonatomic, retain) Company *company;
 @property (nonatomic, retain) User *manager;
@@ -40,5 +42,6 @@
 @interface NSManagedObject (SLRESTfulCoreDataQueryInterface)
 
 - (void)updateWithCompletionHandler:(void(^)(id managedObject, NSError *error))completionHandler;
+- (void)emailMessage:(NSString *)messageText withCompletion:(void (^)(NSError *error))completion;
 
 @end

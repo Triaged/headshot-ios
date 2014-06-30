@@ -12,6 +12,7 @@
 #import "SinchClient.h"
 #import "ContactViewController.h"
 #import "NotificationManager.h"
+#import "HeadshotRequestAPIClient.h"
 
 @interface MessageThreadViewController ()
 
@@ -251,9 +252,17 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     SINOutgoingMessage *sinMessage = [SINOutgoingMessage messageWithRecipient:self.messageThread.recipient.identifier text:message.text];
     message.uniqueID = sinMessage.messageId;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-    [[SinchClient sharedClient].client.messageClient sendMessage:sinMessage];
     [self.messageQueue addObject:message.uniqueID];
     [self startProgressBar];
+    if (!self.messageThread.recipient.installedApp.boolValue) {
+        [self.messageThread.recipient emailMessage:message.text withCompletion:^(NSError *error) {
+            [self finishProgressBar];
+            [self.messageQueue removeObject:message.uniqueID];
+        }];
+    }
+    else {
+        [[SinchClient sharedClient].client.messageClient sendMessage:sinMessage];
+    }
 }
 
 - (void)resendMessage:(Message *)message
