@@ -104,7 +104,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory
                                     incomingMessageBubbleImageViewWithColor:
                                     [[ThemeManager sharedTheme] incomingMessageBubbleColor]];
-    self.failedBubbleImageView = [JSQMessagesBubbleImageFactory outgoingMessageBubbleImageViewWithColor:[UIColor redColor]];
+    self.failedBubbleImageView = [JSQMessagesBubbleImageFactory outgoingMessageBubbleImageViewWithColor:[[ThemeManager sharedTheme] outgoingMessageBubbleColor]];
     
     self.avatarImageSize = CGSizeMake(40, 40);
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = self.avatarImageSize;
@@ -302,10 +302,15 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageViewForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
+    Message *message = [self.messages objectAtIndex:indexPath.item];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.avatarImageSize.width, self.avatarImageSize.height)];
-    NSURL *imageURL = [NSURL URLWithString:self.avatarImageURLs[message.sender]];
-    [imageView setImageWithURL:imageURL];
+    if (message.failed.boolValue) {
+        imageView.image = [UIImage imageNamed:@"messages-resend"];
+    }
+    else {
+        NSURL *imageURL = [NSURL URLWithString:self.avatarImageURLs[message.sender]];
+        [imageView setImageWithURL:imageURL];
+    }
     return imageView;
 }
 

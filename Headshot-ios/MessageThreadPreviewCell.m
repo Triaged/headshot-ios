@@ -42,7 +42,7 @@
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.timeLabel];
     
-    self.avatarImageView = [[TRAvatarImageView alloc] init];
+    self.avatarImageView = [[TRAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     [self.contentView addSubview:self.avatarImageView];
     
     return self;
