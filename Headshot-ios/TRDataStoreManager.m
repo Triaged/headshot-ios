@@ -30,6 +30,8 @@
     [MagicalRecord cleanUp];
     
     if([[NSFileManager defaultManager] removeItemAtURL:[self databaseRootURL] error:&error]){
+        // reset setup.
+        [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Headshot.sqlite"];
         [[AppDelegate sharedDelegate] setDataStore];
     }
     else{

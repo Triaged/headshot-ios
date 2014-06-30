@@ -71,10 +71,8 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
 }
 
 -(void)setupAvailability {
-    if (currentUser.currentOfficeLocation) {
+    if (currentUser.sharingOfficeLocation) {
         [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[currentUser.currentOfficeLocation]}];
-    } else {
-        [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[[NSNull null]]}];
     }
     
 }

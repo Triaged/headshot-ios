@@ -76,9 +76,6 @@
         [account resetBadgeCount];
     }
     
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    //    [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
-    //        if (error == nil) {
     [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:nil] postDeviceWithSuccess:nil failure:nil];
     [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
     
@@ -86,6 +83,8 @@
         self.hasStoredCompany = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHasStoredCompanyNotification object:nil];
     }];
+    
+    
     //        }
     
     //        Mixpanel *mixpanel = [Mixpanel sharedInstance];
@@ -103,9 +102,9 @@
 {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kUserDefaultsLoggedIn];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [[SinchClient sharedClient].client stop];
     [[CredentialStore sharedClient] clearSavedCredentials];
-    //[[NSNotificationCenter defaultCenter] postNotification:@"logout"];
-    
+    [[TRDataStoreManager sharedInstance] cleanAndResetupDB];
 }
 
 
@@ -115,7 +114,7 @@
     
     //[Intercom endSession];
     
-    [[TRDataStoreManager sharedInstance] cleanAndResetupDB];
+    
 }
 
 

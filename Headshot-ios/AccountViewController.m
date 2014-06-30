@@ -61,7 +61,7 @@
     //refresh locally
     [self loadViewFromData];
     // refresh remotely
-    [self refreshUser];
+   // [self refreshUser];
 
 }
 
