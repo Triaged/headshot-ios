@@ -107,12 +107,18 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     NSLog(@"%s", __PRETTY_FUNCTION__);
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = @"Entered Region";
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
     OfficeLocation *location = [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
     [location enterLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
     NSLog(@"%s", __PRETTY_FUNCTION__);
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = @"Entered Region";
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
     OfficeLocation *location = [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
     [location exitLocation];
 }
