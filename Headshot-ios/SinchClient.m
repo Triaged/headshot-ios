@@ -33,8 +33,8 @@
 
 - (void)initSinchClientWithUserId:(NSString *)userId {
     if (!_client) {
-        _client = [Sinch clientWithApplicationKey:@"05f0820c-3572-4b92-9bab-e8388d25ded4"
-                                applicationSecret:@"jTF+f7Az90aUNrF6p+4VHA=="
+        _client = [Sinch clientWithApplicationKey:@"42c9fd75-a981-4d9e-ba79-1c7647df9553"
+                                applicationSecret:@"wbnKEXplqUWSDMceOSd4hg=="
                                   environmentHost:@"sandbox.sinch.com"
                                            userId:userId];
         
