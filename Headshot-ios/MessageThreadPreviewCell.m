@@ -10,10 +10,12 @@
 #import <NSDate+TimeAgo.h>
 #import "Message.h"
 #import "User.h"
+#import "TRAvatarImageView.h"
 
 @interface MessageThreadPreviewCell()
 
 @property (strong, nonatomic) UILabel *timeLabel;
+@property (strong, nonatomic) TRAvatarImageView *avatarImageView;
 
 @end
 
@@ -40,23 +42,26 @@
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.timeLabel];
     
+    self.avatarImageView = [[TRAvatarImageView alloc] init];
+    [self.contentView addSubview:self.avatarImageView];
+    
     return self;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.imageView.size = CGSizeMake(50, 50);
-    self.imageView.centerY = self.height/2.0;
-    self.textLabel.x = self.imageView.right + 15;
+    self.avatarImageView.x = 15;
+    self.avatarImageView.size = CGSizeMake(50, 50);
+    self.avatarImageView.centerY = self.height/2.0;
+    self.textLabel.x = self.avatarImageView.right + 15;
     self.detailTextLabel.x = self.textLabel.x;
 }
 
 - (void)setMessageThread:(MessageThread *)messageThread
 {
     _messageThread = messageThread;
-    NSURL *avatarURL = [NSURL URLWithString:messageThread.recipient.avatarFaceUrl];
-    [self.imageView setImageWithURL:avatarURL placeholderImage:[UIImage imageNamed:@"avatar"]];
+    self.avatarImageView.user = messageThread.recipient;
     Message *lastMessage = messageThread.lastMessage;
     self.textLabel.text = messageThread.recipient.fullName;
     self.detailTextLabel.text = lastMessage.text;

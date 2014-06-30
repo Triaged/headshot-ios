@@ -31,6 +31,8 @@
 @property (nonatomic, retain) OfficeLocation *currentOfficeLocation;
 @property (nonatomic, retain) OfficeLocation *primaryOfficeLocation;
 
+@property (readonly) NSString *nameInitials;
+
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler;
 
 @end

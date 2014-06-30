@@ -209,7 +209,10 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (void)fetchMessages {
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findByAttribute:@"messageThread" withValue:self.messageThread andOrderBy:@"timestamp" ascending:YES]];
-    [self finishSendingMessage];
+    [self.collectionView reloadData];
+    if (self.automaticallyHandlesScrolling) {
+        [self scrollToBottomAnimated:YES];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

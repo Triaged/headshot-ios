@@ -49,6 +49,11 @@
 - (void)reloadData
 {
     self.messageThreads = [MessageThread MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messages.@count > 0"]];
+//    sort
+    NSArray *lastMessages = [self.messageThreads valueForKey:@"lastMessage"];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
+    NSArray *sortedMessages = [lastMessages sortedArrayUsingDescriptors:@[sortDescriptor]];
+    self.messageThreads = [sortedMessages valueForKey:@"messageThread"];
     [self.tableView reloadData];
 }
 

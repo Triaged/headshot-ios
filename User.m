@@ -34,4 +34,9 @@
     NSURL *URL = [NSURL URLWithString:@"users.json"];
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
+
+- (NSString *)nameInitials
+{
+    return [NSString stringWithFormat:@"%@%@", [self.firstName substringToIndex:1], [self.lastName substringToIndex:1]];
+}
 @end
