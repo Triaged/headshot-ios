@@ -165,9 +165,7 @@
     if (![self validateFields]) {
         return;
     }
-    if (!self.currentLocationButton.selected) {
-        self.officeLocation = [self officeLocationFromFields];
-    }
+    self.officeLocation = [self officeLocationFromFields];
     [SVProgressHUD show];
     [self.officeLocation postWithCompletion:^(OfficeLocation *officeLocation, NSError *error) {
         [SVProgressHUD dismiss];
