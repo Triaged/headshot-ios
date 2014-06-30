@@ -110,17 +110,7 @@
     
     // Preload the MailComposer (for speed)
     [MailComposer sharedComposer];
-    
-    
-    //  if ([self.store.currentAccount isLoggedIn]) {
-     //       if([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
-     //           [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    //            [self.store.account resetAPNSPushCount];
-    
-    //            [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    //        }
-    //    }
-    
+   
     self.geofencer = [LocationClient sharedClient];
 }
 
