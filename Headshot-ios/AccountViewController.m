@@ -61,7 +61,7 @@
     //refresh locally
     [self loadViewFromData];
     // refresh remotely
-   // [self refreshUser];
+    [self refreshUser];
 
 }
 
@@ -90,7 +90,7 @@
 
 - (void) refreshUser {
     [currentUser updateWithCompletionHandler:^(User *user, NSError *error) {
-        currentUser = (User *)[[NSManagedObjectContext MR_contextForCurrentThread] existingObjectWithID:user.objectID error:nil];
+        currentUser = user;
         [self loadViewFromData];
     }];
 }
