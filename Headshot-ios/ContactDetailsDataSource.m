@@ -10,6 +10,7 @@
 #import "ContactSectionViewController.h"
 #import "ContactInfoTableViewCell.h"
 #import "ContactCell.h"
+#import "AvailabilityCell.h"
 
 typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     kAvailability,
@@ -52,14 +53,17 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     if (currentUser.employeeInfo.officePhone)
         [contactInfo addObject:@[@"Office", currentUser.employeeInfo.officePhone]];
 
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"d LLLL yyyy";
+    
     if (currentUser.employeeInfo.birthDate) {
-        [contactInfo addObject:@[@"Birthday", [dateFormatter stringFromDate:currentUser.employeeInfo.birthDate]]];
+        NSDateFormatter *birthStartdateFormatter = [[NSDateFormatter alloc] init];
+        birthStartdateFormatter.dateFormat = [NSString stringWithFormat:@"LLLL d'%@'", [self suffixForDayInDate:currentUser.employeeInfo.birthDate]];
+        [contactInfo addObject:@[@"Birthday", [birthStartdateFormatter stringFromDate:currentUser.employeeInfo.birthDate]]];
     }
 
     if (currentUser.employeeInfo.jobStartDate) {
-        [contactInfo addObject:@[@"Start Date", [dateFormatter stringFromDate:currentUser.employeeInfo.jobStartDate]]];
+        NSDateFormatter *jobStartdateFormatter = [[NSDateFormatter alloc] init];
+        jobStartdateFormatter.dateFormat = [NSString stringWithFormat:@"LLLL d'%@', yyyy", [self suffixForDayInDate:currentUser.employeeInfo.jobStartDate]];
+        [contactInfo addObject:@[@"Start Date", [jobStartdateFormatter stringFromDate:currentUser.employeeInfo.jobStartDate]]];
     }
 
     [contactDetailsArray addObject:@{[NSNumber numberWithInt:kContactInfo] : contactInfo}];
@@ -68,9 +72,9 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
 
 -(void)setupAvailability {
     if (currentUser.currentOfficeLocation) {
-        [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[currentUser.currentOfficeLocation.name]}];
+        [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[currentUser.currentOfficeLocation]}];
     } else {
-        [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[@"Out Of Office"]}];
+        [contactDetailsArray addObject:@{[NSNumber numberWithInt:kAvailability] : @[[NSNull null]]}];
     }
     
 }
@@ -148,6 +152,9 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     UITableViewCell *cell;
     
     switch (contactDetailType) {
+        case kAvailability:
+            cell = [self tableView:tableView availabilityCellForRowAtIndexPath:indexPath];
+            break;
         case kReports:
             cell = [self tableView:tableView reportsCellForRowAtIndexPath:indexPath];
             break;
@@ -165,6 +172,20 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     
     return cell;
     }
+
+- (UITableViewCell*)tableView:(UITableView*)tableView availabilityCellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    OfficeLocation *officeLocation = [self itemAtIndexPath:indexPath];
+    
+    static NSString *CellIdentifier = @"AvailabilityCell";
+    AvailabilityCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier] ;
+    if (!cell) {
+        cell = [[AvailabilityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    [cell setOfficeLocation:officeLocation];
+    
+    return cell;
+}
 
 - (UITableViewCell*)tableView:(UITableView*)tableView reportsCellForRowAtIndexPath:(NSIndexPath*)indexPath {
     User *user = [self itemAtIndexPath:indexPath];
@@ -252,6 +273,9 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     NSInteger contactDetailType = [self contactDetailTypeForIndexPath:indexPath.section];
     
     switch (contactDetailType) {
+        case kAvailability:
+            return 55;
+            break;
         case kReports:
             return 55;
             break;
@@ -273,6 +297,21 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01f;
+}
+
+- (NSString *)suffixForDayInDate:(NSDate *)date{
+    NSInteger day = [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSDayCalendarUnit fromDate:date] day];
+    if (day >= 11 && day <= 13) {
+        return @"th";
+    } else if (day % 10 == 1) {
+        return @"st";
+    } else if (day % 10 == 2) {
+        return @"nd";
+    } else if (day % 10 == 3) {
+        return @"rd";
+    } else {
+        return @"th";
+    }
 }
 
 @end

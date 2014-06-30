@@ -83,6 +83,7 @@
 		CBA5D0791936BB2B0044BBCC /* Whitney-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0761936BB070044BBCC /* Whitney-Medium.otf */; };
 		CBA5D07A1936BB2D0044BBCC /* Whitney-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBA5D0771936BB070044BBCC /* Whitney-Semibold.otf */; };
 		CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA5D0821936BD4D0044BBCC /* ContactCell.m */; };
+		CBB488AA1961C9AE00612C22 /* AvailabilityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB488A91961C9AE00612C22 /* AvailabilityCell.m */; };
 		CBB5183D194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB5183A194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m */; };
 		CBB5183E194A3F04001C2E0C /* SDCSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB5183C194A3F04001C2E0C /* SDCSegmentedViewController.m */; };
 		CBB53206195CCE3200E33724 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB53205195CCE3200E33724 /* Crashlytics.framework */; };
@@ -263,6 +264,8 @@
 		CBA5D0771936BB070044BBCC /* Whitney-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Semibold.otf"; sourceTree = "<group>"; };
 		CBA5D0811936BD4D0044BBCC /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
 		CBA5D0821936BD4D0044BBCC /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
+		CBB488A81961C9AE00612C22 /* AvailabilityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailabilityCell.h; sourceTree = "<group>"; };
+		CBB488A91961C9AE00612C22 /* AvailabilityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailabilityCell.m; sourceTree = "<group>"; };
 		CBB51839194A3EFD001C2E0C /* SDCEmbeddedSegmentSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCEmbeddedSegmentSegue.h; sourceTree = "<group>"; };
 		CBB5183A194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCEmbeddedSegmentSegue.m; sourceTree = "<group>"; };
 		CBB5183B194A3F04001C2E0C /* SDCSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCSegmentedViewController.h; sourceTree = "<group>"; };
@@ -525,6 +528,8 @@
 				CB04186D194A358600B3DE97 /* DepartmentCell.m */,
 				964A6BE7194F39620024B3C2 /* MessageThreadPreviewCell.h */,
 				964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */,
+				CBB488A81961C9AE00612C22 /* AvailabilityCell.h */,
+				CBB488A91961C9AE00612C22 /* AvailabilityCell.m */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -983,6 +988,7 @@
 				964A6BDD194E5E120024B3C2 /* OnboardJobViewController.m in Sources */,
 				9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */,
 				CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */,
+				CBB488AA1961C9AE00612C22 /* AvailabilityCell.m in Sources */,
 				9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */,
 				96696333194B6CF7003B22B5 /* Constants.m in Sources */,
 				CBBA68D8192FE0B5005A6949 /* EmployeeInfo.m in Sources */,

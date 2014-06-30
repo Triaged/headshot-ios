@@ -42,6 +42,8 @@
     // Set the background and shadow image to get rid of the line.
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     
+    _scrollView.delegate = self;
+    
     [self refreshUser];
 }
 
@@ -74,6 +76,7 @@
     self.contactDetailsTableView.dataSource = self.contactDetailsDataSource;
     self.contactDetailsTableView.delegate = self.contactDetailsDataSource;
     self.contactDetailsTableView.scrollEnabled = NO;
+    self.contactDetailsTableView.contentInset =  UIEdgeInsetsMake(0, 0, 20, 0);
     self.contactDetailsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.contactDetailsTableView registerNib:[UINib nibWithNibName:@"ContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"ContactInfoCell"];
     [self.contactDetailsTableView reloadData];
@@ -187,6 +190,10 @@
     //Add an alert in case of failure
     controller.mailComposeDelegate = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
 }
 
 
