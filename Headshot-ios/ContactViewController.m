@@ -49,8 +49,10 @@
 
 - (void) refreshUser {
     [self.user updateWithCompletionHandler:^(User *user, NSError *error) {
-        self.user = user;
-        [self loadViewFromData];
+        if (!error) {
+            self.user = user;
+            [self loadViewFromData];
+        }
     }];
 }
 

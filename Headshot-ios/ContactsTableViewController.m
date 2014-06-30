@@ -75,8 +75,6 @@
     self.tableView.dataSource = self.contactsDataSource;
     self.tableView.delegate = self;
     
-    self.contactsDataSource.users = [self loadCachedUsers];
-
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;
@@ -95,7 +93,7 @@
 
 - (void) fetchContacts {
     [User usersWithCompletionHandler:^(NSArray *users, NSError *error) {
-        self.contactsDataSource.users = [self loadCachedUsers];
+        self.contactsDataSource.users = [User findAllExcludeCurrent];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     }];
@@ -126,11 +124,6 @@
     
     _verticalContentOffset  = tableView.contentOffset.y;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
--(NSArray *)loadCachedUsers {
-    NSArray *users = [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier]];
-    return users;
 }
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
