@@ -13,10 +13,10 @@
 #import "ContactViewController.h"
 #import "NotificationManager.h"
 #import "HeadshotRequestAPIClient.h"
+#import "TRAvatarImageView.h"
 
 @interface MessageThreadViewController ()
 
-@property (strong, nonatomic) NSDictionary *avatarImageURLs;
 @property (assign, nonatomic) CGSize avatarImageSize;
 @property (strong, nonatomic) NSMutableOrderedSet *messageQueue;
 @property (strong, nonatomic) NSDate *lastSentMessageDate;
@@ -200,12 +200,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"messageThread == %@", self.messageThread];
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findAllWithPredicate:predicate]];
-
-#warning test
-    NSString *avatarURL = self.messageThread.recipient.avatarFaceUrl ? self.messageThread.recipient.avatarFaceUrl : @"http://upload.wikimedia.org/wikipedia/commons/3/30/Marie_Lloyd_by_Langfier_Ltd.jpg";
-    self.avatarImageURLs = @{self.sender : self.currentUser.avatarFaceUrl,
-                             self.messageThread.recipient.fullName : avatarURL};
-    
 }
 
 - (void)fetchMessages {
@@ -312,13 +306,12 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageViewForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Message *message = [self.messages objectAtIndex:indexPath.item];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.avatarImageSize.width, self.avatarImageSize.height)];
+    TRAvatarImageView *imageView = [[TRAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, self.avatarImageSize.width, self.avatarImageSize.height)];
     if (message.failed.boolValue) {
         imageView.image = [UIImage imageNamed:@"messages-resend"];
     }
     else {
-        NSURL *imageURL = [NSURL URLWithString:self.avatarImageURLs[message.sender]];
-        [imageView setImageWithURL:imageURL];
+        imageView.user = message.author;
     }
     return imageView;
 }
