@@ -19,5 +19,5 @@ pod 'INTULocationManager'
 pod "PMEDatePicker", "~> 0.0.1"
 pod 'TCCopyableLabel'
 pod 'BlocksKit'
-pod 'CMNavBarNotificationView'
+pod 'CMNavBarNotificationView', :git => 'https://github.com/edgurgel/CMNavBarNotificationView.git'
 pod 'SGNavigationProgress'

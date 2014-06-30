@@ -57,6 +57,10 @@
     [self loadViewFromData];
 }
 
+-(void) viewWillDisappear:(BOOL)animated {
+    self.navigationController.navigationBar.shadowImage = nil;
+}
+
 -(void)loadViewFromData {
     NSURL *avatarUrl = [NSURL URLWithString:self.user.avatarFaceUrl];
     avatarImageView.user = self.user;
@@ -76,6 +80,7 @@
     
     if (!self.user.employeeInfo.hasPhoneNumber) {
         self.callButton.enabled = NO;
+        self.callLabel.textColor = [[ThemeManager sharedTheme] disabledGrayTextColor];
     }
 
 }
@@ -145,6 +150,7 @@
 
 - (void) callCellOrOffice {
     UIActionSheet *actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Choose Phone"];
+    actionSheet.delegate = self;
     [actionSheet bk_addButtonWithTitle:@"Cell Phone" handler:^{
         [self callCellPhone];
     }];
@@ -153,6 +159,16 @@
     }];
     [actionSheet bk_setCancelButtonWithTitle:@"Cancel" handler:nil];
     [actionSheet showFromTabBar:(UITabBar *)[AppDelegate sharedDelegate].tabBarController.tabBar];
+}
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet
+{
+    for (UIView *subview in actionSheet.subviews) {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)subview;
+            button.titleLabel.textColor = [[ThemeManager sharedTheme] buttonTintColor];
+        }
+    }
 }
 
 - (void) callCellPhone {

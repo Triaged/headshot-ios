@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) ContactsDataSource *contactsDataSource;
 @property (nonatomic, strong) NSFetchedResultsController *_fetchedResultsController;
+@property (nonatomic, strong) UISearchBar *searchBar;
 
 @end
 
@@ -36,6 +37,7 @@
     [super viewDidLoad];
 
     self.title = @"Contacts";
+
     
     [self setupTableView];
     [self fetchContacts];
@@ -53,6 +55,10 @@
     self.navigationController.navigationBar.shadowImage = nil;
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [searchController setActive:NO animated:NO];
+}
+
 - (void)setupTableView
 {
     self.contactsDataSource = [[ContactsDataSource alloc] init];
@@ -64,18 +70,19 @@
     self.contactsDataSource.users = [self loadCachedUsers];
 
     
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-  
-    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    _searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    _searchBar.delegate = self;
     
     searchController = [[UISearchDisplayController alloc]
-                        initWithSearchBar:searchBar contentsController:self];
+                        initWithSearchBar:_searchBar contentsController:self];
     searchController.delegate =  self.contactsDataSource;
     searchController.searchResultsDataSource =  self.contactsDataSource;
     searchController.searchResultsDelegate =  self;
-    self.tableView.tableHeaderView = searchBar;
+    self.tableView.tableHeaderView = _searchBar;
     
     self.tableView.tableFooterView = [[UIView alloc] init];
+    searchController.searchResultsTableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (void) fetchContacts {
@@ -116,6 +123,19 @@
     NSArray *users = [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier]];
     return users;
 }
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    [self.segmentViewController hideNavBar];
+    
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
+    [self.segmentViewController showNavBar];
+    
+    return YES;
+}
+
 
 
 @end

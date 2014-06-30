@@ -35,6 +35,11 @@
     return [UIColor colorWithWhite:119/255.0 alpha:1.0];
 }
 
+-(UIColor *)disabledGrayTextColor
+{
+     return [UIColor colorWithRed:208/255.0 green:212/255.0 blue:223/255.0 alpha:1.0];
+}
+
 - (UIColor *)orangeColor
 {
     return [UIColor colorWithRed:248/255.0 green:172/255.0 blue:0 alpha:1.0];
@@ -80,11 +85,13 @@
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:buttonAttributes forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTintColor:buttonTint];
-    
+    [[UIButton appearanceWhenContainedIn:[UIActionSheet class], nil] setTitleColor:buttonTint forState:UIControlStateNormal];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [UINavigationBar appearance].backIndicatorImage = [[UIImage imageNamed:@"navbar_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [UINavigationBar appearance].backIndicatorTransitionMaskImage = [[UIImage imageNamed:@"navbar_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    
     
     [SVProgressHUD setBackgroundColor:[self orangeColor]];
     [SVProgressHUD setForegroundColor:[UIColor whiteColor]];

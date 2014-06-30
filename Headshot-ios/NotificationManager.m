@@ -124,6 +124,9 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
         }];
         NSURL *avatarURL = [NSURL URLWithString:message.author.avatarFaceUrl];
         [notificationView.imageView setImageWithURL:avatarURL];
+        [notificationView setBackgroundColor:[[ThemeManager sharedTheme] orangeColor]];
+        [notificationView setTextColor:[UIColor whiteColor]];
+
     }
 }
 

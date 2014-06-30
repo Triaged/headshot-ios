@@ -213,6 +213,14 @@
 							}];
 }
 
+-(void)hideNavBar {
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+}
+-(void)showNavBar {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 #pragma mark - KVO
 
 - (void)observeViewController:(UIViewController *)viewController {

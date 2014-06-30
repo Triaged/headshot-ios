@@ -98,16 +98,16 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     
      switch (contactDetailType) {
         case kAvailability:
-            sectionTitle = @"Availability";
+            sectionTitle = @"AVAILABILITY";
             break;
         case kReportsTo:
-            sectionTitle =  @"Reports To";
+            sectionTitle =  @"REPORTS TO";
             break;
         case kReports:
-            sectionTitle = @"Direct Reports";
+            sectionTitle = @"DIRECT REPORTS";
             break;
         case kContactInfo:
-            sectionTitle = @"Contact Information";
+            sectionTitle = @"CONTACT INFO";
             break;
     }
     
@@ -175,7 +175,11 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         cell = [[ContactCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.user = user;
-    [cell displayCustomSeparator];
+    
+    NSInteger totalRow = [tableView numberOfRowsInSection:indexPath.section];//first get total rows in that section by current indexPath.
+    if(indexPath.row != totalRow -1){
+        [cell displayCustomSeparator];
+    }
     
     return cell;
 }

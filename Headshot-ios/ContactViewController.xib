@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="avatarImageView" destination="VJH-ss-uvJ" id="jkH-C2-4lQ"/>
                 <outlet property="callButton" destination="EOk-K1-Nwj" id="cJU-ji-5hY"/>
+                <outlet property="callLabel" destination="aga-IV-wv2" id="Guu-qF-40V"/>
                 <outlet property="contactDetailsTableView" destination="9gz-kL-zQ3" id="zAQ-KM-mNd"/>
                 <outlet property="nameLabel" destination="18x-wu-T4t" id="L3K-EP-pqd"/>
                 <outlet property="tableHeightConstraint" destination="XJ3-NX-Csn" id="lbk-JP-fxd"/>
