@@ -109,17 +109,22 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
+    if (state == CLRegionStateInside) {
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     OfficeLocation *location = [self officeLocationForRegion:region];
-    if (state == CLRegionStateInside) {
         localNotification.alertBody = @"Entered Region";
         [location enterLocation];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
     }
-    else {
-        localNotification.alertBody = @"Exited region";
-        [location exitLocation];
-    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
+{
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.alertBody = @"Exited Region";
     [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+    OfficeLocation *location = [self officeLocationForRegion:region];
+    [location exitLocation];
 }
 
 - (OfficeLocation *)officeLocationForRegion:(CLRegion *)region
