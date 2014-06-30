@@ -45,7 +45,7 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchDepartments) forControlEvents:UIControlEventValueChanged];
 
-    
+    [[self fetchedResultsController] performFetch:nil];
     [self fetchDepartments];
 }
 

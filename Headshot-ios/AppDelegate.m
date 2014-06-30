@@ -129,7 +129,7 @@
 }
 
 
--(void)setDataStore{
+-(void)setDataStore {
     
     [NSManagedObject setDefaultBackgroundQueue:[TRBackgroundQueue sharedInstance]];
     

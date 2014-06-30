@@ -23,10 +23,19 @@
     return dbRoot;
 }
 
-//- (NSURL *)databaseRootURL
-//{
-//    return [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory
-//                                                  inDomains:NSUserDomainMask].lastObject;
-//}
+- (void)cleanAndResetupDB
+{
+    NSError *error = nil;
+    
+    [MagicalRecord cleanUp];
+    
+    if([[NSFileManager defaultManager] removeItemAtURL:[self databaseRootURL] error:&error]){
+        [[AppDelegate sharedDelegate] setDataStore];
+    }
+    else{
+        NSLog(@"An error has occurred while deleting %@", [self databaseRootURL]);
+        NSLog(@"Error description: %@", error.description);
+    }
+}
 
 @end

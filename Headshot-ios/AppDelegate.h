@@ -27,7 +27,7 @@
 + (instancetype)sharedDelegate;
 
 - (void)setTopViewControllerToMessageThreadViewControllerWithAuthorID:(NSString *)authorID;
-
+- (void)setDataStore;
 - (void)logout;
 
 

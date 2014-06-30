@@ -112,14 +112,10 @@
 - (void) userSignedOut
 {
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
-    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-    [standardDefaults removeObjectForKey:@"min_updated_at"];
-    [standardDefaults removeObjectForKey:@"companyValidated"];
-    [standardDefaults synchronize];
     
     //[Intercom endSession];
     
-    //[[AppDelegate sharedDelegate].persistentStack resetPersistentStore];
+    [[TRDataStoreManager sharedInstance] cleanAndResetupDB];
 }
 
 

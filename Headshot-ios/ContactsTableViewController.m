@@ -56,7 +56,7 @@
     self.navigationController.navigationBar.shadowImage = nil;
     
     // If maintaining scroll view position
-    if (_verticalContentOffset > 44.0) {
+    if (_verticalContentOffset >= 44.0) {
         [self.tableView setContentOffset:CGPointMake(0, _verticalContentOffset)];
     }
 
