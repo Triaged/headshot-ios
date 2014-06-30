@@ -25,6 +25,7 @@
 @property (nonatomic, retain) NSString * avatarFaceUrl;
 @property (nonatomic, retain) NSString * avatarUrl;
 @property (nonatomic, retain) NSNumber * installedApp;
+@property (nonatomic, retain) NSNumber * sharingOfficeLocation;
 @property (nonatomic, retain) EmployeeInfo *employeeInfo;
 @property (nonatomic, retain) Company *company;
 @property (nonatomic, retain) User *manager;

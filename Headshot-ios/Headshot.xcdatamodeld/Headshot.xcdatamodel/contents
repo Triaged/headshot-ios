@@ -64,6 +64,7 @@
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="installedApp" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sharingOfficeLocation" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="currentUser" inverseEntity="Account" syncable="YES"/>
         <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="users" inverseEntity="Company" syncable="YES"/>
         <relationship name="currentOfficeLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OfficeLocation" inverseName="currentEmployees" inverseEntity="OfficeLocation" syncable="YES"/>
@@ -83,6 +84,6 @@
         <element name="Message" positionX="0" positionY="0" width="128" height="150"/>
         <element name="MessageThread" positionX="0" positionY="0" width="128" height="90"/>
         <element name="OfficeLocation" positionX="0" positionY="0" width="128" height="223"/>
-        <element name="User" positionX="0" positionY="0" width="128" height="313"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="330"/>
     </elements>
 </model>
