@@ -31,21 +31,4 @@
     #import "TRDataStoreManager.h"
     #import "Constants.h"
 
-    #define TGRAY_COLOR [[UIColor alloc] initWithRed:155.0f/255.0f green:163.0f/255.0f blue:183.0f/255.0f alpha:1.0f];
-    #define TBLUE_COLOR [[UIColor alloc] initWithRed:122.0f/255.0f green:148.0f/255.0f blue:210.0f/255.0f alpha:1.0f];
-
-    #define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
-    #define BG_COLOR [[UIColor alloc] initWithRed:236.0f/255.0f green:238.0f/255.0f blue:244.0f/255.0f alpha:1.0f];
-    //#define TINT_COLOR [[UIColor alloc] initWithRed:105.0f/255.0f green:125.0f/255.0f blue:165.0f/255.0f alpha:1.0f];
-    #define TINT_COLOR [[UIColor alloc] initWithRed:121.0f/255.0f green:159.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-    #define BAR_TINT_COLOR [[UIColor alloc] initWithRed:253.0f/255.0f green:253.0f/255.0f blue:253.0f/255.0f alpha:1.0f];
-    #define BODY_COLOR [[UIColor alloc] initWithRed:120.0f/255.0f green:120.0f/255.0f blue:120.0f/255.0f alpha:1.0f];
-    #define TITLE_COLOR [[UIColor alloc] initWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
-    #define BORDER_COLOR [[UIColor alloc] initWithRed:228.0f/255.0f green:230.0f/255.0f blue:234.0f/255.0f alpha:1.0f];
-    #define SHADOW_COLOR [[UIColor alloc] initWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
-
-    #define XXImageFormatNameUserThumbnailSmall @"com.mycompany.myapp.XXImageFormatNameUserThumbnailSmall";
-    #define XXImageFormatNameUserThumbnailLarge  @"com.mycompany.myapp.XXImageFormatNameUserThumbnailLarge";
-    #define XXImageFormatFamilyUserThumbnails @"com.mycompany.myapp.XXImageFormatFamilyUserThumbnails";
-
 #endif
