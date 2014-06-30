@@ -40,7 +40,7 @@
     
     
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    
     
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
     info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
@@ -49,13 +49,20 @@
     self.navigationItem.rightBarButtonItem = item;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
-                                              
+    
+    
     [self loadViewFromData];
     
 }
 
 -(void) viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    
+    //refresh locally
     [self loadViewFromData];
+    // refresh remotely
+    [self refreshUser];
+
 }
 
 -(void)loadViewFromData {
@@ -79,6 +86,13 @@
     [self.contactDetailsTableView registerNib:[UINib nibWithNibName:@"ContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"ContactInfoCell"];
     
     [self.contactDetailsTableView reloadData];
+}
+
+- (void) refreshUser {
+    [currentUser updateWithCompletionHandler:^(User *user, NSError *error) {
+        currentUser = (User *)[[NSManagedObjectContext MR_contextForCurrentThread] existingObjectWithID:user.objectID error:nil];
+        [self loadViewFromData];
+    }];
 }
 
 -(void)viewDidLayoutSubviews

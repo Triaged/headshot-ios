@@ -13,12 +13,13 @@
 #import <EventKitUI/EventKitUI.h>
 #import "TRAvatarImageView.h"
 
-@interface ContactViewController : UIViewController <MFMailComposeViewControllerDelegate, UIToolbarDelegate, EKEventEditViewDelegate, UIActionSheetDelegate>
+@interface ContactViewController : UIViewController <MFMailComposeViewControllerDelegate, UIToolbarDelegate, EKEventEditViewDelegate, UIActionSheetDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) User *user;
 
 
 @property (strong, nonatomic) IBOutlet TRAvatarImageView *avatarImageView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *currentOfficeLocationLabel;

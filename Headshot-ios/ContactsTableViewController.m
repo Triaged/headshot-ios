@@ -16,6 +16,7 @@
 @property (nonatomic, strong) ContactsDataSource *contactsDataSource;
 @property (nonatomic, strong) NSFetchedResultsController *_fetchedResultsController;
 @property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic) float verticalContentOffset;
 
 @end
 
@@ -53,6 +54,13 @@
     // scroll the search bar off-screen
     self.tableView.contentOffset = CGPointMake(0.0, 44.0);
     self.navigationController.navigationBar.shadowImage = nil;
+    
+    // If maintaining scroll view position
+    if (_verticalContentOffset > 44.0) {
+        [self.tableView setContentOffset:CGPointMake(0, _verticalContentOffset)];
+    }
+
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -116,6 +124,7 @@
     ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
     [self.navigationController pushViewController:contactVC animated:YES];
     
+    _verticalContentOffset  = tableView.contentOffset.y;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
