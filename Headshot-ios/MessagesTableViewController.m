@@ -94,8 +94,8 @@
     UIView *emptyView = [[UIView alloc] initWithFrame:self.tableView.frame];
     UIImageView *emptyMessagesView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-state-messages"]];
     [emptyView addSubview:emptyMessagesView];
-    emptyMessagesView.size = CGSizeMake(240, 320);
-    emptyMessagesView.centerY = emptyView.height/2.0;
+    emptyMessagesView.size = CGSizeMake(320.0, 230.0);
+    emptyMessagesView.Y = 55.0;
     emptyMessagesView.centerX = emptyView.width/2.0;
     self.tableView.nxEV_emptyView = emptyView;
 }
