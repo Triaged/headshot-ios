@@ -97,8 +97,7 @@
 
 -(void)viewDidLayoutSubviews
 {
-    CGFloat height = MIN(self.view.bounds.size.height, self.contactDetailsTableView.contentSize.height);
-    self.tableHeightConstraint.constant = height;
+    self.tableHeightConstraint.constant = self.contactDetailsTableView.contentSize.height;
     [self.view layoutIfNeeded];
 }
 
