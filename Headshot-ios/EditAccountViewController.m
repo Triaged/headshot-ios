@@ -37,6 +37,7 @@
 @property (strong, nonatomic) FormView *birthdayFormView;
 @property (strong, nonatomic) UITextField *activeTextField;
 @property (strong, nonatomic) FormView *selectedDateFormView;
+@property (strong, nonatomic) NSArray *orderedTextFields;
 
 @end
 
@@ -128,6 +129,10 @@
     
     for (FormView *formView in @[self.firstNameFormView, self.lastNameFormView, self.emailFormView, self.workPhoneFormView, self.homePhoneFormView, self.jobTitleFormView, self.departmentFormView, self.managerFormView, self.officeFormView, self.startDateFormView, self.birthdayFormView]) {
         formView.textField.delegate = self;
+    }
+    self.orderedTextFields = @[self.firstNameFormView.textField, self.lastNameFormView.textField, self.emailFormView.textField, self.workPhoneFormView.textField, self.homePhoneFormView.textField, self.jobTitleFormView.textField];
+    for (UITextField *textField in self.orderedTextFields) {
+        textField.returnKeyType = UIReturnKeyNext;
     }
     
     self.account = [AppDelegate sharedDelegate].store.currentAccount;
@@ -410,8 +415,15 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    return YES;
+    NSInteger idx = [self.orderedTextFields indexOfObject:textField];
+    if (idx < self.orderedTextFields.count - 1) {
+        UITextField *nextTextField = self.orderedTextFields[idx + 1];
+        [nextTextField becomeFirstResponder];
+    }
+    else {
+        [textField resignFirstResponder];
+    }
+    return NO;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField

@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 @property (strong, nonatomic) FormView *phoneFormView;
 @property (strong, nonatomic) FormView *birthdayFormView;
 @property (strong, nonatomic) FormView *passwordFormView;
+@property (strong, nonatomic) NSArray *orderedTextFields;
 @property (strong, nonatomic) UITextField *activeTextField;
 @property (strong, nonatomic) UILabel *welcomeLabel;
 @property (strong, nonatomic) UIButton *nextButton;
@@ -105,6 +106,11 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     self.birthdayFormView.textField.placeholder = @"(Optional)";
     self.birthdayFormView.userInteractionEnabled = NO;
     self.birthdayFormView.fieldName = @"Birthday";
+    
+    self.orderedTextFields = @[self.firstNameFormView.textField, self.lastNameFormView.textField, self.phoneFormView.textField];
+    for (UITextField *textField in self.orderedTextFields) {
+        textField.returnKeyType = UIReturnKeyNext;
+    }
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 122)];
     self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -223,8 +229,15 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 #pragma mark - Text Field Delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    return YES;
+    NSInteger idx = [self.orderedTextFields indexOfObject:textField];
+    if (idx < self.orderedTextFields.count - 1) {
+        UITextField *nextTextField = self.orderedTextFields[idx + 1];
+        [nextTextField becomeFirstResponder];
+    }
+    else {
+        [textField resignFirstResponder];
+    }
+    return NO;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
