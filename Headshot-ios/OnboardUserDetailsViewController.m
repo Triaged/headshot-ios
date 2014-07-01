@@ -118,6 +118,7 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     self.tableView.tableFooterView = footerView;
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     self.dateFormatter.dateFormat = @"LLLL d";
 }
 
