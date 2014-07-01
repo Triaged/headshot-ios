@@ -50,10 +50,10 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     if (currentUser.employeeInfo.cellPhone)
         //ECPhoneNumberFormatter *formatter = [[ECPhoneNumberFormatter alloc] init];
         //NSString *formattedPhoneNumber = [formatter stringForObjectValue:currentUser.employeeInfo.cellPhone];
-        [contactInfo addObject:@[@"Mobile", currentUser.employeeInfo.cellPhone]];
+        [contactInfo addObject:@[@"Mobile Phone", currentUser.employeeInfo.cellPhone]];
 
     if (currentUser.employeeInfo.officePhone)
-        [contactInfo addObject:@[@"Office", currentUser.employeeInfo.officePhone]];
+        [contactInfo addObject:@[@"Office Phone", currentUser.employeeInfo.officePhone]];
     
     if (currentUser.primaryOfficeLocation) {
         [contactInfo addObject:@[@"Home Office", currentUser.primaryOfficeLocation.name]];
