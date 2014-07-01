@@ -50,6 +50,13 @@
     }
 }
 
+- (void)logoutOfSinchClient {
+    [_client stopListeningOnActiveConnection];
+    [_client stop];
+    
+    _client = nil;
+}
+
 #pragma mark - SINClientDelegate
 
 - (void)clientDidStart:(id<SINClient>)client {

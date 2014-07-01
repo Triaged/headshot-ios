@@ -36,7 +36,7 @@
     loginLabel.textAlignment = NSTextAlignmentCenter;
     loginLabel.font = [ThemeManager regularFontOfSize:36];
     loginLabel.textColor = [[ThemeManager sharedTheme] greenColor];
-    loginLabel.text = @"Log In";
+    loginLabel.text = @"Badge";
     [headerView addSubview:loginLabel];
     
     UILabel *descriptionLabel = [[UILabel alloc] init];

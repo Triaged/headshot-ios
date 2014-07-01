@@ -109,7 +109,7 @@
 {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kUserDefaultsLoggedIn];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [[SinchClient sharedClient].client stop];
+    [[SinchClient sharedClient] logoutOfSinchClient];
     [[TRDataStoreManager sharedInstance] resetPersistentStore];
     [[CredentialStore sharedClient] clearSavedCredentials];
 }

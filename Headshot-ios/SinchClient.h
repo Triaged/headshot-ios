@@ -15,6 +15,7 @@
 
 
 - (void)initSinchClientWithUserId:(NSString *)userId;
+- (void)logoutOfSinchClient;
 - (NSString *)userIDForSIN:(NSString *)sin;
 
 + (instancetype)sharedClient;
