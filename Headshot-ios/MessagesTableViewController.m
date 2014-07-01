@@ -12,6 +12,7 @@
 #import "MessageThreadViewController.h"
 #import "NewThreadTableViewController.h"
 #import "MessageThreadPreviewCell.h"
+#import "UITableView+NXEmptyView.h"
 
 @interface MessagesTableViewController () <NewThreadTableViewControllerDelegate>
 
@@ -88,6 +89,15 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.tableFooterView = [[UIView alloc] init];
+    
+
+    UIView *emptyView = [[UIView alloc] initWithFrame:self.tableView.frame];
+    UIImageView *emptyMessagesView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty-state-messages"]];
+    [emptyView addSubview:emptyMessagesView];
+    emptyMessagesView.size = CGSizeMake(240, 320);
+    emptyMessagesView.centerY = emptyView.height/2.0;
+    emptyMessagesView.centerX = emptyView.width/2.0;
+    self.tableView.nxEV_emptyView = emptyView;
 }
 
 

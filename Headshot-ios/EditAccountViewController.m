@@ -199,7 +199,7 @@
         [self presentPhotoPickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }];
     [actionSheet bk_setCancelButtonWithTitle:@"Cancel" handler:nil];
-    [actionSheet showInView:self.tableView];
+    [actionSheet showFromTabBar:(UITabBar *)[AppDelegate sharedDelegate].tabBarController.tabBar];
 }
 
 - (void)presentPhotoPickerWithSourceType:(UIImagePickerControllerSourceType)sourceType
