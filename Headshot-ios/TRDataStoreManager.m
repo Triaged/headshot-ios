@@ -29,9 +29,12 @@
     
     [MagicalRecord cleanUp];
     
-    if([[NSFileManager defaultManager] removeItemAtURL:[self databaseRootURL] error:&error]){
+    
+    NSURL *fileURL = [NSPersistentStore MR_urlForStoreName:@"Headshot.sqlite"];
+    if([[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error]){
         // reset setup.
-        [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Headshot.sqlite"];
+        
+        NSLog(@"%hhd", [[NSFileManager defaultManager] fileExistsAtPath:[fileURL absoluteString]]);
         [[AppDelegate sharedDelegate] setDataStore];
     }
     else{
@@ -39,5 +42,43 @@
         NSLog(@"Error description: %@", error.description);
     }
 }
+
+- (void)resetPersistentStore
+{
+    NSLog(@"resetting persistent store");
+    NSError *error = nil;
+    
+    [MagicalRecord cleanUp];
+    
+    // FIXME: dirty. If there are many stores...
+    //NSPersistentStore *store = [[self.managedObjectContext.persistentStoreCoordinator persistentStores] lastObject];
+    
+    //    if (![self.managedObjectContext.persistentStoreCoordinator removePersistentStore:store error:&error]) {
+    //        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    //        abort();
+    //    }
+    
+    // Delete file
+    NSURL *fileURL = [NSPersistentStore MR_urlForStoreName:@"Headshot.sqlite"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
+        if (![[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+    
+    [TRDataStoreManager sharedInstance].mainThreadManagedObjectContext = nil;
+    [TRDataStoreManager sharedInstance].backgroundThreadManagedObjectContext = nil;
+    
+    //[NSManagedObjectContext MR_setDefaultContext: nil];
+    [NSPersistentStore MR_setDefaultPersistentStore:nil];
+    [NSManagedObjectModel MR_setDefaultManagedObjectModel:nil];
+    [NSPersistentStoreCoordinator MR_setDefaultStoreCoordinator: nil];
+    
+    
+    
+    [[AppDelegate sharedDelegate] setDataStore];
+}
+
 
 @end

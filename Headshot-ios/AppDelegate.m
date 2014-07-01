@@ -133,6 +133,7 @@
     
     [SLObjectConverter setDefaultDateTimeFormat:@"yyyy-MM-dd'T'HH:mm:ss.sssZ"];
     [SLAttributeMapping registerDefaultObjcNamingConvention:@"identifier" forJSONNamingConvention:@"id"];
+    
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Headshot.sqlite"];
     [NSManagedObjectContext MR_setDefaultContext:[TRDataStoreManager sharedInstance].mainThreadManagedObjectContext];
     
@@ -141,6 +142,8 @@
 - (void)logout
 {
     [self.store logout];
+    
+    [_tabBarController setSelectedIndex:1];
     self.window.rootViewController = [[OnboardNavigationController alloc] init];
 }
 

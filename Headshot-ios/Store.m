@@ -34,7 +34,11 @@
     self = [super init];
     if (self) {
         if ([[CredentialStore sharedClient] isLoggedIn]) {
-            [self setUpAccount:[self currentAccount]];
+            if (![self currentAccount]) {
+                [self fetchRemoteUserAccount];
+            } else {
+                [self setUpAccount:[self currentAccount]];
+            }
         }
     }
     return self;
@@ -45,7 +49,9 @@
 
 - (void) fetchRemoteUserAccount
 {
-    [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {}];
+    [Account currentAccountWithCompletionHandler:^(Account *account, NSError *error) {
+        [self setUpAccount:[self currentAccount]];
+    }];
 }
 
 - (Account *)currentAccount {
@@ -103,19 +109,16 @@
 {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kUserDefaultsLoggedIn];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [[SinchClient sharedClient].client stop];
+    [[SinchClient sharedClient] logoutOfSinchClient];
+    [[TRDataStoreManager sharedInstance] resetPersistentStore];
     [[CredentialStore sharedClient] clearSavedCredentials];
-    [[TRDataStoreManager sharedInstance] cleanAndResetupDB];
 }
-
 
 - (void) userSignedOut
 {
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
     
     //[Intercom endSession];
-    
-    
 }
 
 
