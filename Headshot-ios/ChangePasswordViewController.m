@@ -52,6 +52,8 @@
 - (void)saveButtonTouched:(id)sender
 {
     [[AppDelegate sharedDelegate].store.currentAccount updatePassword:self.oldPasswordFormView.textField.text password:self.passwordFormView.textField.text confirmedPassword:self.confirmPasswordFormView.textField.text withSuccess:^{
+        UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Your password was successfully changed." delegate:nil cancelButtonTitle:@"Onward" otherButtonTitles:nil];
+        [successAlert show];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];

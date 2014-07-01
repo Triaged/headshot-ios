@@ -54,6 +54,10 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
 
     if (currentUser.employeeInfo.officePhone)
         [contactInfo addObject:@[@"Office", currentUser.employeeInfo.officePhone]];
+    
+    if (currentUser.primaryOfficeLocation) {
+        [contactInfo addObject:@[@"Home Office", currentUser.primaryOfficeLocation.name]];
+    }
 
     
     if (currentUser.employeeInfo.birthDate) {

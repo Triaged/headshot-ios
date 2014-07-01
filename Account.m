@@ -74,9 +74,7 @@
     NSDictionary *parameters = @{@"user": @{@"current_password": currentPassword,
                                             @"password" :password,
                                             @"password_confirmation" : confirmedPassword}};
-    [[HeadshotAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        
-    } failure:failure];
+    [[HeadshotAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:success failure:failure];
 }
 
 - (void)resetBadgeCount {
