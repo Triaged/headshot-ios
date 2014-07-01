@@ -96,6 +96,19 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+//    User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
+//    self.jobTitleFormView.textField.text = user.employeeInfo.jobTitle;
+//    if (user.department) {
+//        self.departmentFormView.textField.text = user.department.name;
+//    }
+//    if (user.manager) {
+//        self.managerFormView.textField.text = user.manager.fullName;
+//    }
+}
+
 - (void)nextButtonTouched:(id)sender
 {
     NSString *jobTitle = self.jobTitleFormView.textField.text;
@@ -111,6 +124,14 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    NSString *text = textField.text;
+    if (textField == self.jobTitleFormView.textField) {
+        [AppDelegate sharedDelegate].store.currentAccount.currentUser.employeeInfo.jobTitle = text;
+    }
 }
 
 #pragma mark - Table view data source
