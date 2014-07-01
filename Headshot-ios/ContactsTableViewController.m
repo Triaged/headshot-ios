@@ -38,6 +38,11 @@
     [super viewDidLoad];
 
     self.title = @"Contacts";
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(clearContacts)
+                                                 name:@"signout"
+                                               object:nil];
 
     
     [self setupTableView];
@@ -137,6 +142,13 @@
     
     return YES;
 }
+
+    
+-(void)clearContacts {
+    self.contactsDataSource.users = nil;
+    [self.tableView reloadData];
+}
+
 
 
 

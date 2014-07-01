@@ -12,5 +12,6 @@
 @interface TRDataStoreManager : SLCoreDataStack
 
 - (void)cleanAndResetupDB;
+- (void)resetPersistentStore;
 
 @end
