@@ -48,6 +48,8 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         [contactInfo addObject:@[@"Email", currentUser.email]];
 
     if (currentUser.employeeInfo.cellPhone)
+        //ECPhoneNumberFormatter *formatter = [[ECPhoneNumberFormatter alloc] init];
+        //NSString *formattedPhoneNumber = [formatter stringForObjectValue:currentUser.employeeInfo.cellPhone];
         [contactInfo addObject:@[@"Mobile", currentUser.employeeInfo.cellPhone]];
 
     if (currentUser.employeeInfo.officePhone)
