@@ -353,6 +353,9 @@
 
 - (void)startDateCellTapped:(id)sender
 {
+    if (self.activeTextField) {
+        return;
+    }
     DatePickerModalView *datePickerModalView = [[DatePickerModalView alloc] init];
     datePickerModalView.datePicker.dateDelegate = self;
     self.selectedDateFormView = self.startDateFormView;
@@ -361,6 +364,9 @@
 
 - (void)birthdayCellTapped:(id)sender
 {
+    if (self.activeTextField) {
+        return;
+    }
     DatePickerModalView *datePickerModalView = [[DatePickerModalView alloc] init];
     datePickerModalView.datePicker.dateDelegate = self;
     datePickerModalView.hidesYear = YES;

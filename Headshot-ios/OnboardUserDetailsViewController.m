@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 @property (strong, nonatomic) FormView *phoneFormView;
 @property (strong, nonatomic) FormView *birthdayFormView;
 @property (strong, nonatomic) FormView *passwordFormView;
+@property (strong, nonatomic) UITextField *activeTextField;
 @property (strong, nonatomic) UILabel *welcomeLabel;
 @property (strong, nonatomic) UIButton *nextButton;
 @property (strong, nonatomic) NSDate *birthday;
@@ -199,6 +200,9 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.activeTextField) {
+        return;
+    }
     if (indexPath.row == UserDetailFormBirthday) {
         DatePickerModalView *datePickerModalView = [[DatePickerModalView alloc] init];
         datePickerModalView.hidesYear = YES;
@@ -222,8 +226,14 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.activeTextField = textField;
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    self.activeTextField = nil;
     NSString *text = textField.text;
     if (textField == self.phoneFormView.textField) {
         self.user.employeeInfo.cellPhone = text;
