@@ -62,13 +62,16 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     
     if (currentUser.employeeInfo.birthDate) {
         NSDateFormatter *birthStartdateFormatter = [[NSDateFormatter alloc] init];
+        [birthStartdateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         birthStartdateFormatter.dateFormat = [NSString stringWithFormat:@"LLLL d'%@'", [self suffixForDayInDate:currentUser.employeeInfo.birthDate]];
         [contactInfo addObject:@[@"Birthday", [birthStartdateFormatter stringFromDate:currentUser.employeeInfo.birthDate]]];
     }
 
     if (currentUser.employeeInfo.jobStartDate) {
         NSDateFormatter *jobStartdateFormatter = [[NSDateFormatter alloc] init];
+        [jobStartdateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         jobStartdateFormatter.dateFormat = [NSString stringWithFormat:@"LLLL d'%@', yyyy", [self suffixForDayInDate:currentUser.employeeInfo.jobStartDate]];
+
         [contactInfo addObject:@[@"Start Date", [jobStartdateFormatter stringFromDate:currentUser.employeeInfo.jobStartDate]]];
     }
 
@@ -308,7 +311,9 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
 }
 
 - (NSString *)suffixForDayInDate:(NSDate *)date{
-    NSInteger day = [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSDayCalendarUnit fromDate:date] day];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    NSInteger day = [[calendar components:NSDayCalendarUnit fromDate:date] day];
     if (day >= 11 && day <= 13) {
         return @"th";
     } else if (day % 10 == 1) {
