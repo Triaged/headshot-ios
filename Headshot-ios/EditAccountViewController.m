@@ -181,10 +181,12 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     if (user.employeeInfo.birthDate) {
         dateFormatter.dateFormat = @"MMM d";
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         self.birthdayFormView.textField.text = [dateFormatter stringFromDate:user.employeeInfo.birthDate];
     }
     if (user.employeeInfo.jobStartDate) {
         dateFormatter.dateFormat = @"MMM d yyyy";
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         self.startDateFormView.textField.text = [dateFormatter stringFromDate:user.employeeInfo.jobStartDate];
     }
 }
