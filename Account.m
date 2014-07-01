@@ -36,7 +36,7 @@
     NSMutableDictionary *userJSON = [[NSMutableDictionary alloc] init];
     userJSON[@"first_name"] = self.currentUser.firstName;
     userJSON[@"last_name"] = self.currentUser.lastName;
-    
+    userJSON[@"email"] = self.currentUser.email;
     Department *department = self.currentUser.department;
     userJSON[@"department_id"] = department ? department.identifier : [NSNull null];
     
