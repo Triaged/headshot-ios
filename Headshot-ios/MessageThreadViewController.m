@@ -112,6 +112,11 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = self.avatarImageSize;
 }
 
+- (BOOL)hidesBottomBarWhenPushed
+{
+    return YES;
+}
+
 - (void)receivedNewMessageNotification:(NSNotification *)notification
 {
     MessageThread *thread = notification.userInfo[@"thread"];
@@ -140,7 +145,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:YES animated:YES];
     self.navigationController.navigationBar.shadowImage = nil;
     [NotificationManager sharedManager].visibleMessageThreadViewController = self;
 }
@@ -150,7 +154,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     
     [self.inputToolbar.contentView.textView resignFirstResponder];
-    [[AppDelegate sharedDelegate].tabBarController setTabBarHidden:NO animated:YES];
     [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
     [self.navigationController setSGProgressPercentage:0];
 }

@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RDVTabBarController.h"
 
-@interface TRTabBarController : RDVTabBarController <RDVTabBarControllerDelegate>
+@interface TRTabBarController : UITabBarController
 
 - (void)selectMessagesViewController;
 
