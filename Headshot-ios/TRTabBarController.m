@@ -66,9 +66,9 @@
     }
     
     
-    self.tabBar.opaque = NO;
+    self.tabBar.translucent = NO;
     self.tabBar.tintColor = [[ThemeManager sharedTheme] orangeColor];
-    [self.tabBar setBackgroundColor:[UIColor whiteColor]];
+    self.tabBar.backgroundColor = [UIColor whiteColor];
     
     
     NSArray *tabBarItemImages = @[@"messages", @"contacts", @"profile"];
