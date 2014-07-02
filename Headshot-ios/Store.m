@@ -69,6 +69,8 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsLoggedIn];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self setUpAccount:account];
+    [[AnalyticsManager sharedManager] setupForUser];
+    [[AnalyticsManager sharedManager] login];
 }
 
 - (void)setUpAccount:(Account *)account
@@ -89,6 +91,7 @@
     [Company companyWithCompletionHandler:^(Company *company, NSError *error) {
         self.hasStoredCompany = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHasStoredCompanyNotification object:nil];
+        [[AnalyticsManager sharedManager] updateSuperProperties];
     }];
     
     

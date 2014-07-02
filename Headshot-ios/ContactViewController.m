@@ -117,6 +117,7 @@
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
         [self.navigationController pushViewController:threadVC animated:YES];
     }
+    [[AnalyticsManager sharedManager] profileButtonTouched:@"message"];
 }
 
 - (IBAction)emailTapped:(id)sender {
@@ -126,6 +127,7 @@
         [composeViewController setToRecipients:@[self.user.email]];
         [self presentViewController:composeViewController animated:YES completion:nil];
     }
+    [[AnalyticsManager sharedManager] profileButtonTouched:@"email"];
 }
 
 - (IBAction)meetTapped:(id)sender {
@@ -161,6 +163,7 @@
     } else if (self.user.employeeInfo.officePhone) {
         [self callOfficePhone];
            }
+    [[AnalyticsManager sharedManager] profileButtonTouched:@"phone"];
 }
 
 - (void) callCellOrOffice {

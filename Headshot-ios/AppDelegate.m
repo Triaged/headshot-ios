@@ -72,6 +72,7 @@
 {
     [[SinchClient sharedClient].client start];
     [[SinchClient sharedClient].client startListeningOnActiveConnection];
+    [[AnalyticsManager sharedManager] appForeground];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -141,8 +142,8 @@
 
 - (void)logout
 {
+    [[AnalyticsManager sharedManager] logout];
     [self.store logout];
-    
     [_tabBarController setSelectedIndex:1];
     self.window.rootViewController = [[OnboardNavigationController alloc] init];
 }

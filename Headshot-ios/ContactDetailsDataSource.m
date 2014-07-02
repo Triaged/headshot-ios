@@ -270,6 +270,13 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     [self.contactVC.navigationController pushViewController:contactVC animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if ([self.currentUser.subordinates containsObject:user]) {
+        [[AnalyticsManager sharedManager] subordinateTapped:user.identifier];
+    }
+    else {
+        [[AnalyticsManager sharedManager] managerTapped:user.identifier];
+    }
 }
 
 

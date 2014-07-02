@@ -33,5 +33,6 @@
     #import "Constants.h"
     #import "CommonMacros.h"
     #import "JAGrandCentralDispatch.h"
+    #import "AnalyticsManager.h"
 
 #endif

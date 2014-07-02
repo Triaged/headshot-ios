@@ -260,6 +260,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     else {
         [[SinchClient sharedClient].client.messageClient sendMessage:sinMessage];
     }
+    [[AnalyticsManager sharedManager] messageSentToRecipient:self.messageThread.recipient.identifier];
 }
 
 - (void)resendMessage:(Message *)message
