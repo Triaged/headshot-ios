@@ -119,7 +119,7 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
             sectionTitle =  @"REPORTS TO";
             break;
         case kReports:
-            sectionTitle = @"DIRECT REPORTS";
+            sectionTitle = @"MANAGES";
             break;
         case kContactInfo:
             sectionTitle = @"CONTACT INFO";
