@@ -42,9 +42,6 @@
     // Messages
     MessagesTableViewController *messagesTableView = [[MessagesTableViewController alloc] init];
     TRNavigationController *messagesNav = [[TRNavigationController alloc] initWithRootViewController:messagesTableView];
-    UIView *blockade = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
-    blockade.backgroundColor = [UIColor whiteColor];
-    [messagesNav.view addSubview:blockade];
     
     // Settings
     AccountViewController *accountVC = [[AccountViewController alloc] init];
@@ -69,32 +66,22 @@
     }
     
     
-    self.tabBar.opaque = NO;
-    //[self.tabBar setTintColor:[UIColor whiteColor]];
-    //[self.tabBar setBackgroundColor:[UIColor whiteColor]];
+    self.tabBar.translucent = NO;
+    self.tabBar.tintColor = [[ThemeManager sharedTheme] orangeColor];
+    self.tabBar.backgroundColor = [UIColor whiteColor];
     
     
-
-    UIImage *finishedImage = [UIImage imageNamed:@"nav_bg_on"];
-    UIImage *unfinishedImage = [UIImage imageNamed:@"nav_bg_off"];
     NSArray *tabBarItemImages = @[@"messages", @"contacts", @"profile"];
-    
-    
-    NSInteger index = 0;
-    for (RDVTabBarItem *item in [[self tabBar] items]) {
-        [item setBackgroundSelectedImage:finishedImage withUnselectedImage:unfinishedImage];
-        //[item setBackgroundColor:[UIColor whiteColor]];
-        
-        NSLog(@"tabbar_%@_active.png",
-              [tabBarItemImages objectAtIndex:index]);
+    NSArray *titles = @[@"Inbox", @"Contacts", @"Profile"];
+    [self.viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-active.png",
-                                                      [tabBarItemImages objectAtIndex:index]]];
+                                                      [tabBarItemImages objectAtIndex:idx]]];
         UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-inactive.png",
-                                                        [tabBarItemImages objectAtIndex:index]]];
-        [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
-        
-        index++;
-    }
+                                                        [tabBarItemImages objectAtIndex:idx]]];
+        UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:titles[idx] image:selectedimage selectedImage:unselectedimage];
+        UIViewController *viewController = self.viewControllers[idx];
+        viewController.tabBarItem = tabBarItem;
+    }];
     
     [self setSelectedIndex:1];
 	// Do any additional setup after loading the view.

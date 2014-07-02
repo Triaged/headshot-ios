@@ -42,6 +42,9 @@
 		96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */; };
 		96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9E19577EE300E77CFD /* SettingsViewController.m */; };
 		96D37F4819608C7900212CDF /* TRAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D37F4719608C7800212CDF /* TRAvatarImageView.m */; };
+		96D4F23A196463DE00147DEB /* UIViewController+BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */; };
+		96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F23D196465E800147DEB /* AnalyticsManager.m */; };
+		96D4F2411964860700147DEB /* VersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F2401964860700147DEB /* VersionManager.m */; };
 		96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */; };
 		96F0B5D5195882F70001A204 /* EditAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F0B5D4195882F70001A204 /* EditAvatarImageView.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
@@ -206,6 +209,12 @@
 		96C2CF9E19577EE300E77CFD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		96D37F4619608C7800212CDF /* TRAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAvatarImageView.h; sourceTree = "<group>"; };
 		96D37F4719608C7800212CDF /* TRAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAvatarImageView.m; sourceTree = "<group>"; };
+		96D4F238196463DE00147DEB /* UIViewController+BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackViewController.h"; sourceTree = "<group>"; };
+		96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackViewController.m"; sourceTree = "<group>"; };
+		96D4F23C196465E800147DEB /* AnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyticsManager.h; sourceTree = "<group>"; };
+		96D4F23D196465E800147DEB /* AnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalyticsManager.m; sourceTree = "<group>"; };
+		96D4F23F1964860700147DEB /* VersionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionManager.h; sourceTree = "<group>"; };
+		96D4F2401964860700147DEB /* VersionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionManager.m; sourceTree = "<group>"; };
 		96DB2DFC19539E27005E1F93 /* OnboardSelectManagersViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectManagersViewControllers.h; sourceTree = "<group>"; };
 		96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectManagersViewControllers.m; sourceTree = "<group>"; };
 		96F0B5D3195882F70001A204 /* EditAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAvatarImageView.h; sourceTree = "<group>"; };
@@ -399,6 +408,8 @@
 				968436391961E3FD0001259F /* JAGrandCentralDispatch.m */,
 				964839821958A1E600E4792A /* PhotoManager.h */,
 				964839831958A1E600E4792A /* PhotoManager.m */,
+				96D4F23F1964860700147DEB /* VersionManager.h */,
+				96D4F2401964860700147DEB /* VersionManager.m */,
 			);
 			name = other;
 			sourceTree = "<group>";
@@ -420,6 +431,8 @@
 				962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */,
 				96467B82195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.h */,
 				96467B83195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m */,
+				96D4F238196463DE00147DEB /* UIViewController+BackViewController.h */,
+				96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -492,6 +505,15 @@
 				964839861958B8DB00E4792A /* ChangePasswordViewController.m */,
 			);
 			name = settings;
+			sourceTree = "<group>";
+		};
+		96D4F23B196465DA00147DEB /* analytics */ = {
+			isa = PBXGroup;
+			children = (
+				96D4F23C196465E800147DEB /* AnalyticsManager.h */,
+				96D4F23D196465E800147DEB /* AnalyticsManager.m */,
+			);
+			name = analytics;
 			sourceTree = "<group>";
 		};
 		CB041862194930E000B3DE97 /* departments */ = {
@@ -605,6 +627,7 @@
 		CBBA686A192FD646005A6949 /* Headshot-ios */ = {
 			isa = PBXGroup;
 			children = (
+				96D4F23B196465DA00147DEB /* analytics */,
 				964839811958A1D900E4792A /* other */,
 				964A6BCE194E2BF60024B3C2 /* categories */,
 				96696334194E1F53003B22B5 /* views */,
@@ -964,6 +987,7 @@
 				96696337194E2018003B22B5 /* FormView.m in Sources */,
 				CBB5183D194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m in Sources */,
 				96A0888A195B2171008F329E /* Device.m in Sources */,
+				96D4F23A196463DE00147DEB /* UIViewController+BackViewController.m in Sources */,
 				CBBA68DE192FE0B5005A6949 /* User.m in Sources */,
 				CBBA6875192FD646005A6949 /* AppDelegate.m in Sources */,
 				964A6BE3194E6B9B0024B3C2 /* AddOfficeViewController.m in Sources */,
@@ -971,6 +995,7 @@
 				96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */,
 				CB1F31D01932746F00CDCFD4 /* AccountViewController.m in Sources */,
 				964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */,
+				96D4F2411964860700147DEB /* VersionManager.m in Sources */,
 				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
 				964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */,
 				CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */,
@@ -994,6 +1019,7 @@
 				CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */,
 				962FD81A1959DCEB00A313AC /* UIImage+SolidColor.m in Sources */,
 				964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */,
+				96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */,
 				CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */,
 				964A6BDD194E5E120024B3C2 /* OnboardJobViewController.m in Sources */,
 				9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */,

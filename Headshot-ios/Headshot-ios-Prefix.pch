@@ -18,6 +18,7 @@
     #import <BlocksKit+UIKit.h>
     #import <SVProgressHUD.h>
     #import "UIViewController+PresentWithNavigationViewController.h"
+    #import "UIViewController+BackViewController.h"
     #import "TRUIKit.h"
     #import "NSDate+BadgeFormattedDate.h"
     #import "User+FindAllExcludeCurrent.h"
@@ -31,6 +32,7 @@
     #import "TRDataStoreManager.h"
     #import "Constants.h"
     #import "CommonMacros.h"
-    #import "JAGrandCentralDispatch.h"  
+    #import "JAGrandCentralDispatch.h"
+    #import "AnalyticsManager.h"
 
 #endif

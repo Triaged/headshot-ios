@@ -104,9 +104,20 @@
 }
 
 - (IBAction)messageTapped:(id)sender {
-    MessageThreadViewController *threadVC = [[MessageThreadViewController alloc] initWithRecipient:self.user];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationController pushViewController:threadVC animated:YES];
+    BOOL pop = NO;
+    if (self.backViewController && [self.backViewController isKindOfClass:[MessageThreadViewController class]]) {
+        MessageThreadViewController *messageThreadViewController = (MessageThreadViewController *)self.backViewController;
+        pop = [messageThreadViewController.messageThread.recipient.identifier isEqual:self.user.identifier];
+    }
+    if (pop) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        MessageThreadViewController *threadVC = [[MessageThreadViewController alloc] initWithRecipient:self.user];
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+        [self.navigationController pushViewController:threadVC animated:YES];
+    }
+    [[AnalyticsManager sharedManager] profileButtonTouched:@"message"];
 }
 
 - (IBAction)emailTapped:(id)sender {
@@ -116,6 +127,7 @@
         [composeViewController setToRecipients:@[self.user.email]];
         [self presentViewController:composeViewController animated:YES completion:nil];
     }
+    [[AnalyticsManager sharedManager] profileButtonTouched:@"email"];
 }
 
 - (IBAction)meetTapped:(id)sender {
@@ -151,6 +163,7 @@
     } else if (self.user.employeeInfo.officePhone) {
         [self callOfficePhone];
            }
+    [[AnalyticsManager sharedManager] profileButtonTouched:@"phone"];
 }
 
 - (void) callCellOrOffice {
