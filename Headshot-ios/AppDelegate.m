@@ -154,6 +154,7 @@
     self.window.rootViewController = self.tabBarController;
     [self.tabBarController selectMessagesViewController];
     UINavigationController *navigationController = (UINavigationController *)self.tabBarController.selectedViewController;
+    [navigationController popToRootViewControllerAnimated:NO];
     [navigationController pushViewController:messageThreadViewControllor animated:NO];
 }
 
