@@ -72,7 +72,7 @@
     
     
     NSArray *tabBarItemImages = @[@"messages", @"contacts", @"profile"];
-    NSArray *titles = @[@"Inbox", @"Contact", @"Contacts", @"Profile"];
+    NSArray *titles = @[@"Inbox", @"Contacts", @"Profile"];
     [self.viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-active.png",
                                                       [tabBarItemImages objectAtIndex:idx]]];
