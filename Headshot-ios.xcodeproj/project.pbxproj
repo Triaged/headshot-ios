@@ -42,6 +42,7 @@
 		96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */; };
 		96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9E19577EE300E77CFD /* SettingsViewController.m */; };
 		96D37F4819608C7900212CDF /* TRAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D37F4719608C7800212CDF /* TRAvatarImageView.m */; };
+		96D4F23A196463DE00147DEB /* UIViewController+BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */; };
 		96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */; };
 		96F0B5D5195882F70001A204 /* EditAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F0B5D4195882F70001A204 /* EditAvatarImageView.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
@@ -206,6 +207,8 @@
 		96C2CF9E19577EE300E77CFD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		96D37F4619608C7800212CDF /* TRAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAvatarImageView.h; sourceTree = "<group>"; };
 		96D37F4719608C7800212CDF /* TRAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAvatarImageView.m; sourceTree = "<group>"; };
+		96D4F238196463DE00147DEB /* UIViewController+BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackViewController.h"; sourceTree = "<group>"; };
+		96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackViewController.m"; sourceTree = "<group>"; };
 		96DB2DFC19539E27005E1F93 /* OnboardSelectManagersViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectManagersViewControllers.h; sourceTree = "<group>"; };
 		96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectManagersViewControllers.m; sourceTree = "<group>"; };
 		96F0B5D3195882F70001A204 /* EditAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAvatarImageView.h; sourceTree = "<group>"; };
@@ -420,6 +423,8 @@
 				962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */,
 				96467B82195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.h */,
 				96467B83195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m */,
+				96D4F238196463DE00147DEB /* UIViewController+BackViewController.h */,
+				96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -964,6 +969,7 @@
 				96696337194E2018003B22B5 /* FormView.m in Sources */,
 				CBB5183D194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m in Sources */,
 				96A0888A195B2171008F329E /* Device.m in Sources */,
+				96D4F23A196463DE00147DEB /* UIViewController+BackViewController.m in Sources */,
 				CBBA68DE192FE0B5005A6949 /* User.m in Sources */,
 				CBBA6875192FD646005A6949 /* AppDelegate.m in Sources */,
 				964A6BE3194E6B9B0024B3C2 /* AddOfficeViewController.m in Sources */,
