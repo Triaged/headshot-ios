@@ -112,6 +112,11 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = self.avatarImageSize;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (BOOL)hidesBottomBarWhenPushed
 {
     return YES;
