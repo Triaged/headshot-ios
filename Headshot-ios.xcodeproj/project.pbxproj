@@ -44,6 +44,7 @@
 		96D37F4819608C7900212CDF /* TRAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D37F4719608C7800212CDF /* TRAvatarImageView.m */; };
 		96D4F23A196463DE00147DEB /* UIViewController+BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */; };
 		96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F23D196465E800147DEB /* AnalyticsManager.m */; };
+		96D4F2411964860700147DEB /* VersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F2401964860700147DEB /* VersionManager.m */; };
 		96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */; };
 		96F0B5D5195882F70001A204 /* EditAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F0B5D4195882F70001A204 /* EditAvatarImageView.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
@@ -212,6 +213,8 @@
 		96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackViewController.m"; sourceTree = "<group>"; };
 		96D4F23C196465E800147DEB /* AnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyticsManager.h; sourceTree = "<group>"; };
 		96D4F23D196465E800147DEB /* AnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalyticsManager.m; sourceTree = "<group>"; };
+		96D4F23F1964860700147DEB /* VersionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionManager.h; sourceTree = "<group>"; };
+		96D4F2401964860700147DEB /* VersionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionManager.m; sourceTree = "<group>"; };
 		96DB2DFC19539E27005E1F93 /* OnboardSelectManagersViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectManagersViewControllers.h; sourceTree = "<group>"; };
 		96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectManagersViewControllers.m; sourceTree = "<group>"; };
 		96F0B5D3195882F70001A204 /* EditAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAvatarImageView.h; sourceTree = "<group>"; };
@@ -405,6 +408,8 @@
 				968436391961E3FD0001259F /* JAGrandCentralDispatch.m */,
 				964839821958A1E600E4792A /* PhotoManager.h */,
 				964839831958A1E600E4792A /* PhotoManager.m */,
+				96D4F23F1964860700147DEB /* VersionManager.h */,
+				96D4F2401964860700147DEB /* VersionManager.m */,
 			);
 			name = other;
 			sourceTree = "<group>";
@@ -990,6 +995,7 @@
 				96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */,
 				CB1F31D01932746F00CDCFD4 /* AccountViewController.m in Sources */,
 				964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */,
+				96D4F2411964860700147DEB /* VersionManager.m in Sources */,
 				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
 				964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */,
 				CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */,

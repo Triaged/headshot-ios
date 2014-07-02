@@ -18,6 +18,7 @@
 #import "OnboardNavigationController.h"
 #import "MessageThreadViewController.h"
 #import "MailComposer.h"
+#import "VersionManager.h"
 #import <Crashlytics/Crashlytics.h>
 
 
@@ -72,6 +73,7 @@
 {
     [[SinchClient sharedClient].client start];
     [[SinchClient sharedClient].client startListeningOnActiveConnection];
+    [[VersionManager sharedManager] notifyOfUpdate];
     [[AnalyticsManager sharedManager] appForeground];
 }
 
