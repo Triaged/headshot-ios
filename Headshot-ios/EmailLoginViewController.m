@@ -11,6 +11,7 @@
 #import "FormView.h"
 #import "CredentialStore.h"
 #import "TRDataStoreManager.h"
+#import "ForgotPasswordViewController.h"
 #import "Store.h"
 
 @interface EmailLoginViewController () <UITextFieldDelegate>
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) FormView *emailFormView;
 @property (strong, nonatomic) FormView *passwordFormView;
 @property (strong, nonatomic) UIButton *loginButton;
+@property (strong, nonatomic) UIButton *forgotPasswordButton;
 
 @end
 
@@ -64,10 +66,21 @@
     [footerView addSubview:self.loginButton];
     self.tableView.tableFooterView = footerView;
     
+    self.forgotPasswordButton = [[UIButton alloc] init];
+    self.forgotPasswordButton.size = CGSizeMake(150, 45);
+    self.forgotPasswordButton.centerX = footerView.width/2.0;
+    self.forgotPasswordButton.y = self.loginButton.bottom;
+    [self.forgotPasswordButton setTitle:@"Forgot Password?" forState:UIControlStateNormal];
+    [self.forgotPasswordButton setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
+    self.forgotPasswordButton.titleLabel.font = [ThemeManager regularFontOfSize:10];
+    [self.forgotPasswordButton addTarget:self action:@selector(forgotPasswordButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:self.forgotPasswordButton];
+    
     self.emailFormView = [[FormView alloc] init];
     self.emailFormView.fieldName = @"Email";
     self.emailFormView.textField.placeholder = @"Your Company Email Address";
     self.emailFormView.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailFormView.textField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.emailFormView.textField.returnKeyType = UIReturnKeyDone;
     self.emailFormView.textField.delegate = self;
     
@@ -102,6 +115,12 @@
         [SVProgressHUD dismiss];
         [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
     }];
+}
+
+- (void)forgotPasswordButtonTouched:(id)sender
+{
+    ForgotPasswordViewController *forgotPasswordViewController = [[ForgotPasswordViewController alloc] init];
+    [self.navigationController pushViewController:forgotPasswordViewController animated:YES];
 }
 
 - (void)didLogin

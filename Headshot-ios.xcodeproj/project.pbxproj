@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		96091B12195DFAA900D135A3 /* TRInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96091B11195DFAA900D135A3 /* TRInitialView.m */; };
 		96091B18195DFD8800D135A3 /* UIView+UIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96091B17195DFD8800D135A3 /* UIView+UIImage.m */; };
+		961E5396196C511000F8A158 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E5395196C511000F8A158 /* ForgotPasswordViewController.m */; };
 		962FD81A1959DCEB00A313AC /* UIImage+SolidColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */; };
 		962FD81D1959E2E000A313AC /* TRSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FD81C1959E2E000A313AC /* TRSearchBar.m */; };
 		96467B81195A01D000B45C5D /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96467B80195A01D000B45C5D /* OfficesViewController.m */; };
@@ -142,6 +143,8 @@
 		96091B11195DFAA900D135A3 /* TRInitialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRInitialView.m; sourceTree = "<group>"; };
 		96091B16195DFD8800D135A3 /* UIView+UIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIImage.h"; sourceTree = "<group>"; };
 		96091B17195DFD8800D135A3 /* UIView+UIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIImage.m"; sourceTree = "<group>"; };
+		961E5394196C511000F8A158 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
+		961E5395196C511000F8A158 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		962FD8181959DCEB00A313AC /* UIImage+SolidColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SolidColor.h"; sourceTree = "<group>"; };
 		962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SolidColor.m"; sourceTree = "<group>"; };
 		962FD81B1959E2E000A313AC /* TRSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSearchBar.h; sourceTree = "<group>"; };
@@ -492,6 +495,8 @@
 				969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */,
 				96DB2DFC19539E27005E1F93 /* OnboardSelectManagersViewControllers.h */,
 				96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */,
+				961E5394196C511000F8A158 /* ForgotPasswordViewController.h */,
+				961E5395196C511000F8A158 /* ForgotPasswordViewController.m */,
 			);
 			name = onboard;
 			sourceTree = "<group>";
@@ -998,6 +1003,7 @@
 				96D4F2411964860700147DEB /* VersionManager.m in Sources */,
 				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
 				964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */,
+				961E5396196C511000F8A158 /* ForgotPasswordViewController.m in Sources */,
 				CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */,
 				CBBA68A2192FD850005A6949 /* TRDataStoreManager.m in Sources */,
 				CB1F31D919327FC600CDCFD4 /* LocationClient.m in Sources */,

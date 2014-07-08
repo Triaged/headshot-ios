@@ -32,6 +32,15 @@
     return self;
 }
 
+- (id)initWithFieldName:(NSString *)fieldName placeholder:(NSString *)placeholder
+{
+    self = [self init];
+    
+    self.fieldName = fieldName;
+    self.textField.placeholder = placeholder;
+    return self;
+}
+
 - (void)setDefaultAppearance
 {
     self.fieldNameLabel.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];

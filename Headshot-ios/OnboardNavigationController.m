@@ -13,6 +13,7 @@
 #import "OnboardSelectOfficeViewController.h"
 #import "OnboardLocationPermissionViewController.h"
 #import "OnboardPushPermissionViewController.h"
+#import "ForgotPasswordViewController.h"
 #import "AppDelegate.h"
 #import "Store.h"
 #import "Account.h"
@@ -144,9 +145,8 @@
     else {
         [self setNavigationBarHidden:NO animated:YES];
     }
-//    viewController.navigationItem.titleView = self.pageControl;
     NSInteger vcCount = navigationController.viewControllers.count;
-    BOOL showPageControl = vcCount > 1 && vcCount <= 4;
+    BOOL showPageControl = vcCount > 1 && vcCount <= 4 && ![viewController isKindOfClass:[ForgotPasswordViewController class]];
     self.pageControl.hidden = !showPageControl;
     if (showPageControl) {
         self.pageControl.currentPage = vcCount - 2;

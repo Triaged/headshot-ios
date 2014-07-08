@@ -10,6 +10,8 @@
 
 @interface FormView : UIView
 
+- (id)initWithFieldName:(NSString *)fieldName placeholder:(NSString *)placeholder;
+
 @property (strong, nonatomic) UITextField *textField;
 @property (strong, nonatomic) NSString *fieldName;
 
