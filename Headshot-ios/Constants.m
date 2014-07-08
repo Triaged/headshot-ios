@@ -1,7 +1,7 @@
 #import "Constants.h"
 
 NSString * const HeadshotAPIBaseURLString = @"http://api.badge.co/v1/";
-NSString * const StagingAPIBaseURLString  = @"http://api.badge-staging.com/v1";
+//NSString * const HeadshotAPIBaseURLString  = @"http://api.badge-staging.com/v1";
 
 NSString * const kReceivedNewMessageNotification = @"ReceivedNewMessageNotification";
 
