@@ -47,7 +47,7 @@
     AccountViewController *accountVC = [[AccountViewController alloc] init];
     TRNavigationController *accountNav = [[TRNavigationController alloc] initWithRootViewController:accountVC];
     
-    if ([AppDelegate sharedDelegate].store.currentCompany.usesDepartments) {
+//    if ([AppDelegate sharedDelegate].store.currentCompany.usesDepartments) {
         // Contacts
         ContactsTableViewController *contactsTableView = [[ContactsTableViewController alloc] init];
         DepartmentsTableViewController *deptsTableView = [[DepartmentsTableViewController alloc] init];
@@ -58,12 +58,12 @@
         TRNavigationController *segmentNav = [[TRNavigationController alloc] initWithRootViewController:segmentedController];
         
         [self setViewControllers:[NSArray arrayWithObjects:messagesNav, segmentNav, accountNav, nil]];
-    } else {
-        ContactsTableViewController *contactsTableView = [[ContactsTableViewController alloc] init];
-        TRNavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:contactsTableView];
-        
-        [self setViewControllers:[NSArray arrayWithObjects:messagesNav, contactsNav, accountNav, nil]];
-    }
+//    } else {
+//        ContactsTableViewController *contactsTableView = [[ContactsTableViewController alloc] init];
+//        TRNavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:contactsTableView];
+//        
+//        [self setViewControllers:[NSArray arrayWithObjects:messagesNav, contactsNav, accountNav, nil]];
+//    }
     
     
     self.tabBar.translucent = NO;
