@@ -31,6 +31,20 @@
     [self fetchObjectFromURL:URL completionHandler:completionHandler];
 }
 
++ (void)requestPasswordResetForEmail:(NSString *)email completion:(void (^)(NSString *, NSError *))completionHandler
+{
+    NSDictionary *parameters = @{@"email" : email};
+    [[HeadshotRequestAPIClient sharedClient] POST:@"account/reset_password" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (completionHandler) {
+            completionHandler(responseObject[@"message"], nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completionHandler) {
+            completionHandler(nil, error);
+        }
+    }];
+}
+
 - (void)updateAccountWithSuccess:(void (^)(Account *account))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
     NSMutableDictionary *userJSON = [[NSMutableDictionary alloc] init];

@@ -74,7 +74,12 @@
 
 - (void)submitButtonTouched:(id)sender
 {
-    
+    [Account requestPasswordResetForEmail:self.emailFormView.textField.text completion:^(NSString *message, NSError *error) {
+        if (message) {
+            [self.navigationController popViewControllerAnimated:YES];
+            [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }];
 }
 
 
