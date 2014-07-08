@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 
-@interface HeadshotRequestAPIClient : AFHTTPRequestOperationManager
+@interface BadgeRequestAPIClient : AFHTTPRequestOperationManager
 
 + (instancetype)sharedClient;
 

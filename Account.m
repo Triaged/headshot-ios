@@ -34,7 +34,7 @@
 + (void)requestPasswordResetForEmail:(NSString *)email completion:(void (^)(NSString *, NSError *))completionHandler
 {
     NSDictionary *parameters = @{@"email" : email};
-    [[HeadshotRequestAPIClient sharedClient] POST:@"account/reset_password" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[BadgeRequestAPIClient sharedClient] POST:@"account/reset_password" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completionHandler) {
             completionHandler(responseObject[@"message"], nil);
         }
@@ -77,7 +77,7 @@
     }
     userJSON[@"employee_info_attributes"] = employeeInfoJSON;
     NSDictionary *parameters = @{@"user" : userJSON};
-    [[HeadshotAPIClient sharedClient] PUT:@"account/" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[BadgeAPIClient sharedClient] PUT:@"account/" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         Account *account = [Account updatedObjectWithRawJSONDictionary:responseObject inManagedObjectContext:self.managedObjectContext];
         if (success) {
             success(account);
@@ -90,7 +90,7 @@
     NSDictionary *parameters = @{@"user": @{@"current_password": currentPassword,
                                             @"password" :password,
                                             @"password_confirmation" : confirmedPassword}};
-    [[HeadshotAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:success failure:failure];
+    [[BadgeAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:success failure:failure];
 }
 
 - (void)resetBadgeCount {

@@ -101,7 +101,7 @@
                           }};
     
 
-    [[HeadshotAPIClient sharedClient] POST:@"sessions/" parameters:params success:^(NSURLSessionDataTask *task, id JSON) {
+    [[BadgeAPIClient sharedClient] POST:@"sessions/" parameters:params success:^(NSURLSessionDataTask *task, id JSON) {
         
         // Set Auth Code
         NSString *authToken = [JSON valueForKeyPath:@"authentication_token"];

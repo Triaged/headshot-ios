@@ -41,7 +41,7 @@
 {
     NSString *path = [NSString stringWithFormat:@"users/%@/email_message", self.identifier];
     NSDictionary *parameters = @{@"message" : @{@"body": messageText}};
-    [[HeadshotRequestAPIClient sharedClient] POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[BadgeRequestAPIClient sharedClient] POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion) {
             completion(nil);
         }

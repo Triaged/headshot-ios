@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "SLRESTfulCoreData.h"
-#import "HeadshotAPIClient.h"
-#import "HeadshotRequestAPIClient.h"
+#import "BadgeAPIClient.h"
+#import "BadgeRequestAPIClient.h"
 
 
 @class Company, EmployeeInfo, Department, OfficeLocation;

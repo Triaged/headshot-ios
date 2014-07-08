@@ -7,7 +7,7 @@
 //
 
 #import "VersionManager.h"
-#import "HeadshotRequestAPIClient.h"
+#import "BadgeRequestAPIClient.h"
 #import <BlocksKit/UIAlertView+BlocksKit.h>
 
 @implementation VersionManager
@@ -29,7 +29,7 @@
 
 - (void)checkForUpdateWithCompletion:(void (^)(NSNumber *version, NSError *error))completion
 {
-    [[HeadshotRequestAPIClient sharedClient] GET:@"versions/ios" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[BadgeRequestAPIClient sharedClient] GET:@"versions/ios" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSNumber *version = responseObject[@"version"];
         if (completion) {
             completion(version, nil);

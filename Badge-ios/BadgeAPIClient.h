@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFHTTPSessionManager.h>
 
-@interface HeadshotAPIClient : AFHTTPSessionManager
+@interface BadgeAPIClient : AFHTTPSessionManager
 
 + (instancetype)sharedClient;
 

@@ -7,7 +7,7 @@
 //
 
 #import "Store.h"
-#import "HeadshotAPIClient.h"
+#import "BadgeAPIClient.h"
 #import "AppDelegate.h"
 #import "CredentialStore.h"
 #import "SinchClient.h"

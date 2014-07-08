@@ -10,7 +10,7 @@
 #import "Message.h"
 #import "MessageThread.h"
 #import "User.h"
-#import "HeadshotAPIClient.h"
+#import "BadgeAPIClient.h"
 #import "Sinch/SINPushPair.h"
 
 @implementation SinchClient
@@ -128,7 +128,7 @@
           Please refer to the documentation for a comprehensive description.");
     ;
     
-    HeadshotAPIClient *client = [HeadshotAPIClient sharedClient];
+    BadgeAPIClient *client = [BadgeAPIClient sharedClient];
     
     NSDictionary *params = nil;
     

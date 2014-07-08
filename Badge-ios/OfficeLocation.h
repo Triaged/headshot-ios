@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "HeadshotRequestAPIClient.h"
+#import "BadgeRequestAPIClient.h"
 
 @class Company;
 

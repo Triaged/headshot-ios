@@ -25,7 +25,7 @@
     #import "Theme.h"
     #import "AppDelegate.h"
     #import "Store.h"
-    #import "HeadshotAPIClient.h"
+    #import "BadgeAPIClient.h"
     #import "CoreData+MagicalRecord.h"
     #import "UIImageView+AFNetworking.h"
     #import "TRNavigationController.h"

@@ -33,7 +33,7 @@
         deviceJSON[@"token"] = tokenString;
     }
     NSDictionary *parameters = @{@"device" : deviceJSON};
-    [[HeadshotRequestAPIClient sharedClient] POST:@"devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[BadgeRequestAPIClient sharedClient] POST:@"devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         __weak Device *weakSelf = self;
         if (success) {
             success(weakSelf);

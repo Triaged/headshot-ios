@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HeadshotRequestAPIClient.h"
+#import "BadgeRequestAPIClient.h"
 
 @interface Device : NSObject
 

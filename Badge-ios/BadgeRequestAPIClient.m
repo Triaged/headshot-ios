@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Charlie White. All rights reserved.
 //
 
-#import "HeadshotRequestAPIClient.h"
+#import "BadgeRequestAPIClient.h"
 #import "CredentialStore.h"
 
-@implementation HeadshotRequestAPIClient
+@implementation BadgeRequestAPIClient
 
 + (instancetype)sharedClient {
-    static HeadshotRequestAPIClient *_sharedClient = nil;
+    static BadgeRequestAPIClient *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[HeadshotRequestAPIClient alloc] initWithBaseURL:[NSURL URLWithString:HeadshotAPIBaseURLString]];
+        _sharedClient = [[BadgeRequestAPIClient alloc] initWithBaseURL:[NSURL URLWithString:HeadshotAPIBaseURLString]];
     });
     
     return _sharedClient;
