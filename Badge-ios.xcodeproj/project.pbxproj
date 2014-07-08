@@ -132,7 +132,7 @@
 			containerPortal = CBBA6857192FD646005A6949 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = CBBA685E192FD646005A6949;
-			remoteInfo = "Headshot-ios";
+			remoteInfo = "Badge-ios";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -289,22 +289,22 @@
 		CBB5183B194A3F04001C2E0C /* SDCSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCSegmentedViewController.h; sourceTree = "<group>"; };
 		CBB5183C194A3F04001C2E0C /* SDCSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCSegmentedViewController.m; sourceTree = "<group>"; };
 		CBB53205195CCE3200E33724 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		CBBA685F192FD646005A6949 /* Headshot-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Headshot-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBBA685F192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Badge-ios.temp_caseinsensitive_rename.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBBA6862192FD646005A6949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CBBA6864192FD646005A6949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CBBA6866192FD646005A6949 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CBBA6868192FD646005A6949 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		CBBA686C192FD646005A6949 /* Headshot-ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Headshot-ios-Info.plist"; sourceTree = "<group>"; };
+		CBBA686C192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Badge-ios.temp_caseinsensitive_rename-Info.plist"; sourceTree = "<group>"; };
 		CBBA686E192FD646005A6949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CBBA6870192FD646005A6949 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CBBA6872192FD646005A6949 /* Headshot-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Headshot-ios-Prefix.pch"; sourceTree = "<group>"; };
+		CBBA6872192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Badge-ios.temp_caseinsensitive_rename-Prefix.pch"; sourceTree = "<group>"; };
 		CBBA6873192FD646005A6949 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CBBA6874192FD646005A6949 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CBBA6877192FD646005A6949 /* Headshot.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Headshot.xcdatamodel; sourceTree = "<group>"; };
 		CBBA6879192FD646005A6949 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CBBA687F192FD646005A6949 /* Headshot-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Headshot-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBBA687F192FD646005A6949 /* Badge-ios.temp_caseinsensitive_renameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Badge-ios.temp_caseinsensitive_renameTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBBA6880192FD646005A6949 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		CBBA6889192FD646005A6949 /* Headshot-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Headshot-iosTests-Info.plist"; sourceTree = "<group>"; };
+		CBBA6889192FD646005A6949 /* Badge-ios.temp_caseinsensitive_renameTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Badge-ios.temp_caseinsensitive_renameTests-Info.plist"; sourceTree = "<group>"; };
 		CBBA688B192FD646005A6949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CBBA688D192FD646005A6949 /* Headshot_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Headshot_iosTests.m; sourceTree = "<group>"; };
 		CBBA6898192FD850005A6949 /* Store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Store.h; sourceTree = "<group>"; };
@@ -585,8 +585,8 @@
 		CBBA6856192FD646005A6949 = {
 			isa = PBXGroup;
 			children = (
-				CBBA686A192FD646005A6949 /* Headshot-ios */,
-				CBBA6887192FD646005A6949 /* Headshot-iosTests */,
+				CBBA686A192FD646005A6949 /* Badge-ios */,
+				CBBA6887192FD646005A6949 /* Badge-iosTests */,
 				CBBA6861192FD646005A6949 /* Frameworks */,
 				CBBA6860192FD646005A6949 /* Products */,
 				30B39923FA64452EB4653D38 /* Pods.xcconfig */,
@@ -596,8 +596,8 @@
 		CBBA6860192FD646005A6949 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CBBA685F192FD646005A6949 /* Headshot-ios.app */,
-				CBBA687F192FD646005A6949 /* Headshot-iosTests.xctest */,
+				CBBA685F192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename.app */,
+				CBBA687F192FD646005A6949 /* Badge-ios.temp_caseinsensitive_renameTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -629,7 +629,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CBBA686A192FD646005A6949 /* Headshot-ios */ = {
+		CBBA686A192FD646005A6949 /* Badge-ios */ = {
 			isa = PBXGroup;
 			children = (
 				96D4F23B196465DA00147DEB /* analytics */,
@@ -651,33 +651,33 @@
 				CBBA6876192FD646005A6949 /* Headshot.xcdatamodeld */,
 				CBBA686B192FD646005A6949 /* Supporting Files */,
 			);
-			path = "Headshot-ios";
+			path = "Badge-ios";
 			sourceTree = "<group>";
 		};
 		CBBA686B192FD646005A6949 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CBBA686C192FD646005A6949 /* Headshot-ios-Info.plist */,
+				CBBA686C192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename-Info.plist */,
 				CBBA686D192FD646005A6949 /* InfoPlist.strings */,
 				CBBA6870192FD646005A6949 /* main.m */,
-				CBBA6872192FD646005A6949 /* Headshot-ios-Prefix.pch */,
+				CBBA6872192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CBBA6887192FD646005A6949 /* Headshot-iosTests */ = {
+		CBBA6887192FD646005A6949 /* Badge-iosTests */ = {
 			isa = PBXGroup;
 			children = (
 				CBBA688D192FD646005A6949 /* Headshot_iosTests.m */,
 				CBBA6888192FD646005A6949 /* Supporting Files */,
 			);
-			path = "Headshot-iosTests";
+			path = "Badge-iosTests";
 			sourceTree = "<group>";
 		};
 		CBBA6888192FD646005A6949 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CBBA6889192FD646005A6949 /* Headshot-iosTests-Info.plist */,
+				CBBA6889192FD646005A6949 /* Badge-ios.temp_caseinsensitive_renameTests-Info.plist */,
 				CBBA688A192FD646005A6949 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -823,9 +823,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CBBA685E192FD646005A6949 /* Headshot-ios */ = {
+		CBBA685E192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBBA6891192FD646005A6949 /* Build configuration list for PBXNativeTarget "Headshot-ios" */;
+			buildConfigurationList = CBBA6891192FD646005A6949 /* Build configuration list for PBXNativeTarget "Badge-ios.temp_caseinsensitive_rename" */;
 			buildPhases = (
 				3D427745FCDA4F7BBBB64A29 /* Check Pods Manifest.lock */,
 				CBBA685B192FD646005A6949 /* Sources */,
@@ -839,14 +839,14 @@
 			);
 			dependencies = (
 			);
-			name = "Headshot-ios";
-			productName = "Headshot-ios";
-			productReference = CBBA685F192FD646005A6949 /* Headshot-ios.app */;
+			name = "Badge-ios.temp_caseinsensitive_rename";
+			productName = "Badge-ios";
+			productReference = CBBA685F192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CBBA687E192FD646005A6949 /* Headshot-iosTests */ = {
+		CBBA687E192FD646005A6949 /* Badge-ios.temp_caseinsensitive_renameTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBBA6894192FD646005A6949 /* Build configuration list for PBXNativeTarget "Headshot-iosTests" */;
+			buildConfigurationList = CBBA6894192FD646005A6949 /* Build configuration list for PBXNativeTarget "Badge-ios.temp_caseinsensitive_renameTests" */;
 			buildPhases = (
 				CBBA687B192FD646005A6949 /* Sources */,
 				CBBA687C192FD646005A6949 /* Frameworks */,
@@ -857,9 +857,9 @@
 			dependencies = (
 				CBBA6886192FD646005A6949 /* PBXTargetDependency */,
 			);
-			name = "Headshot-iosTests";
-			productName = "Headshot-iosTests";
-			productReference = CBBA687F192FD646005A6949 /* Headshot-iosTests.xctest */;
+			name = "Badge-ios.temp_caseinsensitive_renameTests";
+			productName = "Badge-iosTests";
+			productReference = CBBA687F192FD646005A6949 /* Badge-ios.temp_caseinsensitive_renameTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -879,7 +879,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CBBA685A192FD646005A6949 /* Build configuration list for PBXProject "Headshot-ios" */;
+			buildConfigurationList = CBBA685A192FD646005A6949 /* Build configuration list for PBXProject "Badge-ios" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -891,8 +891,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CBBA685E192FD646005A6949 /* Headshot-ios */,
-				CBBA687E192FD646005A6949 /* Headshot-iosTests */,
+				CBBA685E192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename */,
+				CBBA687E192FD646005A6949 /* Badge-ios.temp_caseinsensitive_renameTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1085,7 +1085,7 @@
 /* Begin PBXTargetDependency section */
 		CBBA6886192FD646005A6949 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CBBA685E192FD646005A6949 /* Headshot-ios */;
+			target = CBBA685E192FD646005A6949 /* Badge-ios.temp_caseinsensitive_rename */;
 			targetProxy = CBBA6885192FD646005A6949 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1194,17 +1194,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Headshot-ios",
+					"$(PROJECT_DIR)/Badge-ios",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Headshot-ios/Headshot-ios-Prefix.pch";
-				INFOPLIST_FILE = "Headshot-ios/Headshot-ios-Info.plist";
+				GCC_PREFIX_HEADER = "Badge-ios/Badge-ios.temp_caseinsensitive_rename-Prefix.pch";
+				INFOPLIST_FILE = "Badge-ios/Badge-ios.temp_caseinsensitive_rename-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-Xlinker",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Badge-ios.temp_caseinsensitive_rename";
 				PROVISIONING_PROFILE = "DA5A8C5B-18E3-4EAD-B7BD-8E42E7816066";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1223,17 +1223,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Headshot-ios",
+					"$(PROJECT_DIR)/Badge-ios",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Headshot-ios/Headshot-ios-Prefix.pch";
-				INFOPLIST_FILE = "Headshot-ios/Headshot-ios-Info.plist";
+				GCC_PREFIX_HEADER = "Badge-ios/Badge-ios.temp_caseinsensitive_rename-Prefix.pch";
+				INFOPLIST_FILE = "Badge-ios/Badge-ios.temp_caseinsensitive_rename-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-Xlinker",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Badge-ios.temp_caseinsensitive_rename";
 				PROVISIONING_PROFILE = "0A1CFD2A-8232-493E-B847-F39116986A53";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1243,20 +1243,20 @@
 		CBBA6895192FD646005A6949 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Headshot-ios.app/Headshot-ios";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Badge-ios.app/Badge-ios";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Headshot-ios/Headshot-ios-Prefix.pch";
+				GCC_PREFIX_HEADER = "Badge-ios/Badge-ios-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Headshot-iosTests/Headshot-iosTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "Badge-iosTests/Badge-ios.temp_caseinsensitive_renameTests-Info.plist";
+				PRODUCT_NAME = "Badge-ios.temp_caseinsensitive_renameTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1265,16 +1265,16 @@
 		CBBA6896192FD646005A6949 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Headshot-ios.app/Headshot-ios";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Badge-ios.app/Badge-ios";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Headshot-ios/Headshot-ios-Prefix.pch";
-				INFOPLIST_FILE = "Headshot-iosTests/Headshot-iosTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Badge-ios/Badge-ios-Prefix.pch";
+				INFOPLIST_FILE = "Badge-iosTests/Badge-ios.temp_caseinsensitive_renameTests-Info.plist";
+				PRODUCT_NAME = "Badge-ios.temp_caseinsensitive_renameTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1283,7 +1283,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CBBA685A192FD646005A6949 /* Build configuration list for PBXProject "Headshot-ios" */ = {
+		CBBA685A192FD646005A6949 /* Build configuration list for PBXProject "Badge-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBBA688F192FD646005A6949 /* Debug */,
@@ -1292,7 +1292,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBBA6891192FD646005A6949 /* Build configuration list for PBXNativeTarget "Headshot-ios" */ = {
+		CBBA6891192FD646005A6949 /* Build configuration list for PBXNativeTarget "Badge-ios.temp_caseinsensitive_rename" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBBA6892192FD646005A6949 /* Debug */,
@@ -1301,7 +1301,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBBA6894192FD646005A6949 /* Build configuration list for PBXNativeTarget "Headshot-iosTests" */ = {
+		CBBA6894192FD646005A6949 /* Build configuration list for PBXNativeTarget "Badge-ios.temp_caseinsensitive_renameTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBBA6895192FD646005A6949 /* Debug */,
