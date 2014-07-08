@@ -58,7 +58,9 @@
     if (self.currentUser.sharingOfficeLocation) {
         userJSON[@"sharing_office_location"] = self.currentUser.sharingOfficeLocation;
     }
-    employeeInfoJSON[@"job_start_date"] = [NSDate date].badgeFormattedDate;
+    if (self.currentUser.employeeInfo.jobStartDate) {
+        employeeInfoJSON[@"job_start_date"] = self.currentUser.employeeInfo.jobStartDate.badgeFormattedDate;
+    }
     userJSON[@"employee_info_attributes"] = employeeInfoJSON;
     NSDictionary *parameters = @{@"user" : userJSON};
     [[HeadshotAPIClient sharedClient] PUT:@"account/" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
