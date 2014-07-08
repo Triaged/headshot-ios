@@ -35,6 +35,14 @@
     return [UIApplication sharedApplication].delegate;
 }
 
+- (TRTabBarController *)tabBarController
+{
+    if (!_tabBarController) {
+        _tabBarController = [[TRTabBarController alloc] init];
+    }
+    return _tabBarController;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -90,8 +98,6 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.tabBarController = [[TRTabBarController alloc] init];
-    
     NSDictionary* remotePush = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remotePush) {
         [[NotificationManager sharedManager] application:application didLaunchFromRemotePush:remotePush];
@@ -106,7 +112,6 @@
     [self.window makeKeyAndVisible];
 }
 
-//
 - (void)setupLoggedInUser
 {
     self.store = [[Store alloc] init];

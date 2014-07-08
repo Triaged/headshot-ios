@@ -110,11 +110,13 @@
 
 -(void)logout
 {
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kUserDefaultsLoggedIn];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    remove all user defaults
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     [[SinchClient sharedClient] logoutOfSinchClient];
     [[TRDataStoreManager sharedInstance] resetPersistentStore];
     [[CredentialStore sharedClient] clearSavedCredentials];
+    [AppDelegate sharedDelegate].tabBarController = nil;
 }
 
 - (void) userSignedOut
