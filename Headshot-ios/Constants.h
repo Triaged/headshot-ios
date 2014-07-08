@@ -1,5 +1,6 @@
 //api
 extern NSString * const HeadshotAPIBaseURLString;
+extern NSString * const StagingAPIBaseURLString;
 
 //notification center
 extern NSString * const kReceivedNewMessageNotification;
