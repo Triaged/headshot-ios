@@ -67,6 +67,7 @@
     self.emailFormView = [[FormView alloc] init];
     self.emailFormView.fieldName = @"Email";
     self.emailFormView.textField.placeholder = @"Your Company Email Address";
+    self.emailFormView.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailFormView.textField.returnKeyType = UIReturnKeyDone;
     self.emailFormView.textField.delegate = self;
     
