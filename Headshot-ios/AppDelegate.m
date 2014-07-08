@@ -146,7 +146,6 @@
 {
     [[AnalyticsManager sharedManager] logout];
     [self.store logout];
-    [_tabBarController setSelectedIndex:1];
     self.window.rootViewController = [[OnboardNavigationController alloc] init];
 }
 

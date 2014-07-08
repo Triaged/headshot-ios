@@ -17,5 +17,6 @@
 
 - (void)requestLocationPermissions:(void (^)(CLAuthorizationStatus authorizationStatus))response;
 - (void)startMonitoringOffices;
+- (void)stopMonitoringOffices;
 
 @end

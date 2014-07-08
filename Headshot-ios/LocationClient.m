@@ -38,7 +38,10 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
         [self.locationManager setDelegate:self];
         [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasRequestedLocationPermission]) {
-            [self startMonitoringOffices];
+            User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
+            if (user && user.sharingOfficeLocation) {
+                [self startMonitoringOffices];
+            }
         }
     }
     return self;
@@ -54,6 +57,14 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
     else {
         response(authorizationStatus);
     }
+}
+
+- (void)stopMonitoringOffices
+{
+    for (CLRegion *region in self.locationManager.monitoredRegions) {
+        [self.locationManager stopMonitoringForRegion:region];
+    }
+    [self.locationManager stopMonitoringSignificantLocationChanges];
 }
 
 - (void)startMonitoringOffices
@@ -94,12 +105,11 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
     jadispatch_main_qeue(^{
         User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
         NSNumber *currentLocationPermission = user.sharingOfficeLocation;
-        user.sharingOfficeLocation = @(status == kCLAuthorizationStatusAuthorized);
+        user.sharingOfficeLocation = @((status == kCLAuthorizationStatusAuthorized) && currentLocationPermission.boolValue);
         if (!currentLocationPermission || ![user.sharingOfficeLocation isEqualToNumber:currentLocationPermission]) {
             [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:nil failure:nil];
         }
     });
-    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region

@@ -131,6 +131,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsHasFinishedOnboarding];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [AppDelegate sharedDelegate].window.rootViewController = [AppDelegate sharedDelegate].tabBarController;
+        [[AppDelegate sharedDelegate].tabBarController setSelectedIndex:1];
     }
 }
 
