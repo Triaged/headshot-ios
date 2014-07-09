@@ -136,15 +136,14 @@
         NSString * deviceToken = [[pair.pushData description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
         deviceToken = [deviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
         params = @{ @"push_service" : @{ @"push_token" : deviceToken, @"payload" : pair.pushPayload, @"message_body" : message.text } };
+        
+        [client POST:@"push_services" parameters: params
+             success:^(NSURLSessionDataTask *task, id abc) {
+                 NSLog(@"%@", abc);
+             } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                 NSLog(@"%@", error);
+             }];
     }
-    
-    
-    [client POST:@"push_services" parameters: params
-                                   success:^(NSURLSessionDataTask *task, id abc) {
-                                       NSLog(@"%@", abc);
-                                   } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                       NSLog(@"%@", error);
-                                   }];
 }
 
 - (Message *)messageForSINMessage:(id<SINMessage>)message
