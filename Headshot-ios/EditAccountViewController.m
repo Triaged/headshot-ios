@@ -20,6 +20,7 @@
 #import "OfficeLocation.h"
 #import "EmployeeInfo.h"
 #import "DatePickerModalView.h"
+#import "CommonMacros.h"
 
 @interface EditAccountViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate, OfficesViewControllerDelegate, PMEDatePickerDelegate>
 
@@ -56,7 +57,7 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"Edit Profile";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SAVE" style:UIBarButtonItemStyleDone target:self action:@selector(saveAccount)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SAVE" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTouched:)];
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 166)];
     self.avatarImageView = [[EditAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 105, 105)];
     UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTapped:)];
@@ -138,7 +139,17 @@
     self.account = [AppDelegate sharedDelegate].store.currentAccount;
 }
 
-
+- (void)doneButtonTouched:(id)sender
+{
+    [self validateFields:^(BOOL valid, NSString *message) {
+        if (valid) {
+            [self saveAccount];
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }];
+}
 
 - (void)saveAccount
 {
@@ -227,6 +238,25 @@
             }];
         }
     }];
+}
+
+- (void)validateFields:(void (^)(BOOL valid, NSString *message))validationBlock
+{
+    BOOL valid = YES;
+    NSString *message;
+    NSString *workPhone = self.workPhoneFormView.textField.text;
+    NSString *cellPhone = self.homePhoneFormView.textField.text;
+    if (!isValidPhone(cellPhone)) {
+        valid = NO;
+        message = @"Please enter a valid cell phone number";
+    }
+    if (workPhone && workPhone.length && !isValidPhone(workPhone)) {
+        valid = NO;
+        message = @"Please enter a valid office phone number";
+    }
+    if (validationBlock) {
+        validationBlock(valid, message);
+    }
 }
 
 #pragma mark - Table view data source

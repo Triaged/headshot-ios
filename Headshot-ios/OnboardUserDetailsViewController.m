@@ -10,6 +10,7 @@
 #import "FormView.h"
 #import "DatePickerModalView.h"
 #import "EmployeeInfo.h"
+#import "CommonMacros.h"
 
 typedef NS_ENUM(NSUInteger, UserDetailForm)  {
     UserDetailFormFirstName = 0,
@@ -162,9 +163,9 @@ typedef NS_ENUM(NSUInteger, UserDetailForm)  {
 {
     BOOL valid = YES;
     NSString *message;
-    if (!self.phoneFormView.textField.text || !self.phoneFormView.textField.text.length) {
+    if (!isValidPhone(self.phoneFormView.textField.text)) {
         valid = NO;
-        message = @"Please enter a phone number";
+        message = @"Please enter a valid phone number";
     }
     if (validationBlock) {
         validationBlock(valid, message);
