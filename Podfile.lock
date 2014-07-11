@@ -42,7 +42,7 @@ PODS:
   - CocoaLumberjack/Extensions (1.9.1):
     - CocoaLumberjack/Core
   - ECPhoneNumberFormatter (0.1.1)
-  - INTULocationManager (1.1.0)
+  - INTULocationManager (1.2.0)
   - JSQMessagesViewController (5.0.4):
     - JSQSystemSoundPlayer
   - JSQSystemSoundPlayer (1.5.2)
@@ -50,7 +50,7 @@ PODS:
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
   - Mixpanel (2.4.0)
-  - MRProgress (0.5.0):
+  - MRProgress (0.5.1):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
@@ -61,26 +61,26 @@ PODS:
     - MRProgress/Overlay
     - MRProgress/Stopable
     - MRProgress/WeakProxy
-  - MRProgress/ActivityIndicator (0.5.0):
+  - MRProgress/ActivityIndicator (0.5.1):
     - MRProgress/Stopable
-  - MRProgress/Blur (0.5.0):
+  - MRProgress/Blur (0.5.1):
     - MRProgress/Helper
-  - MRProgress/Circular (0.5.0):
+  - MRProgress/Circular (0.5.1):
     - MRProgress/Helper
     - MRProgress/Stopable
-  - MRProgress/Helper (0.5.0)
-  - MRProgress/Icons (0.5.0)
-  - MRProgress/MessageInterceptor (0.5.0)
-  - MRProgress/NavigationBarProgress (0.5.0)
-  - MRProgress/Overlay (0.5.0):
+  - MRProgress/Helper (0.5.1)
+  - MRProgress/Icons (0.5.1)
+  - MRProgress/MessageInterceptor (0.5.1)
+  - MRProgress/NavigationBarProgress (0.5.1)
+  - MRProgress/Overlay (0.5.1):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
     - MRProgress/Helper
     - MRProgress/Icons
-  - MRProgress/Stopable (0.5.0):
+  - MRProgress/Stopable (0.5.1):
     - MRProgress/Helper
-  - MRProgress/WeakProxy (0.5.0)
+  - MRProgress/WeakProxy (0.5.1)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core
     - NJKWebViewProgress/ProgressView
@@ -91,17 +91,9 @@ PODS:
   - RDVTabBarController (1.1.6)
   - SGNavigationProgress (1.2)
   - SLCoreDataStack (0.6.0)
-  - SLRESTfulCoreData (1.8.2):
-    - SLRESTfulCoreData/Complete
-  - SLRESTfulCoreData/AFRESTfulCoreDataBackgroundQueue (1.8.2):
-    - AFNetworking (~> 2.1)
-    - SLRESTfulCoreData/Core
-  - SLRESTfulCoreData/Complete (1.8.2):
-    - AFNetworking (~> 2.1)
-    - SLCoreDataStack (>= 0.2.0)
-    - SLRESTfulCoreData/AFRESTfulCoreDataBackgroundQueue
-    - SLRESTfulCoreData/Core
-  - SLRESTfulCoreData/Core (1.8.2)
+  - SLRESTfulCoreData (1.9.1):
+    - AFNetworking (~> 2.3.1)
+    - SLCoreDataStack (~> 0.6.0)
   - SSKeychain (1.2.2)
   - SVProgressHUD (HEAD based on 1.0)
   - SVWebViewController (HEAD based on 1.0)
@@ -150,19 +142,19 @@ SPEC CHECKSUMS:
   CMNavBarNotificationView: e608a0dbbe3ccd7a851eebebc9a0a2b018da6631
   CocoaLumberjack: 94accd5749f5c5d15134c8d50f34a973aed8ef69
   ECPhoneNumberFormatter: 6da090a89f87e784b6bdc058d86cc40e5ef17e79
-  INTULocationManager: 41506443733adccd44c0f00b44837d4ef2fda246
+  INTULocationManager: 596c57e35a00ca1ee9d59bf4cc2b63dc299b580e
   JSQMessagesViewController: 39c28fe197b22caeff250ed88805ed37e3ad0d4a
   JSQSystemSoundPlayer: c24914bc96ff5365b5d28b59d7ecffd60d1c5587
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
   Mixpanel: 8cdf6fc831ae1f7515f0d8164dcc381990e0a23a
-  MRProgress: 0f0a200c2c211d2dfb83ac31aa2c117dca07db57
+  MRProgress: 7853c177e7d79b90e6f0910561967ebcf3289eb1
   NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1
   NSDate+TimeAgo: f3533e0198fab05b716368b19f8c2185d53d6f3b
   PMEDatePicker: a44e15d953cf7c568d2546914d088463431f1f18
   RDVTabBarController: 252dafb16725f9a07026618ff51acf06a12b206b
   SGNavigationProgress: 6c38006ca3c652618411c67d493b263343d5aece
   SLCoreDataStack: 3cbb4bc9ea1f0ba6d7a3a382b1d0cf879b5f3cd4
-  SLRESTfulCoreData: 388f8305ff312cee5f23d41d7039357b23b06718
+  SLRESTfulCoreData: 4933bf01fc97fdd3c50c7786fdda6c483f1136c3
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   SVWebViewController: fbf917baa92744c54cfb89a52a4c056e409973a4
