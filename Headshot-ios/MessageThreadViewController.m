@@ -157,8 +157,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    
-    [self.inputToolbar.contentView.textView resignFirstResponder];
     [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
     [self.navigationController setSGProgressPercentage:0];
 }
