@@ -13,6 +13,7 @@
 #import "CredentialStore.h"
 #import "ContactDetailsDataSource.h"
 #import "SettingsViewController.h"
+#import "FileLogManager.h"
 #import "Constants.h"
 
 @interface AccountViewController ()
@@ -45,6 +46,9 @@
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
     info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
     [info addTarget:self action:@selector(showSettings) forControlEvents:UIControlEventTouchUpInside];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTouched:)];
+    [info addGestureRecognizer:longPress];
+    [self.avatarImageView addGestureRecognizer:longPress];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
     self.navigationItem.rightBarButtonItem = item;
     
@@ -111,6 +115,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)avatarTouched:(id)sender
+{
+    [[FileLogManager sharedManager] composeEmailWithDebugAttachment];
 }
 
 -(void)showSettings

@@ -23,3 +23,4 @@ pod 'CMNavBarNotificationView', :git => 'https://github.com/edgurgel/CMNavBarNot
 pod 'SGNavigationProgress'
 pod 'ECPhoneNumberFormatter', :git => 'https://github.com/enriquez/ECPhoneNumberFormatter.git'
 pod 'Mixpanel'
+pod 'CocoaLumberjack'

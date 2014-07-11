@@ -8,6 +8,7 @@
 
 #import "LocationClient.h"
 #import "OfficeLocation.h"
+#import "FileLogManager.h"
 
 typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 
@@ -69,8 +70,10 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 
 - (void)startMonitoringOffices
 {
+    DDLogInfo(@"retreiving offices");
     [OfficeLocation officeLocationsWithCompletionHandler:^(NSArray *locations, NSError *error) {
-        
+        NSInteger count = locations && locations.count ? locations.count : 0;
+        DDLogInfo(@"retrieved %d offices", count);
         for (OfficeLocation *location in locations) {
             
             BOOL shouldCreateRegion = YES;
@@ -88,6 +91,7 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
                                                                           identifier:location.identifier];
                 // Start Monitoring Region
                 [self.locationManager startMonitoringForRegion:region];
+                DDLogInfo(@"started monitoring location with identifier %@", location.identifier);
                 [self.locationManager requestStateForRegion:region];
                 
             }
@@ -97,6 +101,7 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
+    DDLogInfo(@"did change authorization status to %@", @(status));
     if (self.locationPermissionRequestBlock) {
         self.locationPermissionRequestBlock(status);
         self.locationPermissionRequestBlock = nil;
@@ -112,13 +117,9 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
     });
 }
 
-- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
-{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-}
-
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
+    DDLogInfo(@"Did determine state %@ for region with identifier %@", @(state), region.identifier);
     if (state == CLRegionStateInside) {
         OfficeLocation *location = [self officeLocationForRegion:region];
         [location enterLocation];
@@ -127,13 +128,14 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
+    DDLogInfo(@"Did exit region with identifier %@", region.identifier);
     OfficeLocation *location = [self officeLocationForRegion:region];
     [location exitLocation];
 }
 
 - (OfficeLocation *)officeLocationForRegion:(CLRegion *)region
 {
-        return [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
+    return [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
 }
 
 @end

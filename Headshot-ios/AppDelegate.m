@@ -19,6 +19,7 @@
 #import "MessageThreadViewController.h"
 #import "MailComposer.h"
 #import "VersionManager.h"
+#import "FileLogManager.h"
 #import <Crashlytics/Crashlytics.h>
 
 
@@ -124,6 +125,7 @@
 
 -(void) setupLogging {
     [Crashlytics startWithAPIKey:@"2776a41715c04dde4ba5d15b716b66a51e353b0f"];
+    [[FileLogManager sharedManager] setUpFileLogging];
 }
 
 

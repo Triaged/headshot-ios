@@ -1,3 +1,5 @@
+#import <CocoaLumberjack/DDLog.h>
+
 //api
 extern NSString * const HeadshotAPIBaseURLString;
 
@@ -14,4 +16,8 @@ extern NSString * const kUserDefaultsLoggedIn;
 extern NSString * const kUserDefaultsHasRequestedLocationPermission;
 extern NSString * const kUserDefaultsHasRequestedPushPermission;
 extern NSString * const kUserDefaultsHasFinishedOnboarding;
+
+
+//logging
+static const int ddLogLevel = LOG_LEVEL_INFO;
 

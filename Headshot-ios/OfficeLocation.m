@@ -62,8 +62,10 @@
 }
 
 - (void)enterLocation {
+    DDLogInfo(@"Starting ENTER location request for region with identifier %@", self.identifier);
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/entered", self.identifier]];
     [self postToURL:URL completionHandler:^(id JSONObject, NSError *error) {
+        DDLogInfo(@"Finished ENTER location request for region with identifier %@", self.identifier);
         [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = self;
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     }];
@@ -72,8 +74,10 @@
 
 
 - (void)exitLocation {
+    DDLogInfo(@"Starting EXIT location request for region with identifier %@", self.identifier);
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/exited", self.identifier]];
     [self deleteToURL:URL completionHandler:^(NSError *error) {
+        DDLogInfo(@"Finished EXIT location request for region with identifier %@", self.identifier);
         [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = nil;
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     }];
