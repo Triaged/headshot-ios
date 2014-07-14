@@ -99,16 +99,14 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
         self.locationPermissionRequestBlock(status);
         self.locationPermissionRequestBlock = nil;
     }
-//    change location permission
-    jadispatch_main_qeue(^{
-        User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-        NSNumber *currentLocationPermission = user.sharingOfficeLocation;
-        BOOL deniedOfficeLocationPermission = user.sharingOfficeLocation && user.sharingOfficeLocation.boolValue;
-        user.sharingOfficeLocation = @((status == kCLAuthorizationStatusAuthorized) && !deniedOfficeLocationPermission);
-        if (!currentLocationPermission || ![user.sharingOfficeLocation isEqualToNumber:currentLocationPermission]) {
-            [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:nil failure:nil];
-        }
-    });
+    //    change location permission
+    User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
+    NSNumber *currentLocationPermission = user.sharingOfficeLocation;
+    BOOL deniedOfficeLocationPermission = user.sharingOfficeLocation && !user.sharingOfficeLocation.boolValue;
+    user.sharingOfficeLocation = @((status == kCLAuthorizationStatusAuthorized) && !deniedOfficeLocationPermission);
+    if (!currentLocationPermission || ![user.sharingOfficeLocation isEqualToNumber:currentLocationPermission]) {
+        [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:nil failure:nil];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
