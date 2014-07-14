@@ -40,7 +40,7 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
         [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasRequestedLocationPermission]) {
             User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-            if (user && user.sharingOfficeLocation) {
+            if (user && user.sharingOfficeLocation.boolValue) {
                 [self startMonitoringOffices];
             }
         }
@@ -76,25 +76,15 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
         DDLogInfo(@"retrieved %d offices", count);
         for (OfficeLocation *location in locations) {
             
-            BOOL shouldCreateRegion = YES;
-            for (CLCircularRegion *region in self.locationManager.monitoredRegions) {
-                if (location.identifier == region.identifier) {
-                    shouldCreateRegion = NO;
-                }
-            }
+            CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake([location.latitude doubleValue], [location.longitude doubleValue]);
             
-            if (shouldCreateRegion) {
-                CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake([location.latitude doubleValue], [location.longitude doubleValue]);
-                
-                CLCircularRegion *region =  [[CLCircularRegion alloc] initWithCenter:centerCoordinate
-                                                                              radius:100.0
-                                                                          identifier:location.identifier];
-                // Start Monitoring Region
-                [self.locationManager startMonitoringForRegion:region];
-                DDLogInfo(@"started monitoring location with identifier %@", location.identifier);
-                [self.locationManager requestStateForRegion:region];
-                
-            }
+            CLCircularRegion *region =  [[CLCircularRegion alloc] initWithCenter:centerCoordinate
+                                                                          radius:100.0
+                                                                      identifier:location.identifier];
+            // Start Monitoring Region
+            [self.locationManager startMonitoringForRegion:region];
+            DDLogInfo(@"started monitoring location with identifier %@", location.identifier);
+            [self.locationManager requestStateForRegion:region];
         }
     }];
 }
@@ -102,6 +92,9 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
     DDLogInfo(@"did change authorization status to %@", @(status));
+    if (status == kCLAuthorizationStatusNotDetermined) {
+        return;
+    }
     if (self.locationPermissionRequestBlock) {
         self.locationPermissionRequestBlock(status);
         self.locationPermissionRequestBlock = nil;
@@ -110,7 +103,8 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
     jadispatch_main_qeue(^{
         User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
         NSNumber *currentLocationPermission = user.sharingOfficeLocation;
-        user.sharingOfficeLocation = @((status == kCLAuthorizationStatusAuthorized) && currentLocationPermission.boolValue);
+        BOOL deniedOfficeLocationPermission = user.sharingOfficeLocation && user.sharingOfficeLocation.boolValue;
+        user.sharingOfficeLocation = @((status == kCLAuthorizationStatusAuthorized) && !deniedOfficeLocationPermission);
         if (!currentLocationPermission || ![user.sharingOfficeLocation isEqualToNumber:currentLocationPermission]) {
             [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:nil failure:nil];
         }
