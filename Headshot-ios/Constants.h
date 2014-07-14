@@ -18,6 +18,9 @@ extern NSString * const kUserDefaultsHasRequestedLocationPermission;
 extern NSString * const kUserDefaultsHasRequestedPushPermission;
 extern NSString * const kUserDefaultsHasFinishedOnboarding;
 
+//core data
+extern NSString * const kPersistentStoreName;
+
 
 //logging
 static const int ddLogLevel = LOG_LEVEL_INFO;

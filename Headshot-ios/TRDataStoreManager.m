@@ -30,7 +30,7 @@
     [MagicalRecord cleanUp];
     
     
-    NSURL *fileURL = [NSPersistentStore MR_urlForStoreName:@"Headshot.sqlite"];
+    NSURL *fileURL = [NSPersistentStore MR_urlForStoreName:kPersistentStoreName];
     if([[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error]){
         // reset setup.
         
@@ -59,9 +59,10 @@
     //    }
     
     // Delete file
-    NSURL *fileURL = [NSPersistentStore MR_urlForStoreName:@"Headshot.sqlite"];
+    NSURL *fileURL = [NSPersistentStore MR_urlForStoreName:kPersistentStoreName];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
-        if (![[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error]) {
+        BOOL removed = [[NSFileManager defaultManager] removeItemAtPath:fileURL.path error:&error];
+        if (!removed) {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }

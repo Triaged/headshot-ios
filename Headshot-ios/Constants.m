@@ -13,3 +13,5 @@ NSString * const kUserDefaultsHasRequestedLocationPermission = @"HasRequestedLoc
 NSString * const kUserDefaultsHasRequestedPushPermission = @"HasRequestedPushPermission";
 NSString * const kUserDefaultsLoggedIn = @"UserDefaultsLoggedIn";
 NSString * const kUserDefaultsHasFinishedOnboarding = @"HasFinishedOnboarding";
+
+NSString * const kPersistentStoreName = @"Headshot.sqlite";
