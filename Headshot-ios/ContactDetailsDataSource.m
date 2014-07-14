@@ -8,14 +8,17 @@
 
 #import "ContactDetailsDataSource.h"
 #import "ContactSectionViewController.h"
+#import "DepartmentContactsTableViewController.h"
 #import "ContactInfoTableViewCell.h"
 #import "ContactCell.h"
 #import "AvailabilityCell.h"
+#import "DepartmentCell.h"
 
 typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     kAvailability,
     kReportsTo,
     kReports,
+    kDepartment,
     kContactInfo
 };
 
@@ -34,6 +37,7 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         
         [self setupAvailability];
         [self setupReports];
+        [self setupDepartment];
         [self setupContactInfo];
     }
     return self;
@@ -99,9 +103,16 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         [contactDetailsArray addObject:@{[NSNumber numberWithInt:kReports] : [currentUser.subordinates allObjects]}];
 }
 
+- (void)setupDepartment
+{
+    if (currentUser.department) {
+        [contactDetailsArray addObject:@{@(kDepartment) : @[currentUser.department]}];
+    }
+}
 
 
-- (NSArray *)rowsForSectionWithSection:(NSInteger)section {
+
+- (NSArray *)rowsForSection:(NSInteger)section {
     NSDictionary *sectionDict = [contactDetailsArray objectAtIndex:section];
     NSArray *sectionArray = [sectionDict objectForKey:[[sectionDict allKeys] firstObject]];;
     return sectionArray;
@@ -121,6 +132,9 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         case kReports:
             sectionTitle = @"MANAGES";
             break;
+         case kDepartment:
+             sectionTitle = @"DEPARTMENT";
+             break;
         case kContactInfo:
             sectionTitle = @"CONTACT INFO";
             break;
@@ -128,13 +142,6 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     
     return sectionTitle;
 }
-
-- (NSInteger)rowCountForSectionWithSection:(NSInteger)section {
-    NSInteger count = [[self rowsForSectionWithSection:section] count];
-
-    return count;
-}
-
 
 - (id)itemAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *sectionDict = [contactDetailsArray objectAtIndex:indexPath.section];
@@ -152,7 +159,7 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
 }
 
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-    return [self rowCountForSectionWithSection:section];
+    return [[self rowsForSection:section] count];
 }
 
 
@@ -171,6 +178,9 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
             break;
         case kReportsTo:
             cell = [self tableView:tableView reportsCellForRowAtIndexPath:indexPath];
+            break;
+        case kDepartment:
+            cell = [self tableView:tableView departmentCellForRowAtIndexPath:indexPath];
             break;
        case kContactInfo:
             cell = [self tableView:tableView contactInfoCellForRowAtIndexPath:indexPath];
@@ -216,6 +226,18 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     return cell;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView departmentCellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"DepartmentCell";
+    DepartmentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[DepartmentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    Department *department = [self itemAtIndexPath:indexPath];
+    [cell configureForDepartment:department];
+    return cell;
+}
+
 
 - (UITableViewCell*)tableView:(UITableView*)tableView contactInfoCellForRowAtIndexPath:(NSIndexPath*)indexPath {
     NSArray *row = [self itemAtIndexPath:indexPath];
@@ -257,9 +279,18 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         case kReportsTo:
             [self tableView:tableView didSelectReportAtIndexPath:indexPath];
             break;
+        case kDepartment:
+            [self tableView:tableView didSelectDepartmentAtIndexPath:indexPath];
         default:
             break;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectDepartmentAtIndexPath:(NSIndexPath *)indexPath
+{
+    Department *department = [self itemAtIndexPath:indexPath];
+    DepartmentContactsTableViewController *departmentViewController = [[DepartmentContactsTableViewController alloc] initWithDepartment:department];
+    [self.contactVC.navigationController pushViewController:departmentViewController animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectReportAtIndexPath:(NSIndexPath *)indexPath {
@@ -298,6 +329,9 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
             return 55;
             break;
         case kReportsTo:
+            return 55;
+            break;
+        case kDepartment:
             return 55;
             break;
         case kContactInfo:

@@ -10,6 +10,7 @@
 #import "ContactViewController.h"
 #import "User.h"
 #import "EmployeeInfo.h"
+#import "Department.h"
 #import "OfficeLocation.h"
 #import "ECPhoneNumberFormatter.h"
 
