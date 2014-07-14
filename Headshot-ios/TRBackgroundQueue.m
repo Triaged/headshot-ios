@@ -8,6 +8,7 @@
 
 #import "TRBackgroundQueue.h"
 #import "CredentialStore.h"
+#import "HeadshotAPIClient.h"
 
 @implementation TRBackgroundQueue
 
@@ -23,7 +24,7 @@
     
 	static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _instance = [[super allocWithZone:NULL] initWithBaseURL:[NSURL URLWithString:HeadshotAPIBaseURLString]];
+        _instance = [[super allocWithZone:NULL] initWithBaseURL:[HeadshotAPIClient sharedClient].baseURL];
     });
     return _instance;
 }

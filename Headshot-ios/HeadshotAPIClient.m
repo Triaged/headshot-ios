@@ -18,7 +18,7 @@
     static HeadshotAPIClient *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[HeadshotAPIClient alloc] initWithBaseURL:[NSURL URLWithString:HeadshotAPIBaseURLString]];
+        _sharedClient = [[HeadshotAPIClient alloc] initWithBaseURL:[NSURL URLWithString:StagingAPIBaseURLString]];
     });
     
     return _sharedClient;
