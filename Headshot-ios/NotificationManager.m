@@ -50,16 +50,16 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 - (void)registerForRemoteNotificationsWithCompletion:(void (^)(NSData *, NSError *))completion
 {
     self.remoteNotificationRegistrationCompletion = completion;
-//    BOOL shouldRegisterForPush = DEBUG;
-//    if (shouldRegisterForPush) {
+    BOOL shouldRegisterForPush = DEBUG;
+    if (shouldRegisterForPush) {
         UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
         self.remoteNotificationRegistrationCompletion = completion;
-//    }
-//    else {
-//        NSError *error = nil;
-//        [self executePushNotificationRegistrationCompletionBlockWithDeviceToken:nil error:error];
-//    }
+    }
+    else {
+        NSError *error = nil;
+        [self executePushNotificationRegistrationCompletionBlockWithDeviceToken:nil error:error];
+    }
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
