@@ -5,9 +5,9 @@ NSString * const StagingAPIBaseURLString  = @"http://api.badge-staging.com/v1";
 NSString * const SinchProductionAppKey = @"42c9fd75-a981-4d9e-ba79-1c7647df9553";
 NSString * const SinchProductionAppSecret = @"wbnKEXplqUWSDMceOSd4hg==";
 NSString * const SinchProdunctionEnvironmentHost = @"sandbox.sinch.com";
-NSString * const SinchStagingAppKey = @"a3030a3b-0e6f-46e8-a5b9-db345209e197";
-NSString * const SinchStagingAppSecret = @"2FTXP9kTXkqCHZ2yvGNKcw==";
-NSString * const SinchStagingEnvironmentHost = @"sandbox.sinch.com";
+NSString * const SinchStagingAppKey = @"1c50919d-3597-4b39-ba46-214775a7e677";
+NSString * const SinchStagingAppSecret = @"opKHyqtl8EKkF09dNxalDQ==";
+NSString * const SinchStagingEnvironmentHost = @"clientapi.sinch.com";
 
 ServerEnvironment CurrentServerEnvironment = ServerEnvironmentStaging;
 
