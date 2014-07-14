@@ -149,7 +149,7 @@ typedef NS_ENUM(NSUInteger, SettingsSection)  {
         }
     }
     else if (indexPath.section == SettingsSectionLocation) {
-        title = @"Monitor Office Status";
+        title = @"Enable Office Availability";
         subtitle = @"Let coworkers know when you are in the office";
         accessoryView = self.locationSwitch;
     }
