@@ -114,7 +114,6 @@
 		CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA689F192FD850005A6949 /* TRBackgroundQueue.m */; };
 		CBBA68AB192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68A6192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m */; };
 		CBBA68AC192FD8FD005A6949 /* HeadshotAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68A8192FD8FD005A6949 /* HeadshotAPIClient.m */; };
-		CBBA68AD192FD8FD005A6949 /* HeadshotRequestAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68AA192FD8FD005A6949 /* HeadshotRequestAPIClient.m */; };
 		CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68BF192FDE72005A6949 /* CredentialStore.m */; };
 		CBBA68D8192FE0B5005A6949 /* EmployeeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68D7192FE0B5005A6949 /* EmployeeInfo.m */; };
 		CBBA68DB192FE0B5005A6949 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBA68DA192FE0B5005A6949 /* Account.m */; };
@@ -320,8 +319,6 @@
 		CBBA68A6192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRJSONResponseSerializerWithData.m; sourceTree = "<group>"; };
 		CBBA68A7192FD8FD005A6949 /* HeadshotAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadshotAPIClient.h; sourceTree = "<group>"; };
 		CBBA68A8192FD8FD005A6949 /* HeadshotAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadshotAPIClient.m; sourceTree = "<group>"; };
-		CBBA68A9192FD8FD005A6949 /* HeadshotRequestAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadshotRequestAPIClient.h; sourceTree = "<group>"; };
-		CBBA68AA192FD8FD005A6949 /* HeadshotRequestAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadshotRequestAPIClient.m; sourceTree = "<group>"; };
 		CBBA68BE192FDE72005A6949 /* CredentialStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CredentialStore.h; sourceTree = "<group>"; };
 		CBBA68BF192FDE72005A6949 /* CredentialStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialStore.m; sourceTree = "<group>"; };
 		CBBA68D6192FE0B5005A6949 /* EmployeeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EmployeeInfo.h; path = ../EmployeeInfo.h; sourceTree = "<group>"; };
@@ -714,8 +711,6 @@
 				CBBA68A6192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m */,
 				CBBA68A7192FD8FD005A6949 /* HeadshotAPIClient.h */,
 				CBBA68A8192FD8FD005A6949 /* HeadshotAPIClient.m */,
-				CBBA68A9192FD8FD005A6949 /* HeadshotRequestAPIClient.h */,
-				CBBA68AA192FD8FD005A6949 /* HeadshotRequestAPIClient.m */,
 				CB1F31B21931749D00CDCFD4 /* SinchClient.h */,
 				CB1F31B31931749D00CDCFD4 /* SinchClient.m */,
 			);
@@ -1063,7 +1058,6 @@
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,
 				96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */,
 				CBBA68AB192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m in Sources */,
-				CBBA68AD192FD8FD005A6949 /* HeadshotRequestAPIClient.m in Sources */,
 				CBBA6878192FD646005A6949 /* Headshot.xcdatamodeld in Sources */,
 				CB1F31C919325D8600CDCFD4 /* ContactViewController.m in Sources */,
 				CB04186E194A358600B3DE97 /* DepartmentCell.m in Sources */,

@@ -67,7 +67,7 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     // get previously initiated Sinch client
     id<SINClient> client = [SinchClient sharedClient].client;
     [client registerPushNotificationData:deviceToken];
-    [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:deviceToken] postDeviceWithSuccess:nil failure:nil];
+    [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:deviceToken] postDeviceWithCompletion:nil];
     if (self.remoteNotificationRegistrationCompletion) {
         self.remoteNotificationRegistrationCompletion(deviceToken, nil);
     }

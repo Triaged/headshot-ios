@@ -12,7 +12,7 @@
 #import "SinchClient.h"
 #import "ContactViewController.h"
 #import "NotificationManager.h"
-#import "HeadshotRequestAPIClient.h"
+#import "HeadshotAPIClient.h"
 #import "TRAvatarImageView.h"
 
 @interface MessageThreadViewController ()

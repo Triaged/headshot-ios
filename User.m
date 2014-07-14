@@ -41,11 +41,11 @@
 {
     NSString *path = [NSString stringWithFormat:@"users/%@/email_message", self.identifier];
     NSDictionary *parameters = @{@"message" : @{@"body": messageText}};
-    [[HeadshotRequestAPIClient sharedClient] POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[HeadshotAPIClient sharedClient] POST:path parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         if (completion) {
             completion(nil);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (completion) {
             completion(error);
         }

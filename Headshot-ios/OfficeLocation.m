@@ -48,14 +48,14 @@
     }
     
     NSDictionary *parameters = @{@"office_location" : officeJSON};
-    [[HeadshotRequestAPIClient sharedClient] POST:@"office_locations/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[HeadshotAPIClient sharedClient] POST:@"office_locations/" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         [self updateWithRawJSONDictionary:responseObject];
         [self.managedObjectContext MR_saveToPersistentStoreAndWait];
         if (completion) {
             completion(self, nil);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
             completion(nil, error);
         }
     }];

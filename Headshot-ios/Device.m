@@ -21,7 +21,7 @@
     return self;
 }
 
-- (void)postDeviceWithSuccess:(void (^)(Device *device))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+- (void)postDeviceWithCompletion:(void (^)(Device *device, NSError *error))completion
 {
     NSMutableDictionary *deviceJSON = [[NSMutableDictionary alloc] init];
     deviceJSON[@"os_version"] = self.device.systemVersion;
@@ -33,12 +33,16 @@
         deviceJSON[@"token"] = tokenString;
     }
     NSDictionary *parameters = @{@"device" : deviceJSON};
-    [[HeadshotRequestAPIClient sharedClient] POST:@"devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        __weak Device *weakSelf = self;
-        if (success) {
-            success(weakSelf);
+    __weak Device *weakSelf = self;
+    [[HeadshotAPIClient sharedClient] POST:@"devices" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (completion) {
+            completion(weakSelf, nil);
         }
-    } failure:failure];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(nil, error);
+        }
+    }];
 }
 
 @end

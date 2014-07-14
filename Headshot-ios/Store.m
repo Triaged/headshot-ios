@@ -85,7 +85,7 @@
         [account resetBadgeCount];
     }
     
-    [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:nil] postDeviceWithSuccess:nil failure:nil];
+    [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:nil] postDeviceWithCompletion:nil];
     [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
     
     [Company companyWithCompletionHandler:^(Company *company, NSError *error) {
@@ -93,19 +93,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kHasStoredCompanyNotification object:nil];
         [[AnalyticsManager sharedManager] updateSuperProperties];
     }];
-    
-    
-    //        }
-    
-    //        Mixpanel *mixpanel = [Mixpanel sharedInstance];
-    //        [mixpanel identify:account.identifier];
-    //        [mixpanel track:@"signup" properties:@{@"id": account.identifier,
-    //                                               @"email" : account.currentUser.email,
-    //                                               @"company" : account.companyName}];
-    
-    //[Intercom beginSessionForUserWithUserId:account.identifier andEmail:account.currentUser.email];
-    
-    //    }];
 }
 
 -(void)logout

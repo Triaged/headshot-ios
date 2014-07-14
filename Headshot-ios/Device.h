@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HeadshotRequestAPIClient.h"
+#import "HeadshotAPIClient.h"
 
 @interface Device : NSObject
 
@@ -15,6 +15,6 @@
 @property (strong, nonatomic) NSData *deviceToken;
 
 - (id)initWithDevice:(UIDevice *)device token:(NSData *)token;
-- (void)postDeviceWithSuccess:(void (^)(Device *device))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+- (void)postDeviceWithCompletion:(void (^)(Device *device, NSError *error))completion;
 
 @end

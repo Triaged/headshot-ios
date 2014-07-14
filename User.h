@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "SLRESTfulCoreData.h"
 #import "HeadshotAPIClient.h"
-#import "HeadshotRequestAPIClient.h"
+#import "HeadshotAPIClient.h"
 
 
 @class Company, EmployeeInfo, Department, OfficeLocation;

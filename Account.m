@@ -34,11 +34,11 @@
 + (void)requestPasswordResetForEmail:(NSString *)email completion:(void (^)(NSString *, NSError *))completionHandler
 {
     NSDictionary *parameters = @{@"email" : email};
-    [[HeadshotRequestAPIClient sharedClient] POST:@"account/reset_password" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[HeadshotAPIClient sharedClient] POST:@"account/reset_password" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         if (completionHandler) {
             completionHandler(responseObject[@"message"], nil);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (completionHandler) {
             completionHandler(nil, error);
         }

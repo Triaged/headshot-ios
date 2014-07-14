@@ -8,7 +8,7 @@
 
 #import "EditAccountViewController.h"
 #import <AFNetworking/UIKit+AFNetworking.h>
-#import "HeadshotRequestAPIClient.h"
+#import "HeadshotAPIClient.h"
 #import "OnboardSelectDepartmentViewController.h"
 #import "OnboardSelectManagersViewControllers.h"
 #import "OfficesViewController.h"
@@ -228,11 +228,11 @@
             self.avatarImageView.imageView.image = image;
             NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
             [SVProgressHUD show];
-            [[HeadshotRequestAPIClient sharedClient] POST:@"account/avatar/" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [[HeadshotAPIClient sharedClient] POST:@"account/avatar/" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                 [formData appendPartWithFileData:imageData name:@"user[avatar]" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
-            } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            } success:^(NSURLSessionDataTask *task, id responseObject) {
                 [SVProgressHUD dismiss];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 [SVProgressHUD dismiss];
                 self.avatarImageView.imageView.image = currentImage;
             }];
