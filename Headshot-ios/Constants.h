@@ -1,8 +1,20 @@
 #import <CocoaLumberjack/DDLog.h>
 
 //api
+typedef enum {
+    ServerEnvironmentStaging=0,
+    ServerEnvironmentProduction,
+    ServerEnvironmentDevelopment
+} ServerEnvironment;
+extern ServerEnvironment CurrentServerEnvironment;
 extern NSString * const HeadshotAPIBaseURLString;
 extern NSString * const StagingAPIBaseURLString;
+extern NSString * const SinchProductionAppKey;
+extern NSString * const SinchProductionAppSecret;
+extern NSString * const SinchProdunctionEnvironmentHost;
+extern NSString * const SinchStagingAppKey;
+extern NSString * const SinchStagingAppSecret;
+extern NSString * const SinchStagingEnvironmentHost;
 
 //notification center
 extern NSString * const kReceivedNewMessageNotification;

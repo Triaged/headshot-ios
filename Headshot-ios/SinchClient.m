@@ -33,9 +33,22 @@
 
 - (void)initSinchClientWithUserId:(NSString *)userId {
     if (!_client) {
-        _client = [Sinch clientWithApplicationKey:@"42c9fd75-a981-4d9e-ba79-1c7647df9553"
-                                applicationSecret:@"wbnKEXplqUWSDMceOSd4hg=="
-                                  environmentHost:@"sandbox.sinch.com"
+        NSString *key;
+        NSString *secret;
+        NSString *host;
+        if (CurrentServerEnvironment == ServerEnvironmentProduction) {
+            key = SinchProductionAppKey;
+            secret = SinchProductionAppSecret;
+            host = SinchProdunctionEnvironmentHost;
+        }
+        else {
+            key = SinchStagingAppKey;
+            secret = SinchStagingAppSecret;
+            host = SinchStagingEnvironmentHost;
+        }
+        _client = [Sinch clientWithApplicationKey:key
+                                applicationSecret:secret
+                                  environmentHost:host
                                            userId:userId];
         
         
