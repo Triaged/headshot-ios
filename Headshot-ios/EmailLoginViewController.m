@@ -25,6 +25,8 @@
 
 @implementation EmailLoginViewController
 
+@synthesize delegate;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

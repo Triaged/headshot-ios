@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "OnboardNavigationController.h"
 
-@interface EmailLoginViewController : UITableViewController
-
-@property (weak, nonatomic) id<OnboardViewControllerDelegate>delegate;
+@interface EmailLoginViewController : UITableViewController <OnboardViewController>
 
 @end

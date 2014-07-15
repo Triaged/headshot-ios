@@ -9,6 +9,7 @@
 #import "OnboardNavigationController.h"
 #import "EmailLoginViewController.h"
 #import "OnboardUserDetailsViewController.h"
+#import "OnboardAddPhotoViewController.h"
 #import "OnboardJobViewController.h"
 #import "OnboardSelectOfficeViewController.h"
 #import "OnboardLocationPermissionViewController.h"
@@ -24,6 +25,7 @@
 @property (strong, nonatomic) UIPageControl *pageControl;
 @property (strong, nonatomic) EmailLoginViewController *loginViewController;
 @property (strong, nonatomic) OnboardUserDetailsViewController *userDetailsViewController;
+@property (strong, nonatomic) OnboardAddPhotoViewController *addPhotoViewController;
 @property (strong, nonatomic) OnboardJobViewController *jobViewController;
 @property (strong, nonatomic) OnboardSelectOfficeViewController *selectOfficeViewController;
 @property (strong, nonatomic) OnboardLocationPermissionViewController *locationPermissionsViewController;
@@ -43,6 +45,10 @@
     self.loginViewController = [[EmailLoginViewController alloc] init];
     self.loginViewController.delegate = self;
     
+    self.addPhotoViewController = [[OnboardAddPhotoViewController alloc] init];
+    self.addPhotoViewController.delegate = self;
+    
+    
     self.jobViewController = [[OnboardJobViewController alloc] init];
     self.jobViewController.delegate = self;
     
@@ -58,7 +64,7 @@
     self.pageControl = [[UIPageControl alloc] init];
     self.pageControl.size = CGSizeMake(100, self.navigationBar.height);
     self.pageControl.centerX = self.navigationBar.width/2.0;
-    self.pageControl.numberOfPages = 3;
+    self.pageControl.numberOfPages = 4;
     self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
     self.pageControl.currentPageIndicatorTintColor = [[ThemeManager sharedTheme] greenColor];
     [self.navigationBar addSubview:self.pageControl];
@@ -99,6 +105,11 @@
     [self showNextViewController:viewController];
 }
 
+- (void)onboardViewController:(UIViewController<OnboardViewController> *)viewController skipButtonTouched:(id)sender
+{
+    [self showNextViewController:viewController];
+}
+
 - (void)showNextViewController:(UIViewController *)previousViewController
 {
     UIViewController *nextViewController;
@@ -111,6 +122,9 @@
             [SVProgressHUD show];
             return;
         }
+        nextViewController = self.addPhotoViewController;
+    }
+    else if (previousViewController == self.addPhotoViewController) {
         nextViewController = self.jobViewController;
     }
     else if (previousViewController == self.jobViewController) {
@@ -146,7 +160,7 @@
         [self setNavigationBarHidden:NO animated:YES];
     }
     NSInteger vcCount = navigationController.viewControllers.count;
-    BOOL showPageControl = vcCount > 1 && vcCount <= 4 && ![viewController isKindOfClass:[ForgotPasswordViewController class]];
+    BOOL showPageControl = vcCount > 1 && vcCount <= 5 && ![viewController isKindOfClass:[ForgotPasswordViewController class]];
     self.pageControl.hidden = !showPageControl;
     if (showPageControl) {
         self.pageControl.currentPage = vcCount - 2;

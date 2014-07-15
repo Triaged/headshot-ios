@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96021101197443D000C03EB7 /* OnboardAddPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96021100197443D000C03EB7 /* OnboardAddPhotoViewController.m */; };
 		96091B12195DFAA900D135A3 /* TRInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96091B11195DFAA900D135A3 /* TRInitialView.m */; };
 		96091B18195DFD8800D135A3 /* UIView+UIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96091B17195DFD8800D135A3 /* UIView+UIImage.m */; };
 		960A8EF9197041BD00CFBCEC /* FileLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 960A8EF8197041BD00CFBCEC /* FileLogManager.m */; };
@@ -138,6 +139,8 @@
 /* Begin PBXFileReference section */
 		30B39923FA64452EB4653D38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		426C573043D24799B16F4828 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		960210FF197443D000C03EB7 /* OnboardAddPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardAddPhotoViewController.h; sourceTree = "<group>"; };
+		96021100197443D000C03EB7 /* OnboardAddPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardAddPhotoViewController.m; sourceTree = "<group>"; };
 		96091B10195DFAA900D135A3 /* TRInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRInitialView.h; sourceTree = "<group>"; };
 		96091B11195DFAA900D135A3 /* TRInitialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRInitialView.m; sourceTree = "<group>"; };
 		96091B16195DFD8800D135A3 /* UIView+UIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIImage.h"; sourceTree = "<group>"; };
@@ -496,6 +499,8 @@
 				96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */,
 				961E5394196C511000F8A158 /* ForgotPasswordViewController.h */,
 				961E5395196C511000F8A158 /* ForgotPasswordViewController.m */,
+				960210FF197443D000C03EB7 /* OnboardAddPhotoViewController.h */,
+				96021100197443D000C03EB7 /* OnboardAddPhotoViewController.m */,
 			);
 			name = onboard;
 			sourceTree = "<group>";
@@ -1059,6 +1064,7 @@
 				CB04186E194A358600B3DE97 /* DepartmentCell.m in Sources */,
 				CBBA68A0192FD850005A6949 /* Store.m in Sources */,
 				CB1F31B41931749D00CDCFD4 /* SinchClient.m in Sources */,
+				96021101197443D000C03EB7 /* OnboardAddPhotoViewController.m in Sources */,
 				96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */,
 				964A6BDA194E35DE0024B3C2 /* OnboardNavigationController.m in Sources */,
 				964839841958A1E600E4792A /* PhotoManager.m in Sources */,
