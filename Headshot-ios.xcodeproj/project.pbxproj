@@ -67,7 +67,6 @@
 		CB1F31BA193178FF00CDCFD4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31B9193178FF00CDCFD4 /* AudioToolbox.framework */; };
 		CB1F31BC1931791A00CDCFD4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31BB1931791A00CDCFD4 /* SystemConfiguration.framework */; };
 		CB1F31BE19317BE400CDCFD4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31BD19317BE400CDCFD4 /* AVFoundation.framework */; };
-		CB1F31C01931853200CDCFD4 /* Sinch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31BF1931853200CDCFD4 /* Sinch.framework */; };
 		CB1F31C21931872E00CDCFD4 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31C11931872E00CDCFD4 /* libstdc++.6.0.9.dylib */; };
 		CB1F31C51931A12600CDCFD4 /* NewThreadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31C41931A12600CDCFD4 /* NewThreadTableViewController.m */; };
 		CB1F31C919325D8600CDCFD4 /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31C719325D8600CDCFD4 /* ContactViewController.m */; };
@@ -253,7 +252,6 @@
 		CB1F31B9193178FF00CDCFD4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		CB1F31BB1931791A00CDCFD4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CB1F31BD19317BE400CDCFD4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		CB1F31BF1931853200CDCFD4 /* Sinch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sinch.framework; sourceTree = "<group>"; };
 		CB1F31C11931872E00CDCFD4 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		CB1F31C31931A12600CDCFD4 /* NewThreadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewThreadTableViewController.h; sourceTree = "<group>"; };
 		CB1F31C41931A12600CDCFD4 /* NewThreadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewThreadTableViewController.m; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 				CB1F31C21931872E00CDCFD4 /* libstdc++.6.0.9.dylib in Frameworks */,
 				CB1F31BE19317BE400CDCFD4 /* AVFoundation.framework in Frameworks */,
 				CB1F31BC1931791A00CDCFD4 /* SystemConfiguration.framework in Frameworks */,
-				CB1F31C01931853200CDCFD4 /* Sinch.framework in Frameworks */,
 				CB1F31BA193178FF00CDCFD4 /* AudioToolbox.framework in Frameworks */,
 				CB1F31B8193178EE00CDCFD4 /* Security.framework in Frameworks */,
 				CBB53206195CCE3200E33724 /* Crashlytics.framework in Frameworks */,
@@ -615,7 +612,6 @@
 				CB1F31D519327BAA00CDCFD4 /* CoreLocation.framework */,
 				CB1F31CB193261B000CDCFD4 /* MessageUI.framework */,
 				CB1F31C11931872E00CDCFD4 /* libstdc++.6.0.9.dylib */,
-				CB1F31BF1931853200CDCFD4 /* Sinch.framework */,
 				CB1F31BD19317BE400CDCFD4 /* AVFoundation.framework */,
 				CB1F31BB1931791A00CDCFD4 /* SystemConfiguration.framework */,
 				CB1F31B9193178FF00CDCFD4 /* AudioToolbox.framework */,
@@ -1204,6 +1200,8 @@
 					"-ObjC",
 					"-Xlinker",
 					"-lstdc++",
+					"-framework",
+					Sinch,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1233,6 +1231,8 @@
 					"-ObjC",
 					"-Xlinker",
 					"-lstdc++",
+					"-framework",
+					Sinch,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0A1CFD2A-8232-493E-B847-F39116986A53";

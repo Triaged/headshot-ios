@@ -90,6 +90,7 @@ PODS:
   - PMEDatePicker (0.0.1)
   - RDVTabBarController (1.1.6)
   - SGNavigationProgress (1.2)
+  - SinchRTC (3.1.3)
   - SLCoreDataStack (0.6.0)
   - SLRESTfulCoreData (1.9.1):
     - AFNetworking (~> 2.3.1)
@@ -118,6 +119,7 @@ DEPENDENCIES:
   - PMEDatePicker (~> 0.0.1)
   - RDVTabBarController
   - SGNavigationProgress
+  - SinchRTC
   - SLRESTfulCoreData
   - SSKeychain
   - SVProgressHUD (HEAD)
@@ -153,6 +155,7 @@ SPEC CHECKSUMS:
   PMEDatePicker: a44e15d953cf7c568d2546914d088463431f1f18
   RDVTabBarController: 252dafb16725f9a07026618ff51acf06a12b206b
   SGNavigationProgress: 6c38006ca3c652618411c67d493b263343d5aece
+  SinchRTC: 5308a9146558a7aac2ea5f843d75c0ec23008516
   SLCoreDataStack: 3cbb4bc9ea1f0ba6d7a3a382b1d0cf879b5f3cd4
   SLRESTfulCoreData: 4933bf01fc97fdd3c50c7786fdda6c483f1136c3
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9

@@ -36,16 +36,16 @@
         NSString *key;
         NSString *secret;
         NSString *host;
-        if (CurrentServerEnvironment == ServerEnvironmentProduction) {
-            key = SinchProductionAppKey;
-            secret = SinchProductionAppSecret;
-            host = SinchProdunctionEnvironmentHost;
-        }
-        else {
+//        if (CurrentServerEnvironment == ServerEnvironmentProduction) {
+//            key = SinchProductionAppKey;
+//            secret = SinchProductionAppSecret;
+//            host = SinchProdunctionEnvironmentHost;
+//        }
+//        else {
             key = SinchStagingAppKey;
             secret = SinchStagingAppSecret;
             host = SinchStagingEnvironmentHost;
-        }
+//        }
         _client = [Sinch clientWithApplicationKey:key
                                 applicationSecret:secret
                                   environmentHost:host
