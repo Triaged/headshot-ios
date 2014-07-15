@@ -35,6 +35,9 @@
     NSDictionary *parameters = @{@"device" : deviceJSON};
     __weak Device *weakSelf = self;
     [[HeadshotAPIClient sharedClient] POST:@"devices" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        self.deviceIdentifier = [responseObject valueForKeyPath:@"device.id"];
+        [[NSUserDefaults standardUserDefaults] setObject:self.deviceIdentifier forKey:kUserDefaultsDeviceIdentifier];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         if (completion) {
             completion(weakSelf, nil);
         }

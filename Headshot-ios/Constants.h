@@ -29,6 +29,7 @@ extern NSString * const kUserDefaultsLoggedIn;
 extern NSString * const kUserDefaultsHasRequestedLocationPermission;
 extern NSString * const kUserDefaultsHasRequestedPushPermission;
 extern NSString * const kUserDefaultsHasFinishedOnboarding;
+extern NSString * const kUserDefaultsDeviceIdentifier;
 
 //core data
 extern NSString * const kPersistentStoreName;

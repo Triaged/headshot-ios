@@ -87,7 +87,10 @@
 
 - (void)logoutWithCompletion:(void (^)(NSError *error))completion
 {
-    [[HeadshotAPIClient sharedClient] DELETE:@"sessions" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    NSString *deviceIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsDeviceIdentifier];
+    NSString *path = [NSString stringWithFormat:@"devices/%@/sign_out", deviceIdentifier];
+    
+    [[HeadshotAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         if (completion) {
             completion(nil);
         }

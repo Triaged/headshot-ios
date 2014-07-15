@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) UIDevice *device;
 @property (strong, nonatomic) NSData *deviceToken;
+@property (strong, nonatomic) NSString *deviceIdentifier;
 
 - (id)initWithDevice:(UIDevice *)device token:(NSData *)token;
 - (void)postDeviceWithCompletion:(void (^)(Device *device, NSError *error))completion;
