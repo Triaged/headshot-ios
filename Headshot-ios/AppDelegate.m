@@ -152,8 +152,17 @@
 - (void)logout
 {
     [[AnalyticsManager sharedManager] logout];
-    [self.store logout];
-    self.window.rootViewController = [[OnboardNavigationController alloc] init];
+    [SVProgressHUD show];
+    [self.store.currentAccount logoutWithCompletion:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        if (!error) {
+            [self.store logout];
+            self.window.rootViewController = [[OnboardNavigationController alloc] init];
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Logout failed. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }];
 }
 
 - (void)setTopViewControllerToMessageThreadViewControllerWithAuthorID:(NSString *)authorID

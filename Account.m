@@ -85,6 +85,19 @@
     } failure:failure];
 }
 
+- (void)logoutWithCompletion:(void (^)(NSError *error))completion
+{
+    [[HeadshotAPIClient sharedClient] DELETE:@"sessions" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (completion) {
+            completion(nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(error);
+        }
+    }];
+}
+
 - (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withSuccess:(void (^)())success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
     NSDictionary *parameters = @{@"user": @{@"current_password": currentPassword,
