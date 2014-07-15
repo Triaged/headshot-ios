@@ -101,6 +101,18 @@
     }];
 }
 
+- (void)updateAvatarImage:(UIImage *)image withCompletion:(void (^)(UIImage *image, NSError *error))completion
+{
+    [[HeadshotAPIClient sharedClient] performMultipartFormRequestWithMethod:@"POST" path:@"account/avatar" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
+        [formData appendPartWithFileData:imageData name:@"user[avatar]" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
+    } completion:^(id responseObject, NSError *error) {
+        if (completion) {
+            completion(image, error);
+        }
+    }];
+}
+
 - (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withSuccess:(void (^)())success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
     NSDictionary *parameters = @{@"user": @{@"current_password": currentPassword,
