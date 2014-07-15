@@ -25,7 +25,7 @@
 {
     NSMutableDictionary *deviceJSON = [[NSMutableDictionary alloc] init];
     deviceJSON[@"os_version"] = self.device.systemVersion;
-    deviceJSON[@"service"] = self.device.systemName;
+    deviceJSON[@"service"] = @"ios";
     deviceJSON[@"application_id"] = self.device.identifierForVendor.UUIDString;
     if (self.deviceToken) {
         NSString *tokenString = [[self.deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
