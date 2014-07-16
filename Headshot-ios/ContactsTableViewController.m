@@ -10,6 +10,7 @@
 #import "User.h"
 #import "ContactsDataSource.h"
 #import "ContactViewController.h"
+#import "ContactsContainerViewController.h"
 
 @interface ContactsTableViewController ()
 
@@ -51,7 +52,6 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchContacts) forControlEvents:UIControlEventValueChanged];
 
-    
 }
 
 
@@ -79,6 +79,7 @@
     self.contactsDataSource.tableViewController = self;
     self.tableView.dataSource = self.contactsDataSource;
     self.tableView.delegate = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
@@ -117,6 +118,11 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     return [self.contactsDataSource tableView:tableView viewForHeaderInSection:section];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.contactsDataSource tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 }
 
 

@@ -12,6 +12,7 @@
 @interface UIView (Edge)
 
 - (void)addEdge:(UIRectEdge)edge width:(CGFloat)width color:(UIColor *)color;
+- (void)addEdge:(UIRectEdge)edge insets:(UIEdgeInsets)edgeInsets width:(CGFloat)width color:(UIColor *)color;
 - (void)removeEdge:(UIRectEdge)edge;
 - (void)removeAllEdges;
 

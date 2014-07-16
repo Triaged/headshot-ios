@@ -174,6 +174,16 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row < [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) {
+        [cell addEdge:UIRectEdgeBottom insets:UIEdgeInsetsMake(0, 70, 0, 0) width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+    }
+    else {
+        [cell removeEdge:UIRectEdgeBottom];
+    }
+}
+
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     searchBar.showsScopeBar = YES;
     [searchBar sizeToFit];

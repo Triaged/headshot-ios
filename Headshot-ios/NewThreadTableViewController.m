@@ -49,6 +49,7 @@
     self.contactsDataSource.tableViewController = self;
     self.tableView.dataSource = self.contactsDataSource;
     self.tableView.delegate = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     
     TRSearchBar *searchBar = [[TRSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
@@ -91,6 +92,11 @@
     if ([self.delegate respondsToSelector:@selector(newThreadTableViewController:didSelectUser:)]) {
         [self.delegate newThreadTableViewController:self didSelectUser:user];
     }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.contactsDataSource tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 }
 
 
