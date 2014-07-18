@@ -176,6 +176,7 @@
 
 - (void)completeProfileTapped:(id)sender
 {
+    [self dismissCompleteProfileView];
     [self showEditAccount];
 }
 
