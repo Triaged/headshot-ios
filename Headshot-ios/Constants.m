@@ -13,6 +13,7 @@ ServerEnvironment CurrentServerEnvironment = ServerEnvironmentStaging;
 
 NSString * const kReceivedNewMessageNotification = @"ReceivedNewMessageNotification";
 
+NSString * const kRequestAuthorizationErrorNotification = @"RequestAuthorizationNotification";
 NSString * const kMessageFailedNotification = @"MessageFailedNotification";
 NSString * const kMessageSentNotification = @"MessageSentNotification";
 NSString * const kHasStoredCompanyNotification = @"HasStoredCompany";

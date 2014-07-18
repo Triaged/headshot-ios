@@ -28,6 +28,7 @@
 
 - (void)setTopViewControllerToMessageThreadViewControllerWithAuthorID:(NSString *)authorID;
 - (void)setDataStore;
+- (void)showLogin;
 - (void)logout;
 
 

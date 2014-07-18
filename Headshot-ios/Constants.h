@@ -18,7 +18,7 @@ extern NSString * const SinchStagingEnvironmentHost;
 
 //notification center
 extern NSString * const kReceivedNewMessageNotification;
-
+extern NSString * const kRequestAuthorizationErrorNotification;
 extern NSString * const kMessageFailedNotification;
 extern NSString * const kMessageSentNotification;
 extern NSString * const kHasStoredCompanyNotification;

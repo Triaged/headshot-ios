@@ -15,6 +15,7 @@
 #import "NotificationManager.h"
 #import "Device.h"
 #import "OfficeLocation.h"
+#import "OnboardNavigationController.h"
 
 
 
@@ -32,15 +33,17 @@
 - (id)init
 {
     self = [super init];
-    if (self) {
-        if ([[CredentialStore sharedClient] isLoggedIn]) {
-            if (![self currentAccount]) {
-                [self fetchRemoteUserAccount];
-            } else {
-                [self setUpAccount:[self currentAccount]];
-            }
+    if (!self) {
+        return nil;
+    }
+    if ([[CredentialStore sharedClient] isLoggedIn]) {
+        if (![self currentAccount]) {
+            [self fetchRemoteUserAccount];
+        } else {
+            [self setUpAccount:[self currentAccount]];
         }
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAuthorizationError:) name:kRequestAuthorizationErrorNotification object:nil];
     return self;
 }
 
@@ -95,6 +98,15 @@
     }];
 }
 
+- (void)receivedAuthorizationError:(NSNotification *)notification
+{
+    BOOL loggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
+    if (loggedIn) {
+        [self logout];
+        [[[UIAlertView alloc] initWithTitle:@"Session Expired" message:@"Please Login Again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+}
+
 -(void)logout
 {
 //    remove all user defaults
@@ -103,7 +115,7 @@
     [[SinchClient sharedClient] logoutOfSinchClient];
     [[TRDataStoreManager sharedInstance] resetPersistentStore];
     [[CredentialStore sharedClient] clearSavedCredentials];
-    [AppDelegate sharedDelegate].tabBarController = nil;
+    [[AppDelegate sharedDelegate] showLogin];
 }
 
 - (void) userSignedOut

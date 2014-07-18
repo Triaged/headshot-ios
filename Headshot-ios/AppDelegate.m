@@ -107,10 +107,16 @@
         [self.window setRootViewController:self.tabBarController];
     }
     else {
-        self.window.rootViewController = [[OnboardNavigationController alloc] init];
+        [self showLogin];
     }
 
     [self.window makeKeyAndVisible];
+}
+
+- (void)showLogin
+{
+    [AppDelegate sharedDelegate].tabBarController = nil;
+    self.window.rootViewController = [[OnboardNavigationController alloc] init];
 }
 
 - (void)setupLoggedInUser
@@ -157,7 +163,6 @@
         [SVProgressHUD dismiss];
         if (!error) {
             [self.store logout];
-            self.window.rootViewController = [[OnboardNavigationController alloc] init];
         }
         else {
             [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Logout failed. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "Store.h"
 #import "TRJSONResponseSerializerWithData.h"
+#import "HTTPStatusCodes.h"
 
 @implementation HeadshotAPIClient
 
@@ -35,10 +36,22 @@
                                                  selector:@selector(tokenChanged:)
                                                      name:@"token-changed"
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HTTPOperationDidFinish:) name:AFNetworkingTaskDidCompleteNotification object:nil];
     }
     return self;
 }
 
+- (void)HTTPOperationDidFinish:(NSNotification *)notification
+{
+//    log user out if authorization error
+    NSError *error = [notification.userInfo objectForKey:AFNetworkingTaskDidCompleteErrorKey];
+    if (error) {
+        NSHTTPURLResponse *httpResponse = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+        if (httpResponse.statusCode == kHTTPStatusCodeUnauthorized){
+            [[NSNotificationCenter defaultCenter] postNotificationName:kRequestAuthorizationErrorNotification object:error userInfo:nil];
+        }
+    }
+}
 
 - (void)setAuthTokenHeader {
     CredentialStore *store = [[CredentialStore alloc] init];
