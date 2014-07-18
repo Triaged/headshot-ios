@@ -65,9 +65,14 @@
     DDLogInfo(@"Starting ENTER location request for region with identifier %@", self.identifier);
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/entered", self.identifier]];
     [self putToURL:URL completionHandler:^(id JSONObject, NSError *error) {
-        DDLogInfo(@"Finished ENTER location request for region with identifier %@", self.identifier);
-        [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = self;
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        if (!error) {
+            DDLogInfo(@"Finished ENTER location request for region with identifier %@", self.identifier);
+            [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = self;
+            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        }
+        else {
+            DDLogInfo(@"Failed ENTER location request with error %@", error.localizedDescription);
+        }
     }];
     NSLog(@"entered location");
 }
@@ -77,9 +82,14 @@
     DDLogInfo(@"Starting EXIT location request for region with identifier %@", self.identifier);
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/exited", self.identifier]];
     [self putToURL:URL completionHandler:^(id JSONObject, NSError *error) {
-        DDLogInfo(@"Finished EXIT location request for region with identifier %@", self.identifier);
-        [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = nil;
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        if (!error) {
+            DDLogInfo(@"Finished EXIT location request for region with identifier %@", self.identifier);
+            [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = nil;
+            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        }
+        else {
+            DDLogInfo(@"Failed EXIT location request with error %@", error.localizedDescription);
+        }
     }];
 }
 
