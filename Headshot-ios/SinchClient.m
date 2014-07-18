@@ -116,6 +116,9 @@
 
 - (void)messageSent:(id<SINMessage>)message recipientId:(NSString *)recipientId {
     Message *sentMessage = [self messageForSINMessage:message];
+    if (!sentMessage) {
+        return;
+    }
     sentMessage.failed = @(NO);
     sentMessage.timestamp = [message timestamp];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
