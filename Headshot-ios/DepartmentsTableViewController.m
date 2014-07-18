@@ -115,8 +115,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Department *dept = [self itemAtIndexPath:indexPath];
-    DepartmentContactsTableViewController *deptContactsTableVC = [[DepartmentContactsTableViewController alloc] initWithDepartment:dept];
-    [self.navigationController pushViewController:deptContactsTableVC animated:YES];
+    if ([self.departmentsTableViewControllerDelegate respondsToSelector:@selector(departmentsTableViewController:didSelectDepartment:)]) {
+        [self.departmentsTableViewControllerDelegate departmentsTableViewController:self didSelectDepartment:dept];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -130,22 +130,19 @@
 {
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
     
-    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
-    [self.navigationController pushViewController:contactVC animated:YES];
-    
-    _verticalContentOffset  = tableView.contentOffset.y;
+    if ([self.contactsTableViewControllerDelegate respondsToSelector:@selector(contactsTableViewController:didSelectContact:)]) {
+        [self.contactsTableViewControllerDelegate contactsTableViewController:self didSelectContact:user];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    [self.segmentViewController hideNavBar];
-    
+    [self.containerViewController.navigationController setNavigationBarHidden:YES animated:YES];
     return YES;
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-    [self.segmentViewController showNavBar];
-    
+    [self.containerViewController.navigationController setNavigationBarHidden:NO animated:YES];
     return YES;
 }
 

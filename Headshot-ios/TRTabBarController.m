@@ -15,6 +15,7 @@
 #import "RDVTabBarItem.h"
 #import "SDCSegmentedViewController.h"
 #import "DepartmentsTableViewController.h"
+#import "ContactsContainerViewController.h"
 
 
 
@@ -46,38 +47,24 @@
     // Settings
     AccountViewController *accountVC = [[AccountViewController alloc] init];
     TRNavigationController *accountNav = [[TRNavigationController alloc] initWithRootViewController:accountVC];
+    UINavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:[[ContactsContainerViewController alloc] init]];
     
-//    if ([AppDelegate sharedDelegate].store.currentCompany.usesDepartments) {
-        // Contacts
-        ContactsTableViewController *contactsTableView = [[ContactsTableViewController alloc] init];
-        DepartmentsTableViewController *deptsTableView = [[DepartmentsTableViewController alloc] init];
-        
-        SDCSegmentedViewController *segmentedController = [[SDCSegmentedViewController alloc] initWithViewControllers:@[contactsTableView, deptsTableView] titles:@[@"Contacts", @"Departments"]];
-        segmentedController.segmentedControl.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
-        contactsTableView.segmentViewController = segmentedController;
-        TRNavigationController *segmentNav = [[TRNavigationController alloc] initWithRootViewController:segmentedController];
-        
-        [self setViewControllers:[NSArray arrayWithObjects:messagesNav, segmentNav, accountNav, nil]];
-//    } else {
-//        ContactsTableViewController *contactsTableView = [[ContactsTableViewController alloc] init];
-//        TRNavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:contactsTableView];
-//        
-//        [self setViewControllers:[NSArray arrayWithObjects:messagesNav, contactsNav, accountNav, nil]];
-//    }
+    [self setViewControllers:[NSArray arrayWithObjects:messagesNav, contactsNav, accountNav, nil]];
     
     
     self.tabBar.translucent = NO;
     self.tabBar.tintColor = [[ThemeManager sharedTheme] orangeColor];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [[ThemeManager sharedTheme] orangeColor], NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[[ThemeManager sharedTheme] disabledGrayTextColor], NSForegroundColorAttributeName, nil]
+                                             forState:UIControlStateNormal];
     self.tabBar.backgroundColor = [UIColor whiteColor];
-    
     
     NSArray *tabBarItemImages = @[@"messages", @"contacts", @"profile"];
     NSArray *titles = @[@"Inbox", @"Contacts", @"Profile"];
     [self.viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-active.png",
-                                                      [tabBarItemImages objectAtIndex:idx]]];
-        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-inactive.png",
-                                                        [tabBarItemImages objectAtIndex:idx]]];
+        UIImage *unselectedimage = [[UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-active.png",
+                                                      [tabBarItemImages objectAtIndex:idx]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *selectedimage = [[UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-inactive.png", [tabBarItemImages objectAtIndex:idx]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:titles[idx] image:selectedimage selectedImage:unselectedimage];
         UIViewController *viewController = self.viewControllers[idx];
         viewController.tabBarItem = tabBarItem;

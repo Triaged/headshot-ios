@@ -45,6 +45,8 @@
 		96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */; };
 		96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9E19577EE300E77CFD /* SettingsViewController.m */; };
 		96D37F4819608C7900212CDF /* TRAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D37F4719608C7800212CDF /* TRAvatarImageView.m */; };
+		96D4ECAE1976CB9400234ECF /* ContactsContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4ECAD1976CB9400234ECF /* ContactsContainerViewController.m */; };
+		96D4ECB11977116500234ECF /* TRSearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4ECB01977116500234ECF /* TRSearchDisplayController.m */; };
 		96D4F23A196463DE00147DEB /* UIViewController+BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */; };
 		96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F23D196465E800147DEB /* AnalyticsManager.m */; };
 		96D4F2411964860700147DEB /* VersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F2401964860700147DEB /* VersionManager.m */; };
@@ -216,6 +218,10 @@
 		96C2CF9E19577EE300E77CFD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		96D37F4619608C7800212CDF /* TRAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAvatarImageView.h; sourceTree = "<group>"; };
 		96D37F4719608C7800212CDF /* TRAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAvatarImageView.m; sourceTree = "<group>"; };
+		96D4ECAC1976CB9400234ECF /* ContactsContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsContainerViewController.h; sourceTree = "<group>"; };
+		96D4ECAD1976CB9400234ECF /* ContactsContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsContainerViewController.m; sourceTree = "<group>"; };
+		96D4ECAF1977116500234ECF /* TRSearchDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSearchDisplayController.h; sourceTree = "<group>"; };
+		96D4ECB01977116500234ECF /* TRSearchDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRSearchDisplayController.m; sourceTree = "<group>"; };
 		96D4F238196463DE00147DEB /* UIViewController+BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackViewController.h"; sourceTree = "<group>"; };
 		96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackViewController.m"; sourceTree = "<group>"; };
 		96D4F23C196465E800147DEB /* AnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyticsManager.h; sourceTree = "<group>"; };
@@ -415,6 +421,8 @@
 				96D4F2401964860700147DEB /* VersionManager.m */,
 				960A8EF7197041BD00CFBCEC /* FileLogManager.h */,
 				960A8EF8197041BD00CFBCEC /* FileLogManager.m */,
+				96D4ECAF1977116500234ECF /* TRSearchDisplayController.h */,
+				96D4ECB01977116500234ECF /* TRSearchDisplayController.m */,
 			);
 			name = other;
 			sourceTree = "<group>";
@@ -804,6 +812,8 @@
 				CB0E71AC1948BA5E002B2B58 /* ContactSectionViewController.h */,
 				CB0E71AD1948BA5E002B2B58 /* ContactSectionViewController.m */,
 				CB0E71AE1948BA5E002B2B58 /* ContactSectionViewController.xib */,
+				96D4ECAC1976CB9400234ECF /* ContactsContainerViewController.h */,
+				96D4ECAD1976CB9400234ECF /* ContactsContainerViewController.m */,
 			);
 			name = contacts;
 			sourceTree = "<group>";
@@ -1029,10 +1039,12 @@
 				964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */,
 				96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */,
 				CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */,
+				96D4ECB11977116500234ECF /* TRSearchDisplayController.m in Sources */,
 				964A6BDD194E5E120024B3C2 /* OnboardJobViewController.m in Sources */,
 				9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */,
 				CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */,
 				CBB488AA1961C9AE00612C22 /* AvailabilityCell.m in Sources */,
+				96D4ECAE1976CB9400234ECF /* ContactsContainerViewController.m in Sources */,
 				9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */,
 				96696333194B6CF7003B22B5 /* Constants.m in Sources */,
 				CBBA68D8192FE0B5005A6949 /* EmployeeInfo.m in Sources */,

@@ -186,7 +186,6 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     searchBar.showsScopeBar = YES;
-    [searchBar sizeToFit];
     [searchBar setShowsCancelButton:YES animated:YES];
     
     return YES;
@@ -194,7 +193,6 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
     searchBar.showsScopeBar = NO;
-    [searchBar sizeToFit];
     [searchBar setShowsCancelButton:NO animated:YES];
     
     return YES;

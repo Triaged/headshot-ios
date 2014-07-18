@@ -7,6 +7,7 @@
 //
 
 #import "ContactViewController.h"
+#import <BlocksKit+UIKit.h>
 #import "EmployeeInfo.h"
 #import "OfficeLocation.h"
 #import "MessageThreadViewController.h"
