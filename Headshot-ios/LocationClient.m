@@ -1,4 +1,4 @@
-//
+ //
 //  Geofencer.m
 //  Headshot-ios
 //
@@ -95,17 +95,28 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
     if (status == kCLAuthorizationStatusNotDetermined) {
         return;
     }
-    if (self.locationPermissionRequestBlock) {
-        self.locationPermissionRequestBlock(status);
-        self.locationPermissionRequestBlock = nil;
-    }
+    
     //    change location permission
     User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
     NSNumber *currentLocationPermission = user.sharingOfficeLocation;
-    BOOL deniedOfficeLocationPermission = user.sharingOfficeLocation && !user.sharingOfficeLocation.boolValue;
-    user.sharingOfficeLocation = @((status == kCLAuthorizationStatusAuthorized) && !deniedOfficeLocationPermission);
+    BOOL firstLocationPermissionRequest = ![[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasRequestedLocationPermission];
+    if (firstLocationPermissionRequest) {
+        user.sharingOfficeLocation = @(status == kCLAuthorizationStatusAuthorized);
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsHasRequestedLocationPermission];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else {
+//        sharingOfficeLocation could be NO if user toggles off location permissions in app or denies system location permissions
+        BOOL deniedOfficeLocationPermission = user.sharingOfficeLocation && !user.sharingOfficeLocation.boolValue;
+        user.sharingOfficeLocation = @((status == kCLAuthorizationStatusAuthorized) && !deniedOfficeLocationPermission);
+    }
     if (!currentLocationPermission || ![user.sharingOfficeLocation isEqualToNumber:currentLocationPermission]) {
         [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:nil failure:nil];
+    }
+    
+    if (self.locationPermissionRequestBlock) {
+        self.locationPermissionRequestBlock(status);
+        self.locationPermissionRequestBlock = nil;
     }
 }
 
