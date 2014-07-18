@@ -107,6 +107,7 @@
         NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
         [formData appendPartWithFileData:imageData name:@"user[avatar]" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
     } completion:^(id responseObject, NSError *error) {
+        [Account updatedObjectWithRawJSONDictionary:responseObject inManagedObjectContext:self.managedObjectContext];
         if (completion) {
             completion(image, error);
         }
