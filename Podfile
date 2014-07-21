@@ -25,3 +25,4 @@ pod 'ECPhoneNumberFormatter', :git => 'https://github.com/enriquez/ECPhoneNumber
 pod 'Mixpanel'
 pod 'CocoaLumberjack'
 pod 'SinchRTC'
+pod 'MZFayeClient'

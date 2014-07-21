@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Base64 (1.0.1)
   - BlocksKit (2.2.3):
     - BlocksKit/All
   - BlocksKit/All (2.2.3):
@@ -81,6 +82,9 @@ PODS:
   - MRProgress/Stopable (0.5.1):
     - MRProgress/Helper
   - MRProgress/WeakProxy (0.5.1)
+  - MZFayeClient (1.0.0):
+    - Base64 (~> 1.0.1)
+    - SocketRocket (~> 0.3.1-beta2)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core
     - NJKWebViewProgress/ProgressView
@@ -95,6 +99,7 @@ PODS:
   - SLRESTfulCoreData (1.9.1):
     - AFNetworking (~> 2.3.1)
     - SLCoreDataStack (~> 0.6.0)
+  - SocketRocket (0.3.1-beta2)
   - SSKeychain (1.2.2)
   - SVProgressHUD (HEAD based on 1.0)
   - SVWebViewController (HEAD based on 1.0)
@@ -114,6 +119,7 @@ DEPENDENCIES:
   - MagicalRecord
   - Mixpanel
   - MRProgress (~> 0.2)
+  - MZFayeClient
   - NJKWebViewProgress
   - NSDate+TimeAgo
   - PMEDatePicker (~> 0.0.1)
@@ -140,6 +146,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
+  Base64: c6d74f31f150543b246a07e180ba813c88e59311
   BlocksKit: 07c8a80f04275efac6a5f8b973782489c083a182
   CMNavBarNotificationView: e608a0dbbe3ccd7a851eebebc9a0a2b018da6631
   CocoaLumberjack: 94accd5749f5c5d15134c8d50f34a973aed8ef69
@@ -150,14 +157,16 @@ SPEC CHECKSUMS:
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
   Mixpanel: 8cdf6fc831ae1f7515f0d8164dcc381990e0a23a
   MRProgress: 7853c177e7d79b90e6f0910561967ebcf3289eb1
+  MZFayeClient: 0db6ba1b0408ff4e26f1bbe31d06ee6934f036b6
   NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1
   NSDate+TimeAgo: f3533e0198fab05b716368b19f8c2185d53d6f3b
   PMEDatePicker: a44e15d953cf7c568d2546914d088463431f1f18
   RDVTabBarController: 252dafb16725f9a07026618ff51acf06a12b206b
   SGNavigationProgress: 6c38006ca3c652618411c67d493b263343d5aece
-  SinchRTC: 5308a9146558a7aac2ea5f843d75c0ec23008516
+  SinchRTC: ddb7777f4a47197f84e7ae8ecd239e2ac4d219e2
   SLCoreDataStack: 3cbb4bc9ea1f0ba6d7a3a382b1d0cf879b5f3cd4
   SLRESTfulCoreData: 4933bf01fc97fdd3c50c7786fdda6c483f1136c3
+  SocketRocket: 79a68ae186063c65e1fe6f638b1ae2927aa5f304
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   SVWebViewController: fbf917baa92744c54cfb89a52a4c056e409973a4

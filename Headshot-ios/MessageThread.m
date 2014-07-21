@@ -13,8 +13,9 @@
 @implementation MessageThread
 
 @dynamic lastMessageTimeStamp;
-@dynamic recipient;
+@dynamic recipients;
 @dynamic messages;
+@dynamic identifier;
 
 - (Message *)lastMessage
 {

@@ -174,7 +174,7 @@
         
         thread = [MessageThread MR_createEntity];
         thread.lastMessageTimeStamp = [NSDate date];
-        thread.recipient = recipient;
+//        thread.recipient = recipient;
         
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     }

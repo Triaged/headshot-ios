@@ -15,8 +15,9 @@
 
 @property (readonly) Message *lastMessage;
 @property (nonatomic, retain) NSDate * lastMessageTimeStamp;
-@property (nonatomic, retain) User *recipient;
+@property (nonatomic, retain) NSSet *recipients;
 @property (nonatomic, retain) NSSet *messages;
+@property (nonatomic, retain) NSString *identifier;
 @end
 
 @interface MessageThread (CoreDataGeneratedAccessors)
@@ -25,5 +26,7 @@
 - (void)removeMessagesObject:(NSManagedObject *)value;
 - (void)addMessages:(NSSet *)values;
 - (void)removeMessages:(NSSet *)values;
+- (void)addRecipients:(NSSet *)values;
+- (void)removeRecipients:(NSSet *)values;
 
 @end

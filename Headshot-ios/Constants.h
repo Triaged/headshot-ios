@@ -9,6 +9,8 @@ typedef enum {
 extern ServerEnvironment CurrentServerEnvironment;
 extern NSString * const HeadshotAPIBaseURLString;
 extern NSString * const StagingAPIBaseURLString;
+NSString * const ProductionMessageServerURLString;
+NSString * const StagingMessageServerURLString;
 extern NSString * const SinchProductionAppKey;
 extern NSString * const SinchProductionAppSecret;
 extern NSString * const SinchProdunctionEnvironmentHost;

@@ -108,7 +108,8 @@
     BOOL pop = NO;
     if (self.backViewController && [self.backViewController isKindOfClass:[MessageThreadViewController class]]) {
         MessageThreadViewController *messageThreadViewController = (MessageThreadViewController *)self.backViewController;
-        pop = [messageThreadViewController.messageThread.recipient.identifier isEqual:self.user.identifier];
+        User *recipient = [messageThreadViewController.messageThread.recipients anyObject];
+        pop = [recipient.identifier isEqual:self.user.identifier];
     }
     if (pop) {
         [self.navigationController popViewControllerAnimated:YES];

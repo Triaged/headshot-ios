@@ -13,6 +13,7 @@
 #import "ContactViewController.h"
 #import "NotificationManager.h"
 #import "HeadshotAPIClient.h"
+#import "MessageClient.h"
 #import "TRAvatarImageView.h"
 
 @interface MessageThreadViewController ()
@@ -48,16 +49,22 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (id)initWithRecipient:(User *)recipient
 {
-    MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];
-    if (thread == nil) {
+    [[MessageClient sharedClient] createMessageThreadWithRecipients:@[[AppDelegate sharedDelegate].store.currentAccount.currentUser, recipient] completion:^(MessageThread *messageThread, NSError *error) {
         
+    }];
+//    MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];
+    NSSet *ids = [NSSet setWithObjects:recipient, [AppDelegate sharedDelegate].store.currentAccount.currentUser, nil];
+    
+    NSArray *threads = [MessageThread MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"%@ IN recipients", [ids valueForKey:@"identifier"]]];
+    MessageThread *thread;
+    if (!threads.count) {
         thread = [MessageThread MR_createEntity];
-        thread.lastMessageTimeStamp = [NSDate date];
-        thread.recipient = recipient;
-        
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        thread.recipients = [NSSet setWithObjects:recipient, [AppDelegate sharedDelegate].store.currentAccount.currentUser, nil];
+        [[MessageClient sharedClient] createMessageThreadWithRecipients:thread.recipients.allObjects completion:^(MessageThread *messageThread, NSError *error) {
+            self.messageThread = messageThread;
+        }];
     }
-    self = [self initWithMessageThread:thread];
+    self = [self initWithMessageThread:nil];
     return self;
 }
 
@@ -65,7 +72,8 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = self.messageThread.recipient.fullName;
+    User *recipient = [self.messageThread.recipients anyObject];
+    self.title = recipient.fullName;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     
     NSString *sendTitle = NSLocalizedString(@"Send", @"Text for the send button on the messages view toolbar");
@@ -197,7 +205,8 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 
 -(void)showContact {
-    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:self.messageThread.recipient];
+    User *recipient = [self.messageThread.recipients anyObject];
+    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:recipient];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:contactVC animated:YES];
 }
@@ -249,21 +258,24 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (void)sendMessage:(Message *)message
 {
-    SINOutgoingMessage *sinMessage = [SINOutgoingMessage messageWithRecipient:self.messageThread.recipient.identifier text:message.text];
-    message.uniqueID = sinMessage.messageId;
+//    SINOutgoingMessage *sinMessage = [SINOutgoingMessage messageWithRecipient:self.messageThread.recipient.identifier text:message.text];
+//    message.uniqueID = sinMessage.messageId;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-    [self.messageQueue addObject:message.uniqueID];
+//    [self.messageQueue addObject:message.uniqueID];
+    [[MessageClient sharedClient] sendMessage:message withCompletion:^(NSDictionary *responseObject, NSError *error) {
+        
+    }];
     [self startProgressBar];
-    if (!self.messageThread.recipient.installedApp.boolValue) {
-        [self.messageThread.recipient emailMessage:message.text withCompletion:^(NSError *error) {
-            [self finishProgressBar];
-            [self.messageQueue removeObject:message.uniqueID];
-        }];
-    }
-    else {
-        [[SinchClient sharedClient].client.messageClient sendMessage:sinMessage];
-    }
-    [[AnalyticsManager sharedManager] messageSentToRecipient:self.messageThread.recipient.identifier];
+//    if (!self.messageThread.recipient.installedApp.boolValue) {
+//        [self.messageThread.recipient emailMessage:message.text withCompletion:^(NSError *error) {
+//            [self finishProgressBar];
+//            [self.messageQueue removeObject:message.uniqueID];
+//        }];
+//    }
+//    else {
+//        [[SinchClient sharedClient].client.messageClient sendMessage:sinMessage];
+//    }
+//    [[AnalyticsManager sharedManager] messageSentToRecipient:self.messageThread.recipient.identifier];
 }
 
 - (void)resendMessage:(Message *)message

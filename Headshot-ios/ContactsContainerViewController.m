@@ -73,6 +73,16 @@
     [super viewWillAppear:animated];
     [[AppDelegate sharedDelegate].window.rootViewController.view addSubview:self.searchBar];
     [self setSearchBarHidden:YES animated:NO completion:nil];
+    Company *company = [AppDelegate sharedDelegate].store.currentAccount.currentUser.company;
+    if (company.logoURL) {
+        UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        titleView.backgroundColor = [UIColor blackColor];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:titleView.bounds];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [imageView setImageWithURL:[NSURL URLWithString:company.logoURL] placeholderImage:[UIImage imageNamed:@"bubble_stroked"]];
+//        [titleView addSubview:imageView];
+        self.navigationItem.titleView = titleView;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated

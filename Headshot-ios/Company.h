@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString *logoURL;
 @property (nonatomic, retain) NSNumber * usesDepartments;
 @property (nonatomic, retain) NSSet *officeLocations;
 @property (nonatomic, retain) NSSet *departments;

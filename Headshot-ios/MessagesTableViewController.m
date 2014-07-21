@@ -13,6 +13,7 @@
 #import "NewThreadTableViewController.h"
 #import "MessageThreadPreviewCell.h"
 #import "UITableView+NXEmptyView.h"
+#import "MessageClient.h"
 
 @interface MessagesTableViewController () <NewThreadTableViewControllerDelegate>
 
@@ -45,6 +46,8 @@
 {
     [super viewWillAppear:animated];
     [self reloadData];
+    [[MessageClient sharedClient].fayeClient connect];
+    [[MessageClient sharedClient] subscribeForUserID:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
 }
 
 - (void)reloadData
@@ -152,7 +155,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     MessageThread *thread = [self threadAtIndexPath:indexPath];
+    Message *message = [thread.messages anyObject];
+    [[MessageClient sharedClient] sendMessage:message withCompletion:^(NSDictionary *responseObject, NSError *error) {
+        
+    }];
     
     MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
