@@ -10,6 +10,7 @@
 
 @interface NSDate (BadgeFormattedDate)
 
++ (NSDate *)dateFromFormattedString:(NSString *)formattedString;
 - (NSString *)badgeFormattedDate;
 
 @end

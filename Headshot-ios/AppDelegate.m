@@ -13,6 +13,7 @@
 #import "TRBackgroundQueue.h"
 #import "LocationClient.h"
 #import "SinchClient.h"
+#import "MessageClient.h"
 #import "CredentialStore.h"
 #import "NotificationManager.h"
 #import "OnboardNavigationController.h"
@@ -82,6 +83,7 @@
 {
     [[SinchClient sharedClient].client start];
     [[SinchClient sharedClient].client startListeningOnActiveConnection];
+    [[MessageClient sharedClient] start];
     [[VersionManager sharedManager] notifyOfUpdate];
     [[AnalyticsManager sharedManager] appForeground];
 }

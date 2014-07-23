@@ -75,6 +75,9 @@
             message.completionBlock(messageData, nil);
         }
     }
+    if ([self.messageDelegate respondsToSelector:@selector(fayeClient:didReceiveMessage:fromChannel:)]) {
+        [self.messageDelegate fayeClient:self didReceiveMessage:messageData fromChannel:channel];
+    }
 }
 
 - (void)subscribeToChannel:(NSString *)channel autoSubscribe:(BOOL)autoSubscribe

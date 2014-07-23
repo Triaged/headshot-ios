@@ -15,11 +15,11 @@ NSString * const SinchStagingEnvironmentHost = @"sandbox.sinch.com";
 ServerEnvironment CurrentServerEnvironment = ServerEnvironmentStaging;
 
 NSString * const kReceivedNewMessageNotification = @"ReceivedNewMessageNotification";
-
 NSString * const kRequestAuthorizationErrorNotification = @"RequestAuthorizationNotification";
 NSString * const kMessageFailedNotification = @"MessageFailedNotification";
 NSString * const kMessageSentNotification = @"MessageSentNotification";
 NSString * const kHasStoredCompanyNotification = @"HasStoredCompany";
+NSString * const kUserLogginInNotification = @"UserLoggiedIn";
 
 NSString * const kUserDefaultsHasRequestedLocationPermission = @"HasRequestedLocationPermission";
 NSString * const kUserDefaultsHasRequestedPushPermission = @"HasRequestedPushPermission";

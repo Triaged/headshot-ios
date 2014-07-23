@@ -24,6 +24,7 @@ extern NSString * const kRequestAuthorizationErrorNotification;
 extern NSString * const kMessageFailedNotification;
 extern NSString * const kMessageSentNotification;
 extern NSString * const kHasStoredCompanyNotification;
+extern NSString * const kUserLogginInNotification;
 
 
 //user defaults

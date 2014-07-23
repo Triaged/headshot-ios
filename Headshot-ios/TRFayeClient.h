@@ -10,9 +10,18 @@
 
 typedef void (^TRFayeMessageCompletionBlock)(NSDictionary *responseObject, NSError *error);
 
+@class TRFayeClient;
+@protocol TRFayeClientMessageDelegate <NSObject>
+
+- (void)fayeClient:(TRFayeClient *)fayeClient didReceiveMessage:(NSDictionary *)messageData fromChannel:(NSString *)channel;
+
+@end
+
 @interface TRFayeClient : MZFayeClient <MZFayeClientDelegate>
 
 - (void)sendMessage:(NSDictionary *)message toChannel:(NSString *)channel usingExtension:(NSDictionary *)extension withCompletion:(TRFayeMessageCompletionBlock)completion;
 - (void)subscribeToChannel:(NSString *)channel autoSubscribe:(BOOL)autoSubscribe;
+
+@property (weak, nonatomic) id<TRFayeClientMessageDelegate> messageDelegate;
 
 @end

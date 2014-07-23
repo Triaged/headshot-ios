@@ -12,12 +12,13 @@
 #import "MessageThread.h"
 #import "User.h"
 
-@interface MessageClient : NSObject
+@interface MessageClient : NSObject <TRFayeClientMessageDelegate>
 
 @property (strong, nonatomic) TRFayeClient *fayeClient;
 @property (strong, nonatomic) AFHTTPSessionManager *httpClient;
 
 + (instancetype)sharedClient;
+- (void)start;
 - (void)subscribeForUserID:(NSString *)userID;
 - (void)sendMessage:(Message *)message withCompletion:(TRFayeMessageCompletionBlock)completion;
 - (void)createMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion;

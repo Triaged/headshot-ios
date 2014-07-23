@@ -108,7 +108,7 @@
         // Set Auth Code
         NSString *authToken = [JSON valueForKeyPath:@"authentication_token"];
         Account *account = [Account updatedObjectWithRawJSONDictionary:JSON inManagedObjectContext:[TRDataStoreManager sharedInstance].mainThreadManagedObjectContext];
-        [[CredentialStore sharedClient] setAuthToken:authToken];
+        [[CredentialStore sharedStore] setAuthToken:authToken];
         [[AppDelegate sharedDelegate].store userLoggedInWithAccount:account];
         [SVProgressHUD dismiss];
         [self didLogin];

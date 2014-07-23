@@ -10,6 +10,12 @@
 #import "NSDate+BadgeFormattedDate.h"
 #import "CredentialStore.h"
 
+@interface MessageClient()
+
+@property (strong, nonatomic) NSDictionary *authExtension;
+
+@end
+
 @implementation MessageClient
 
 + (instancetype)sharedClient
@@ -32,32 +38,50 @@
     NSString *fayeURLString = [NSString stringWithFormat:@"ws://%@/streaming", urlString];
     NSString *httpURLString = [NSString stringWithFormat:@"http://%@/api/v1", urlString];
     self.fayeClient = [[TRFayeClient alloc] initWithURL:[NSURL URLWithString:fayeURLString]];
-
-    
-    
+    self.fayeClient.messageDelegate = self;
     self.httpClient = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:httpURLString]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUserLoggedInNotification:) name:kUserLogginInNotification object:nil];
     return self;
+}
+
+- (void)start
+{
+    BOOL loggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
+    if (loggedIn) {
+        [self setAuthorizationHeader];
+        [self subscribeForUserID:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
+    }
+}
+
+- (void)setAuthorizationHeader
+{
+    NSString *authToken = [CredentialStore sharedStore].authToken;
+    NSString *userID = [AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier;
+    [self.httpClient.requestSerializer setValue:authToken forHTTPHeaderField:@"authorization"];
+    [self.httpClient.requestSerializer setValue:userID forHTTPHeaderField:@"user_id"];
+    self.authExtension = @{@"auth_token" : authToken, @"user_id" : userID };
+}
+
+- (void)receivedUserLoggedInNotification:(NSNotification *)notification
+{
+    NSAssert([CredentialStore sharedStore].authToken, @"Must have auth token if logged in");
+    NSAssert([AppDelegate sharedDelegate].store.currentAccount, @"Must have an account if logged in");
+    NSAssert(([AppDelegate sharedDelegate].store.currentAccount.currentUser), @"Must have a user if logged in");
+    [self start];
 }
      
 
 - (void)subscribeForUserID:(NSString *)userID
 {
     NSString *channel = [NSString stringWithFormat:@"/users/messages/%@", userID];
-    [self.fayeClient setExtension:[self fayeExtension] forChannel:channel];
+    [self.fayeClient setExtension:self.authExtension forChannel:channel];
     [self.fayeClient subscribeToChannel:channel autoSubscribe:YES];
-}
-     
--(NSDictionary *)fayeExtension{
-    NSString *userID = [AppDelegate sharedDelegate].store.currentAccount.identifier;
-    CredentialStore *store = [[CredentialStore alloc] init];
-    NSString *authToken = [store authToken];
-    return @{@"auth_token" : authToken, @"user_id" : userID };
 }
 
 - (void)sendMessage:(Message *)message withCompletion:(TRFayeMessageCompletionBlock)completion
 {
     NSString *channel = [NSString stringWithFormat:@"/threads/messages/%@", message.messageThread.identifier];
-    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : [NSDate date].badgeFormattedDate}} toChannel:channel usingExtension:[self fayeExtension] withCompletion:completion];
+    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : [NSDate date].badgeFormattedDate}} toChannel:channel usingExtension:self.authExtension withCompletion:completion];
 }
 
 - (void)createMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion
@@ -78,6 +102,52 @@
             completion(nil, error);
         }
     }];
+}
+
+#pragma mark - Message Client Delegate
+- (void)fayeClient:(TRFayeClient *)fayeClient didReceiveMessage:(NSDictionary *)messageData fromChannel:(NSString *)channel
+{
+    NSString *messageThreadKey = @"message_thread";
+    if (![messageData.allKeys containsObject:messageThreadKey]) {
+        return;
+    }
+    
+    NSDictionary *messageThreadData = messageData[messageThreadKey];
+    MessageThread *thread = [self findOrCreateMessageThreadWithData:messageThreadData inManagedObjectContext:[NSManagedObjectContext MR_defaultContext]];
+    
+    
+}
+
+- (MessageThread *)findOrCreateMessageThreadWithData:(NSDictionary *)messageThreadData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+{
+    NSString *identifier = messageThreadData[@"_id"];
+    NSArray *messagesData = messageThreadData[@"messages"];
+    NSArray *usersData = messageThreadData[@"user_ids"];
+    MessageThread *messageThread = [MessageThread MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:identifier inContext:managedObjectContext];
+    if (!messageThread) {
+        messageThread = [MessageThread MR_createInContext:managedObjectContext];
+    }
+    for (NSDictionary *messageData in messagesData) {
+        Message *message = [self findOrCreateMessageWithData:messageData inManagedObjectContext:managedObjectContext];
+        message.messageThread = messageThread;
+    }
+//  TODO - update user data
+    return messageThread;
+}
+
+- (Message *)findOrCreateMessageWithData:(NSDictionary *)messageData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+{
+    NSString *messageID = messageData[@"_id"];
+    NSString *author_id = messageData[@"author_id"];
+    NSString *body = messageData[@"body"];
+    NSString *timestamp = messageData[@"timestamp"];
+    User *author = [User MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:author_id];
+    NSAssert(author, @"Author must exist in core data");
+    Message *message = [Message MR_findFirstByAttribute:NSStringFromSelector(@selector(messageID)) withValue:messageID];
+    message.messageText = body;
+    message.author = author;
+    message.timestamp = [NSDate dateFromFormattedString:timestamp];
+    return message;
 }
      
      

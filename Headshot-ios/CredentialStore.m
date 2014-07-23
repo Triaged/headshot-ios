@@ -16,14 +16,14 @@
 
 @implementation CredentialStore
 
-+ (instancetype)sharedClient {
-    static CredentialStore *_sharedClient = nil;
++ (instancetype)sharedStore {
+    static CredentialStore *_sharedStore = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[CredentialStore alloc] init];
+        _sharedStore = [[CredentialStore alloc] init];
     });
     
-    return _sharedClient;
+    return _sharedStore;
 }
 
 - (BOOL)isLoggedIn {

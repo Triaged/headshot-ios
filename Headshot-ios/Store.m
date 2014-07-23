@@ -36,7 +36,7 @@
     if (!self) {
         return nil;
     }
-    if ([[CredentialStore sharedClient] isLoggedIn]) {
+    if ([[CredentialStore sharedStore] isLoggedIn]) {
         if (![self currentAccount]) {
             [self fetchRemoteUserAccount];
         } else {
@@ -74,6 +74,7 @@
     [self setUpAccount:account];
     [[AnalyticsManager sharedManager] setupForUser];
     [[AnalyticsManager sharedManager] login];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserLogginInNotification object:nil userInfo:nil];
 }
 
 - (void)setUpAccount:(Account *)account
@@ -114,7 +115,7 @@
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     [[SinchClient sharedClient] logoutOfSinchClient];
     [[TRDataStoreManager sharedInstance] resetPersistentStore];
-    [[CredentialStore sharedClient] clearSavedCredentials];
+    [[CredentialStore sharedStore] clearSavedCredentials];
     [[AppDelegate sharedDelegate] showLogin];
 }
 
