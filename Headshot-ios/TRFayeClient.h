@@ -14,6 +14,8 @@ typedef void (^TRFayeMessageCompletionBlock)(NSDictionary *responseObject, NSErr
 @protocol TRFayeClientMessageDelegate <NSObject>
 
 - (void)fayeClient:(TRFayeClient *)fayeClient didReceiveMessage:(NSDictionary *)messageData fromChannel:(NSString *)channel;
+@optional
+- (void)fayeClient:(TRFayeClient *)fayeClient didAcknowledgeMessage:(NSDictionary *)messageData fromChannel:(NSString *)channel;
 
 @end
 

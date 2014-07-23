@@ -36,6 +36,7 @@
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
 		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
 		9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669633A194E262F003B22B5 /* EmailLoginViewController.m */; };
+		968120E619805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 968120E519805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m */; };
 		968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */; };
 		9684363A1961E3FD0001259F /* CommonMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436371961E3FD0001259F /* CommonMacros.m */; };
 		9684363B1961E3FD0001259F /* JAGrandCentralDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436391961E3FD0001259F /* JAGrandCentralDispatch.m */; };
@@ -201,6 +202,8 @@
 		96696336194E2018003B22B5 /* FormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormView.m; sourceTree = "<group>"; };
 		96696339194E262F003B22B5 /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		9669633A194E262F003B22B5 /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
+		968120E419805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MessageThread+RecipientsExcludeCurrent.h"; sourceTree = "<group>"; };
+		968120E519805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MessageThread+RecipientsExcludeCurrent.m"; sourceTree = "<group>"; };
 		968254DC195494770036955A /* NSDate+BadgeFormattedDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BadgeFormattedDate.h"; sourceTree = "<group>"; };
 		968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BadgeFormattedDate.m"; sourceTree = "<group>"; };
 		968436361961E3FD0001259F /* CommonMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMacros.h; sourceTree = "<group>"; };
@@ -453,6 +456,8 @@
 				96467B83195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m */,
 				96D4F238196463DE00147DEB /* UIViewController+BackViewController.h */,
 				96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */,
+				968120E419805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.h */,
+				968120E519805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -1081,6 +1086,7 @@
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
 				9684363A1961E3FD0001259F /* CommonMacros.m in Sources */,
 				968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */,
+				968120E619805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m in Sources */,
 				CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */,
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,
 				96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */,

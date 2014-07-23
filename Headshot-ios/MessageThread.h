@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSSet *recipients;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) NSString *identifier;
+
 @end
 
 @interface MessageThread (CoreDataGeneratedAccessors)

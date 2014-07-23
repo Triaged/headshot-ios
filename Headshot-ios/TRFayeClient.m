@@ -66,17 +66,26 @@
 - (void)fayeClient:(MZFayeClient *)client didReceiveMessage:(NSDictionary *)messageData fromChannel:(NSString *)channel
 {
     NSString *uuid = messageData[@"guid"];
+    BOOL messageAcknowledgment = NO;
     if (uuid) {
         TRFayeMessage *message = self.sentMessages[uuid];
         if (message) {
+            messageAcknowledgment = YES;
             [self.sentMessages removeObjectForKey:uuid];
         }
         if (message && message.completionBlock) {
             message.completionBlock(messageData, nil);
         }
     }
-    if ([self.messageDelegate respondsToSelector:@selector(fayeClient:didReceiveMessage:fromChannel:)]) {
-        [self.messageDelegate fayeClient:self didReceiveMessage:messageData fromChannel:channel];
+    if (messageAcknowledgment) {
+        if ([self.messageDelegate respondsToSelector:@selector(fayeClient:didAcknowledgeMessage:fromChannel:)]) {
+            [self.messageDelegate fayeClient:self didAcknowledgeMessage:messageData fromChannel:channel];
+        }
+    }
+    else {
+        if ([self.messageDelegate respondsToSelector:@selector(fayeClient:didReceiveMessage:fromChannel:)]) {
+            [self.messageDelegate fayeClient:self didReceiveMessage:messageData fromChannel:channel];
+        }
     }
 }
 

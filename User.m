@@ -26,6 +26,7 @@
 @dynamic company;
 @dynamic manager;
 @dynamic subordinates;
+@dynamic messageThreads;
 
 + (void)initialize
 {

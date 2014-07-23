@@ -49,22 +49,23 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (id)initWithRecipient:(User *)recipient
 {
-    [[MessageClient sharedClient] createMessageThreadWithRecipients:@[[AppDelegate sharedDelegate].store.currentAccount.currentUser, recipient] completion:^(MessageThread *messageThread, NSError *error) {
-        
-    }];
-//    MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];
-    NSSet *ids = [NSSet setWithObjects:recipient, [AppDelegate sharedDelegate].store.currentAccount.currentUser, nil];
-    
-    NSArray *threads = [MessageThread MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"%@ IN recipients", [ids valueForKey:@"identifier"]]];
     MessageThread *thread;
-    if (!threads.count) {
+    if (recipient.messageThreads && recipient.messageThreads.count) {
+        thread = [recipient.messageThreads anyObject];
+    }
+    else {
         thread = [MessageThread MR_createEntity];
         thread.recipients = [NSSet setWithObjects:recipient, [AppDelegate sharedDelegate].store.currentAccount.currentUser, nil];
         [[MessageClient sharedClient] createMessageThreadWithRecipients:thread.recipients.allObjects completion:^(MessageThread *messageThread, NSError *error) {
-            self.messageThread = messageThread;
+            if (error) {
+                [[[UIAlertView alloc] initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+            else {
+                self.messageThread = messageThread;
+            }
         }];
     }
-    self = [self initWithMessageThread:nil];
+    self = [self initWithMessageThread:thread];
     return self;
 }
 
@@ -72,7 +73,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    User *recipient = [self.messageThread.recipients anyObject];
+    User *recipient = [self.messageThread.recipientsExcludeUser anyObject];
     self.title = recipient.fullName;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     
@@ -132,10 +133,10 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (void)receivedNewMessageNotification:(NSNotification *)notification
 {
-    MessageThread *thread = notification.userInfo[@"thread"];
-    if ([thread.objectID isEqual:self.messageThread.objectID]) {
+//    MessageThread *thread = notification.userInfo[@"thread"];
+//    if ([thread.objectID isEqual:self.messageThread.objectID]) {
         [self fetchMessages];
-    }
+//    }
 }
 
 - (void)receivedMessageFailedNotification:(NSNotification *)notification
@@ -205,7 +206,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 
 -(void)showContact {
-    User *recipient = [self.messageThread.recipients anyObject];
+    User *recipient = [self.messageThread.recipientsExcludeUser anyObject];
     ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:recipient];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:contactVC animated:YES];
@@ -262,8 +263,8 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 //    message.uniqueID = sinMessage.messageId;
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 //    [self.messageQueue addObject:message.uniqueID];
-    [[MessageClient sharedClient] sendMessage:message withCompletion:^(NSDictionary *responseObject, NSError *error) {
-        
+    [[MessageClient sharedClient] sendMessage:message withCompletion:^(Message *message, NSError *error) {
+        [self fetchMessages];
     }];
     [self startProgressBar];
 //    if (!self.messageThread.recipient.installedApp.boolValue) {

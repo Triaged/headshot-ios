@@ -62,7 +62,7 @@
 - (void)setMessageThread:(MessageThread *)messageThread
 {
     _messageThread = messageThread;
-    User *recipient = [messageThread.recipients anyObject];
+    User *recipient = [messageThread.recipientsExcludeUser anyObject];
     self.avatarImageView.user = recipient;
     Message *lastMessage = messageThread.lastMessage;
     self.textLabel.text = recipient.fullName;

@@ -108,7 +108,7 @@
     BOOL pop = NO;
     if (self.backViewController && [self.backViewController isKindOfClass:[MessageThreadViewController class]]) {
         MessageThreadViewController *messageThreadViewController = (MessageThreadViewController *)self.backViewController;
-        User *recipient = [messageThreadViewController.messageThread.recipients anyObject];
+        User *recipient = [messageThreadViewController.messageThread.recipientsExcludeUser anyObject];
         pop = [recipient.identifier isEqual:self.user.identifier];
     }
     if (pop) {

@@ -24,6 +24,4 @@
     return [sortedMessages firstObject];
 }
 
-
-
 @end

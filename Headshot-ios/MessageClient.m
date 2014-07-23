@@ -78,10 +78,25 @@
     [self.fayeClient subscribeToChannel:channel autoSubscribe:YES];
 }
 
-- (void)sendMessage:(Message *)message withCompletion:(TRFayeMessageCompletionBlock)completion
+- (void)sendMessage:(Message *)message withCompletion:(void (^)(Message *message, NSError *error))completion
 {
     NSString *channel = [NSString stringWithFormat:@"/threads/messages/%@", message.messageThread.identifier];
-    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : [NSDate date].badgeFormattedDate}} toChannel:channel usingExtension:self.authExtension withCompletion:completion];
+    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : [NSDate date].badgeFormattedDate}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
+        if (!error) {
+//            responseObject must have a messageThread containing a single message
+            NSDictionary *messageData = responseObject[@"messageThread"][@"messages"][0];
+            message.messageID = messageData[@"_id"];
+            [message.managedObjectContext MR_saveOnlySelfAndWait];
+            if (completion) {
+                completion(message, nil);
+            }
+        }
+        else {
+            if (completion) {
+                completion(nil, error);
+            }
+        }
+    }];
 }
 
 - (void)createMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion
@@ -113,12 +128,26 @@
     }
     
     NSDictionary *messageThreadData = messageData[messageThreadKey];
-    MessageThread *thread = [self findOrCreateMessageThreadWithData:messageThreadData inManagedObjectContext:[NSManagedObjectContext MR_defaultContext]];
-    
-    
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
+    [self findOrCreateMessageThreadWithData:messageThreadData inManagedObjectContect:context withCompletion:^(BOOL created, MessageThread *messageThread, NSArray *newMessages) {
+        [context MR_saveOnlySelfAndWait];
+        if (newMessages) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:nil];
+        }
+    }];
 }
 
-- (MessageThread *)findOrCreateMessageThreadWithData:(NSDictionary *)messageThreadData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+- (void)findOrCreateMessageThreadWithData:(NSDictionary *)messageThreadData inManagedObjectContect:(NSManagedObjectContext *)context withCompletion:(void (^)(BOOL created, MessageThread *messageThread, NSArray *newMessages))completion
+{
+    BOOL threadCreated = NO;
+    NSArray *createdMessages;
+    MessageThread *thread = [self findOrCreateMessageThreadWithData:messageThreadData inManagedObjectContext:context created:&threadCreated createdMessages:&createdMessages];
+    if (completion) {
+        completion(threadCreated, thread, [NSArray arrayWithArray:createdMessages]);
+    }
+}
+
+- (MessageThread *)findOrCreateMessageThreadWithData:(NSDictionary *)messageThreadData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)created createdMessages:(NSArray **)createdMessages
 {
     NSString *identifier = messageThreadData[@"_id"];
     NSArray *messagesData = messageThreadData[@"messages"];
@@ -126,16 +155,28 @@
     MessageThread *messageThread = [MessageThread MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:identifier inContext:managedObjectContext];
     if (!messageThread) {
         messageThread = [MessageThread MR_createInContext:managedObjectContext];
+        *created = YES;
     }
+    
+    NSMutableArray *messages = [[NSMutableArray alloc] init];
     for (NSDictionary *messageData in messagesData) {
-        Message *message = [self findOrCreateMessageWithData:messageData inManagedObjectContext:managedObjectContext];
+        BOOL messageCreated = NO;
+        Message *message = [self findOrCreateMessageWithData:messageData inManagedObjectContext:managedObjectContext created:&messageCreated];
+        if (messageCreated) {
+            [messages addObject:message];
+        }
         message.messageThread = messageThread;
     }
-//  TODO - update user data
+    if (messages.count) {
+        *createdMessages = [NSArray arrayWithArray:messages];
+    }
+
+    NSArray *users = [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"identifier IN %@", usersData] inContext:managedObjectContext];
+    messageThread.recipients = [NSSet setWithArray:users];
     return messageThread;
 }
 
-- (Message *)findOrCreateMessageWithData:(NSDictionary *)messageData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+- (Message *)findOrCreateMessageWithData:(NSDictionary *)messageData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)created
 {
     NSString *messageID = messageData[@"_id"];
     NSString *author_id = messageData[@"author_id"];
@@ -144,6 +185,10 @@
     User *author = [User MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:author_id];
     NSAssert(author, @"Author must exist in core data");
     Message *message = [Message MR_findFirstByAttribute:NSStringFromSelector(@selector(messageID)) withValue:messageID];
+    if (!message) {
+        message = [Message MR_createInContext:managedObjectContext];
+        *created = YES;
+    }
     message.messageText = body;
     message.author = author;
     message.timestamp = [NSDate dateFromFormattedString:timestamp];

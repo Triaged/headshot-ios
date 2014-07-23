@@ -33,6 +33,7 @@
 @property (nonatomic, retain) NSSet *subordinates;
 @property (nonatomic, retain) OfficeLocation *currentOfficeLocation;
 @property (nonatomic, retain) OfficeLocation *primaryOfficeLocation;
+@property (nonatomic, readonly) NSSet *messageThreads;
 
 @property (readonly) NSString *nameInitials;
 

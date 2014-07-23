@@ -20,7 +20,7 @@
 + (instancetype)sharedClient;
 - (void)start;
 - (void)subscribeForUserID:(NSString *)userID;
-- (void)sendMessage:(Message *)message withCompletion:(TRFayeMessageCompletionBlock)completion;
+- (void)sendMessage:(Message *)message withCompletion:(void (^)(Message *message, NSError *error))completion;
 - (void)createMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion;
 
 @end
