@@ -80,8 +80,10 @@
 
 - (void)sendMessage:(Message *)message withCompletion:(void (^)(Message *message, NSError *error))completion
 {
+    
     NSString *channel = [NSString stringWithFormat:@"/threads/messages/%@", message.messageThread.identifier];
-    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : [NSDate date].badgeFormattedDate}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
+    NSNumber *timestamp = @([[NSDate date] timeIntervalSince1970]);
+    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : timestamp}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
         if (!error) {
 //            responseObject must have a messageThread containing a single message
             NSDictionary *messageData = responseObject[@"messageThread"][@"messages"][0];
@@ -181,7 +183,7 @@
     NSString *messageID = messageData[@"_id"];
     NSString *author_id = messageData[@"author_id"];
     NSString *body = messageData[@"body"];
-    NSString *timestamp = messageData[@"timestamp"];
+    NSNumber *timestamp = messageData[@"timestamp"];
     User *author = [User MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:author_id];
     NSAssert(author, @"Author must exist in core data");
     Message *message = [Message MR_findFirstByAttribute:NSStringFromSelector(@selector(messageID)) withValue:messageID];
@@ -191,7 +193,7 @@
     }
     message.messageText = body;
     message.author = author;
-    message.timestamp = [NSDate dateFromFormattedString:timestamp];
+    message.timestamp = [NSDate dateWithTimeIntervalSince1970:timestamp.doubleValue];
     return message;
 }
      

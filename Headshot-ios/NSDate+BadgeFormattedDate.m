@@ -10,28 +10,15 @@
 
 @implementation NSDate (BadgeFormattedDate)
 
-+ (NSDateFormatter *)badgeDateFormatter
-{
-    static NSDateFormatter *dateFormmatter = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dateFormmatter = [[NSDateFormatter alloc] init];
-        dateFormmatter.dateFormat = @"EE, d LLLL yyyy HH:mm:ss Z";
-    });
-    return dateFormmatter;
-}
-
-+ (NSDate *)dateFromFormattedString:(NSString *)formattedString
-{
-    NSDateFormatter *dateFormatter = [NSDate badgeDateFormatter];
-    return [dateFormatter dateFromString:formattedString];
-    
-}
-
 - (NSString *)badgeFormattedDate
 {
-    NSDateFormatter *dateFormat = [NSDate badgeDateFormatter];
-    return [dateFormat stringFromDate:self];
+    static NSDateFormatter *dateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"EE, d LLLL yyyy HH:mm:ss Z";
+    });
+    return [dateFormatter stringFromDate:self];
 }
 
 @end
