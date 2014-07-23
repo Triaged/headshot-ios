@@ -8,6 +8,7 @@
 
 #import "MessageClient.h"
 #import "NSDate+BadgeFormattedDate.h"
+#import "CredentialStore.h"
 
 @implementation MessageClient
 
@@ -31,21 +32,32 @@
     NSString *fayeURLString = [NSString stringWithFormat:@"ws://%@/streaming", urlString];
     NSString *httpURLString = [NSString stringWithFormat:@"http://%@/api/v1", urlString];
     self.fayeClient = [[TRFayeClient alloc] initWithURL:[NSURL URLWithString:fayeURLString]];
+
+    
+    
     self.httpClient = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:httpURLString]];
     return self;
 }
+     
 
 - (void)subscribeForUserID:(NSString *)userID
 {
     NSString *channel = [NSString stringWithFormat:@"/users/messages/%@", userID];
-//    NSString *channel = @"/users";
+    [self.fayeClient setExtension:[self fayeExtension] forChannel:channel];
     [self.fayeClient subscribeToChannel:channel autoSubscribe:YES];
+}
+     
+-(NSDictionary *)fayeExtension{
+    NSString *userID = [AppDelegate sharedDelegate].store.currentAccount.identifier;
+    CredentialStore *store = [[CredentialStore alloc] init];
+    NSString *authToken = [store authToken];
+    return @{@"auth_token" : authToken, @"user_id" : userID };
 }
 
 - (void)sendMessage:(Message *)message withCompletion:(TRFayeMessageCompletionBlock)completion
 {
     NSString *channel = [NSString stringWithFormat:@"/threads/messages/%@", message.messageThread.identifier];
-    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : [NSDate date].badgeFormattedDate}} toChannel:channel usingExtension:nil withCompletion:completion];
+    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : [NSDate date].badgeFormattedDate}} toChannel:channel usingExtension:[self fayeExtension] withCompletion:completion];
 }
 
 - (void)createMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion
@@ -67,5 +79,7 @@
         }
     }];
 }
+     
+     
 
 @end

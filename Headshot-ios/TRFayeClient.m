@@ -50,6 +50,7 @@
     self.delegate = self;
     self.sentMessages = [[NSMutableDictionary alloc] init];
     self.autoSubscribeChannels = [[NSMutableSet alloc] init];
+    
     return self;
 }
 
