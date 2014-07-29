@@ -53,9 +53,8 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
         thread = [recipient.messageThreads anyObject];
     }
     else {
-        thread = [MessageThread MR_createEntity];
-        thread.recipients = [NSSet setWithObjects:recipient, [AppDelegate sharedDelegate].store.currentAccount.currentUser, nil];
-        [[MessageClient sharedClient] createMessageThreadWithRecipients:thread.recipients.allObjects completion:^(MessageThread *messageThread, NSError *error) {
+        NSSet *recipients = [NSSet setWithObjects:recipient, [AppDelegate sharedDelegate].store.currentAccount.currentUser, nil];
+        [[MessageClient sharedClient] createMessageThreadWithRecipients:recipients.allObjects completion:^(MessageThread *messageThread, NSError *error) {
             if (error) {
                 [[[UIAlertView alloc] initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
