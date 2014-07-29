@@ -54,7 +54,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     }
     else {
         NSSet *recipients = [NSSet setWithObjects:recipient, [AppDelegate sharedDelegate].store.currentAccount.currentUser, nil];
-        [[MessageClient sharedClient] createMessageThreadWithRecipients:recipients.allObjects completion:^(MessageThread *messageThread, NSError *error) {
+        [[MessageClient sharedClient] postMessageThreadWithRecipients:recipients.allObjects completion:^(MessageThread *messageThread, NSError *error) {
             if (error) {
                 [[[UIAlertView alloc] initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
@@ -258,7 +258,9 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 - (void)sendMessage:(Message *)message
 {
     [self startProgressBar];
+    [self.messageQueue addObject:message];
     [[MessageClient sharedClient] sendMessage:message withCompletion:^(Message *message, NSError *error) {
+        [self.messageQueue removeObject:message];
         [self fetchMessages];
     }];
     [[AnalyticsManager sharedManager] messageSentToRecipient:self.messageThread.directMessageRecipient.identifier];

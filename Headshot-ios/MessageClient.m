@@ -103,21 +103,42 @@
         if (!error) {
 //            responseObject must have a messageThread containing a single message
             NSDictionary *messageData = responseObject[@"messageThread"][@"messages"][0];
-            message.messageID = messageData[@"_id"];
-            [message.managedObjectContext MR_saveOnlySelfAndWait];
-            if (completion) {
-                completion(message, nil);
-            }
+            message.messageID = messageData[@"id"];
+            message.failed = @(NO);
         }
         else {
-            if (completion) {
-                completion(nil, error);
-            }
+            message.failed = @(YES);
+        }
+        [message.managedObjectContext MR_saveOnlySelfAndWait];
+        if (completion) {
+            completion(message, error);
         }
     }];
 }
 
-- (void)createMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion
+- (void)getMessagesSinceDate:(NSDate *)date completion:(void (^)(NSArray *messages, NSArray *createdMessages, NSArray *createdMessageThreads, NSError *error))completion
+{
+    NSDictionary *parameters;
+    if (date) {
+        parameters = @{@"timestamp" : @([date timeIntervalSince1970])};
+    }
+    [self.httpClient GET:@"user/messages" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *createdThreads;
+        NSArray *createdMessages;
+        NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
+        NSArray *threads = [self findOrCreateMessageThreadsWithData:responseObject inManagedObjectContext:context createdMessageThreads:&createdThreads createdMessages:&createdMessages];
+        [context MR_saveOnlySelfAndWait];
+        if (completion) {
+            completion(threads, createdMessages, createdThreads, nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(nil, nil, nil, error);
+        }
+    }];
+}
+
+- (void)postMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion
 {
     NSDictionary *parameters = @{@"message_thread" : @{@"user_ids" : [recipients valueForKey:@"identifier"]}};
     [self.httpClient POST:@"message_threads" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -147,15 +168,41 @@
     
     NSDictionary *messageThreadData = messageData[messageThreadKey];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
-    [self findOrCreateMessageThreadWithData:messageThreadData inManagedObjectContect:context withCompletion:^(BOOL created, MessageThread *messageThread, NSArray *newMessages) {
+    [self findOrCreateMessageThreadWithData:messageThreadData inManagedObjectContext:context withCompletion:^(BOOL created, MessageThread *messageThread, NSArray *newMessages) {
         [context MR_saveOnlySelfAndWait];
         if (newMessages) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:@{@"messages" : [newMessages valueForKey:@"objectID"]}];
         }
     }];
 }
 
-- (void)findOrCreateMessageThreadWithData:(NSDictionary *)messageThreadData inManagedObjectContect:(NSManagedObjectContext *)context withCompletion:(void (^)(BOOL created, MessageThread *messageThread, NSArray *newMessages))completion
+- (NSArray *)findOrCreateMessageThreadsWithData:(NSArray *)messageThreadsData inManagedObjectContext:(NSManagedObjectContext *)context createdMessageThreads:(NSArray **)_createdMessageThreads createdMessages:(NSArray **)_createdMessages
+{
+    NSMutableArray *allThreads = [[NSMutableArray alloc] init];
+    NSMutableArray *allCreatedThreads = [[NSMutableArray alloc] init];
+    NSMutableArray *allCreatedMessages = [[NSMutableArray alloc] init];
+    for (NSDictionary *threadData in messageThreadsData) {
+        BOOL createdThread = NO;
+        NSArray *createdMessages;
+        MessageThread *thread = [self findOrCreateMessageThreadWithData:threadData inManagedObjectContext:context created:&createdThread createdMessages:&createdMessages];
+        [allThreads addObject:thread];
+        if (createdThread) {
+            [allCreatedThreads addObject:thread];
+        }
+        if (createdMessages && createdMessages.count) {
+            [allCreatedMessages addObjectsFromArray:createdMessages];
+        }
+    }
+    if (allCreatedMessages.count) {
+        *_createdMessages = [NSArray arrayWithArray:allCreatedMessages];
+    }
+    if (allCreatedThreads.count) {
+        *_createdMessageThreads = [NSArray arrayWithArray:allCreatedThreads];
+    }
+    return [NSArray arrayWithArray:allThreads];
+}
+
+- (void)findOrCreateMessageThreadWithData:(NSDictionary *)messageThreadData inManagedObjectContext:(NSManagedObjectContext *)context withCompletion:(void (^)(BOOL created, MessageThread *messageThread, NSArray *newMessages))completion
 {
     BOOL threadCreated = NO;
     NSArray *createdMessages;
@@ -165,7 +212,7 @@
     }
 }
 
-- (MessageThread *)findOrCreateMessageThreadWithData:(NSDictionary *)messageThreadData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)created createdMessages:(NSArray **)createdMessages
+- (MessageThread *)findOrCreateMessageThreadWithData:(NSDictionary *)messageThreadData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)_created createdMessages:(NSArray **)_createdMessages
 {
     NSString *identifier = messageThreadData[@"id"];
     NSArray *messagesData = messageThreadData[@"messages"];
@@ -174,7 +221,7 @@
     if (!messageThread) {
         messageThread = [MessageThread MR_createInContext:managedObjectContext];
         messageThread.identifier = identifier;
-        *created = YES;
+        *_created = YES;
     }
     
     NSMutableArray *messages = [[NSMutableArray alloc] init];
@@ -187,7 +234,7 @@
         message.messageThread = messageThread;
     }
     if (messages.count) {
-        *createdMessages = [NSArray arrayWithArray:messages];
+        *_createdMessages = [NSArray arrayWithArray:messages];
     }
 
     NSArray *users = [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"identifier IN %@", usersData] inContext:managedObjectContext];
@@ -195,7 +242,7 @@
     return messageThread;
 }
 
-- (Message *)findOrCreateMessageWithData:(NSDictionary *)messageData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)created
+- (Message *)findOrCreateMessageWithData:(NSDictionary *)messageData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)_created
 {
     NSString *messageID = messageData[@"id"];
     NSString *author_id = messageData[@"author_id"];
@@ -206,7 +253,8 @@
     Message *message = [Message MR_findFirstByAttribute:NSStringFromSelector(@selector(messageID)) withValue:messageID];
     if (!message) {
         message = [Message MR_createInContext:managedObjectContext];
-        *created = YES;
+        message.messageID = messageID;
+        *_created = YES;
     }
     message.messageText = body;
     message.author = author;

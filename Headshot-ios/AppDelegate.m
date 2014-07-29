@@ -80,6 +80,9 @@
     [[MessageClient sharedClient] start];
     [[VersionManager sharedManager] notifyOfUpdate];
     [[AnalyticsManager sharedManager] appForeground];
+    [[MessageClient sharedClient] getMessagesSinceDate:[NSDate dateWithTimeIntervalSince1970:0] completion:^(NSArray *messages, NSArray *createdMessages, NSArray *createdMessageThreads, NSError *error) {
+        
+    }];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

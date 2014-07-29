@@ -8,6 +8,7 @@
 
 #import "NotificationManager.h"
 #import <CMNavBarNotificationView.h>
+#import <MPGNotification.h>
 #import "Message.h"
 #import "MessageThread.h"
 #import "User.h"
@@ -108,8 +109,11 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 
 - (void)receivedNewMessageNotification:(NSNotification *)notification
 {
-    Message *message = notification.userInfo[@"message"];
-    MessageThread *thread = notification.userInfo[@"thread"];
+    NSArray *messages = notification.userInfo[@"messages"];
+    NSManagedObjectID *firstMessageID = [messages firstObject];
+    Message *message = (Message *)[[NSManagedObjectContext MR_contextForCurrentThread] objectWithID:firstMessageID];
+    
+    MessageThread *thread = message.messageThread;
     BOOL inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
     if (inBackground) {
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];
@@ -117,15 +121,11 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
         [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
     }
     else if (!self.visibleMessageThreadViewController || (![thread.objectID isEqual:self.visibleMessageThreadViewController.messageThread.objectID])) {
-        CMNavBarNotificationView *notificationView = [CMNavBarNotificationView notifyWithText:message.author.firstName detail:message.text image:nil duration:5 andTouchBlock:^(id object) {
+        MPGNotification *notification = [MPGNotification notificationWithTitle:message.author.firstName subtitle:message.text backgroundColor:[[ThemeManager sharedTheme] orangeColor]  iconImage:nil];
+        notification.duration = 5;
+        [notification showWithButtonHandler:^(MPGNotification *notification, NSInteger buttonIndex) {
             [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithAuthorID:message.author.identifier];
         }];
-        NSURL *avatarURL = [NSURL URLWithString:message.author.avatarFaceUrl];
-        [notificationView.imageView setImageWithURL:avatarURL];
-        
-        [notificationView setBackgroundColor:[[ThemeManager sharedTheme] orangeColor]];
-        [notificationView setTextColor:[UIColor whiteColor]];
-
     }
 }
 
