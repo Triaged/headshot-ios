@@ -27,10 +27,6 @@
 
 @end
 
-static NSString * const kJSQDemoAvatarNameCook = @"Tim Cook";
-static NSString * const kJSQDemoAvatarNameJobs = @"Jobs";
-static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
-
 @implementation MessageThreadViewController
 
 @synthesize currentUser;
@@ -71,8 +67,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    User *recipient = [self.messageThread.recipientsExcludeUser anyObject];
-    self.title = recipient.fullName;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     
     NSString *sendTitle = NSLocalizedString(@"Send", @"Text for the send button on the messages view toolbar");
@@ -117,6 +111,13 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.avatarImageSize = CGSizeMake(40, 40);
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = self.avatarImageSize;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = self.avatarImageSize;
+}
+
+- (void)setMessageThread:(MessageThread *)messageThread
+{
+    _messageThread = messageThread;
+    User *recipient = [self.messageThread.recipientsExcludeUser anyObject];
+    self.title = recipient.fullName;
 }
 
 - (void)dealloc
