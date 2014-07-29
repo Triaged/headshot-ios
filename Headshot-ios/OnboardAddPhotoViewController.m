@@ -10,6 +10,7 @@
 #import <BlocksKit/UIActionSheet+BlocksKit.h>
 #import "PhotoManager.h"
 #import "EditAvatarImageView.h"
+#import "User.h"
 
 @interface OnboardAddPhotoViewController ()
 

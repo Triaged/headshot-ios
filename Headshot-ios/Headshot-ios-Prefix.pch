@@ -20,8 +20,6 @@
     #import "UIViewController+BackViewController.h"
     #import "TRUIKit.h"
     #import "NSDate+BadgeFormattedDate.h"
-    #import "User+FindAllExcludeCurrent.h"
-    #import "MessageThread+RecipientsExcludeCurrent.h"
     #import "Theme.h"
     #import "AppDelegate.h"
     #import "Store.h"

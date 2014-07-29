@@ -10,7 +10,6 @@
 #import <CoreData/CoreData.h>
 #import "SLRESTfulCoreData.h"
 #import "HeadshotAPIClient.h"
-#import "HeadshotAPIClient.h"
 
 
 @class Company, EmployeeInfo, Department, OfficeLocation;
@@ -35,8 +34,9 @@
 @property (nonatomic, retain) OfficeLocation *primaryOfficeLocation;
 @property (nonatomic, readonly) NSSet *messageThreads;
 
-@property (readonly) NSString *nameInitials;
+@property (nonatomic, readonly) NSString *nameInitials;
 
++ (NSArray *)findAllExcludeCurrent;
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler;
 
 @end

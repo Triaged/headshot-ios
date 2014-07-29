@@ -29,14 +29,12 @@
 		964A6BE3194E6B9B0024B3C2 /* AddOfficeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE2194E6B9B0024B3C2 /* AddOfficeViewController.m */; };
 		964A6BE6194F2FB90024B3C2 /* DatePickerModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */; };
 		964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */; };
-		964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */; };
 		964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BEE194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m */; };
 		964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BF1194F93250024B3C2 /* OnboardPushPermissionViewController.m */; };
 		96696330194B5061003B22B5 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669632F194B5061003B22B5 /* NotificationManager.m */; };
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
 		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
 		9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669633A194E262F003B22B5 /* EmailLoginViewController.m */; };
-		968120E619805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 968120E519805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m */; };
 		968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */; };
 		9684363A1961E3FD0001259F /* CommonMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436371961E3FD0001259F /* CommonMacros.m */; };
 		9684363B1961E3FD0001259F /* JAGrandCentralDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436391961E3FD0001259F /* JAGrandCentralDispatch.m */; };
@@ -187,8 +185,6 @@
 		964A6BE5194F2FB90024B3C2 /* DatePickerModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerModalView.m; sourceTree = "<group>"; };
 		964A6BE7194F39620024B3C2 /* MessageThreadPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageThreadPreviewCell.h; sourceTree = "<group>"; };
 		964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThreadPreviewCell.m; sourceTree = "<group>"; };
-		964A6BEA194F6B760024B3C2 /* User+FindAllExcludeCurrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+FindAllExcludeCurrent.h"; sourceTree = "<group>"; };
-		964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+FindAllExcludeCurrent.m"; sourceTree = "<group>"; };
 		964A6BED194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardLocationPermissionViewController.h; sourceTree = "<group>"; };
 		964A6BEE194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardLocationPermissionViewController.m; sourceTree = "<group>"; };
 		964A6BF0194F93250024B3C2 /* OnboardPushPermissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardPushPermissionViewController.h; sourceTree = "<group>"; };
@@ -201,8 +197,6 @@
 		96696336194E2018003B22B5 /* FormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormView.m; sourceTree = "<group>"; };
 		96696339194E262F003B22B5 /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		9669633A194E262F003B22B5 /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
-		968120E419805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MessageThread+RecipientsExcludeCurrent.h"; sourceTree = "<group>"; };
-		968120E519805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MessageThread+RecipientsExcludeCurrent.m"; sourceTree = "<group>"; };
 		968254DC195494770036955A /* NSDate+BadgeFormattedDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BadgeFormattedDate.h"; sourceTree = "<group>"; };
 		968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BadgeFormattedDate.m"; sourceTree = "<group>"; };
 		968436361961E3FD0001259F /* CommonMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMacros.h; sourceTree = "<group>"; };
@@ -443,8 +437,6 @@
 				964A6BD0194E2C180024B3C2 /* UIView+Shadow.m */,
 				964A6BD1194E2C180024B3C2 /* UIView+Edge.h */,
 				964A6BD2194E2C180024B3C2 /* UIView+Edge.m */,
-				964A6BEA194F6B760024B3C2 /* User+FindAllExcludeCurrent.h */,
-				964A6BEB194F6B760024B3C2 /* User+FindAllExcludeCurrent.m */,
 				968254DC195494770036955A /* NSDate+BadgeFormattedDate.h */,
 				968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */,
 				962FD8181959DCEB00A313AC /* UIImage+SolidColor.h */,
@@ -453,8 +445,6 @@
 				96467B83195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m */,
 				96D4F238196463DE00147DEB /* UIViewController+BackViewController.h */,
 				96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */,
-				968120E419805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.h */,
-				968120E519805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -1048,7 +1038,6 @@
 				96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */,
 				CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */,
 				962FD81A1959DCEB00A313AC /* UIImage+SolidColor.m in Sources */,
-				964A6BEC194F6B760024B3C2 /* User+FindAllExcludeCurrent.m in Sources */,
 				96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */,
 				CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */,
 				96D4ECB11977116500234ECF /* TRSearchDisplayController.m in Sources */,
@@ -1081,7 +1070,6 @@
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
 				9684363A1961E3FD0001259F /* CommonMacros.m in Sources */,
 				968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */,
-				968120E619805BF8006AC849 /* MessageThread+RecipientsExcludeCurrent.m in Sources */,
 				CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */,
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,
 				96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */,

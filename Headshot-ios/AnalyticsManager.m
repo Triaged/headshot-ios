@@ -8,6 +8,7 @@
 
 #import "AnalyticsManager.h"
 #import <Mixpanel/Mixpanel.h>
+#import "User.h"
 
 static NSString * kMixpanelToken = @"b9c753b3560536492eba971a53213f5f";
 

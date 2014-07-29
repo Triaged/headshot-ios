@@ -9,6 +9,7 @@
 #import "LocationClient.h"
 #import "OfficeLocation.h"
 #import "FileLogManager.h"
+#import "User.h"
 
 typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 

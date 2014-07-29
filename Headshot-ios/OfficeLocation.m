@@ -8,6 +8,7 @@
 
 #import "OfficeLocation.h"
 #import "SLRESTfulCoreData.h"
+#import "User.h"
 
 
 @implementation OfficeLocation

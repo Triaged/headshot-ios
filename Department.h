@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <SLRESTfulCoreData.h>
 #import "HeadshotAPIClient.h"
 
 @class User, Company;

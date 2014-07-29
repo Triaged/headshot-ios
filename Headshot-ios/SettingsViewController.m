@@ -10,6 +10,7 @@
 #import "EditAccountViewController.h"
 #import "ChangePasswordViewController.h"
 #import "LocationClient.h"
+#import "User.h"
 
 typedef NS_ENUM(NSUInteger, SettingsSection)  {
     SettingsSectionAccount,

@@ -9,6 +9,7 @@
 #import "OnboardSelectOfficeViewController.h"
 #import "AddOfficeViewController.h"
 #import "OfficeLocation.h"
+#import "User.h"
 
 @interface OnboardSelectOfficeViewController () <AddOfficeViewControllerDelegate>
 

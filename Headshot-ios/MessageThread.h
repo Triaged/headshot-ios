@@ -13,11 +13,19 @@
 
 @interface MessageThread : NSManagedObject
 
-@property (readonly) Message *lastMessage;
 @property (nonatomic, retain) NSDate * lastMessageTimeStamp;
 @property (nonatomic, retain) NSSet *recipients;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) NSString *identifier;
+
+@property (nonatomic, readonly) Message *lastMessage;
+@property (nonatomic, readonly) BOOL isGroupThread;
+@property (nonatomic, readonly) NSSet *recipientsExcludeUser;
+
+/**
+ Recipient of a direct message with the current user. If the thread is a group message thread this is nil.
+ */
+@property (nonatomic, readonly) User *directMessageRecipient;
 
 @end
 

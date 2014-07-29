@@ -13,6 +13,7 @@
 #import "TRDataStoreManager.h"
 #import "ForgotPasswordViewController.h"
 #import "Store.h"
+#import "Account.h"
 
 @interface EmailLoginViewController () <UITextFieldDelegate>
 

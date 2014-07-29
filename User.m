@@ -24,6 +24,8 @@
 @dynamic avatarUrl;
 @dynamic employeeInfo;
 @dynamic company;
+@dynamic department;
+@dynamic currentOfficeLocation;
 @dynamic manager;
 @dynamic subordinates;
 @dynamic messageThreads;
@@ -38,8 +40,15 @@
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
 
++ (NSArray *)findAllExcludeCurrent
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier];
+    return [User MR_findAllWithPredicate:predicate];
+}
+
 - (NSString *)nameInitials
 {
     return [NSString stringWithFormat:@"%@%@", [self.firstName substringToIndex:1], [self.lastName substringToIndex:1]];
 }
+
 @end

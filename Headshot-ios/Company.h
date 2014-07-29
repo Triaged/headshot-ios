@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class User, OfficeLocation;
+@class User, OfficeLocation, Department;
 
 @interface Company : NSManagedObject
 

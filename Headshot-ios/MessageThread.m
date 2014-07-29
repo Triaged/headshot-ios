@@ -24,4 +24,21 @@
     return [sortedMessages firstObject];
 }
 
+- (NSSet *)recipientsExcludeUser
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier];
+    return [self.recipients filteredSetUsingPredicate:predicate];
+}
+
+- (BOOL)isGroupThread
+{
+    return self.recipients && self.recipients.count > 2;
+}
+
+- (User *)directMessageRecipient
+{
+    return self.isGroupThread ? nil : [self.recipientsExcludeUser anyObject];
+}
+
+
 @end
