@@ -67,7 +67,6 @@
 		CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31A81931599000CDCFD4 /* MessageThread.m */; };
 		CB1F31AC1931599100CDCFD4 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31AB1931599100CDCFD4 /* Message.m */; };
 		CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31AE19315A6700CDCFD4 /* MessageThreadViewController.m */; };
-		CB1F31B41931749D00CDCFD4 /* SinchClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31B31931749D00CDCFD4 /* SinchClient.m */; };
 		CB1F31B6193178E400CDCFD4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31B5193178E400CDCFD4 /* libsqlite3.dylib */; };
 		CB1F31B8193178EE00CDCFD4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31B7193178EE00CDCFD4 /* Security.framework */; };
 		CB1F31BA193178FF00CDCFD4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31B9193178FF00CDCFD4 /* AudioToolbox.framework */; };
@@ -264,8 +263,6 @@
 		CB1F31AB1931599100CDCFD4 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		CB1F31AD19315A6700CDCFD4 /* MessageThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageThreadViewController.h; sourceTree = "<group>"; };
 		CB1F31AE19315A6700CDCFD4 /* MessageThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThreadViewController.m; sourceTree = "<group>"; };
-		CB1F31B21931749D00CDCFD4 /* SinchClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinchClient.h; sourceTree = "<group>"; };
-		CB1F31B31931749D00CDCFD4 /* SinchClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinchClient.m; sourceTree = "<group>"; };
 		CB1F31B5193178E400CDCFD4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		CB1F31B7193178EE00CDCFD4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CB1F31B9193178FF00CDCFD4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -733,8 +730,6 @@
 				CBBA68A6192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m */,
 				CBBA68A7192FD8FD005A6949 /* HeadshotAPIClient.h */,
 				CBBA68A8192FD8FD005A6949 /* HeadshotAPIClient.m */,
-				CB1F31B21931749D00CDCFD4 /* SinchClient.h */,
-				CB1F31B31931749D00CDCFD4 /* SinchClient.m */,
 				96B69EE5197D5E5A008A7D1B /* MessageClient.h */,
 				96B69EE6197D5E5A008A7D1B /* MessageClient.m */,
 				96B69EE8197D60EF008A7D1B /* TRFayeClient.h */,
@@ -1095,7 +1090,6 @@
 				CB1F31C919325D8600CDCFD4 /* ContactViewController.m in Sources */,
 				CB04186E194A358600B3DE97 /* DepartmentCell.m in Sources */,
 				CBBA68A0192FD850005A6949 /* Store.m in Sources */,
-				CB1F31B41931749D00CDCFD4 /* SinchClient.m in Sources */,
 				96021101197443D000C03EB7 /* OnboardAddPhotoViewController.m in Sources */,
 				96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */,
 				964A6BDA194E35DE0024B3C2 /* OnboardNavigationController.m in Sources */,

@@ -10,7 +10,6 @@
 #import "HeadshotAPIClient.h"
 #import "AppDelegate.h"
 #import "CredentialStore.h"
-#import "SinchClient.h"
 #import "User.h"
 #import "NotificationManager.h"
 #import "Device.h"
@@ -90,7 +89,6 @@
     }
     
     [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:nil] postDeviceWithCompletion:nil];
-    [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
     
     [Company companyWithCompletionHandler:^(Company *company, NSError *error) {
         self.hasStoredCompany = YES;
@@ -113,7 +111,6 @@
 //    remove all user defaults
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    [[SinchClient sharedClient] logoutOfSinchClient];
     [[TRDataStoreManager sharedInstance] resetPersistentStore];
     [[CredentialStore sharedStore] clearSavedCredentials];
     [[AppDelegate sharedDelegate] showLogin];

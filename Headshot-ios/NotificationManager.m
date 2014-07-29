@@ -12,7 +12,6 @@
 #import "MessageThread.h"
 #import "User.h"
 #import "MessageThreadViewController.h"
-#import "SinchClient.h"
 #import "Device.h"
 
 typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *error);
@@ -67,9 +66,6 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    // get previously initiated Sinch client
-    id<SINClient> client = [SinchClient sharedClient].client;
-    [client registerPushNotificationData:deviceToken];
     [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:deviceToken] postDeviceWithCompletion:nil];
     if (self.remoteNotificationRegistrationCompletion) {
         self.remoteNotificationRegistrationCompletion(deviceToken, nil);
@@ -96,10 +92,9 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 
 - (void)launchMessageThreadFromNotification:(NSDictionary *)userInfo
 {
-    NSString *SIN = userInfo[@"SIN"];
-    if (SIN) {
-        NSString *userID = [[SinchClient sharedClient] userIDForSIN:SIN];
-        [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithAuthorID:userID];
+    NSString *messageThreadID = userInfo[@"thread_id"];
+    if (messageThreadID) {
+//        [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithAuthorID:userID];
     }
 }
 

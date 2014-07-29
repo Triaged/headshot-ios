@@ -9,7 +9,6 @@
 #import "MessageThreadViewController.h"
 #import <UINavigationController+SGProgress.h>
 #import "User.h"
-#import "SinchClient.h"
 #import "ContactViewController.h"
 #import "NotificationManager.h"
 #import "HeadshotAPIClient.h"

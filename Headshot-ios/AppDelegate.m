@@ -12,7 +12,6 @@
 #import "TRDataStoreManager.h"
 #import "TRBackgroundQueue.h"
 #import "LocationClient.h"
-#import "SinchClient.h"
 #import "MessageClient.h"
 #import "CredentialStore.h"
 #import "NotificationManager.h"
@@ -85,10 +84,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [[SinchClient sharedClient].client stopListeningOnActiveConnection];
-    [[SinchClient sharedClient].client stop];
-
     [MagicalRecord cleanUp];
 }
 
