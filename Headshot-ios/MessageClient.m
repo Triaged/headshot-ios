@@ -13,6 +13,7 @@
 @interface MessageClient()
 
 @property (strong, nonatomic) NSDictionary *authExtension;
+@property (strong, nonatomic) NSTimer *fayeHeartbeatTimer;
 
 @end
 
@@ -46,11 +47,26 @@
 
 - (void)start
 {
+    [self.fayeClient connect];
     BOOL loggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
     if (loggedIn) {
         [self setAuthorizationHeader];
         [self subscribeForUserID:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
+        self.fayeHeartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(fireHeartbeat:) userInfo:nil repeats:YES];
     }
+}
+
+- (void)stop
+{
+    [self.fayeClient disconnect];
+    [self.fayeHeartbeatTimer invalidate];
+}
+
+- (void)fireHeartbeat:(id)sender
+{
+    
+    NSString *heartbeatChannel = [NSString stringWithFormat:@"/users/heartbeat/%@", [AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
+    [self.fayeClient sendMessage:@{} toChannel:heartbeatChannel usingExtension:self.authExtension];
 }
 
 - (void)setAuthorizationHeader

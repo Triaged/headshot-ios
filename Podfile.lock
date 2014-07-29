@@ -51,6 +51,7 @@ PODS:
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
   - Mixpanel (2.4.0)
+  - MPGNotification (1.1.1)
   - MRProgress (0.5.1):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
@@ -118,6 +119,7 @@ DEPENDENCIES:
   - JSQMessagesViewController (from `https://github.com/Triaged/JSQMessagesViewController.git`)
   - MagicalRecord
   - Mixpanel
+  - MPGNotification (~> 1.1)
   - MRProgress (~> 0.2)
   - MZFayeClient
   - NJKWebViewProgress
@@ -156,6 +158,7 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c24914bc96ff5365b5d28b59d7ecffd60d1c5587
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
   Mixpanel: 8cdf6fc831ae1f7515f0d8164dcc381990e0a23a
+  MPGNotification: d930303f91e774810a6677a46de366e3ebaac0c7
   MRProgress: 7853c177e7d79b90e6f0910561967ebcf3289eb1
   MZFayeClient: 0db6ba1b0408ff4e26f1bbe31d06ee6934f036b6
   NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1

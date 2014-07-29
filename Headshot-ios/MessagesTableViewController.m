@@ -46,8 +46,6 @@
 {
     [super viewWillAppear:animated];
     [self reloadData];
-    [[MessageClient sharedClient].fayeClient connect];
-    [[MessageClient sharedClient] subscribeForUserID:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
 }
 
 - (void)reloadData

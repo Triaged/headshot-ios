@@ -259,24 +259,11 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (void)sendMessage:(Message *)message
 {
-//    SINOutgoingMessage *sinMessage = [SINOutgoingMessage messageWithRecipient:self.messageThread.recipient.identifier text:message.text];
-//    message.uniqueID = sinMessage.messageId;
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-//    [self.messageQueue addObject:message.uniqueID];
+    [self startProgressBar];
     [[MessageClient sharedClient] sendMessage:message withCompletion:^(Message *message, NSError *error) {
         [self fetchMessages];
     }];
-    [self startProgressBar];
-//    if (!self.messageThread.recipient.installedApp.boolValue) {
-//        [self.messageThread.recipient emailMessage:message.text withCompletion:^(NSError *error) {
-//            [self finishProgressBar];
-//            [self.messageQueue removeObject:message.uniqueID];
-//        }];
-//    }
-//    else {
-//        [[SinchClient sharedClient].client.messageClient sendMessage:sinMessage];
-//    }
-//    [[AnalyticsManager sharedManager] messageSentToRecipient:self.messageThread.recipient.identifier];
+    [[AnalyticsManager sharedManager] messageSentToRecipient:self.messageThread.directMessageRecipient.identifier];
 }
 
 - (void)resendMessage:(Message *)message

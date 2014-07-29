@@ -119,6 +119,13 @@
 - (void)fayeClient:(MZFayeClient *)client didFailWithError:(NSError *)error
 {
     NSLog(@"%@",error);
+//    mark all pending sent messages as failed
+    for (TRFayeMessage *message in self.sentMessages.allValues) {
+        if (message.completionBlock) {
+            message.completionBlock(nil, error);
+        }
+    }
+    self.sentMessages = [[NSMutableDictionary alloc] init];
 }
 - (void)fayeClient:(MZFayeClient *)client didFailDeserializeMessage:(NSDictionary *)message
          withError:(NSError *)error

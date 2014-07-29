@@ -44,6 +44,5 @@
 @interface NSManagedObject (SLRESTfulCoreDataQueryInterface)
 
 - (void)updateWithCompletionHandler:(void(^)(id managedObject, NSError *error))completionHandler;
-- (void)emailMessage:(NSString *)messageText withCompletion:(void (^)(NSError *error))completion;
 
 @end

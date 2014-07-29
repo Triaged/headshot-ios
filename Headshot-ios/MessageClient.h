@@ -19,6 +19,7 @@
 
 + (instancetype)sharedClient;
 - (void)start;
+- (void)stop;
 - (void)subscribeForUserID:(NSString *)userID;
 - (void)sendMessage:(Message *)message withCompletion:(void (^)(Message *message, NSError *error))completion;
 - (void)createMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion;

@@ -67,10 +67,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [[SinchClient sharedClient].client stopListeningOnActiveConnection];
-    [[SinchClient sharedClient].client stop];
+    [[MessageClient sharedClient] stop];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -81,8 +78,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [[SinchClient sharedClient].client start];
-    [[SinchClient sharedClient].client startListeningOnActiveConnection];
     [[MessageClient sharedClient] start];
     [[VersionManager sharedManager] notifyOfUpdate];
     [[AnalyticsManager sharedManager] appForeground];

@@ -38,21 +38,6 @@
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
 
-- (void)emailMessage:(NSString *)messageText withCompletion:(void (^)(NSError *error))completion
-{
-    NSString *path = [NSString stringWithFormat:@"users/%@/email_message", self.identifier];
-    NSDictionary *parameters = @{@"message" : @{@"body": messageText}};
-    [[HeadshotAPIClient sharedClient] POST:path parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        if (completion) {
-            completion(nil);
-        }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        if (completion) {
-            completion(error);
-        }
-    }];
-}
-
 - (NSString *)nameInitials
 {
     return [NSString stringWithFormat:@"%@%@", [self.firstName substringToIndex:1], [self.lastName substringToIndex:1]];

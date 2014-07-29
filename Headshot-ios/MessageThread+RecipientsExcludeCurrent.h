@@ -7,9 +7,19 @@
 //
 
 #import "MessageThread.h"
+#import "User.h"
 
 @interface MessageThread (RecipientsExcludeCurrent)
 
+
 - (NSSet *)recipientsExcludeUser;
+- (BOOL)isGroupThread;
+
+/**
+Recipient of a direct message with the current user. If the thread is a group message thread this is nil.
+ */
+- (User *)directMessageRecipient;
+
+
 
 @end
