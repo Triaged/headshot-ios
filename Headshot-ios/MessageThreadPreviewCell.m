@@ -65,7 +65,7 @@
     User *recipient = [messageThread.recipientsExcludeUser anyObject];
     self.avatarImageView.user = recipient;
     Message *lastMessage = messageThread.lastMessage;
-    self.textLabel.text = recipient.fullName;
+    self.textLabel.text = messageThread.defaultTitle;
     self.detailTextLabel.text = lastMessage.text;
     self.timeLabel.text = [lastMessage.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
 }

@@ -26,6 +26,7 @@
  Recipient of a direct message with the current user. If the thread is a group message thread this is nil.
  */
 @property (nonatomic, readonly) User *directMessageRecipient;
+@property (nonatomic, readonly) NSString *defaultTitle;
 
 @end
 

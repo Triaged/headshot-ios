@@ -116,8 +116,7 @@
 - (void)setMessageThread:(MessageThread *)messageThread
 {
     _messageThread = messageThread;
-    User *recipient = [self.messageThread.recipientsExcludeUser anyObject];
-    self.title = recipient.fullName;
+    self.title = messageThread.defaultTitle;
 }
 
 - (void)dealloc

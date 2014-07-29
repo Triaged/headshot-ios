@@ -40,5 +40,24 @@
     return self.isGroupThread ? nil : [self.recipientsExcludeUser anyObject];
 }
 
+- (NSString *)defaultTitle
+{
+    NSString *title;
+    if (self.isGroupThread) {
+        NSArray *recipients = self.recipientsExcludeUser.allObjects;
+        User *first = [recipients firstObject];
+        title = first.firstName;
+        for (NSInteger i=1; i < recipients.count - 1; i++) {
+            NSString *name = [recipients[i] firstName];
+            title = [NSString stringWithFormat:@"%@, %@", title, name];
+        }
+        User *last = [recipients lastObject];
+        title = [NSString stringWithFormat:@"%@ & %@", title, last.firstName];
+    }
+    else {
+        title = self.directMessageRecipient.fullName;
+    }
+    return title;
+}
 
 @end
