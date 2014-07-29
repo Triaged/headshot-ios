@@ -167,12 +167,13 @@
 
 - (MessageThread *)findOrCreateMessageThreadWithData:(NSDictionary *)messageThreadData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)created createdMessages:(NSArray **)createdMessages
 {
-    NSString *identifier = messageThreadData[@"_id"];
+    NSString *identifier = messageThreadData[@"id"];
     NSArray *messagesData = messageThreadData[@"messages"];
     NSArray *usersData = messageThreadData[@"user_ids"];
     MessageThread *messageThread = [MessageThread MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:identifier inContext:managedObjectContext];
     if (!messageThread) {
         messageThread = [MessageThread MR_createInContext:managedObjectContext];
+        messageThread.identifier = identifier;
         *created = YES;
     }
     
@@ -196,7 +197,7 @@
 
 - (Message *)findOrCreateMessageWithData:(NSDictionary *)messageData inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)created
 {
-    NSString *messageID = messageData[@"_id"];
+    NSString *messageID = messageData[@"id"];
     NSString *author_id = messageData[@"author_id"];
     NSString *body = messageData[@"body"];
     NSNumber *timestamp = messageData[@"timestamp"];
