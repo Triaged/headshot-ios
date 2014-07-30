@@ -109,9 +109,6 @@
     [self.tokenField reloadData];
     self.searchBar.text = nil;
     [self.contactsDataSource endSearch];
-//    if ([self.delegate respondsToSelector:@selector(newThreadTableViewController:didSelectUser:)]) {
-//        [self.delegate newThreadTableViewController:self didSelectUser:user];
-//    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,6 +116,7 @@
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
     if ([self.selectedUsers containsObject:user]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.tintColor = [[ThemeManager sharedTheme] greenColor];
     }
     else {
         cell.accessoryType = UITableViewCellAccessoryNone;
