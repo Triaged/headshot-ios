@@ -43,6 +43,7 @@ PODS:
   - CocoaLumberjack/Extensions (1.9.1):
     - CocoaLumberjack/Core
   - ECPhoneNumberFormatter (0.1.1)
+  - FXBlurView (1.6.2)
   - INTULocationManager (1.2.0)
   - JSQMessagesViewController (5.0.4):
     - JSQSystemSoundPlayer
@@ -115,6 +116,7 @@ DEPENDENCIES:
   - CMNavBarNotificationView (from `https://github.com/edgurgel/CMNavBarNotificationView.git`)
   - CocoaLumberjack
   - ECPhoneNumberFormatter (from `https://github.com/enriquez/ECPhoneNumberFormatter.git`)
+  - FXBlurView
   - INTULocationManager
   - JSQMessagesViewController (from `https://github.com/Triaged/JSQMessagesViewController.git`)
   - MagicalRecord
@@ -153,6 +155,7 @@ SPEC CHECKSUMS:
   CMNavBarNotificationView: e608a0dbbe3ccd7a851eebebc9a0a2b018da6631
   CocoaLumberjack: 94accd5749f5c5d15134c8d50f34a973aed8ef69
   ECPhoneNumberFormatter: 6da090a89f87e784b6bdc058d86cc40e5ef17e79
+  FXBlurView: 47496afc9160097fa34af35fc4b310bd85d65dca
   INTULocationManager: 596c57e35a00ca1ee9d59bf4cc2b63dc299b580e
   JSQMessagesViewController: 39c28fe197b22caeff250ed88805ed37e3ad0d4a
   JSQSystemSoundPlayer: c24914bc96ff5365b5d28b59d7ecffd60d1c5587

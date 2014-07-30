@@ -8,14 +8,16 @@
 
 #import "MessageThreadViewController.h"
 #import <UINavigationController+SGProgress.h>
+#import <FXBlurView.h>
 #import "User.h"
 #import "ContactViewController.h"
+#import "GroupMessageInfoTableViewController.h"
 #import "NotificationManager.h"
 #import "HeadshotAPIClient.h"
 #import "MessageClient.h"
 #import "TRAvatarImageView.h"
 
-@interface MessageThreadViewController ()
+@interface MessageThreadViewController () <GroupMessageInfoTableViewController>
 
 @property (assign, nonatomic) CGSize avatarImageSize;
 @property (strong, nonatomic) NSMutableOrderedSet *messageQueue;
@@ -24,6 +26,9 @@
 @property (assign, nonatomic) NSTimeInterval progressDuration;
 @property (assign, nonatomic) CGFloat progressPercentage;
 @property (assign, nonatomic) CGFloat progressUpdateInterval;
+@property (strong, nonatomic) GroupMessageInfoTableViewController *groupInfoViewController;
+@property (strong, nonatomic) FXBlurView *groupInfoBackgroundView;
+@property (assign, nonatomic) BOOL showingGroupInfo;
 
 @end
 
@@ -98,7 +103,7 @@
     
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
     info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
-    [info addTarget:self action:@selector(showContact) forControlEvents:UIControlEventTouchUpInside];
+    [info addTarget:self action:@selector(infoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
     self.navigationItem.rightBarButtonItem = item;
     
@@ -132,6 +137,16 @@
     _messageThread = messageThread;
     self.title = messageThread.defaultTitle;
     [self fetchMessages];
+}
+
+- (GroupMessageInfoTableViewController *)groupInfoViewController
+{
+    if (!_groupInfoViewController) {
+        _groupInfoViewController = [[GroupMessageInfoTableViewController alloc] init];
+        _groupInfoViewController.view.frame = self.view.bounds;
+        _groupInfoViewController.delegate = self;
+    }
+    return _groupInfoViewController;
 }
 
 - (void)dealloc
@@ -217,10 +232,64 @@
     [self.progressTimer invalidate];
 }
 
+- (void)infoButtonTouched:(id)sender
+{
+    if (!self.messageThread) {
+        return;
+    }
+    if (self.messageThread.isGroupThread) {
+        if (self.showingGroupInfo) {
+            [self dismissGroupInfo];
+        }
+        else {
+            [self showGroupInfo];
+        }
+    }
+    else {
+        [self showContact:self.messageThread.directMessageRecipient];
+    }
+}
 
--(void)showContact {
-    User *recipient = [self.messageThread.recipientsExcludeUser anyObject];
-    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:recipient];
+- (void)showGroupInfo
+{
+    self.showingGroupInfo = YES;
+    self.groupInfoViewController.users = self.messageThread.recipientsExcludeUser.allObjects;
+    if (!self.groupInfoBackgroundView) {
+        self.groupInfoBackgroundView = [[FXBlurView alloc] initWithFrame:self.view.bounds];
+        UIView *overlayView = [[UIView alloc] initWithFrame:self.groupInfoBackgroundView.bounds];
+        overlayView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+        [self.groupInfoBackgroundView addSubview:overlayView];
+        self.groupInfoBackgroundView.blurEnabled = YES;
+        self.groupInfoBackgroundView.blurRadius = 10;
+        self.groupInfoBackgroundView.tintColor = nil;
+        self.groupInfoBackgroundView.dynamic = NO;
+    }
+    self.groupInfoViewController.view.backgroundColor = [UIColor clearColor];
+    [self addChildViewController:self.groupInfoViewController];
+    [self.groupInfoBackgroundView addSubview:self.groupInfoViewController.view];
+    [self.view addSubview:self.groupInfoBackgroundView];
+    self.groupInfoBackgroundView.alpha = 0;
+    self.groupInfoViewController.view.transform = CGAffineTransformMakeTranslation(0, -self.groupInfoViewController.view.height);
+    [UIView animateWithDuration:0.3 animations:^{
+        self.groupInfoBackgroundView.alpha = 1;
+        self.groupInfoViewController.view.transform = CGAffineTransformIdentity;
+    }];
+}
+
+- (void)dismissGroupInfo
+{
+    self.showingGroupInfo = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.groupInfoViewController.view.transform = CGAffineTransformMakeTranslation(0, -self.groupInfoViewController.view.height);
+        self.groupInfoBackgroundView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.groupInfoBackgroundView removeFromSuperview];
+    }];
+}
+
+-(void)showContact:(User *)user
+{
+    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:contactVC animated:YES];
 }
@@ -496,6 +565,13 @@
                 header:(JSQMessagesLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender
 {
     NSLog(@"Load earlier messages!");
+}
+
+#pragma mark - Group Message Info Delegate
+- (void)groupMessageInfoTableViewController:(GroupMessageInfoTableViewController *)groupMessageInfoViewController didSelectUser:(User *)user
+{
+    [self dismissGroupInfo];
+    [self showContact:user];
 }
 
 

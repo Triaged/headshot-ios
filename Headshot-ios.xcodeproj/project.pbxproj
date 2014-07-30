@@ -31,6 +31,7 @@
 		964A6BE9194F39620024B3C2 /* MessageThreadPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */; };
 		964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BEE194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m */; };
 		964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6BF1194F93250024B3C2 /* OnboardPushPermissionViewController.m */; };
+		965836541989564900070DAE /* GroupMessageInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965836531989564900070DAE /* GroupMessageInfoTableViewController.m */; };
 		96696330194B5061003B22B5 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669632F194B5061003B22B5 /* NotificationManager.m */; };
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
 		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
@@ -189,6 +190,8 @@
 		964A6BEE194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardLocationPermissionViewController.m; sourceTree = "<group>"; };
 		964A6BF0194F93250024B3C2 /* OnboardPushPermissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardPushPermissionViewController.h; sourceTree = "<group>"; };
 		964A6BF1194F93250024B3C2 /* OnboardPushPermissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardPushPermissionViewController.m; sourceTree = "<group>"; };
+		965836521989564900070DAE /* GroupMessageInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMessageInfoTableViewController.h; sourceTree = "<group>"; };
+		965836531989564900070DAE /* GroupMessageInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMessageInfoTableViewController.m; sourceTree = "<group>"; };
 		9669632E194B5061003B22B5 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		9669632F194B5061003B22B5 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		96696331194B6CF7003B22B5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -829,6 +832,8 @@
 				CB1F31AE19315A6700CDCFD4 /* MessageThreadViewController.m */,
 				CB1F31C31931A12600CDCFD4 /* NewThreadTableViewController.h */,
 				CB1F31C41931A12600CDCFD4 /* NewThreadTableViewController.m */,
+				965836521989564900070DAE /* GroupMessageInfoTableViewController.h */,
+				965836531989564900070DAE /* GroupMessageInfoTableViewController.m */,
 			);
 			name = messages;
 			sourceTree = "<group>";
@@ -1044,6 +1049,7 @@
 				964A6BDD194E5E120024B3C2 /* OnboardJobViewController.m in Sources */,
 				9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */,
 				96B69EE7197D5E5A008A7D1B /* MessageClient.m in Sources */,
+				965836541989564900070DAE /* GroupMessageInfoTableViewController.m in Sources */,
 				CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */,
 				CBB488AA1961C9AE00612C22 /* AvailabilityCell.m in Sources */,
 				96D4ECAE1976CB9400234ECF /* ContactsContainerViewController.m in Sources */,
