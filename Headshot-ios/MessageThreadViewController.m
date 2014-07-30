@@ -574,7 +574,6 @@
 #pragma mark - Group Message Info Delegate
 - (void)groupMessageInfoTableViewController:(GroupMessageInfoTableViewController *)groupMessageInfoViewController didSelectUser:(User *)user
 {
-    [self dismissGroupInfo];
     [self showContact:user];
 }
 
