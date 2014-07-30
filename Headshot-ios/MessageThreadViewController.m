@@ -263,7 +263,7 @@
         [self.messageQueue removeObject:message];
         [self fetchMessages];
     }];
-    [[AnalyticsManager sharedManager] messageSentToRecipient:self.messageThread.directMessageRecipient.identifier];
+    [[AnalyticsManager sharedManager] messageSent];
 }
 
 - (void)resendMessage:(Message *)message
