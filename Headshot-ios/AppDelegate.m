@@ -80,9 +80,7 @@
     [[MessageClient sharedClient] start];
     [[VersionManager sharedManager] notifyOfUpdate];
     [[AnalyticsManager sharedManager] appForeground];
-    [[MessageClient sharedClient] getMessagesSinceDate:[NSDate dateWithTimeIntervalSince1970:0] completion:^(NSArray *messages, NSArray *createdMessages, NSArray *createdMessageThreads, NSError *error) {
-        
-    }];
+    [[MessageClient sharedClient] refreshMessagesWithCompletion:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -165,10 +163,9 @@
     }];
 }
 
-- (void)setTopViewControllerToMessageThreadViewControllerWithAuthorID:(NSString *)authorID
+- (void)setTopViewControllerToMessageThreadViewControllerWithID:(NSString *)threadID
 {
-    User *user = [User MR_findFirstByAttribute:@"identifier" withValue:authorID];
-    MessageThreadViewController *messageThreadViewControllor = [[MessageThreadViewController alloc] initWithRecipient:user];
+    MessageThreadViewController *messageThreadViewControllor = [[MessageThreadViewController alloc] initWithThreadID:threadID];
     self.window.rootViewController = self.tabBarController;
     [self.tabBarController selectMessagesViewController];
     UINavigationController *navigationController = (UINavigationController *)self.tabBarController.selectedViewController;

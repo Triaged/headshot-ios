@@ -116,6 +116,17 @@
     }];
 }
 
+- (void)refreshMessagesWithCompletion:(void (^)(NSArray *, NSArray *, NSArray *, NSError *))completion
+{
+    Message *message = [Message MR_findFirstOrderedByAttribute:@"timestamp" ascending:NO];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:0];
+    if (message && message.timestamp) {
+//        provide a small buffer around latest message to lower risk of missing new message
+        date = [message.timestamp dateByAddingTimeInterval:-60*2];
+    }
+    [self getMessagesSinceDate:date completion:completion];
+}
+
 - (void)getMessagesSinceDate:(NSDate *)date completion:(void (^)(NSArray *messages, NSArray *createdMessages, NSArray *createdMessageThreads, NSError *error))completion
 {
     NSDictionary *parameters;

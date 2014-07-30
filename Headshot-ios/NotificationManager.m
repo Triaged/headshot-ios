@@ -95,7 +95,7 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 {
     NSString *messageThreadID = userInfo[@"thread_id"];
     if (messageThreadID) {
-//        [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithAuthorID:userID];
+        [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithID:messageThreadID];
     }
 }
 
@@ -115,16 +115,11 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     
     MessageThread *thread = message.messageThread;
     BOOL inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
-    if (inBackground) {
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        localNotification.alertBody = [NSString stringWithFormat:@"%@: %@", message.author.firstName, message.text];
-        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-    }
-    else if (!self.visibleMessageThreadViewController || (![thread.objectID isEqual:self.visibleMessageThreadViewController.messageThread.objectID])) {
+    if (!inBackground && (!self.visibleMessageThreadViewController || (![thread.objectID isEqual:self.visibleMessageThreadViewController.messageThread.objectID]))) {
         MPGNotification *notification = [MPGNotification notificationWithTitle:message.author.firstName subtitle:message.text backgroundColor:[[ThemeManager sharedTheme] orangeColor]  iconImage:nil];
         notification.duration = 5;
         [notification showWithButtonHandler:^(MPGNotification *notification, NSInteger buttonIndex) {
-            [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithAuthorID:message.author.identifier];
+            [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithID:thread.identifier];
         }];
     }
 }

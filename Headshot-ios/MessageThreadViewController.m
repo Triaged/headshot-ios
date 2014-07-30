@@ -42,6 +42,20 @@
     return self;
 }
 
+- (id)initWithThreadID:(NSString *)threadID
+{
+    MessageThread *thread = [MessageThread MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:threadID];
+    [[MessageClient sharedClient] refreshMessagesWithCompletion:^(NSArray *messages, NSArray *createdMessages, NSArray *createdMessageThreads, NSError *error) {
+        MessageThread *fetchedThread = [MessageThread MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:threadID];
+        if (!fetchedThread) {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Something went wrong" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+        self.messageThread = fetchedThread;
+    }];
+    self = [self initWithMessageThread:thread];
+    return self;
+}
+
 - (id)initWithRecipient:(User *)recipient
 {
     MessageThread *thread;
@@ -117,6 +131,7 @@
 {
     _messageThread = messageThread;
     self.title = messageThread.defaultTitle;
+    [self fetchMessages];
 }
 
 - (void)dealloc
