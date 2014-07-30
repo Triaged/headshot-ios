@@ -13,13 +13,14 @@
 @class NewThreadTableViewController;
 @protocol NewThreadTableViewControllerDelegate <NSObject>
 
-- (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUser:(User *)user;
+- (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUsers:(NSArray *)users;
 
 @end
 
-@interface NewThreadTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface NewThreadTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (weak, nonatomic) id<NewThreadTableViewControllerDelegate>delegate;
+@property (strong, nonatomic) UITableView *tableView;
 
 @end

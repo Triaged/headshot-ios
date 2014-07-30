@@ -17,6 +17,20 @@
 @dynamic messages;
 @dynamic identifier;
 
++ (MessageThread *)findThreadWithRecipients:(NSSet *)recipients
+{
+    NSSet *threads = [AppDelegate sharedDelegate].store.currentAccount.currentUser.messageThreads;
+    __block MessageThread *found;
+    [threads enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        MessageThread *messageThread = (MessageThread *)obj;
+        if ([messageThread.recipients isEqualToSet:recipients]) {
+            found = messageThread;
+           *stop = YES;
+        }
+    }];
+    return found;
+}
+
 - (Message *)lastMessage
 {
     NSSortDescriptor *timeSort = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];

@@ -28,6 +28,8 @@
 @property (nonatomic, readonly) User *directMessageRecipient;
 @property (nonatomic, readonly) NSString *defaultTitle;
 
++ (MessageThread *)findThreadWithRecipients:(NSSet *)recipients;
+
 @end
 
 @interface MessageThread (CoreDataGeneratedAccessors)

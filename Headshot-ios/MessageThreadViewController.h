@@ -25,6 +25,7 @@
 -(id)initWithMessageThread:(MessageThread *)messageThread;
 - (id)initWithThreadID:(NSString *)threadID;
 - (id)initWithRecipient:(User *)recipient;
+- (id)initWithRecipients:(NSArray *)recipients;
 -(void)createOrFindThreadForRecipient:(User *)recipient;
 
 

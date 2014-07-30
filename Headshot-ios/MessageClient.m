@@ -154,7 +154,7 @@
     NSDictionary *parameters = @{@"message_thread" : @{@"user_ids" : [recipients valueForKey:@"identifier"]}};
     [self.httpClient POST:@"message_threads" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         MessageThread *thread = [MessageThread MR_createEntity];
-        thread.identifier = responseObject[@"_id"];
+        thread.identifier = responseObject[@"id"];
         NSArray *userIDs = responseObject[@"user_ids"];
         NSArray *recipients = [User MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"identifier IN %@", userIDs]];
         thread.recipients = [NSSet setWithArray:recipients];

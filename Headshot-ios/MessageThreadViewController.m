@@ -63,13 +63,17 @@
 
 - (id)initWithRecipient:(User *)recipient
 {
-    MessageThread *thread;
-    if (recipient.messageThreads && recipient.messageThreads.count) {
-        thread = [recipient.messageThreads anyObject];
-    }
-    else {
-        NSSet *recipients = [NSSet setWithObjects:recipient, [AppDelegate sharedDelegate].store.currentAccount.currentUser, nil];
-        [[MessageClient sharedClient] postMessageThreadWithRecipients:recipients.allObjects completion:^(MessageThread *messageThread, NSError *error) {
+    self = [self initWithRecipients:@[recipient]];
+    return self;
+}
+
+- (id)initWithRecipients:(NSArray *)recipients
+{
+    NSMutableSet *recipientSet = [NSMutableSet setWithArray:recipients];
+    [recipientSet addObject:[AppDelegate sharedDelegate].store.currentAccount.currentUser];
+    MessageThread *thread = [MessageThread findThreadWithRecipients:recipientSet];
+    if (!thread) {
+        [[MessageClient sharedClient] postMessageThreadWithRecipients:recipientSet.allObjects completion:^(MessageThread *messageThread, NSError *error) {
             if (error) {
                 [[[UIAlertView alloc] initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }

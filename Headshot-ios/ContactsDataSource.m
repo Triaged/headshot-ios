@@ -219,6 +219,11 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
 {
+    [self endSearch];
+}
+
+- (void)endSearch
+{
     self.separateSectionsForNames = YES;
     self.filteredUsers = self.users;
     [self.tableViewController.tableView reloadData];

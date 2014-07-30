@@ -115,6 +115,14 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUsers:(NSArray *)users
+{
+    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithRecipients:users];
+    [self.navigationController pushViewController:messageThreadVC animated:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Table view data source
 
 - (MessageThread *)threadAtIndexPath:(NSIndexPath *)indexPath
