@@ -99,11 +99,11 @@
 
 - (void)receivedAuthorizationError:(NSNotification *)notification
 {
-    BOOL loggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
-    if (loggedIn) {
-        [self logout];
-        [[[UIAlertView alloc] initWithTitle:@"Session Expired" message:@"Please Login Again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
+//    BOOL loggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
+//    if (loggedIn) {
+//        [self logout];
+//        [[[UIAlertView alloc] initWithTitle:@"Session Expired" message:@"Please Login Again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+//    }
 }
 
 -(void)logout
