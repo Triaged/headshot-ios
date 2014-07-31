@@ -8,9 +8,8 @@
 
 #import "TRNavigationController.h"
 #import "UIProgressView+AFNetworking.h"
-#import "TRNavigationBar.h"
 
-@interface TRNavigationController ()
+@interface TRNavigationController () <UINavigationBarDelegate>
 
 @end
 
@@ -27,37 +26,10 @@
     return self;
 }
 
-- (id)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass
-{
-    self = [super initWithNavigationBarClass:[TRNavigationBar class] toolbarClass:toolbarClass];
-    if (!self) {
-        return nil;
-    }
-    return self;
-}
-
-- (id)initWithRootViewController:(UIViewController *)rootViewController
-{
-    self = [self initWithNavigationBarClass:[TRNavigationBar class] toolbarClass:[UIToolbar class]];
-    self.viewControllers = @[rootViewController];
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.delegate = self;
-    
-	// Do any additional setup after loading the view.
-//    for (UIView *view in self.navigationBar.subviews) {
-//        for (UIView *view2 in view.subviews) {
-//            if ([view2 isKindOfClass:[UIImageView class]]) {
-//                [view2 removeFromSuperview];
-//            }
-//        }
-//    }
-    
-    //self.navigationBar.layer.opacity = 0.0;
     self.navigationBar.shadowImage = nil;
     
     self.navigationBar.barTintColor = [UIColor whiteColor];
@@ -69,10 +41,20 @@
     [self popToRootViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+}
+
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPushItem:(UINavigationItem *)item
+{
+    navigationBar.backItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    return YES;
+}
+
+- (void)navigationBar:(UINavigationBar *)navigationBar didPushItem:(UINavigationItem *)item
+{
+    navigationBar.backItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 @end

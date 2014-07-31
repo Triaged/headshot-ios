@@ -9,6 +9,7 @@
 #import "MessageThreadViewController.h"
 #import <UINavigationController+SGProgress.h>
 #import <FXBlurView.h>
+#import <FLEXManager.h>
 #import "User.h"
 #import "ContactViewController.h"
 #import "GroupMessageInfoTableViewController.h"
@@ -137,7 +138,7 @@
 - (void)setMessageThread:(MessageThread *)messageThread
 {
     _messageThread = messageThread;
-    self.title = messageThread.defaultTitle;
+    self.navigationItem.title = messageThread.defaultTitle;
     [self fetchMessages];
 }
 
@@ -196,6 +197,7 @@
         self.showKeyboardOnAppear = NO;
     }
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -296,7 +298,6 @@
 -(void)showContact:(User *)user
 {
     ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:contactVC animated:YES];
 }
 
