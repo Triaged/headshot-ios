@@ -9,6 +9,7 @@
 #import "MessageThreadViewController.h"
 #import <UINavigationController+SGProgress.h>
 #import <FXBlurView.h>
+#import <FLEXManager.h>
 #import "User.h"
 #import "ContactViewController.h"
 #import "GroupMessageInfoTableViewController.h"
@@ -137,7 +138,7 @@
 - (void)setMessageThread:(MessageThread *)messageThread
 {
     _messageThread = messageThread;
-    self.title = messageThread.defaultTitle;
+    self.navigationItem.title = messageThread.defaultTitle;
     [self fetchMessages];
 }
 
@@ -195,6 +196,18 @@
         [self.inputToolbar.contentView.textView becomeFirstResponder];
         self.showKeyboardOnAppear = NO;
     }
+//    if (self.messageThread) {
+//        self.navigationItem.title = self.messageThread.defaultTitle;
+//    }
+#warning debug
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(debugTap)];
+    tap.numberOfTapsRequired = 2;
+    [self.navigationController.navigationBar addGestureRecognizer:tap];
+}
+
+- (void)debugTap
+{
+    [[FLEXManager sharedManager] showExplorer];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -296,7 +309,6 @@
 -(void)showContact:(User *)user
 {
     ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:contactVC animated:YES];
 }
 
