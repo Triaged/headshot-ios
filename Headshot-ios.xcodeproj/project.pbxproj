@@ -39,6 +39,7 @@
 		968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */; };
 		9684363A1961E3FD0001259F /* CommonMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436371961E3FD0001259F /* CommonMacros.m */; };
 		9684363B1961E3FD0001259F /* JAGrandCentralDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436391961E3FD0001259F /* JAGrandCentralDispatch.m */; };
+		96998055198AB4E200134AD4 /* TRNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96998054198AB4E200134AD4 /* TRNavigationBar.m */; };
 		969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */; };
 		96A0888A195B2171008F329E /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A08889195B2171008F329E /* Device.m */; };
 		96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */; };
@@ -206,6 +207,8 @@
 		968436371961E3FD0001259F /* CommonMacros.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonMacros.m; sourceTree = "<group>"; };
 		968436381961E3FD0001259F /* JAGrandCentralDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAGrandCentralDispatch.h; sourceTree = "<group>"; };
 		968436391961E3FD0001259F /* JAGrandCentralDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAGrandCentralDispatch.m; sourceTree = "<group>"; };
+		96998053198AB4E200134AD4 /* TRNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRNavigationBar.h; sourceTree = "<group>"; };
+		96998054198AB4E200134AD4 /* TRNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRNavigationBar.m; sourceTree = "<group>"; };
 		969B86FE195285DF00090B49 /* OnboardSelectDepartmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectDepartmentViewController.h; sourceTree = "<group>"; };
 		969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectDepartmentViewController.m; sourceTree = "<group>"; };
 		96A08888195B2171008F329E /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
@@ -480,6 +483,8 @@
 				96091B11195DFAA900D135A3 /* TRInitialView.m */,
 				96D37F4619608C7800212CDF /* TRAvatarImageView.h */,
 				96D37F4719608C7800212CDF /* TRAvatarImageView.m */,
+				96998053198AB4E200134AD4 /* TRNavigationBar.h */,
+				96998054198AB4E200134AD4 /* TRNavigationBar.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -1039,6 +1044,7 @@
 				96696330194B5061003B22B5 /* NotificationManager.m in Sources */,
 				964A6BE0194E66480024B3C2 /* OnboardSelectOfficeViewController.m in Sources */,
 				CBBA68DB192FE0B5005A6949 /* Account.m in Sources */,
+				96998055198AB4E200134AD4 /* TRNavigationBar.m in Sources */,
 				CB04186B194A338900B3DE97 /* DepartmentContactsTableViewController.m in Sources */,
 				96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */,
 				CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */,

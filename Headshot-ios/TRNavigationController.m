@@ -8,6 +8,7 @@
 
 #import "TRNavigationController.h"
 #import "UIProgressView+AFNetworking.h"
+#import "TRNavigationBar.h"
 
 @interface TRNavigationController ()
 
@@ -23,6 +24,22 @@
     if (self) {
         // Custom initialization
     }
+    return self;
+}
+
+- (id)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass
+{
+    self = [super initWithNavigationBarClass:[TRNavigationBar class] toolbarClass:toolbarClass];
+    if (!self) {
+        return nil;
+    }
+    return self;
+}
+
+- (id)initWithRootViewController:(UIViewController *)rootViewController
+{
+    self = [self initWithNavigationBarClass:[TRNavigationBar class] toolbarClass:[UIToolbar class]];
+    self.viewControllers = @[rootViewController];
     return self;
 }
 
@@ -47,11 +64,6 @@
     self.navigationBar.translucent = NO;
     
 }
-
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-}
-
 
 -(void)popToRoot{
     [self popToRootViewControllerAnimated:YES];

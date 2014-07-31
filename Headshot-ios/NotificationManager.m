@@ -116,28 +116,18 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     MessageThread *thread = message.messageThread;
     BOOL inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
     if (!inBackground && (!self.visibleMessageThreadViewController || (![thread.objectID isEqual:self.visibleMessageThreadViewController.messageThread.objectID]))) {
-        MPGNotification *notification = [MPGNotification notificationWithTitle:message.author.firstName subtitle:message.text backgroundColor:[[ThemeManager sharedTheme] orangeColor]  iconImage:nil];
-        notification.duration = 5;
-        [notification showWithButtonHandler:^(MPGNotification *notification, NSInteger buttonIndex) {
-            [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithID:thread.identifier];
-        }];
+        if (!self.isDisplayingAlert) {
+            MPGNotification *notification = [MPGNotification notificationWithTitle:message.author.firstName subtitle:message.text backgroundColor:[[ThemeManager sharedTheme] orangeColor]  iconImage:nil];
+            notification.duration = 5;
+            notification.dismissHandler = ^(MPGNotification *notification) {
+                self.isDisplayingAlert = NO;
+            };
+            self.isDisplayingAlert = YES;
+            [notification showWithButtonHandler:^(MPGNotification *notification, NSInteger buttonIndex) {
+                [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithID:thread.identifier];
+            }];
+        }
     }
-}
-
-- (void)showAlertView:(UIAlertView *)alertView
-{
-    if (self.isDisplayingAlert) {
-        return;
-    }
-    self.isDisplayingAlert = YES;
-    alertView.delegate = self;
-    [alertView show];
-}
-
-#pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    self.isDisplayingAlert = NO;
 }
 
 @end
