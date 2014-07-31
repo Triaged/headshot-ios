@@ -54,39 +54,36 @@ PODS:
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
   - MBContactPicker (0.1.4)
-  - Mixpanel (2.4.0)
+  - Mixpanel (2.4.1)
   - MPGNotification (1.1.1)
-  - MRProgress (0.5.1):
+  - MRProgress (0.6.0):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
-    - MRProgress/Helper
     - MRProgress/Icons
-    - MRProgress/MessageInterceptor
     - MRProgress/NavigationBarProgress
     - MRProgress/Overlay
+  - MRProgress/ActivityIndicator (0.6.0):
     - MRProgress/Stopable
-    - MRProgress/WeakProxy
-  - MRProgress/ActivityIndicator (0.5.1):
-    - MRProgress/Stopable
-  - MRProgress/Blur (0.5.1):
+  - MRProgress/Blur (0.6.0):
     - MRProgress/Helper
-  - MRProgress/Circular (0.5.1):
+  - MRProgress/Circular (0.6.0):
     - MRProgress/Helper
+    - MRProgress/ProgressBaseClass
     - MRProgress/Stopable
-  - MRProgress/Helper (0.5.1)
-  - MRProgress/Icons (0.5.1)
-  - MRProgress/MessageInterceptor (0.5.1)
-  - MRProgress/NavigationBarProgress (0.5.1)
-  - MRProgress/Overlay (0.5.1):
+  - MRProgress/Helper (0.6.0)
+  - MRProgress/Icons (0.6.0)
+  - MRProgress/NavigationBarProgress (0.6.0):
+    - MRProgress/ProgressBaseClass
+  - MRProgress/Overlay (0.6.0):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
     - MRProgress/Helper
     - MRProgress/Icons
-  - MRProgress/Stopable (0.5.1):
+  - MRProgress/ProgressBaseClass (0.6.0)
+  - MRProgress/Stopable (0.6.0):
     - MRProgress/Helper
-  - MRProgress/WeakProxy (0.5.1)
   - MZFayeClient (1.0.0):
     - Base64 (~> 1.0.1)
     - SocketRocket (~> 0.3.1-beta2)
@@ -173,9 +170,9 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c24914bc96ff5365b5d28b59d7ecffd60d1c5587
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
   MBContactPicker: f3ad9c973cdc8ed6caa92a104dbc314f155f3ea6
-  Mixpanel: 8cdf6fc831ae1f7515f0d8164dcc381990e0a23a
+  Mixpanel: a29ff32db93936dea24162f0dc4fecc4a8f17071
   MPGNotification: d930303f91e774810a6677a46de366e3ebaac0c7
-  MRProgress: 7853c177e7d79b90e6f0910561967ebcf3289eb1
+  MRProgress: bacc0f2f6c547e4ab21fd48ed14e19cbd70de3e4
   MZFayeClient: 0db6ba1b0408ff4e26f1bbe31d06ee6934f036b6
   NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1
   NSDate+TimeAgo: f3533e0198fab05b716368b19f8c2185d53d6f3b
