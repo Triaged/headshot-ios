@@ -12,6 +12,7 @@
 #import "User.h"
 
 typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
+static const CLLocationDistance kOfficeRadius = 250;
 
 @interface LocationClient()
 
@@ -80,7 +81,7 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
             CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake([location.latitude doubleValue], [location.longitude doubleValue]);
             
             CLCircularRegion *region =  [[CLCircularRegion alloc] initWithCenter:centerCoordinate
-                                                                          radius:100.0
+                                                                          radius:kOfficeRadius
                                                                       identifier:location.identifier];
             // Start Monitoring Region
             [self.locationManager startMonitoringForRegion:region];
@@ -124,22 +125,50 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
     DDLogInfo(@"Did determine state %@ for region with identifier %@", @(state), region.identifier);
-    if (state == CLRegionStateInside) {
-        OfficeLocation *location = [self officeLocationForRegion:region];
-        [location enterLocation];
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-    DDLogInfo(@"Did exit region with identifier %@", region.identifier);
     OfficeLocation *location = [self officeLocationForRegion:region];
-    [location exitLocation];
+    
+    [self determineDistanceFromOffice:location withCompletion:^(CLLocationDistance distance, CLLocation *currentLocation, NSError *error) {
+//        verify accuracy of region event. If error retrieving location, trust region event
+        CLRegionState verifiedState = state;
+        if (!error) {
+            static const CLLocationDistance buffer = 200;
+            if (abs(distance - kOfficeRadius) > buffer) {
+                verifiedState = distance < kOfficeRadius ? CLRegionStateInside : CLRegionStateOutside;
+                DDLogInfo(@"Changed region state from %d to %d", state, verifiedState);
+            }
+        }
+        if (verifiedState == CLRegionStateInside) {
+            [location enterLocation];
+        }
+        else if (verifiedState == CLRegionStateOutside) {
+            [location exitLocation];
+        }
+    }];
 }
 
 - (OfficeLocation *)officeLocationForRegion:(CLRegion *)region
 {
     return [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
+}
+
+- (void)determineDistanceFromOffice:(OfficeLocation *)officeLocation withCompletion:(void (^)(CLLocationDistance distance, CLLocation *currentLocation, NSError *error))completion
+{
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:5 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        DDLogInfo(@"Finished location request with status %d", status);
+        CLLocationDistance distance = -1.0;
+        NSError *error;
+        if (currentLocation) {
+            DDLogInfo(@"Current Location %@", currentLocation);
+            distance = [currentLocation distanceFromLocation:officeLocation.location];
+            DDLogInfo(@"Distance from office %f", distance);
+        }
+        else {
+            error = [[NSError alloc] initWithDomain:@"TRLocationDomain" code:status userInfo:nil];
+        }
+        if (completion) {
+            completion(distance, currentLocation, error);
+        }
+    }];
 }
 
 @end

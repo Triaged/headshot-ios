@@ -35,6 +35,16 @@
     [self registerJSONPrefix:@"office_location"];
 }
 
++ (OfficeLocation *)currentOfficeLocation
+{
+    return [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation;
+}
+
+- (CLLocation *)location
+{
+    return [[CLLocation alloc] initWithLatitude:self.latitude.doubleValue longitude:self.longitude.doubleValue];
+}
+
 - (void)postWithCompletion:(void(^)(OfficeLocation *officeLocation, NSError *error))completion
 {
     NSMutableDictionary *officeJSON = [[NSMutableDictionary alloc] init];
@@ -80,13 +90,21 @@
 
 
 - (void)exitLocation {
+    OfficeLocation *currentOfficeLocation = [OfficeLocation currentOfficeLocation];
+    if (!currentOfficeLocation || ![currentOfficeLocation.identifier isEqualToString:self.identifier]) {
+        DDLogInfo(@"Not starting EXIT location request for %@ since not currently in this office", currentOfficeLocation.identifier);
+        return;
+    }
     DDLogInfo(@"Starting EXIT location request for region with identifier %@", self.identifier);
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/exited", self.identifier]];
     [self putToURL:URL completionHandler:^(id JSONObject, NSError *error) {
         if (!error) {
             DDLogInfo(@"Finished EXIT location request for region with identifier %@", self.identifier);
-            [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = nil;
-            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+            if ([[OfficeLocation currentOfficeLocation].identifier isEqualToString:self.identifier]) {
+                [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = self;
+                [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+                
+            }
         }
         else {
             DDLogInfo(@"Failed EXIT location request with error %@", error.localizedDescription);

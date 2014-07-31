@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <CoreLocation/CoreLocation.h>
 #import "HeadshotAPIClient.h"
 
 @class Company;
@@ -25,7 +26,7 @@
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) Company *company;
 
-
+@property (nonatomic, readonly) CLLocation *location;
 
 + (void)officeLocationsWithCompletionHandler:(void(^)(NSArray *locations, NSError *error))completionHandler;
 - (void)postWithCompletion:(void(^)(OfficeLocation *officeLocation, NSError *error))completion;
