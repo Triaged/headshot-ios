@@ -7,6 +7,7 @@
 //
 
 #import "TRFayeClient.h"
+#import "FileLogManager.h"
 
 @interface TRFayeMessage : NSObject
 
@@ -60,11 +61,13 @@
     NSMutableDictionary *messageWithID = [NSMutableDictionary dictionaryWithDictionary:message];
     [messageWithID setObject:fayeMessage.uuid.UUIDString forKey:@"guid"];
     [self.sentMessages setObject:fayeMessage forKey:fayeMessage.uuid.UUIDString];
+    DDLogInfo(@"FAYE: sending message %@", messageWithID);
     [super sendMessage:messageWithID toChannel:channel usingExtension:extension];
 }
 
 - (void)fayeClient:(MZFayeClient *)client didReceiveMessage:(NSDictionary *)messageData fromChannel:(NSString *)channel
 {
+    DDLogInfo(@"FAYE: received message %@", messageData);
     NSString *uuid = messageData[@"guid"];
     BOOL messageAcknowledgment = NO;
     if (uuid) {
@@ -99,7 +102,7 @@
 
 - (void)fayeClient:(MZFayeClient *)client didConnectToURL:(NSURL *)url
 {
-    NSLog(@"%@",url);
+    NSLog(@"FAYE: did connect to url %@",url);
     for (NSString *channel in self.autoSubscribeChannels) {
         [self subscribeToChannel:channel autoSubscribe:YES];
     }
@@ -118,7 +121,7 @@
 }
 - (void)fayeClient:(MZFayeClient *)client didFailWithError:(NSError *)error
 {
-    NSLog(@"%@",error);
+    DDLogInfo(@"FAYE: error: %@",error);
 //    mark all pending sent messages as failed
     for (TRFayeMessage *message in self.sentMessages.allValues) {
         if (message.completionBlock) {
