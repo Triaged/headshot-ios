@@ -120,8 +120,6 @@
     self.sender =  currentUser.fullName;
 
     
-    [self loadMessages];
-    
     self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory
                                      outgoingMessageBubbleImageViewWithColor:
                                     [[ThemeManager sharedTheme] outgoingMessageBubbleColor]];
@@ -300,12 +298,6 @@
     ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:contactVC animated:YES];
-}
-
-- (void)loadMessages
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"messageThread == %@", self.messageThread];
-    self.messages = [NSMutableArray arrayWithArray:[Message MR_findAllWithPredicate:predicate]];
 }
 
 - (void)fetchMessages {
