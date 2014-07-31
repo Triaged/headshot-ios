@@ -105,14 +105,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
-    [self.selectedUsers addObject:user];
+    if (![self.selectedUsers containsObject:user]) {
+        [self.selectedUsers addObject:user];
+    }
+    else {
+        [self.selectedUsers removeObject:user];
+    }
+    if (self.searchBar.text && self.searchBar.text.length) {
+        self.searchBar.text = nil;
+        [self.contactsDataSource endSearch];
+    }
     [self.tokenField reloadData];
-    self.searchBar.text = nil;
-    [self.contactsDataSource endSearch];
+    [self.tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
     if ([self.selectedUsers containsObject:user]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
