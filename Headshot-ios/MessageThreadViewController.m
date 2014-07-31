@@ -196,19 +196,8 @@
         [self.inputToolbar.contentView.textView becomeFirstResponder];
         self.showKeyboardOnAppear = NO;
     }
-//    if (self.messageThread) {
-//        self.navigationItem.title = self.messageThread.defaultTitle;
-//    }
-#warning debug
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(debugTap)];
-    tap.numberOfTapsRequired = 2;
-    [self.navigationController.navigationBar addGestureRecognizer:tap];
 }
 
-- (void)debugTap
-{
-    [[FLEXManager sharedManager] showExplorer];
-}
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
