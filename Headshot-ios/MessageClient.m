@@ -139,6 +139,9 @@
         NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
         NSArray *threads = [self findOrCreateMessageThreadsWithData:responseObject inManagedObjectContext:context createdMessageThreads:&createdThreads createdMessages:&createdMessages];
         [context MR_saveOnlySelfAndWait];
+        if (createdMessages) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:@{@"messages" : [createdMessages valueForKey:@"objectID"]}];
+        }
         if (completion) {
             completion(threads, createdMessages, createdThreads, nil);
         }

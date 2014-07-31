@@ -349,6 +349,7 @@
     [self.messageQueue addObject:message];
     [[MessageClient sharedClient] sendMessage:message withCompletion:^(Message *message, NSError *error) {
         [self.messageQueue removeObject:message];
+        [self updateProgressBar];
         [self fetchMessages];
     }];
     [[AnalyticsManager sharedManager] messageSent];

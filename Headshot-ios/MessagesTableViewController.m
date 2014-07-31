@@ -163,7 +163,6 @@
 {
     
     MessageThread *thread = [self threadAtIndexPath:indexPath];
-    Message *message = [thread.messages anyObject];
     
     MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];

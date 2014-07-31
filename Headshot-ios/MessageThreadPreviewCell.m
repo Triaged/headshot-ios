@@ -62,8 +62,13 @@
 - (void)setMessageThread:(MessageThread *)messageThread
 {
     _messageThread = messageThread;
-    User *recipient = [messageThread.recipientsExcludeUser anyObject];
-    self.avatarImageView.user = recipient;
+    if (messageThread.isGroupThread) {
+        self.avatarImageView.image = [UIImage imageNamed:@"messages-group"];
+    }
+    else {
+        User *recipient = messageThread.directMessageRecipient;
+        self.avatarImageView.user = recipient;
+    }
     Message *lastMessage = messageThread.lastMessage;
     self.textLabel.text = messageThread.defaultTitle;
     self.detailTextLabel.text = lastMessage.text;
