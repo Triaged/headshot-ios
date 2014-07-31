@@ -55,6 +55,7 @@
     self.avatarImageView.size = CGSizeMake(40, 40);
     self.avatarImageView.centerY = self.height/2.0;
     self.textLabel.x = self.avatarImageView.right + 15;
+    self.textLabel.width = self.contentView.width - self.textLabel.x - 15;
     self.detailTextLabel.x = self.textLabel.x;
     self.detailTextLabel.width = self.contentView.width - self.detailTextLabel.x - 15;
 }
