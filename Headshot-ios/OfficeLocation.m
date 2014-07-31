@@ -92,7 +92,7 @@
 - (void)exitLocation {
     OfficeLocation *currentOfficeLocation = [OfficeLocation currentOfficeLocation];
     if (!currentOfficeLocation || ![currentOfficeLocation.identifier isEqualToString:self.identifier]) {
-        DDLogInfo(@"Not starting EXIT location request for %@ since not currently in this office", currentOfficeLocation.identifier);
+        DDLogInfo(@"Not starting EXIT location request for %@ since not currently in this office", self.identifier);
         return;
     }
     DDLogInfo(@"Starting EXIT location request for region with identifier %@", self.identifier);
