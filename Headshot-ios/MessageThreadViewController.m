@@ -193,6 +193,10 @@
     
     self.navigationController.navigationBar.shadowImage = nil;
     [NotificationManager sharedManager].visibleMessageThreadViewController = self;
+    if (self.showKeyboardOnAppear) {
+        [self.inputToolbar.contentView.textView becomeFirstResponder];
+        self.showKeyboardOnAppear = NO;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

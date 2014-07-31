@@ -118,9 +118,11 @@
 - (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUsers:(NSArray *)users
 {
     MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithRecipients:users];
+    messageThreadVC.showKeyboardOnAppear = YES;
     [self.navigationController pushViewController:messageThreadVC animated:YES];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 #pragma mark - Table view data source
@@ -165,7 +167,6 @@
     MessageThread *thread = [self threadAtIndexPath:indexPath];
     
     MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:messageThreadVC animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

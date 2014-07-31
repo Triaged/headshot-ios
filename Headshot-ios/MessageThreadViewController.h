@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UIImageView *incomingBubbleImageView;
 @property (strong, nonatomic) UIImageView *failedBubbleImageView;
 @property (strong, nonatomic) User *currentUser;
+@property (assign, nonatomic) BOOL showKeyboardOnAppear;
 
 -(id)initWithMessageThread:(MessageThread *)messageThread;
 - (id)initWithThreadID:(NSString *)threadID;
