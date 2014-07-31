@@ -29,16 +29,31 @@
     self.title = @"New Message";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleDone target:self action:@selector(nextButtonTouched:)];
     
-    [self setupTableView];
     
     self.selectedUsers = [[NSMutableOrderedSet alloc] init];
     [self setupTableView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    [self.tokenField becomeFirstResponder];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupTableView
@@ -52,6 +67,7 @@
     
     
     self.tokenField = [[VENTokenField alloc] initWithFrame:CGRectMake(0, 0, 320, 55)];
+    self.tokenField.returnKeyType = UIReturnKeyNext;
     self.tokenField.maxHeight = 55;
     [self.tokenField setColorScheme:[[ThemeManager sharedTheme] orangeColor]];
     self.tokenField.placeholderText = @"Who would you like to message?";
@@ -154,6 +170,11 @@
     
 }
 
+- (void)tokenFieldDidReturn:(VENTokenField *)tokenField
+{
+    [self nextButtonTouched:nil];
+}
+
 #pragma mark - Token Field Data Source
 - (NSString *)tokenField:(VENTokenField *)tokenField titleForTokenAtIndex:(NSUInteger)index
 {
@@ -164,6 +185,31 @@
 - (NSUInteger)numberOfTokensInTokenField:(VENTokenField *)tokenField
 {
     return self.selectedUsers.count;
+}
+
+#pragma mark - Keyboard
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    NSDictionary* info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGFloat animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    
+    [UIView animateWithDuration:animationDuration animations:^{
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, kbSize.height, 0);
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+//    NSDictionary* info = [notification userInfo];
+//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+//    CGFloat animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+//    
+//    [UIView animateWithDuration:animationDuration animations:^{
+//        self.tableView.contentInset = UIEdgeInsetsZero;
+//    }];
 }
 
 

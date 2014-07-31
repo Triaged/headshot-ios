@@ -117,6 +117,9 @@
 
 - (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUsers:(NSArray *)users
 {
+    if (!users || !users.count) {
+        return;
+    }
     MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithRecipients:users];
     messageThreadVC.showKeyboardOnAppear = YES;
     [self.navigationController pushViewController:messageThreadVC animated:YES];
