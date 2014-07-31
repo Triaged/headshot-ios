@@ -114,12 +114,20 @@
     }];
 }
 
-- (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withSuccess:(void (^)())success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+- (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withCompletion:(void (^)(NSError *error))completion
 {
     NSDictionary *parameters = @{@"user": @{@"current_password": currentPassword,
                                             @"password" :password,
                                             @"password_confirmation" : confirmedPassword}};
-    [[HeadshotAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:success failure:failure];
+    [[HeadshotAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (completion) {
+            completion(nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(error);
+        }
+    }];
 }
 
 - (void)resetBadgeCount {
