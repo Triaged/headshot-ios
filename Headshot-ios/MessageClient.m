@@ -278,7 +278,10 @@
     if (!message) {
         message = [Message MR_createInContext:managedObjectContext];
         message.messageID = messageID;
-        message.uniqueID = guid;
+//        Once upon a time messages didn't have GUIDs
+        if (![guid isEqual:[NSNull null]]) {
+            message.uniqueID = guid;
+        }
         *_created = YES;
     }
     message.messageText = body;
