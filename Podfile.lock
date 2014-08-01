@@ -125,7 +125,7 @@ DEPENDENCIES:
   - MagicalRecord
   - MBContactPicker
   - Mixpanel
-  - MPGNotification (~> 1.1)
+  - MPGNotification (from `https://github.com/jma256/MPGNotification.git`)
   - MRProgress (~> 0.2)
   - MZFayeClient
   - NJKWebViewProgress
@@ -152,6 +152,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/enriquez/ECPhoneNumberFormatter.git
   JSQMessagesViewController:
     :git: https://github.com/Triaged/JSQMessagesViewController.git
+  MPGNotification:
+    :git: https://github.com/jma256/MPGNotification.git
   VENTokenField:
     :git: https://github.com/jma256/VENTokenField.git
 
@@ -171,7 +173,7 @@ SPEC CHECKSUMS:
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
   MBContactPicker: f3ad9c973cdc8ed6caa92a104dbc314f155f3ea6
   Mixpanel: a29ff32db93936dea24162f0dc4fecc4a8f17071
-  MPGNotification: d930303f91e774810a6677a46de366e3ebaac0c7
+  MPGNotification: e5af2a25e2dd42e971b9958e5227ac62b7f15786
   MRProgress: bacc0f2f6c547e4ab21fd48ed14e19cbd70de3e4
   MZFayeClient: 0db6ba1b0408ff4e26f1bbe31d06ee6934f036b6
   NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1
