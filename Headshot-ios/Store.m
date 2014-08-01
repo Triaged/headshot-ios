@@ -8,6 +8,7 @@
 
 #import "Store.h"
 #import "HeadshotAPIClient.h"
+#import "MessageClient.h"
 #import "AppDelegate.h"
 #import "CredentialStore.h"
 #import "User.h"
@@ -94,6 +95,7 @@
         self.hasStoredCompany = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHasStoredCompanyNotification object:nil];
         [[AnalyticsManager sharedManager] updateSuperProperties];
+        [[MessageClient sharedClient] refreshMessagesWithCompletion:nil];
     }];
 }
 
