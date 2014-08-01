@@ -138,7 +138,7 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if (!view) {
         view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, [self tableView:tableView heightForHeaderInSection:section])];
         view.backgroundColor = [UIColor whiteColor];
-        [view setAlpha:0.9];
+        [view setAlpha:0.95];
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:view.bounds];
         titleLabel.font = [ThemeManager boldFontOfSize:12];
         titleLabel.x = 15;
