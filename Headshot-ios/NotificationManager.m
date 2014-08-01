@@ -109,6 +109,11 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 
 - (void)receivedNewMessageNotification:(NSNotification *)notification
 {
+//    if the message was fetched from server (instead of pushed) do not show notification
+    BOOL fetched = [notification.userInfo[@"fetched"] boolValue];
+    if (fetched) {
+        return;
+    }
     NSArray *messages = notification.userInfo[@"messages"];
     NSManagedObjectID *firstMessageID = [messages firstObject];
     Message *message = (Message *)[[NSManagedObjectContext MR_contextForCurrentThread] objectWithID:firstMessageID];

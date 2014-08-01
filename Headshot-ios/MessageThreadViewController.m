@@ -342,9 +342,11 @@
 
 - (void)sendMessage:(Message *)message
 {
-    [self startProgressBar];
     [self.messageQueue addObject:message];
+    [self startProgressBar];
+    NSLog(@"sending message %@", message);
     [[MessageClient sharedClient] sendMessage:message withCompletion:^(Message *message, NSError *error) {
+        NSLog(@"completing message %@", message);
         [self.messageQueue removeObject:message];
         [self updateProgressBar];
         [self fetchMessages];
