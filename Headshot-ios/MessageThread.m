@@ -16,6 +16,7 @@
 @dynamic recipients;
 @dynamic messages;
 @dynamic identifier;
+@dynamic unread;
 
 + (MessageThread *)findThreadWithRecipients:(NSSet *)recipients
 {

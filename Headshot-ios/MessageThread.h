@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSSet *recipients;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) NSString *identifier;
+@property (nonatomic, retain) NSNumber *unread;
 
 @property (nonatomic, readonly) Message *lastMessage;
 @property (nonatomic, readonly) BOOL isGroupThread;

@@ -192,6 +192,9 @@
     NSDictionary *messageThreadData = messageData[messageThreadKey];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
     [self findOrCreateMessageThreadWithData:messageThreadData inManagedObjectContext:context withCompletion:^(BOOL created, MessageThread *messageThread, NSArray *newMessages) {
+        for (Message *message in newMessages) {
+            message.messageThread.unread = @(YES);
+        }
         [context MR_saveOnlySelfAndWait];
         if (newMessages) {
             [self postNotificationForNewMessages:newMessages fetched:NO];

@@ -307,6 +307,8 @@
     if (self.automaticallyHandlesScrolling) {
         [self scrollToBottomAnimated:YES];
     }
+    self.messageThread.unread = @(NO);
+    [self.messageThread.managedObjectContext MR_saveOnlySelfAndWait];
 }
 
 - (void)viewDidAppear:(BOOL)animated

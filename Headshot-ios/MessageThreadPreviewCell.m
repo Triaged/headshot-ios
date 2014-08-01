@@ -16,6 +16,14 @@
 
 @property (strong, nonatomic) UILabel *timeLabel;
 @property (strong, nonatomic) TRAvatarImageView *avatarImageView;
+@property (strong, nonatomic) UIFont *textFont;
+@property (strong, nonatomic) UIFont *unreadTextFont;
+@property (strong, nonatomic) UIFont *detailTextFont;
+@property (strong, nonatomic) UIFont *unreadDetailTextFont;
+@property (strong, nonatomic) UIColor *textColor;
+@property (strong, nonatomic) UIColor *unreadTextColor;
+@property (strong, nonatomic) UIColor *detailTextColor;
+@property (strong, nonatomic) UIColor *unreadDetailTextColor;
 
 @end
 
@@ -27,10 +35,15 @@
     if (!self) {
         return nil;
     }
-    self.textLabel.font = [ThemeManager regularFontOfSize:15.0];
-    self.textLabel.textColor = [[ThemeManager sharedTheme] orangeColor];
-    self.detailTextLabel.font = [ThemeManager regularFontOfSize:12];
-    self.detailTextLabel.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
+    self.textFont = [ThemeManager regularFontOfSize:15.0];
+    self.unreadTextFont = [ThemeManager boldFontOfSize:15.0];
+    self.detailTextFont = [ThemeManager regularFontOfSize:12];
+    self.unreadDetailTextFont = [ThemeManager boldFontOfSize:12.0];
+    self.textColor = [[ThemeManager sharedTheme] orangeColor];
+    self.unreadTextColor = [[ThemeManager sharedTheme] orangeColor];
+    self.detailTextColor = [[ThemeManager sharedTheme] darkGrayTextColor];
+    self.unreadDetailTextColor = [[ThemeManager sharedTheme] darkGrayTextColor];
+
     self.detailTextLabel.numberOfLines = 3;
     
     self.timeLabel = [[UILabel alloc] init];
@@ -74,6 +87,18 @@
     self.textLabel.text = messageThread.defaultTitle;
     self.detailTextLabel.text = lastMessage.text;
     self.timeLabel.text = [lastMessage.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
+    if (messageThread.unread.boolValue) {
+        self.textLabel.font = self.unreadTextFont;
+        self.detailTextLabel.font = self.unreadDetailTextFont;
+        self.textLabel.textColor = self.unreadTextColor;
+        self.detailTextLabel.textColor = self.unreadDetailTextColor;
+    }
+    else {
+        self.textLabel.font = self.textFont;
+        self.detailTextLabel.font = self.detailTextFont;
+        self.textLabel.textColor = self.textColor;
+        self.detailTextLabel.textColor = self.detailTextColor;
+    }
 }
 
 @end
