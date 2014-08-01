@@ -96,10 +96,14 @@
 
 - (void)sendMessage:(Message *)message withCompletion:(void (^)(Message *message, NSError *error))completion
 {
-    
+//    add guuid to message
+    if (!message.uniqueID) {
+        message.uniqueID = [[NSUUID UUID] UUIDString];
+    }
+    [message.managedObjectContext MR_saveOnlySelfAndWait];
     NSString *channel = [NSString stringWithFormat:@"/threads/messages/%@", message.messageThread.identifier];
     NSNumber *timestamp = @([[NSDate date] timeIntervalSince1970]);
-    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : timestamp}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
+    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : timestamp, @"guid" : message.uniqueID}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
         if (!error) {
 //            responseObject must have a messageThread containing a single message
             NSDictionary *messageData = responseObject[@"message_thread"][@"messages"][0];
@@ -267,12 +271,14 @@
     NSString *author_id = messageData[@"author_id"];
     NSString *body = messageData[@"body"];
     NSNumber *timestamp = messageData[@"timestamp"];
+    NSString *guid = messageData[@"guid"];
     User *author = [User MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:author_id];
     NSAssert(author, @"Author must exist in core data");
-    Message *message = [Message MR_findFirstByAttribute:NSStringFromSelector(@selector(messageID)) withValue:messageID];
+    Message *message = [Message MR_findFirstByAttribute:NSStringFromSelector(@selector(uniqueID)) withValue:guid];
     if (!message) {
         message = [Message MR_createInContext:managedObjectContext];
         message.messageID = messageID;
+        message.uniqueID = guid;
         *_created = YES;
     }
     message.messageText = body;
