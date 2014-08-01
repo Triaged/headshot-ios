@@ -102,7 +102,7 @@
     [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : timestamp}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
         if (!error) {
 //            responseObject must have a messageThread containing a single message
-            NSDictionary *messageData = responseObject[@"messageThread"][@"messages"][0];
+            NSDictionary *messageData = responseObject[@"message_thread"][@"messages"][0];
             message.messageID = messageData[@"id"];
             message.failed = @(NO);
         }
