@@ -140,7 +140,7 @@
         NSArray *threads = [self findOrCreateMessageThreadsWithData:responseObject inManagedObjectContext:context createdMessageThreads:&createdThreads createdMessages:&createdMessages];
         [context MR_saveOnlySelfAndWait];
         if (createdMessages) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:@{@"messages" : [createdMessages valueForKey:@"objectID"]}];
+            [self postNotificationForNewMessages:createdMessages fetched:YES];
         }
         if (completion) {
             completion(threads, createdMessages, createdThreads, nil);
@@ -150,6 +150,11 @@
             completion(nil, nil, nil, error);
         }
     }];
+}
+
+- (void)postNotificationForNewMessages:(NSArray *)messages fetched:(BOOL)fetched
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:@{@"messages" : [messages valueForKey:@"objectID"], @"fetched" : @(fetched)}];
 }
 
 - (void)postMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion
@@ -185,7 +190,7 @@
     [self findOrCreateMessageThreadWithData:messageThreadData inManagedObjectContext:context withCompletion:^(BOOL created, MessageThread *messageThread, NSArray *newMessages) {
         [context MR_saveOnlySelfAndWait];
         if (newMessages) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:@{@"messages" : [newMessages valueForKey:@"objectID"]}];
+            [self postNotificationForNewMessages:newMessages fetched:NO];
         }
     }];
 }
