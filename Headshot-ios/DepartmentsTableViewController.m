@@ -49,6 +49,10 @@
     [self fetchDepartments];
 }
 
+-(void) viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.shadowImage = nil;
+}
+
 - (void) fetchDepartments {
     [Department departmentsWithCompletionHandler:^(NSArray *departments, NSError *error) {
         _fetchedResultsController = nil;
