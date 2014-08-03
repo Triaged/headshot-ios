@@ -137,6 +137,7 @@
     if (date) {
         parameters = @{@"timestamp" : @([date timeIntervalSince1970])};
     }
+    DDLogInfo(@"getting messages with parameters %@", parameters);
     [self.httpClient GET:@"user/messages" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *createdThreads;
         NSArray *createdMessages;
@@ -287,6 +288,7 @@
         }
         *_created = YES;
     }
+    message.failed = @(NO);
     message.messageText = body;
     message.author = author;
     message.timestamp = [NSDate dateWithTimeIntervalSince1970:timestamp.doubleValue];
