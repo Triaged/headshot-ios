@@ -7,7 +7,6 @@
 //
 
 #import "NotificationManager.h"
-#import <CMNavBarNotificationView.h>
 #import <MPGNotification.h>
 #import "Message.h"
 #import "MessageThread.h"

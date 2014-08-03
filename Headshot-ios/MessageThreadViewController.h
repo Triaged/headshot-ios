@@ -10,7 +10,6 @@
 #import "MessageThread.h"
 #import "Message.h"
 #import <JSQMessagesViewController/JSQMessages.h>
-#import <Sinch/Sinch.h>
 
 @interface MessageThreadViewController : JSQMessagesViewController <JSQMessagesCollectionViewCellDelegate>
 

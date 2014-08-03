@@ -9,7 +9,6 @@
 #import "MessageThreadViewController.h"
 #import <UINavigationController+SGProgress.h>
 #import <FXBlurView.h>
-#import <FLEXManager.h>
 #import "User.h"
 #import "ContactViewController.h"
 #import "GroupMessageInfoTableViewController.h"
