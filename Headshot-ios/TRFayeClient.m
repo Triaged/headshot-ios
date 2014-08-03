@@ -62,12 +62,14 @@
     [messageWithID setObject:fayeMessage.uuid.UUIDString forKey:@"guid"];
     [self.sentMessages setObject:fayeMessage forKey:fayeMessage.uuid.UUIDString];
     DDLogInfo(@"FAYE: sending message %@", messageWithID);
+    NSLog(@"FAYE: sending message %@", messageWithID);
     [super sendMessage:messageWithID toChannel:channel usingExtension:extension];
 }
 
 - (void)fayeClient:(MZFayeClient *)client didReceiveMessage:(NSDictionary *)messageData fromChannel:(NSString *)channel
 {
     DDLogInfo(@"FAYE: received message %@", messageData);
+    NSLog(@"FAYE: received message %@", messageData);
     NSString *uuid = messageData[@"guid"];
     BOOL messageAcknowledgment = NO;
     if (uuid) {
@@ -122,14 +124,37 @@
 - (void)fayeClient:(MZFayeClient *)client didFailWithError:(NSError *)error
 {
     DDLogInfo(@"FAYE: error: %@",error);
+//    It's possible that the faye client failed after sending message and before receiving a response. Give some time for reconnect before marking message as failed
 //    mark all pending sent messages as failed
     for (TRFayeMessage *message in self.sentMessages.allValues) {
         if (message.completionBlock) {
             message.completionBlock(nil, error);
         }
     }
-    self.sentMessages = [[NSMutableDictionary alloc] init];
+    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(failedTimerFired:) userInfo:@{@"messages" : self.sentMessages.allValues, @"error" : error} repeats:NO];
 }
+
+- (void)failedTimerFired:(NSTimer *)timer
+{
+    DDLogInfo(@"FAYE: fail timer fired");
+    NSError *error = timer.userInfo[@"error"];
+    NSArray *messages = timer.userInfo[@"messages"];
+    [self setMessagesToFailed:messages error:error];
+}
+
+- (void)setMessagesToFailed:(NSArray *)messages error:(NSError *)error
+{
+    for (TRFayeMessage *message in messages) {
+        if (self.sentMessages[message.uuid]) {
+            DDLogInfo(@"FAYE: marking %@ as failed", message);
+            [self.sentMessages removeObjectForKey:message.uuid];
+            if (message.completionBlock) {
+                message.completionBlock(nil, error);
+            }
+        }
+    }
+}
+
 - (void)fayeClient:(MZFayeClient *)client didFailDeserializeMessage:(NSDictionary *)message
          withError:(NSError *)error
 {
