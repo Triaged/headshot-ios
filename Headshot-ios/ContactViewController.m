@@ -18,6 +18,7 @@
 @interface ContactViewController ()
 
 @property (nonatomic, strong) ContactDetailsDataSource *contactDetailsDataSource;
+@property (strong, nonatomic) UIImage *previousNavBarBackgroundImage;
 
 @end
 
@@ -41,11 +42,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     // Set the background and shadow image to get rid of the line.
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     
     _scrollView.delegate = self;
     
     [self refreshUser];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.previousNavBarBackgroundImage = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    [self loadViewFromData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:self.previousNavBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = nil;
 }
 
 - (void) refreshUser {
@@ -55,15 +71,6 @@
             [self loadViewFromData];
         }
     }];
-}
-
--(void) viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    [self loadViewFromData];
-}
-
--(void) viewWillDisappear:(BOOL)animated {
-    self.navigationController.navigationBar.shadowImage = nil;
 }
 
 -(void)loadViewFromData {
