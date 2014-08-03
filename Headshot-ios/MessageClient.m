@@ -139,6 +139,7 @@
     }
     DDLogInfo(@"getting messages with parameters %@", parameters);
     [self.httpClient GET:@"user/messages" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        DDLogInfo(@"received messages %@", responseObject);
         NSArray *createdThreads;
         NSArray *createdMessages;
         NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
