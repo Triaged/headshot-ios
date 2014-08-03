@@ -165,8 +165,8 @@
 - (void)receivedNewMessageNotification:(NSNotification *)notification
 {
 //    MessageThread *thread = notification.userInfo[@"thread"];
-//    if ([thread.objectID isEqual:self.messageThread.objectID]) {
-        [self fetchMessages];
+    //    if ([thread.objectID isEqual:self.messageThread.objectID]) {
+    [self fetchMessages];
 //    }
 }
 
@@ -188,14 +188,14 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
+    self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.shadowImage = nil;
     [NotificationManager sharedManager].visibleMessageThreadViewController = self;
     if (self.showKeyboardOnAppear) {
         [self.inputToolbar.contentView.textView becomeFirstResponder];
         self.showKeyboardOnAppear = NO;
     }
+    [super viewWillAppear:animated];
 }
 
 
@@ -204,6 +204,7 @@
     
     [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
     [self.navigationController setSGProgressPercentage:0];
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 
@@ -297,25 +298,21 @@
 
 -(void)showContact:(User *)user
 {
+    [self.inputToolbar.contentView.textView resignFirstResponder];
     ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
     [self.navigationController pushViewController:contactVC animated:YES];
 }
 
 - (void)fetchMessages {
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findByAttribute:@"messageThread" withValue:self.messageThread andOrderBy:@"timestamp" ascending:YES]];
+    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
     [self.collectionView reloadData];
-    if (self.automaticallyHandlesScrolling) {
-        [self scrollToBottomAnimated:YES];
-    }
-    self.messageThread.unread = @(NO);
-    [self.messageThread.managedObjectContext MR_saveOnlySelfAndWait];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    [self scrollToBottomAnimated:YES];
     
-    self.collectionView.collectionViewLayout.springinessEnabled = NO;
+    if (self.messageThread.unread && self.messageThread.unread.boolValue) {
+        self.messageThread.unread = @(NO);
+        [self.messageThread.managedObjectContext MR_saveOnlySelfAndWait];
+    }
 }
 
 #pragma mark - JSQMessagesViewController method overrides
