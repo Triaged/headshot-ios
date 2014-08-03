@@ -11,12 +11,6 @@ extern NSString * const HeadshotAPIBaseURLString;
 extern NSString * const StagingAPIBaseURLString;
 NSString * const ProductionMessageServerURLString;
 NSString * const StagingMessageServerURLString;
-extern NSString * const SinchProductionAppKey;
-extern NSString * const SinchProductionAppSecret;
-extern NSString * const SinchProdunctionEnvironmentHost;
-extern NSString * const SinchStagingAppKey;
-extern NSString * const SinchStagingAppSecret;
-extern NSString * const SinchStagingEnvironmentHost;
 
 //notification center
 extern NSString * const kReceivedNewMessageNotification;
