@@ -35,18 +35,29 @@
     if (!self) {
         return nil;
     }
-    NSString *urlString = CurrentServerEnvironment == ServerEnvironmentProduction ? ProductionMessageServerURLString : StagingMessageServerURLString;
-    NSString *fayeURLString = [NSString stringWithFormat:@"ws://%@/streaming", urlString];
-    NSString *httpURLString = [NSString stringWithFormat:@"http://%@/api/v1", urlString];
-    self.fayeClient = [[TRFayeClient alloc] initWithURL:[NSURL URLWithString:fayeURLString]];
-    self.fayeClient.messageDelegate = self;
-    self.httpClient = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:httpURLString]];
+    [self initHttpClient];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUserLoggedInNotification:) name:kUserLogginInNotification object:nil];
     return self;
 }
 
+- (void)initHttpClient
+{
+    NSString *urlString = CurrentServerEnvironment == ServerEnvironmentProduction ? ProductionMessageServerURLString : StagingMessageServerURLString;
+    NSString *httpURLString = [NSString stringWithFormat:@"http://%@/api/v1", urlString];
+    self.httpClient = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:httpURLString]];
+}
+
+- (void)initFayeClient
+{
+    NSString *urlString = CurrentServerEnvironment == ServerEnvironmentProduction ? ProductionMessageServerURLString : StagingMessageServerURLString;
+    NSString *fayeURLString = [NSString stringWithFormat:@"ws://%@/streaming", urlString];
+    self.fayeClient = [[TRFayeClient alloc] initWithURL:[NSURL URLWithString:fayeURLString]];
+    self.fayeClient.messageDelegate = self;
+}
+
 - (void)start
 {
+    [self initFayeClient];
     [self.fayeClient connect];
     BOOL loggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
     if (loggedIn) {

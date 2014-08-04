@@ -121,6 +121,7 @@
 {
     NSLog(@"%@",channel);
 }
+
 - (void)fayeClient:(MZFayeClient *)client didFailWithError:(NSError *)error
 {
     DDLogInfo(@"FAYE: error: %@",error);

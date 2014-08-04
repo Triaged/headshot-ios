@@ -27,7 +27,7 @@ pod 'ECPhoneNumberFormatter', :git => 'https://github.com/enriquez/ECPhoneNumber
 pod 'Mixpanel'
 pod 'CocoaLumberjack'
 pod 'SinchRTC'
-pod 'MZFayeClient'
+pod 'MZFayeClient', :git => 'https://github.com/jma256/MZFayeClient.git', :commit => 'bca970244654d0d504de82552be5fa5661b83a12'
 pod 'MPGNotification', :git => 'https://github.com/jma256/MPGNotification.git'
 pod 'FXBlurView'
 pod 'MBContactPicker'

@@ -127,7 +127,7 @@ DEPENDENCIES:
   - Mixpanel
   - MPGNotification (from `https://github.com/jma256/MPGNotification.git`)
   - MRProgress (~> 0.2)
-  - MZFayeClient
+  - MZFayeClient (from `https://github.com/jma256/MZFayeClient.git`, commit `bca970244654d0d504de82552be5fa5661b83a12`)
   - NJKWebViewProgress
   - NSDate+TimeAgo
   - PMEDatePicker (~> 0.0.1)
@@ -155,6 +155,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/jma256/JSQMessagesViewController.git
   MPGNotification:
     :git: https://github.com/jma256/MPGNotification.git
+  MZFayeClient:
+    :commit: bca970244654d0d504de82552be5fa5661b83a12
+    :git: https://github.com/jma256/MZFayeClient.git
   VENTokenField:
     :git: https://github.com/jma256/VENTokenField.git
 
@@ -176,7 +179,7 @@ SPEC CHECKSUMS:
   Mixpanel: a29ff32db93936dea24162f0dc4fecc4a8f17071
   MPGNotification: e5af2a25e2dd42e971b9958e5227ac62b7f15786
   MRProgress: bacc0f2f6c547e4ab21fd48ed14e19cbd70de3e4
-  MZFayeClient: 0db6ba1b0408ff4e26f1bbe31d06ee6934f036b6
+  MZFayeClient: 546d96d63bb81fbcdf45bba81a10be71a9773f0d
   NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1
   NSDate+TimeAgo: f3533e0198fab05b716368b19f8c2185d53d6f3b
   PMEDatePicker: a44e15d953cf7c568d2546914d088463431f1f18
