@@ -29,6 +29,7 @@
 @property (strong, nonatomic) GroupMessageInfoTableViewController *groupInfoViewController;
 @property (strong, nonatomic) FXBlurView *groupInfoBackgroundView;
 @property (assign, nonatomic) BOOL showingGroupInfo;
+@property (assign, nonatomic) BOOL sendingMessage;
 
 @end
 
@@ -342,14 +343,9 @@
                     sender:(NSString *)sender
                       date:(NSDate *)date
 {
-    /**
-     *  Sending a message. Your implementation of this method should do *at least* the following:
-     *
-     *  1. Play sound (optional)
-     *  2. Add new id<JSQMessageData> object to your data source
-     *  3. Call `finishSendingMessage`
-     */
-    
+    if (self.sendingMessage) {
+        return;
+    }
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
     Message *message = [self createMessageWithText:text andAuthor:currentUser];
@@ -363,8 +359,10 @@
 {
     [self.messageQueue addObject:message];
     [self startProgressBar];
+    self.sendingMessage = YES;
     NSLog(@"sending message %@", message);
     [[MessageClient sharedClient] sendMessage:message withCompletion:^(Message *message, NSError *error) {
+        self.sendingMessage = NO;
         NSLog(@"completing message %@", message);
         [self.messageQueue removeObject:message];
         [self updateProgressBar];
@@ -375,7 +373,9 @@
 
 - (void)resendMessage:(Message *)message
 {
-    [self sendMessage:message];
+    if (!self.sendingMessage) {
+        [self sendMessage:message];
+    }
 }
 
 - (Message *)createMessageWithText:(NSString *)text andAuthor:(User *)user {
