@@ -145,7 +145,6 @@
 {
     if (!_groupInfoViewController) {
         _groupInfoViewController = [[GroupMessageInfoTableViewController alloc] init];
-        _groupInfoViewController.view.frame = self.view.bounds;
         _groupInfoViewController.delegate = self;
     }
     return _groupInfoViewController;
@@ -263,7 +262,15 @@
     self.showingGroupInfo = YES;
     self.groupInfoViewController.users = self.messageThread.recipientsExcludeUser.allObjects;
     if (!self.groupInfoBackgroundView) {
-        self.groupInfoBackgroundView = [[FXBlurView alloc] initWithFrame:self.view.bounds];
+        CGRect frame;
+        if (self.navigationController.navigationBar.isTranslucent) {
+            frame.origin.y = self.navigationController.navigationBar.bottom;
+            frame.size = CGSizeMake(self.view.width, self.view.height - frame.origin.y);
+        }
+        else {
+            frame = self.view.bounds;
+        }
+        self.groupInfoBackgroundView = [[FXBlurView alloc] initWithFrame:frame];
         UIView *overlayView = [[UIView alloc] initWithFrame:self.groupInfoBackgroundView.bounds];
         overlayView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
         [self.groupInfoBackgroundView addSubview:overlayView];
@@ -271,6 +278,7 @@
         self.groupInfoBackgroundView.blurRadius = 10;
         self.groupInfoBackgroundView.tintColor = nil;
         self.groupInfoBackgroundView.dynamic = NO;
+        self.groupInfoViewController.view.frame = self.groupInfoBackgroundView.bounds;
     }
     self.groupInfoViewController.view.backgroundColor = [UIColor clearColor];
     [self addChildViewController:self.groupInfoViewController];
