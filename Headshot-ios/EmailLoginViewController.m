@@ -84,7 +84,8 @@
     self.emailFormView.textField.placeholder = @"Your Company Email Address";
     self.emailFormView.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailFormView.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.emailFormView.textField.returnKeyType = UIReturnKeyDone;
+    self.emailFormView.textField.returnKeyType = UIReturnKeyNext;
+    self.emailFormView.textField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailFormView.textField.delegate = self;
     
     self.passwordFormView = [[FormView alloc] init];
@@ -177,6 +178,14 @@
 #pragma mark - UITextFieldDelegegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (textField == self.emailFormView.textField) {
+        [self.passwordFormView.textField becomeFirstResponder];
+    }
+    
+    if (textField == self.passwordFormView.textField) {
+        [self loginButtonTouched:nil];
+    }
+    
     [textField resignFirstResponder];
     return YES;
 }

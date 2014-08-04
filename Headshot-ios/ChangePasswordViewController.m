@@ -24,6 +24,8 @@
 {
     [super viewDidLoad];
     
+    self.title = @"Change Password";
+    
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTouched:)];
     self.navigationItem.rightBarButtonItem = saveButton;
     
@@ -47,6 +49,11 @@
     self.confirmPasswordFormView.textField.returnKeyType = UIReturnKeyDone;
     self.confirmPasswordFormView.textField.secureTextEntry = YES;
     self.confirmPasswordFormView.textField.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    // scroll the search bar off-screen
+    self.navigationController.navigationBar.shadowImage = nil;
 }
 
 - (void)saveButtonTouched:(id)sender
