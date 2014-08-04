@@ -38,7 +38,7 @@
     
     self.passwordFormView = [[FormView alloc] init];
     self.passwordFormView.fieldName = @"New Password";
-    self.passwordFormView.textField.placeholder = @"At least 6 characters";
+    self.passwordFormView.textField.placeholder = @"At least 8 characters";
     self.passwordFormView.textField.returnKeyType = UIReturnKeyDone;
     self.passwordFormView.textField.secureTextEntry = YES;
     self.passwordFormView.textField.delegate = self;
