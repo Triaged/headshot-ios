@@ -74,7 +74,6 @@
 }
 
 -(void)loadViewFromData {
-    NSURL *avatarUrl = [NSURL URLWithString:self.user.avatarFaceUrl];
     avatarImageView.user = self.user;
     
     self.nameLabel.text = self.user.fullName;
