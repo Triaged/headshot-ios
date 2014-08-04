@@ -22,6 +22,7 @@
 @property (nonatomic, strong) ContactDetailsDataSource *contactDetailsDataSource;
 @property (strong, nonatomic) UIView *completeProfileView;
 @property (assign, nonatomic) BOOL hasShownCompleteProfileView;
+@property (strong, nonatomic) UIImage *previousNavBarBackgroundImage;
 
 @end
 
@@ -41,9 +42,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     
     
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
@@ -81,11 +79,19 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    self.previousNavBarBackgroundImage = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     
     //refresh locally
     [self loadViewFromData];
     // refresh remotely
     [self refreshUser];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:self.previousNavBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewDidAppear:(BOOL)animated
