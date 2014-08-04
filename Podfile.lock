@@ -121,7 +121,7 @@ DEPENDENCIES:
   - FLEX
   - FXBlurView
   - INTULocationManager
-  - JSQMessagesViewController (from `https://github.com/jma256/JSQMessagesViewController.git`, commit `38b5a6b30d278f9533831212cceb8b0579ad1634`)
+  - JSQMessagesViewController (from `https://github.com/jma256/JSQMessagesViewController.git`, commit `362f69bfb9a3a34c2805204b137634354a2fb4d2`)
   - MagicalRecord
   - MBContactPicker
   - Mixpanel
@@ -151,7 +151,7 @@ EXTERNAL SOURCES:
   ECPhoneNumberFormatter:
     :git: https://github.com/enriquez/ECPhoneNumberFormatter.git
   JSQMessagesViewController:
-    :commit: 38b5a6b30d278f9533831212cceb8b0579ad1634
+    :commit: 362f69bfb9a3a34c2805204b137634354a2fb4d2
     :git: https://github.com/jma256/JSQMessagesViewController.git
   MPGNotification:
     :git: https://github.com/jma256/MPGNotification.git
