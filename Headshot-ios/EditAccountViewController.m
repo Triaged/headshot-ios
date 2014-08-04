@@ -159,7 +159,8 @@
     }
     [SVProgressHUD show];
     [self.account updateAccountWithSuccess:^(Account *account) {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showSuccessWithStatus:@"Profile Saved"];
+        [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
     }];
