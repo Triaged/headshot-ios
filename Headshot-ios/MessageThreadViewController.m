@@ -264,6 +264,7 @@
 
 - (void)showGroupInfo
 {
+    [self.inputToolbar.contentView.textView resignFirstResponder];
     self.showingGroupInfo = YES;
     self.groupInfoViewController.users = self.messageThread.recipientsExcludeUser.allObjects;
     if (!self.groupInfoBackgroundView) {
