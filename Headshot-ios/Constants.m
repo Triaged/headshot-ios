@@ -1,6 +1,6 @@
 #import "Constants.h"
 
-NSString * const HeadshotAPIBaseURLString = @"http://api.badge.co/v1/";
+NSString * const HeadshotAPIBaseURLString = @"https://api.badge.co/v1/";
 NSString * const StagingAPIBaseURLString  = @"http://api.badge-staging.com/v1";
 NSString * const ProductionMessageServerURLString = @"messaging.badge.co";
 NSString * const StagingMessageServerURLString = @"badge-messaging-staging.herokuapp.com";
