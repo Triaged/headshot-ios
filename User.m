@@ -21,6 +21,7 @@
 @dynamic sharingOfficeLocation;
 @dynamic email;
 @dynamic avatarFaceUrl;
+@dynamic avatarFace2xUrl;
 @dynamic avatarUrl;
 @dynamic employeeInfo;
 @dynamic company;

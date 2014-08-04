@@ -38,9 +38,9 @@
 - (void)setUser:(User *)user
 {
     _user = user;
-    if (user.avatarFaceUrl) {
+    if (user.avatarFace2xUrl) {
         [self.initialView removeFromSuperview];
-        NSURL *url = [NSURL URLWithString:user.avatarFaceUrl];
+        NSURL *url = [NSURL URLWithString:user.avatarFace2xUrl];
         [self setImageWithURL:url placeholderImage:nil];
     }
     else {

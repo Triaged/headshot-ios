@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString * fullName;
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSString * avatarFaceUrl;
+@property (nonatomic, retain) NSString * avatarFace2xUrl;
 @property (nonatomic, retain) NSString * avatarUrl;
 @property (nonatomic, retain) NSNumber * installedApp;
 @property (nonatomic, retain) NSNumber * sharingOfficeLocation;

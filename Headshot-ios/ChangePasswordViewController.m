@@ -38,7 +38,7 @@
     
     self.passwordFormView = [[FormView alloc] init];
     self.passwordFormView.fieldName = @"New Password";
-    self.passwordFormView.textField.placeholder = @"At least 6 characters";
+    self.passwordFormView.textField.placeholder = @"At least 8 characters";
     self.passwordFormView.textField.returnKeyType = UIReturnKeyDone;
     self.passwordFormView.textField.secureTextEntry = YES;
     self.passwordFormView.textField.delegate = self;
@@ -60,9 +60,18 @@
 {
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     [[AppDelegate sharedDelegate].store.currentAccount updatePassword:self.oldPasswordFormView.textField.text password:self.passwordFormView.textField.text confirmedPassword:self.confirmPasswordFormView.textField.text withCompletion:^(NSError *error) {
-        [SVProgressHUD dismiss];
-        UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Your password was successfully changed." delegate:nil cancelButtonTitle:@"Onward" otherButtonTitles:nil];
-        [successAlert show];
+        
+        if (!error) {
+            [SVProgressHUD showSuccessWithStatus:@"Password Changed"];
+//            UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Your password was successfully changed." delegate:nil cancelButtonTitle:@"Onward" otherButtonTitles:nil];
+//            [successAlert show];
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [SVProgressHUD dismiss];
+            UIAlertView *failedAlert = [[UIAlertView alloc] initWithTitle:@"Failed" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
+            [failedAlert show];
+        }
+        
     }];
 }
 
