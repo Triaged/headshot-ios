@@ -54,6 +54,7 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
     for (User *user in users) {
         NSString *key = [user.lastName substringToIndex:1];
+        key = key.uppercaseString;
         NSMutableArray *usersByName = userDictionary[key];
         if (!usersByName) {
             usersByName = [[NSMutableArray alloc] init];

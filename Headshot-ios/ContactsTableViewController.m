@@ -100,8 +100,10 @@
 - (void) fetchContacts {
     [User usersWithCompletionHandler:^(NSArray *users, NSError *error) {
         self.contactsDataSource.users = [User findAllExcludeCurrent];
-        [self.tableView reloadData];
+        UITableView *tableView = self.containerViewController ? self.containerViewController.tableView : self.tableView;
+        [tableView reloadData];
         [self.refreshControl endRefreshing];
+
     }];
 }
 

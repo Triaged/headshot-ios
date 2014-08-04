@@ -48,6 +48,7 @@
     self.tableView.tableHeaderView = headerView;
     
     self.contactsViewController = [[ContactsTableViewController alloc] init];
+    self.contactsViewController.containerViewController = self;
     self.contactsViewController.contactsTableViewControllerDelegate = self;
     
     self.departmentsViewController = [[DepartmentsTableViewController alloc] init];
