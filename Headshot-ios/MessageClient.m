@@ -102,12 +102,13 @@
     }
     [message.managedObjectContext MR_saveOnlySelfAndWait];
     NSString *channel = [NSString stringWithFormat:@"/threads/messages/%@", message.messageThread.identifier];
-    NSNumber *timestamp = @([[NSDate date] timeIntervalSince1970]);
-    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text,  @"timestamp" : timestamp, @"guid" : message.uniqueID}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
+    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text, @"guid" : message.uniqueID}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
         if (!error) {
 //            responseObject must have a messageThread containing a single message
             NSDictionary *messageData = responseObject[@"message_thread"][@"messages"][0];
             message.messageID = messageData[@"id"];
+            NSNumber *timestamp = messageData[@"timestamp"];
+            message.timestamp = [NSDate dateWithTimeIntervalSince1970:timestamp.doubleValue];
             message.failed = @(NO);
         }
         else {
