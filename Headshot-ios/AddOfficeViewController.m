@@ -168,11 +168,12 @@
     self.officeLocation = [self officeLocationFromFields];
     [SVProgressHUD show];
     [self.officeLocation postWithCompletion:^(OfficeLocation *officeLocation, NSError *error) {
-        [SVProgressHUD dismiss];
         if (!error) {
             if ([self.delegate respondsToSelector:@selector(addOfficeViewController:didAddOffice:)]) {
                 [self.delegate addOfficeViewController:self didAddOffice:officeLocation];
             }
+            [SVProgressHUD showSuccessWithStatus:@"Office Location Added"];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
