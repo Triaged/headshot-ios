@@ -29,6 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Contacts";
+    
     self.searchButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButtonTouched:)];
     self.searchButtonItem.tintColor = [[ThemeManager sharedTheme] orangeColor];
     self.navigationItem.leftBarButtonItem = self.searchButtonItem;
@@ -73,8 +75,6 @@
     [super viewWillAppear:animated];
     [[AppDelegate sharedDelegate].window.rootViewController.view addSubview:self.searchBar];
     [self setSearchBarHidden:YES animated:NO completion:nil];
-    Company *company = [AppDelegate sharedDelegate].store.currentAccount.currentUser.company;
-    self.title = company.name;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
