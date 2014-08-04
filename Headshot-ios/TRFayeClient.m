@@ -126,11 +126,6 @@
     DDLogInfo(@"FAYE: error: %@",error);
 //    It's possible that the faye client failed after sending message and before receiving a response. Give some time for reconnect before marking message as failed
 //    mark all pending sent messages as failed
-    for (TRFayeMessage *message in self.sentMessages.allValues) {
-        if (message.completionBlock) {
-            message.completionBlock(nil, error);
-        }
-    }
     [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(failedTimerFired:) userInfo:@{@"messages" : self.sentMessages.allValues, @"error" : error} repeats:NO];
 }
 
@@ -145,9 +140,9 @@
 - (void)setMessagesToFailed:(NSArray *)messages error:(NSError *)error
 {
     for (TRFayeMessage *message in messages) {
-        if (self.sentMessages[message.uuid]) {
+        if (self.sentMessages[message.uuid.UUIDString]) {
             DDLogInfo(@"FAYE: marking %@ as failed", message);
-            [self.sentMessages removeObjectForKey:message.uuid];
+            [self.sentMessages removeObjectForKey:message.uuid.UUIDString];
             if (message.completionBlock) {
                 message.completionBlock(nil, error);
             }
