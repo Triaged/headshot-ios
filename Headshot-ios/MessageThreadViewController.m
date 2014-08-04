@@ -189,10 +189,6 @@
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.shadowImage = nil;
     [NotificationManager sharedManager].visibleMessageThreadViewController = self;
-    if (self.showKeyboardOnAppear) {
-        [self.inputToolbar.contentView.textView becomeFirstResponder];
-        self.showKeyboardOnAppear = NO;
-    }
     [super viewWillAppear:animated];
 }
 
@@ -203,6 +199,15 @@
     [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
     [self.navigationController setSGProgressPercentage:0];
     self.navigationController.navigationBar.translucent = NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.showKeyboardOnAppear) {
+        [self.inputToolbar.contentView.textView becomeFirstResponder];
+        self.showKeyboardOnAppear = NO;
+    }
 }
 
 
@@ -314,7 +319,14 @@
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findByAttribute:@"messageThread" withValue:self.messageThread andOrderBy:@"timestamp" ascending:YES]];
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
     [self.collectionView reloadData];
-    [self scrollToBottomAnimated:YES];
+    
+//    hack to fix scrolling issue when receiving a message (if don't dispatch then doesn't scroll to show entire message)
+    jadispatch_after_delay(0.1, dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:1 animations:^{
+            [self scrollToBottomAnimated:NO];
+        } completion:^(BOOL finished) {
+        }];
+    });
     
     if (self.messageThread.unread && self.messageThread.unread.boolValue) {
         self.messageThread.unread = @(NO);
