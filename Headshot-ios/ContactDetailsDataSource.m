@@ -295,10 +295,15 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
 
 - (void)tableView:(UITableView *)tableView didSelectReportAtIndexPath:(NSIndexPath *)indexPath {
     User *user = [self itemAtIndexPath:indexPath];
-    
-    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
+    UIViewController *viewController;
+    if ([user.identifier isEqualToString:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier]) {
+        viewController = [[AccountViewController alloc] init];
+    }
+    else {
+        viewController = [[ContactViewController alloc] initWitUser:user];
+    }
     self.contactVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.contactVC.navigationController pushViewController:contactVC animated:YES];
+    [self.contactVC.navigationController pushViewController:viewController animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

@@ -44,14 +44,8 @@
     [super viewDidLoad];
     
     
-    UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
-    [info addTarget:self action:@selector(showSettings) forControlEvents:UIControlEventTouchUpInside];
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTouched:)];
-    [info addGestureRecognizer:longPress];
     [self.avatarImageView addGestureRecognizer:longPress];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
-    self.navigationItem.rightBarButtonItem = item;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     
@@ -81,6 +75,14 @@
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     self.previousNavBarBackgroundImage = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    
+//    can be presented from either tab bar or pushed in a navigation controller. Only show settings if from tab bar.
+    if (self.navigationController.viewControllers.count == 1) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
+    }
+    else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
     
     //refresh locally
     [self loadViewFromData];
