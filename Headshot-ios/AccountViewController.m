@@ -91,9 +91,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([self shouldPromptToCompleteProfile]) {
-        [self showCompleteProfileView];
-    }
+//    if ([self shouldPromptToCompleteProfile]) {
+//        [self showCompleteProfileView];
+//    }
 }
 
 - (BOOL)shouldPromptToCompleteProfile
