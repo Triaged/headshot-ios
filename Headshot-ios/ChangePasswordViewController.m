@@ -60,9 +60,17 @@
 {
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     [[AppDelegate sharedDelegate].store.currentAccount updatePassword:self.oldPasswordFormView.textField.text password:self.passwordFormView.textField.text confirmedPassword:self.confirmPasswordFormView.textField.text withCompletion:^(NSError *error) {
-        [SVProgressHUD dismiss];
-        UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Your password was successfully changed." delegate:nil cancelButtonTitle:@"Onward" otherButtonTitles:nil];
-        [successAlert show];
+        
+        if (!error) {
+            [SVProgressHUD dismiss];
+            UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Your password was successfully changed." delegate:nil cancelButtonTitle:@"Onward" otherButtonTitles:nil];
+            [successAlert show];
+        } else {
+            [SVProgressHUD dismiss];
+            UIAlertView *failedAlert = [[UIAlertView alloc] initWithTitle:@"Failed" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
+            [failedAlert show];
+        }
+        
     }];
 }
 
