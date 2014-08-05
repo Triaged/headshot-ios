@@ -35,16 +35,17 @@
     if (!self) {
         return nil;
     }
-    self.textFont = [ThemeManager regularFontOfSize:15.0];
-    self.unreadTextFont = [ThemeManager boldFontOfSize:15.0];
-    self.detailTextFont = [ThemeManager regularFontOfSize:12];
-    self.unreadDetailTextFont = [ThemeManager boldFontOfSize:12.0];
-    self.textColor = [[ThemeManager sharedTheme] orangeColor];
+    self.textFont = [ThemeManager regularFontOfSize:16.0];
+    self.unreadTextFont = [ThemeManager boldFontOfSize:16.0];
+    self.detailTextFont = [ThemeManager regularFontOfSize:15.0];
+    self.unreadDetailTextFont = [ThemeManager regularFontOfSize:15.0];
+    self.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
     self.unreadTextColor = [[ThemeManager sharedTheme] orangeColor];
-    self.detailTextColor = [[ThemeManager sharedTheme] darkGrayTextColor];
+    self.detailTextColor = [[ThemeManager sharedTheme] lightGrayTextColor];
     self.unreadDetailTextColor = [[ThemeManager sharedTheme] darkGrayTextColor];
 
-    self.detailTextLabel.numberOfLines = 3;
+    self.detailTextLabel.numberOfLines = 2;
+    self.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
     self.timeLabel = [[UILabel alloc] init];
     self.timeLabel.size = CGSizeMake(100, 31);
@@ -55,7 +56,7 @@
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.timeLabel];
     
-    self.avatarImageView = [[TRAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    self.avatarImageView = [[TRAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     [self.contentView addSubview:self.avatarImageView];
     
     return self;
@@ -65,10 +66,10 @@
 {
     [super layoutSubviews];
     self.avatarImageView.x = 15;
-    self.avatarImageView.size = CGSizeMake(40, 40);
+    self.avatarImageView.size = CGSizeMake(50, 50);
     self.avatarImageView.centerY = self.height/2.0;
     self.textLabel.x = self.avatarImageView.right + 15;
-    self.textLabel.width = self.contentView.width - self.textLabel.x - 15;
+    self.textLabel.width = self.contentView.width - self.textLabel.x - 50;
     self.detailTextLabel.x = self.textLabel.x;
     self.detailTextLabel.width = self.contentView.width - self.detailTextLabel.x - 15;
 }
