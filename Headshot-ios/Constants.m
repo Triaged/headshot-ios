@@ -76,7 +76,7 @@ NSString * const kPersistentStoreName = @"Headshot.sqlite";
 
 + (ServerEnvironment)ServerEnvironment
 {
-    return ServerEnvironmentStaging;
+    return ServerEnvironmentProduction;
 }
 
 + (id<Constants>)sharedConstants
@@ -85,7 +85,7 @@ NSString * const kPersistentStoreName = @"Headshot.sqlite";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if ([self ServerEnvironment] == ServerEnvironmentProduction) {
-            sharedConstants = [[StagingConstants alloc] init];
+            sharedConstants = [[ProductionConstants alloc] init];
         }
         else  if ([self ServerEnvironment] == ServerEnvironmentStaging) {
             sharedConstants = [[StagingConstants alloc] init];
