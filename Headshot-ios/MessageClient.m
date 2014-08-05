@@ -60,7 +60,8 @@
     [self initFayeClient];
     [self.fayeClient connect];
     BOOL loggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
-    if (loggedIn) {
+    BOOL hasAccount = [AppDelegate sharedDelegate].store.currentAccount != nil;
+    if (loggedIn && hasAccount) {
         [self setAuthorizationHeader];
         [self subscribeForUserID:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
         self.fayeHeartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(fireHeartbeat:) userInfo:nil repeats:YES];
