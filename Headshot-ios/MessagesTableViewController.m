@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Inbox";
+    self.title = @"Messages";
     
     [self setupTableView];
     
