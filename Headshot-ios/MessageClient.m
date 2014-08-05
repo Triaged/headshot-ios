@@ -157,8 +157,10 @@
         NSArray *createdMessages;
         NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
         NSArray *threads = [self findOrCreateMessageThreadsWithData:responseObject inManagedObjectContext:context createdMessageThreads:&createdThreads createdMessages:&createdMessages];
-        for (Message *message in createdMessages) {
-            message.messageThread.unread = @(YES);
+        if (date.timeIntervalSinceReferenceDate > 0) {
+            for (Message *message in createdMessages) {
+                message.messageThread.unread = @(YES);
+            }
         }
         [context MR_saveOnlySelfAndWait];
         if (createdMessages) {
