@@ -7,11 +7,11 @@
 //
 
 #import "NotificationManager.h"
-#import <MPGNotification.h>
 #import "Message.h"
 #import "MessageThread.h"
 #import "User.h"
 #import "MessageThreadViewController.h"
+#import "MessageNavigationController.h"
 #import "SoundPlayer.h"
 #import "Device.h"
 
@@ -19,7 +19,6 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 
 @interface NotificationManager() <UIAlertViewDelegate>
 
-@property (assign, nonatomic) BOOL isDisplayingAlert;
 @property (strong, nonatomic) RemoteNotificationRegistrationBlock remoteNotificationRegistrationCompletion;
 
 @end
@@ -32,6 +31,7 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedManager = [NotificationManager new];
+        [_sharedManager updateUnreadMessageIndicator];
     });
     return _sharedManager;
 }
@@ -43,6 +43,7 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
         return nil;
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnreadMessageIndicator) name:kMarkedMessageThreadAsReadNotification object:nil];
     
     return self;
 }
@@ -122,18 +123,27 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     BOOL inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
     if (!inBackground && (!self.visibleMessageThreadViewController || (![thread.objectID isEqual:self.visibleMessageThreadViewController.messageThread.objectID]))) {
         [[SoundPlayer sharedPlayer] vibrate];
-        if (!self.isDisplayingAlert) {
-            MPGNotification *notification = [MPGNotification notificationWithTitle:message.author.firstName subtitle:message.text backgroundColor:[[ThemeManager sharedTheme] orangeColor]  iconImage:nil];
-            notification.duration = 5;
-            notification.dismissHandler = ^(MPGNotification *notification) {
-                self.isDisplayingAlert = NO;
-            };
-            self.isDisplayingAlert = YES;
-            [notification showWithButtonHandler:^(MPGNotification *notification, NSInteger buttonIndex) {
-                [[AppDelegate sharedDelegate] setTopViewControllerToMessageThreadViewControllerWithID:thread.identifier];
-            }];
-        }
     }
+    [self updateUnreadMessageIndicator];
+}
+
+- (void)updateUnreadMessageIndicator
+{
+    BOOL unread = [MessageThread MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"unread = YES"]] > 0;
+    NSString *badgeValue;
+    UIImage *backButtonImage;
+    if (unread) {
+        badgeValue = @"•";
+        backButtonImage = [[ThemeManager sharedTheme] unreadMessageBackButtonImage];
+    }
+    else {
+        badgeValue = nil;
+        backButtonImage = [[ThemeManager sharedTheme] backButtonImage];
+    }
+    backButtonImage = [backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [AppDelegate sharedDelegate].tabBarController.messagesTableViewController.navigationController.tabBarItem.badgeValue = badgeValue;
+    [AppDelegate sharedDelegate].tabBarController.messageNavigationController.navigationBar.backIndicatorImage = backButtonImage;
+    [AppDelegate sharedDelegate].tabBarController.messageNavigationController.navigationBar.backIndicatorTransitionMaskImage = backButtonImage;
 }
 
 @end

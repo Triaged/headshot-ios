@@ -23,6 +23,8 @@
 - (UIColor *)tableViewSeparatorColor;
 - (UIColor *)incomingMessageBubbleColor;
 - (UIColor *)outgoingMessageBubbleColor;
+- (UIImage *)backButtonImage;
+- (UIImage *)unreadMessageBackButtonImage;
 - (void)customizeAppearance;
 @end
 

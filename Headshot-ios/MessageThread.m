@@ -50,6 +50,16 @@
     return self.recipients && self.recipients.count > 2;
 }
 
+- (void)markAsRead
+{
+    BOOL unread = self.unread && self.unread.boolValue;
+    if (unread) {
+        self.unread = @(NO);
+        [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMarkedMessageThreadAsReadNotification object:nil userInfo:nil];
+    }
+}
+
 - (User *)directMessageRecipient
 {
     return self.isGroupThread ? nil : [self.recipientsExcludeUser anyObject];

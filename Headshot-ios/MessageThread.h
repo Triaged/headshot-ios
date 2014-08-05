@@ -31,6 +31,8 @@
 
 + (MessageThread *)findThreadWithRecipients:(NSSet *)recipients;
 
+- (void)markAsRead;
+
 @end
 
 @interface MessageThread (CoreDataGeneratedAccessors)

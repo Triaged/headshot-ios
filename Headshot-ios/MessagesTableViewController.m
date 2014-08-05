@@ -174,7 +174,7 @@
 {
     
     MessageThread *thread = [self threadAtIndexPath:indexPath];
-    
+    [thread markAsRead];
     MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
     [self.navigationController pushViewController:messageThreadVC animated:YES];
     

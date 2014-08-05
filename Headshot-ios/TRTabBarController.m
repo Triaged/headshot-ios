@@ -8,6 +8,7 @@
 
 #import "TRTabBarController.h"
 #import "TRNavigationController.h"
+#import "MessageNavigationController.h"
 #import "AccountViewController.h"
 #import "ContactsTableViewController.h"
 #import "MessagesTableViewController.h"
@@ -41,15 +42,15 @@
     //self.delegate = self;
     
     // Messages
-    MessagesTableViewController *messagesTableView = [[MessagesTableViewController alloc] init];
-    TRNavigationController *messagesNav = [[TRNavigationController alloc] initWithRootViewController:messagesTableView];
+    self.messagesTableViewController = [[MessagesTableViewController alloc] init];
+    self.messageNavigationController = [[MessageNavigationController alloc] initWithRootViewController:self.messagesTableViewController];
     
     // Settings
     AccountViewController *accountVC = [[AccountViewController alloc] init];
     TRNavigationController *accountNav = [[TRNavigationController alloc] initWithRootViewController:accountVC];
     UINavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:[[ContactsContainerViewController alloc] init]];
     
-    [self setViewControllers:[NSArray arrayWithObjects:messagesNav, contactsNav, accountNav, nil]];
+    [self setViewControllers:[NSArray arrayWithObjects:self.messageNavigationController, contactsNav, accountNav, nil]];
     
     
     self.tabBar.translucent = NO;

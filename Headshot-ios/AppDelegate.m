@@ -49,12 +49,12 @@
 {
     // Override point for customization after application launch.
     
-    [NotificationManager sharedManager];
     [self setDataStore];
     [[ThemeManager sharedTheme] customizeAppearance];
     [self setupLoggedInUser];
     [self setupLogging];
     [self setWindowAndRootVCForApplication:application withLaunchOptions:launchOptions];
+    [NotificationManager sharedManager];
     return YES;
 }
 

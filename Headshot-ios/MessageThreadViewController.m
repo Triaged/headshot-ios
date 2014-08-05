@@ -163,10 +163,18 @@
 
 - (void)receivedNewMessageNotification:(NSNotification *)notification
 {
-//    MessageThread *thread = notification.userInfo[@"thread"];
-    //    if ([thread.objectID isEqual:self.messageThread.objectID]) {
-    [self fetchMessages];
-//    }
+    NSArray *messageIDs = notification.userInfo[@"messages"];
+    BOOL reload = NO;
+    for (NSManagedObjectID *messageID in messageIDs) {
+        Message *message = (Message *)[[NSManagedObjectContext MR_defaultContext] objectWithID:messageID];
+        if ([message.messageThread.identifier isEqualToString:self.messageThread.identifier]) {
+            reload = YES;
+        }
+    }
+    if (reload) {
+        [self fetchMessages];
+        [self.messageThread markAsRead];
+    }
 }
 
 - (void)receivedMessageFailedNotification:(NSNotification *)notification
@@ -330,10 +338,6 @@
         }];
     });
     
-    if (self.messageThread.unread && self.messageThread.unread.boolValue) {
-        self.messageThread.unread = @(NO);
-        [self.messageThread.managedObjectContext MR_saveOnlySelfAndWait];
-    }
 }
 
 #pragma mark - JSQMessagesViewController method overrides

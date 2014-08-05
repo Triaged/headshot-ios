@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessagesTableViewController.h"
+#import "MessageNavigationController.h"
 
 @interface TRTabBarController : UITabBarController
 
+@property (strong, nonatomic) MessagesTableViewController *messagesTableViewController;
+@property (strong, nonatomic) MessageNavigationController *messageNavigationController;
 - (void)selectMessagesViewController;
+
 
 @end

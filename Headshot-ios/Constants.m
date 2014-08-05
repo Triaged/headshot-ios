@@ -14,6 +14,7 @@ NSString * const kMessageFailedNotification = @"MessageFailedNotification";
 NSString * const kMessageSentNotification = @"MessageSentNotification";
 NSString * const kHasStoredCompanyNotification = @"HasStoredCompany";
 NSString * const kUserLogginInNotification = @"UserLoggiedIn";
+NSString * const kMarkedMessageThreadAsReadNotification = @"MarkedMessageThreadAsRead";
 
 NSString * const kUserDefaultsHasRequestedLocationPermission = @"HasRequestedLocationPermission";
 NSString * const kUserDefaultsHasRequestedPushPermission = @"HasRequestedPushPermission";

@@ -25,6 +25,16 @@
     return @"Whitney-Semibold";
 }
 
+- (UIImage *)backButtonImage
+{
+    return [UIImage imageNamed:@"navbar_back.png"];
+}
+
+- (UIImage *)unreadMessageBackButtonImage
+{
+    return [UIImage imageNamed:@"navbar_back_notification"];
+}
+
 - (UIColor *)darkGrayTextColor
 {
     return [UIColor colorWithWhite:38/255.0 alpha:1.0];
@@ -88,8 +98,8 @@
     [[UIButton appearanceWhenContainedIn:[UIActionSheet class], nil] setTitleColor:buttonTint forState:UIControlStateNormal];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    [UINavigationBar appearance].backIndicatorImage = [[UIImage imageNamed:@"navbar_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [UINavigationBar appearance].backIndicatorTransitionMaskImage = [[UIImage imageNamed:@"navbar_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [UINavigationBar appearance].backIndicatorImage = [self.backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [UINavigationBar appearance].backIndicatorTransitionMaskImage = [self.backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     
     [SVProgressHUD setBackgroundColor:[self orangeColor]];
