@@ -6,11 +6,22 @@ typedef enum {
     ServerEnvironmentProduction,
     ServerEnvironmentDevelopment
 } ServerEnvironment;
-extern ServerEnvironment CurrentServerEnvironment;
-extern NSString * const HeadshotAPIBaseURLString;
-extern NSString * const StagingAPIBaseURLString;
-NSString * const ProductionMessageServerURLString;
-NSString * const StagingMessageServerURLString;
+
+@protocol Constants <NSObject>
+
+- (NSString *)APIBaseURLString;
+- (NSString *)messageServerURLString;
+- (NSString *)mixpanelToken;
+
+@end
+
+@interface ConstantsManager : NSObject
+
+//build dependent constants
++ (ServerEnvironment)ServerEnvironment;
++ (id<Constants>)sharedConstants;
+
+@end
 
 //notification center
 extern NSString * const kReceivedNewMessageNotification;

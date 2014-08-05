@@ -10,8 +10,6 @@
 #import <Mixpanel/Mixpanel.h>
 #import "User.h"
 
-static NSString * kMixpanelToken = @"b9c753b3560536492eba971a53213f5f";
-
 @implementation AnalyticsManager
 
 + (instancetype)sharedManager
@@ -35,7 +33,7 @@ static NSString * kMixpanelToken = @"b9c753b3560536492eba971a53213f5f";
 
 - (void)startMixpanel
 {
-    [Mixpanel sharedInstanceWithToken:kMixpanelToken];
+    [Mixpanel sharedInstanceWithToken:[[ConstantsManager sharedConstants] mixpanelToken]];
 }
 
 - (void)setupForUser

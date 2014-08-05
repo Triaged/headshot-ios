@@ -42,14 +42,14 @@
 
 - (void)initHttpClient
 {
-    NSString *urlString = CurrentServerEnvironment == ServerEnvironmentProduction ? ProductionMessageServerURLString : StagingMessageServerURLString;
+    NSString *urlString = [[ConstantsManager sharedConstants] messageServerURLString];
     NSString *httpURLString = [NSString stringWithFormat:@"http://%@/api/v1", urlString];
     self.httpClient = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:httpURLString]];
 }
 
 - (void)initFayeClient
 {
-    NSString *urlString = CurrentServerEnvironment == ServerEnvironmentProduction ? ProductionMessageServerURLString : StagingMessageServerURLString;
+    NSString *urlString = [[ConstantsManager sharedConstants] messageServerURLString];
     NSString *fayeURLString = [NSString stringWithFormat:@"ws://%@/streaming", urlString];
     self.fayeClient = [[TRFayeClient alloc] initWithURL:[NSURL URLWithString:fayeURLString]];
     self.fayeClient.messageDelegate = self;

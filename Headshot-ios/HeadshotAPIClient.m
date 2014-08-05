@@ -19,7 +19,7 @@
     static HeadshotAPIClient *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *urlString = CurrentServerEnvironment == ServerEnvironmentProduction ? HeadshotAPIBaseURLString : StagingAPIBaseURLString;
+        NSString *urlString = [[ConstantsManager sharedConstants] APIBaseURLString];
         _sharedClient = [[HeadshotAPIClient alloc] initWithBaseURL:[NSURL URLWithString:urlString]];
     });
     
