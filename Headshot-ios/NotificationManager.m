@@ -31,7 +31,6 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedManager = [NotificationManager new];
-        [_sharedManager updateUnreadMessageIndicator];
     });
     return _sharedManager;
 }
@@ -110,11 +109,7 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
 
 - (void)receivedNewMessageNotification:(NSNotification *)notification
 {
-//    if the message was fetched from server (instead of pushed) do not show notification
     BOOL fetched = [notification.userInfo[@"fetched"] boolValue];
-    if (fetched) {
-        return;
-    }
     NSArray *messages = notification.userInfo[@"messages"];
     NSManagedObjectID *firstMessageID = [messages firstObject];
     Message *message = (Message *)[[NSManagedObjectContext MR_contextForCurrentThread] objectWithID:firstMessageID];
@@ -122,9 +117,12 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     MessageThread *thread = message.messageThread;
     BOOL inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
     if (!inBackground && (!self.visibleMessageThreadViewController || (![thread.objectID isEqual:self.visibleMessageThreadViewController.messageThread.objectID]))) {
-        [[SoundPlayer sharedPlayer] vibrate];
+//        if message fetched from server don't play sound
+        if (!fetched) {
+            [[SoundPlayer sharedPlayer] vibrate];
+        }
+        [self updateUnreadMessageIndicator];
     }
-    [self updateUnreadMessageIndicator];
 }
 
 - (void)updateUnreadMessageIndicator
