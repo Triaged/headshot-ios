@@ -12,6 +12,7 @@
 #import "MessageThread.h"
 #import "User.h"
 #import "MessageThreadViewController.h"
+#import "SoundPlayer.h"
 #import "Device.h"
 
 typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *error);
@@ -120,6 +121,7 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     MessageThread *thread = message.messageThread;
     BOOL inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
     if (!inBackground && (!self.visibleMessageThreadViewController || (![thread.objectID isEqual:self.visibleMessageThreadViewController.messageThread.objectID]))) {
+        [[SoundPlayer sharedPlayer] vibrate];
         if (!self.isDisplayingAlert) {
             MPGNotification *notification = [MPGNotification notificationWithTitle:message.author.firstName subtitle:message.text backgroundColor:[[ThemeManager sharedTheme] orangeColor]  iconImage:nil];
             notification.duration = 5;
