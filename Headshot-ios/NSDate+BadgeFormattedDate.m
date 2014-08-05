@@ -16,6 +16,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
         dateFormatter.dateFormat = @"EE, d LLLL yyyy HH:mm:ss Z";
     });
     return [dateFormatter stringFromDate:self];
