@@ -56,6 +56,8 @@
     
     self.emailFormView = [[FormView alloc] initWithFieldName:@"Email" placeholder:@"Your Company Email Address"];
     self.emailFormView.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailFormView.textField.keyboardType = UIKeyboardTypeEmailAddress;
+    self.emailFormView.textField.returnKeyType = UIReturnKeyDone;
     self.emailFormView.textField.delegate = self;
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 118)];
@@ -107,6 +109,10 @@
 #pragma mark - Text Field Delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (textField == self.emailFormView.textField) {
+        [self submitButtonTouched:nil];
+    }
+    
     [textField resignFirstResponder];
     return NO;
 }

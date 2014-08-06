@@ -13,6 +13,7 @@
 #import "TRDataStoreManager.h"
 #import "ForgotPasswordViewController.h"
 #import "Store.h"
+#import "Account.h"
 
 @interface EmailLoginViewController () <UITextFieldDelegate>
 
@@ -24,6 +25,8 @@
 @end
 
 @implementation EmailLoginViewController
+
+@synthesize delegate;
 
 - (void)viewDidLoad
 {
@@ -81,7 +84,8 @@
     self.emailFormView.textField.placeholder = @"Your Company Email Address";
     self.emailFormView.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailFormView.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.emailFormView.textField.returnKeyType = UIReturnKeyDone;
+    self.emailFormView.textField.returnKeyType = UIReturnKeyNext;
+    self.emailFormView.textField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailFormView.textField.delegate = self;
     
     self.passwordFormView = [[FormView alloc] init];
@@ -106,7 +110,7 @@
         // Set Auth Code
         NSString *authToken = [JSON valueForKeyPath:@"authentication_token"];
         Account *account = [Account updatedObjectWithRawJSONDictionary:JSON inManagedObjectContext:[TRDataStoreManager sharedInstance].mainThreadManagedObjectContext];
-        [[CredentialStore sharedClient] setAuthToken:authToken];
+        [[CredentialStore sharedStore] setAuthToken:authToken];
         [[AppDelegate sharedDelegate].store userLoggedInWithAccount:account];
         [SVProgressHUD dismiss];
         [self didLogin];
@@ -174,6 +178,14 @@
 #pragma mark - UITextFieldDelegegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (textField == self.emailFormView.textField) {
+        [self.passwordFormView.textField becomeFirstResponder];
+    }
+    
+    if (textField == self.passwordFormView.textField) {
+        [self loginButtonTouched:nil];
+    }
+    
     [textField resignFirstResponder];
     return YES;
 }

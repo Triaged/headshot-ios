@@ -13,6 +13,7 @@
 #import "NewThreadTableViewController.h"
 #import "MessageThreadPreviewCell.h"
 #import "UITableView+NXEmptyView.h"
+#import "MessageClient.h"
 
 @interface MessagesTableViewController () <NewThreadTableViewControllerDelegate>
 
@@ -33,17 +34,23 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Inbox";
+    self.title = @"Messages";
     
     [self setupTableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newThread)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self reloadData];
+}
+
+- (void)didBecomeActive:(NSNotification *)notification
+{
     [self reloadData];
 }
 
@@ -114,6 +121,19 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUsers:(NSArray *)users
+{
+    if (!users || !users.count) {
+        return;
+    }
+    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithRecipients:users];
+    messageThreadVC.showKeyboardOnAppear = YES;
+    [self.navigationController pushViewController:messageThreadVC animated:YES];
+
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
 #pragma mark - Table view data source
 
 - (MessageThread *)threadAtIndexPath:(NSIndexPath *)indexPath
@@ -131,7 +151,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80.0;
+    return 72.0;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -152,10 +172,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MessageThread *thread = [self threadAtIndexPath:indexPath];
     
+    MessageThread *thread = [self threadAtIndexPath:indexPath];
+    [thread markAsRead];
     MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:messageThreadVC animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

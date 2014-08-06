@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "HeadshotRequestAPIClient.h"
+#import <SLRESTfulCoreData.h>
+#import "HeadshotAPIClient.h"
 
 @class User, Company;
 
@@ -20,7 +21,6 @@
 @property (nonatomic, retain) Company *company;
 
 + (void)departmentsWithCompletionHandler:(void(^)(NSArray *departments, NSError *error))completionHandler;
-- (void)postWithSuccess:(void(^)(Department *department))success failure:(void(^)(NSError *error))failure;
 @end
 
 

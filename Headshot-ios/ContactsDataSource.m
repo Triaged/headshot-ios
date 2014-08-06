@@ -54,6 +54,7 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
     for (User *user in users) {
         NSString *key = [user.lastName substringToIndex:1];
+        key = key.uppercaseString;
         NSMutableArray *usersByName = userDictionary[key];
         if (!usersByName) {
             usersByName = [[NSMutableArray alloc] init];
@@ -138,6 +139,7 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if (!view) {
         view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, [self tableView:tableView heightForHeaderInSection:section])];
         view.backgroundColor = [UIColor whiteColor];
+        [view setAlpha:0.95];
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:view.bounds];
         titleLabel.font = [ThemeManager boldFontOfSize:12];
         titleLabel.x = 15;
@@ -174,9 +176,18 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row < [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) {
+        [cell addEdge:UIRectEdgeBottom insets:UIEdgeInsetsMake(0, 70, 0, 0) width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+    }
+    else {
+        [cell removeEdge:UIRectEdgeBottom];
+    }
+}
+
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     searchBar.showsScopeBar = YES;
-    [searchBar sizeToFit];
     [searchBar setShowsCancelButton:YES animated:YES];
     
     return YES;
@@ -184,7 +195,6 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
     searchBar.showsScopeBar = NO;
-    [searchBar sizeToFit];
     [searchBar setShowsCancelButton:NO animated:YES];
     
     return YES;
@@ -210,6 +220,11 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 }
 
 - (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    [self endSearch];
+}
+
+- (void)endSearch
 {
     self.separateSectionsForNames = YES;
     self.filteredUsers = self.users;

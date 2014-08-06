@@ -1,4 +1,4 @@
-//
+ //
 //  Geofencer.m
 //  Headshot-ios
 //
@@ -8,8 +8,11 @@
 
 #import "LocationClient.h"
 #import "OfficeLocation.h"
+#import "FileLogManager.h"
+#import "User.h"
 
 typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
+static const CLLocationDistance kOfficeRadius = 250;
 
 @interface LocationClient()
 
@@ -39,7 +42,7 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
         [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasRequestedLocationPermission]) {
             User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-            if (user && user.sharingOfficeLocation) {
+            if (user && user.sharingOfficeLocation.boolValue) {
                 [self startMonitoringOffices];
             }
         }
@@ -69,71 +72,103 @@ typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
 
 - (void)startMonitoringOffices
 {
+    DDLogInfo(@"retreiving offices");
     [OfficeLocation officeLocationsWithCompletionHandler:^(NSArray *locations, NSError *error) {
-        
+        NSInteger count = locations && locations.count ? locations.count : 0;
+        DDLogInfo(@"retrieved %d offices", count);
         for (OfficeLocation *location in locations) {
             
-            BOOL shouldCreateRegion = YES;
-            for (CLCircularRegion *region in self.locationManager.monitoredRegions) {
-                if (location.identifier == region.identifier) {
-                    shouldCreateRegion = NO;
-                }
-            }
+            CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake([location.latitude doubleValue], [location.longitude doubleValue]);
             
-            if (shouldCreateRegion) {
-                CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake([location.latitude doubleValue], [location.longitude doubleValue]);
-                
-                CLCircularRegion *region =  [[CLCircularRegion alloc] initWithCenter:centerCoordinate
-                                                                              radius:100.0
-                                                                          identifier:location.identifier];
-                // Start Monitoring Region
-                [self.locationManager startMonitoringForRegion:region];
-                [self.locationManager requestStateForRegion:region];
-                
-            }
+            CLCircularRegion *region =  [[CLCircularRegion alloc] initWithCenter:centerCoordinate
+                                                                          radius:kOfficeRadius
+                                                                      identifier:location.identifier];
+            // Start Monitoring Region
+            [self.locationManager startMonitoringForRegion:region];
+            DDLogInfo(@"started monitoring location with identifier %@", location.identifier);
+            [self.locationManager requestStateForRegion:region];
         }
     }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
+    DDLogInfo(@"did change authorization status to %@", @(status));
+    if (status == kCLAuthorizationStatusNotDetermined) {
+        return;
+    }
+    
+    //    change location permission
+    User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
+    NSNumber *currentLocationPermission = user.sharingOfficeLocation;
+    BOOL firstLocationPermissionRequest = ![[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsHasRequestedLocationPermission];
+    if (firstLocationPermissionRequest) {
+        user.sharingOfficeLocation = @(status == kCLAuthorizationStatusAuthorized);
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsHasRequestedLocationPermission];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    else {
+//        sharingOfficeLocation could be NO if user toggles off location permissions in app or denies system location permissions
+        BOOL deniedOfficeLocationPermission = user.sharingOfficeLocation && !user.sharingOfficeLocation.boolValue;
+        user.sharingOfficeLocation = @((status == kCLAuthorizationStatusAuthorized) && !deniedOfficeLocationPermission);
+    }
+    if (!currentLocationPermission || ![user.sharingOfficeLocation isEqualToNumber:currentLocationPermission]) {
+        [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:nil failure:nil];
+    }
+    
     if (self.locationPermissionRequestBlock) {
         self.locationPermissionRequestBlock(status);
         self.locationPermissionRequestBlock = nil;
     }
-//    change location permission
-    jadispatch_main_qeue(^{
-        User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-        NSNumber *currentLocationPermission = user.sharingOfficeLocation;
-        user.sharingOfficeLocation = @((status == kCLAuthorizationStatusAuthorized) && currentLocationPermission.boolValue);
-        if (!currentLocationPermission || ![user.sharingOfficeLocation isEqualToNumber:currentLocationPermission]) {
-            [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:nil failure:nil];
-        }
-    });
-}
-
-- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
-{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
-    if (state == CLRegionStateInside) {
-        OfficeLocation *location = [self officeLocationForRegion:region];
-        [location enterLocation];
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
+    DDLogInfo(@"Did determine state %@ for region with identifier %@", @(state), region.identifier);
     OfficeLocation *location = [self officeLocationForRegion:region];
-    [location exitLocation];
+    
+    [self determineDistanceFromOffice:location withCompletion:^(CLLocationDistance distance, CLLocation *currentLocation, NSError *error) {
+//        verify accuracy of region event. If error retrieving location, trust region event
+        CLRegionState verifiedState = state;
+        if (!error) {
+            static const CLLocationDistance buffer = 200;
+            if (abs(distance - kOfficeRadius) > buffer) {
+                verifiedState = distance < kOfficeRadius ? CLRegionStateInside : CLRegionStateOutside;
+                DDLogInfo(@"Changed region state from %d to %d", state, verifiedState);
+            }
+        }
+        if (verifiedState == CLRegionStateInside) {
+            [location enterLocation];
+        }
+        else if (verifiedState == CLRegionStateOutside) {
+            [location exitLocation];
+        }
+    }];
 }
 
 - (OfficeLocation *)officeLocationForRegion:(CLRegion *)region
 {
-        return [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
+    return [OfficeLocation MR_findFirstByAttribute:@"identifier" withValue:region.identifier];
+}
+
+- (void)determineDistanceFromOffice:(OfficeLocation *)officeLocation withCompletion:(void (^)(CLLocationDistance distance, CLLocation *currentLocation, NSError *error))completion
+{
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:5 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        DDLogInfo(@"Finished location request with status %d", status);
+        CLLocationDistance distance = -1.0;
+        NSError *error;
+        if (currentLocation) {
+            DDLogInfo(@"Current Location %@", currentLocation);
+            distance = [currentLocation distanceFromLocation:officeLocation.location];
+            DDLogInfo(@"Distance from office %f", distance);
+        }
+        else {
+            error = [[NSError alloc] initWithDomain:@"TRLocationDomain" code:status userInfo:nil];
+        }
+        if (completion) {
+            completion(distance, currentLocation, error);
+        }
+    }];
 }
 
 @end

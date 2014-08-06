@@ -7,6 +7,7 @@
 //
 
 #import "ContactViewController.h"
+#import <BlocksKit+UIKit.h>
 #import "EmployeeInfo.h"
 #import "OfficeLocation.h"
 #import "MessageThreadViewController.h"
@@ -17,6 +18,7 @@
 @interface ContactViewController ()
 
 @property (nonatomic, strong) ContactDetailsDataSource *contactDetailsDataSource;
+@property (strong, nonatomic) UIImage *previousNavBarBackgroundImage;
 
 @end
 
@@ -40,11 +42,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     // Set the background and shadow image to get rid of the line.
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     
     _scrollView.delegate = self;
     
     [self refreshUser];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.previousNavBarBackgroundImage = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    [self loadViewFromData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:self.previousNavBarBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = nil;
 }
 
 - (void) refreshUser {
@@ -56,17 +73,7 @@
     }];
 }
 
--(void) viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    [self loadViewFromData];
-}
-
--(void) viewWillDisappear:(BOOL)animated {
-    self.navigationController.navigationBar.shadowImage = nil;
-}
-
 -(void)loadViewFromData {
-    NSURL *avatarUrl = [NSURL URLWithString:self.user.avatarFaceUrl];
     avatarImageView.user = self.user;
     
     self.nameLabel.text = self.user.fullName;
@@ -107,7 +114,8 @@
     BOOL pop = NO;
     if (self.backViewController && [self.backViewController isKindOfClass:[MessageThreadViewController class]]) {
         MessageThreadViewController *messageThreadViewController = (MessageThreadViewController *)self.backViewController;
-        pop = [messageThreadViewController.messageThread.recipient.identifier isEqual:self.user.identifier];
+        User *recipient = [messageThreadViewController.messageThread.recipientsExcludeUser anyObject];
+        pop = [recipient.identifier isEqual:self.user.identifier];
     }
     if (pop) {
         [self.navigationController popViewControllerAnimated:YES];

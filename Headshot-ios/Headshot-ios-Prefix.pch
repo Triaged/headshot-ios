@@ -15,13 +15,11 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import <UIView+Positioning.h>
-    #import <BlocksKit+UIKit.h>
     #import <SVProgressHUD.h>
     #import "UIViewController+PresentWithNavigationViewController.h"
     #import "UIViewController+BackViewController.h"
     #import "TRUIKit.h"
     #import "NSDate+BadgeFormattedDate.h"
-    #import "User+FindAllExcludeCurrent.h"
     #import "Theme.h"
     #import "AppDelegate.h"
     #import "Store.h"

@@ -10,7 +10,6 @@
 #import "MessageThread.h"
 #import "Message.h"
 #import <JSQMessagesViewController/JSQMessages.h>
-#import <Sinch/Sinch.h>
 
 @interface MessageThreadViewController : JSQMessagesViewController <JSQMessagesCollectionViewCellDelegate>
 
@@ -21,9 +20,12 @@
 @property (strong, nonatomic) UIImageView *incomingBubbleImageView;
 @property (strong, nonatomic) UIImageView *failedBubbleImageView;
 @property (strong, nonatomic) User *currentUser;
+@property (assign, nonatomic) BOOL showKeyboardOnAppear;
 
 -(id)initWithMessageThread:(MessageThread *)messageThread;
+- (id)initWithThreadID:(NSString *)threadID;
 - (id)initWithRecipient:(User *)recipient;
+- (id)initWithRecipients:(NSArray *)recipients;
 -(void)createOrFindThreadForRecipient:(User *)recipient;
 
 

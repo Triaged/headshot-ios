@@ -13,8 +13,24 @@
 @implementation MessageThread
 
 @dynamic lastMessageTimeStamp;
-@dynamic recipient;
+@dynamic recipients;
 @dynamic messages;
+@dynamic identifier;
+@dynamic unread;
+
++ (MessageThread *)findThreadWithRecipients:(NSSet *)recipients
+{
+    NSSet *threads = [AppDelegate sharedDelegate].store.currentAccount.currentUser.messageThreads;
+    __block MessageThread *found;
+    [threads enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        MessageThread *messageThread = (MessageThread *)obj;
+        if ([messageThread.recipients isEqualToSet:recipients]) {
+            found = messageThread;
+           *stop = YES;
+        }
+    }];
+    return found;
+}
 
 - (Message *)lastMessage
 {
@@ -23,6 +39,50 @@
     return [sortedMessages firstObject];
 }
 
+- (NSSet *)recipientsExcludeUser
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier];
+    return [self.recipients filteredSetUsingPredicate:predicate];
+}
 
+- (BOOL)isGroupThread
+{
+    return self.recipients && self.recipients.count > 2;
+}
+
+- (void)markAsRead
+{
+    BOOL unread = self.unread && self.unread.boolValue;
+    if (unread) {
+        self.unread = @(NO);
+        [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMarkedMessageThreadAsReadNotification object:nil userInfo:nil];
+    }
+}
+
+- (User *)directMessageRecipient
+{
+    return self.isGroupThread ? nil : [self.recipientsExcludeUser anyObject];
+}
+
+- (NSString *)defaultTitle
+{
+    NSString *title;
+    if (self.isGroupThread) {
+        NSArray *recipients = self.recipientsExcludeUser.allObjects;
+        User *first = [recipients firstObject];
+        title = first.firstName;
+        for (NSInteger i=1; i < recipients.count - 1; i++) {
+            NSString *name = [recipients[i] firstName];
+            title = [NSString stringWithFormat:@"%@, %@", title, name];
+        }
+        User *last = [recipients lastObject];
+        title = [NSString stringWithFormat:@"%@ & %@", title, last.firstName];
+    }
+    else {
+        title = self.directMessageRecipient.fullName;
+    }
+    return title;
+}
 
 @end

@@ -10,6 +10,7 @@
 #import "User.h"
 #import "ContactsDataSource.h"
 #import "ContactViewController.h"
+#import "AccountViewController.h"
 
 @interface DepartmentContactsTableViewController ()
 
@@ -70,9 +71,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
-    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
+    UIViewController *viewController;
+    if ([user.identifier isEqualToString:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier]) {
+        viewController = [[AccountViewController alloc] init];
+    }
+    else {
+        viewController = [[ContactViewController alloc] initWitUser:user];
+    }
     self.navigationController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationController pushViewController:contactVC animated:YES];
+    [self.navigationController pushViewController:viewController animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

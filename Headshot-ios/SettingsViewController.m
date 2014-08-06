@@ -10,6 +10,8 @@
 #import "EditAccountViewController.h"
 #import "ChangePasswordViewController.h"
 #import "LocationClient.h"
+#import "User.h"
+#import <MFMailComposeViewController+BlocksKit.h>
 
 typedef NS_ENUM(NSUInteger, SettingsSection)  {
     SettingsSectionAccount,
@@ -149,13 +151,13 @@ typedef NS_ENUM(NSUInteger, SettingsSection)  {
         }
     }
     else if (indexPath.section == SettingsSectionLocation) {
-        title = @"Monitor Office Status";
+        title = @"Enable Office Availability";
         subtitle = @"Let coworkers know when you are in the office";
         accessoryView = self.locationSwitch;
     }
     else if (indexPath.section == SettingsSectionMore) {
         if (!indexPath.row) {
-            title = @"About";
+            title = @"Feedback";
         }
         else if (indexPath.row == 1) {
             accessoryType = UITableViewCellAccessoryNone;
@@ -186,7 +188,7 @@ typedef NS_ENUM(NSUInteger, SettingsSection)  {
     }
     else if (indexPath.section == SettingsSectionMore) {
         if (!indexPath.row) {
-            [self aboutSelected];
+            [self feedbackSelected];
         }
         else {
             [self logoutSelected];
@@ -194,9 +196,19 @@ typedef NS_ENUM(NSUInteger, SettingsSection)  {
     }
 }
 
-- (void)aboutSelected
+- (void)feedbackSelected
 {
+    if (![MFMailComposeViewController canSendMail]) {
+        return;
+    }
     
+    MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+    [mailViewController setSubject:NSLocalizedString(@"Hi Badge Team!", @"")];
+    [mailViewController setToRecipients:@[@"team@badge.co"]];
+    [mailViewController bk_setCompletionBlock:^(MFMailComposeViewController *mailComposeViewController, MFMailComposeResult result, NSError *error) {
+        [mailComposeViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [[AppDelegate sharedDelegate].window.rootViewController presentViewController:mailViewController animated:YES completion:nil];
 }
 
 - (void)logoutSelected

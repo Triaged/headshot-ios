@@ -8,6 +8,7 @@
 
 #import "OnboardSelectDepartmentViewController.h"
 #import "TRDataStoreManager.h"
+#import "Department.h"
 
 @interface OnboardSelectDepartmentViewController () <UIAlertViewDelegate>
 

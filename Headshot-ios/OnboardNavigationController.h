@@ -12,6 +12,7 @@
 @protocol OnboardViewControllerDelegate <NSObject>
 
 - (void)onboardViewController:(UIViewController<OnboardViewController> *)viewController doneButtonTouched:(id)sender;
+- (void)onboardViewController:(UIViewController<OnboardViewController> *)viewController skipButtonTouched:(id)sender;
 
 @end
 

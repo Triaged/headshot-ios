@@ -15,6 +15,6 @@
 - (NSString *)authToken;
 - (void)setAuthToken:(NSString *)authToken;
 
-+ (instancetype)sharedClient;
++ (instancetype)sharedStore;
 
 @end

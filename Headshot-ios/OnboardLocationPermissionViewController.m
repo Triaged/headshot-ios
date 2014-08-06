@@ -80,8 +80,6 @@
 - (void)permissionButtonTouched:(id)sender
 {
     [[LocationClient sharedClient] requestLocationPermissions:^(CLAuthorizationStatus authorizationStatus) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsHasRequestedLocationPermission];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         [[LocationClient sharedClient] startMonitoringOffices];
         if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
             [self.delegate onboardViewController:self doneButtonTouched:sender];

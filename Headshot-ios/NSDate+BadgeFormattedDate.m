@@ -12,9 +12,14 @@
 
 - (NSString *)badgeFormattedDate
 {
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    dateFormat.dateFormat = @"EE, d LLLL yyyy HH:mm:ss Z";
-    return [dateFormat stringFromDate:self];
+    static NSDateFormatter *dateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
+        dateFormatter.dateFormat = @"EE, d LLLL yyyy HH:mm:ss Z";
+    });
+    return [dateFormatter stringFromDate:self];
 }
 
 @end

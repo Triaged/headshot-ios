@@ -8,6 +8,7 @@
 
 #import "OfficeLocation.h"
 #import "SLRESTfulCoreData.h"
+#import "User.h"
 
 
 @implementation OfficeLocation
@@ -34,6 +35,16 @@
     [self registerJSONPrefix:@"office_location"];
 }
 
++ (OfficeLocation *)currentOfficeLocation
+{
+    return [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation;
+}
+
+- (CLLocation *)location
+{
+    return [[CLLocation alloc] initWithLatitude:self.latitude.doubleValue longitude:self.longitude.doubleValue];
+}
+
 - (void)postWithCompletion:(void(^)(OfficeLocation *officeLocation, NSError *error))completion
 {
     NSMutableDictionary *officeJSON = [[NSMutableDictionary alloc] init];
@@ -48,34 +59,56 @@
     }
     
     NSDictionary *parameters = @{@"office_location" : officeJSON};
-    [[HeadshotRequestAPIClient sharedClient] POST:@"office_locations/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[HeadshotAPIClient sharedClient] POST:@"office_locations/" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         [self updateWithRawJSONDictionary:responseObject];
         [self.managedObjectContext MR_saveToPersistentStoreAndWait];
         if (completion) {
             completion(self, nil);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
             completion(nil, error);
         }
     }];
 }
 
 - (void)enterLocation {
+    DDLogInfo(@"Starting ENTER location request for region with identifier %@", self.identifier);
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/entered", self.identifier]];
-    [self postToURL:URL completionHandler:^(id JSONObject, NSError *error) {
-        [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = self;
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    [self putToURL:URL completionHandler:^(id JSONObject, NSError *error) {
+        if (!error) {
+            DDLogInfo(@"Finished ENTER location request for region with identifier %@", self.identifier);
+            [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = self;
+            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        }
+        else {
+            DDLogInfo(@"Failed ENTER location request with error %@", error.localizedDescription);
+        }
     }];
     NSLog(@"entered location");
 }
 
 
 - (void)exitLocation {
+    OfficeLocation *currentOfficeLocation = [OfficeLocation currentOfficeLocation];
+    if (!currentOfficeLocation || ![currentOfficeLocation.identifier isEqualToString:self.identifier]) {
+        DDLogInfo(@"Not starting EXIT location request for %@ since not currently in this office", self.identifier);
+        return;
+    }
+    DDLogInfo(@"Starting EXIT location request for region with identifier %@", self.identifier);
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/exited", self.identifier]];
-    [self deleteToURL:URL completionHandler:^(NSError *error) {
-        [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = nil;
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    [self putToURL:URL completionHandler:^(id JSONObject, NSError *error) {
+        if (!error) {
+            DDLogInfo(@"Finished EXIT location request for region with identifier %@", self.identifier);
+            if ([[OfficeLocation currentOfficeLocation].identifier isEqualToString:self.identifier]) {
+                [AppDelegate sharedDelegate].store.currentAccount.currentUser.currentOfficeLocation = self;
+                [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+                
+            }
+        }
+        else {
+            DDLogInfo(@"Failed EXIT location request with error %@", error.localizedDescription);
+        }
     }];
 }
 

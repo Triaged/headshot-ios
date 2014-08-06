@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Base64 (1.0.1)
   - BlocksKit (2.2.3):
     - BlocksKit/All
   - BlocksKit/All (2.2.3):
@@ -36,46 +37,56 @@ PODS:
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
   - CMNavBarNotificationView (1.0.4)
+  - CocoaLumberjack (1.9.1):
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/Core (1.9.1)
+  - CocoaLumberjack/Extensions (1.9.1):
+    - CocoaLumberjack/Core
   - ECPhoneNumberFormatter (0.1.1)
-  - INTULocationManager (1.1.0)
-  - JSQMessagesViewController (5.0.4):
+  - FLEX (1.1.0)
+  - FrameAccessor (1.3.2)
+  - FXBlurView (1.6.2)
+  - INTULocationManager (1.2.0)
+  - JSQMessagesViewController (5.2.1):
     - JSQSystemSoundPlayer
   - JSQSystemSoundPlayer (1.5.2)
   - MagicalRecord (2.2):
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
-  - Mixpanel (2.4.0)
-  - MRProgress (0.5.0):
+  - MBContactPicker (0.1.4)
+  - Mixpanel (2.4.1)
+  - MPGNotification (1.1.1)
+  - MRProgress (0.6.0):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
-    - MRProgress/Helper
     - MRProgress/Icons
-    - MRProgress/MessageInterceptor
     - MRProgress/NavigationBarProgress
     - MRProgress/Overlay
+  - MRProgress/ActivityIndicator (0.6.0):
     - MRProgress/Stopable
-    - MRProgress/WeakProxy
-  - MRProgress/ActivityIndicator (0.5.0):
-    - MRProgress/Stopable
-  - MRProgress/Blur (0.5.0):
+  - MRProgress/Blur (0.6.0):
     - MRProgress/Helper
-  - MRProgress/Circular (0.5.0):
+  - MRProgress/Circular (0.6.0):
     - MRProgress/Helper
+    - MRProgress/ProgressBaseClass
     - MRProgress/Stopable
-  - MRProgress/Helper (0.5.0)
-  - MRProgress/Icons (0.5.0)
-  - MRProgress/MessageInterceptor (0.5.0)
-  - MRProgress/NavigationBarProgress (0.5.0)
-  - MRProgress/Overlay (0.5.0):
+  - MRProgress/Helper (0.6.0)
+  - MRProgress/Icons (0.6.0)
+  - MRProgress/NavigationBarProgress (0.6.0):
+    - MRProgress/ProgressBaseClass
+  - MRProgress/Overlay (0.6.0):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
     - MRProgress/Helper
     - MRProgress/Icons
-  - MRProgress/Stopable (0.5.0):
+  - MRProgress/ProgressBaseClass (0.6.0)
+  - MRProgress/Stopable (0.6.0):
     - MRProgress/Helper
-  - MRProgress/WeakProxy (0.5.0)
+  - MZFayeClient (1.0.0):
+    - Base64 (~> 1.0.1)
+    - SocketRocket (~> 0.3.1-beta2)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core
     - NJKWebViewProgress/ProgressView
@@ -85,18 +96,12 @@ PODS:
   - PMEDatePicker (0.0.1)
   - RDVTabBarController (1.1.6)
   - SGNavigationProgress (1.2)
+  - SinchRTC (3.1.3)
   - SLCoreDataStack (0.6.0)
-  - SLRESTfulCoreData (1.8.2):
-    - SLRESTfulCoreData/Complete
-  - SLRESTfulCoreData/AFRESTfulCoreDataBackgroundQueue (1.8.2):
-    - AFNetworking (~> 2.1)
-    - SLRESTfulCoreData/Core
-  - SLRESTfulCoreData/Complete (1.8.2):
-    - AFNetworking (~> 2.1)
-    - SLCoreDataStack (>= 0.2.0)
-    - SLRESTfulCoreData/AFRESTfulCoreDataBackgroundQueue
-    - SLRESTfulCoreData/Core
-  - SLRESTfulCoreData/Core (1.8.2)
+  - SLRESTfulCoreData (1.9.1):
+    - AFNetworking (~> 2.3.1)
+    - SLCoreDataStack (~> 0.6.0)
+  - SocketRocket (0.3.1-beta2)
   - SSKeychain (1.2.2)
   - SVProgressHUD (HEAD based on 1.0)
   - SVWebViewController (HEAD based on 1.0)
@@ -104,22 +109,31 @@ PODS:
   - UITableView-NXEmptyView (0.1.6)
   - UIView+AutoLayout (2.0.1)
   - UIView+Positioning (1.0.1)
+  - VENTokenField (2.0.1):
+    - FrameAccessor (~> 1.0)
   - Vertigo (0.1)
 
 DEPENDENCIES:
   - BlocksKit
   - CMNavBarNotificationView (from `https://github.com/edgurgel/CMNavBarNotificationView.git`)
+  - CocoaLumberjack
   - ECPhoneNumberFormatter (from `https://github.com/enriquez/ECPhoneNumberFormatter.git`)
+  - FLEX
+  - FXBlurView
   - INTULocationManager
-  - JSQMessagesViewController (from `https://github.com/Triaged/JSQMessagesViewController.git`)
+  - JSQMessagesViewController (from `https://github.com/jma256/JSQMessagesViewController.git`, commit `362f69bfb9a3a34c2805204b137634354a2fb4d2`)
   - MagicalRecord
+  - MBContactPicker
   - Mixpanel
+  - MPGNotification (from `https://github.com/jma256/MPGNotification.git`)
   - MRProgress (~> 0.2)
+  - MZFayeClient (from `https://github.com/jma256/MZFayeClient.git`, commit `bca970244654d0d504de82552be5fa5661b83a12`)
   - NJKWebViewProgress
   - NSDate+TimeAgo
   - PMEDatePicker (~> 0.0.1)
   - RDVTabBarController
   - SGNavigationProgress
+  - SinchRTC
   - SLRESTfulCoreData
   - SSKeychain
   - SVProgressHUD (HEAD)
@@ -128,6 +142,7 @@ DEPENDENCIES:
   - UITableView-NXEmptyView
   - UIView+AutoLayout
   - UIView+Positioning
+  - VENTokenField (from `https://github.com/jma256/VENTokenField.git`)
   - Vertigo
 
 EXTERNAL SOURCES:
@@ -136,26 +151,44 @@ EXTERNAL SOURCES:
   ECPhoneNumberFormatter:
     :git: https://github.com/enriquez/ECPhoneNumberFormatter.git
   JSQMessagesViewController:
-    :git: https://github.com/Triaged/JSQMessagesViewController.git
+    :commit: 362f69bfb9a3a34c2805204b137634354a2fb4d2
+    :git: https://github.com/jma256/JSQMessagesViewController.git
+  MPGNotification:
+    :git: https://github.com/jma256/MPGNotification.git
+  MZFayeClient:
+    :commit: bca970244654d0d504de82552be5fa5661b83a12
+    :git: https://github.com/jma256/MZFayeClient.git
+  VENTokenField:
+    :git: https://github.com/jma256/VENTokenField.git
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
+  Base64: c6d74f31f150543b246a07e180ba813c88e59311
   BlocksKit: 07c8a80f04275efac6a5f8b973782489c083a182
   CMNavBarNotificationView: e608a0dbbe3ccd7a851eebebc9a0a2b018da6631
+  CocoaLumberjack: 94accd5749f5c5d15134c8d50f34a973aed8ef69
   ECPhoneNumberFormatter: 6da090a89f87e784b6bdc058d86cc40e5ef17e79
-  INTULocationManager: 41506443733adccd44c0f00b44837d4ef2fda246
-  JSQMessagesViewController: 39c28fe197b22caeff250ed88805ed37e3ad0d4a
+  FLEX: fa5e81b7b25ba64afe4fad14deb27d4b95efd75e
+  FrameAccessor: 5eec95b29b5e9a3afe72a7a2e9ed25b000d3bcc3
+  FXBlurView: 47496afc9160097fa34af35fc4b310bd85d65dca
+  INTULocationManager: 596c57e35a00ca1ee9d59bf4cc2b63dc299b580e
+  JSQMessagesViewController: 0325d8b50ffd0d25496663f2feba3d229cf4dac8
   JSQSystemSoundPlayer: c24914bc96ff5365b5d28b59d7ecffd60d1c5587
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
-  Mixpanel: 8cdf6fc831ae1f7515f0d8164dcc381990e0a23a
-  MRProgress: 0f0a200c2c211d2dfb83ac31aa2c117dca07db57
+  MBContactPicker: f3ad9c973cdc8ed6caa92a104dbc314f155f3ea6
+  Mixpanel: a29ff32db93936dea24162f0dc4fecc4a8f17071
+  MPGNotification: e5af2a25e2dd42e971b9958e5227ac62b7f15786
+  MRProgress: bacc0f2f6c547e4ab21fd48ed14e19cbd70de3e4
+  MZFayeClient: 546d96d63bb81fbcdf45bba81a10be71a9773f0d
   NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1
   NSDate+TimeAgo: f3533e0198fab05b716368b19f8c2185d53d6f3b
   PMEDatePicker: a44e15d953cf7c568d2546914d088463431f1f18
   RDVTabBarController: 252dafb16725f9a07026618ff51acf06a12b206b
   SGNavigationProgress: 6c38006ca3c652618411c67d493b263343d5aece
+  SinchRTC: ddb7777f4a47197f84e7ae8ecd239e2ac4d219e2
   SLCoreDataStack: 3cbb4bc9ea1f0ba6d7a3a382b1d0cf879b5f3cd4
-  SLRESTfulCoreData: 388f8305ff312cee5f23d41d7039357b23b06718
+  SLRESTfulCoreData: 4933bf01fc97fdd3c50c7786fdda6c483f1136c3
+  SocketRocket: 79a68ae186063c65e1fe6f638b1ae2927aa5f304
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   SVWebViewController: fbf917baa92744c54cfb89a52a4c056e409973a4
@@ -163,6 +196,7 @@ SPEC CHECKSUMS:
   UITableView-NXEmptyView: 4322b391d08f8272e4f1860e4a182eba300d05dd
   UIView+AutoLayout: d876c583c3dec28b5c3916175ea4b6ad70a8be34
   UIView+Positioning: 870af80983bf495af2cb8a3a15b20e26fcc57ebb
+  VENTokenField: a5094a240dc70494ba1b5b147889ac66e508b4f0
   Vertigo: 606222b572b2f54d5a85329b7afe1436a4859e89
 
 COCOAPODS: 0.33.1

@@ -8,14 +8,16 @@
 
 #import "MessageThreadViewController.h"
 #import <UINavigationController+SGProgress.h>
+#import <FXBlurView.h>
 #import "User.h"
-#import "SinchClient.h"
 #import "ContactViewController.h"
+#import "GroupMessageInfoTableViewController.h"
 #import "NotificationManager.h"
-#import "HeadshotRequestAPIClient.h"
+#import "HeadshotAPIClient.h"
+#import "MessageClient.h"
 #import "TRAvatarImageView.h"
 
-@interface MessageThreadViewController ()
+@interface MessageThreadViewController () <GroupMessageInfoTableViewController>
 
 @property (assign, nonatomic) CGSize avatarImageSize;
 @property (strong, nonatomic) NSMutableOrderedSet *messageQueue;
@@ -24,12 +26,12 @@
 @property (assign, nonatomic) NSTimeInterval progressDuration;
 @property (assign, nonatomic) CGFloat progressPercentage;
 @property (assign, nonatomic) CGFloat progressUpdateInterval;
+@property (strong, nonatomic) GroupMessageInfoTableViewController *groupInfoViewController;
+@property (strong, nonatomic) FXBlurView *groupInfoBackgroundView;
+@property (assign, nonatomic) BOOL showingGroupInfo;
+@property (assign, nonatomic) BOOL sendingMessage;
 
 @end
-
-static NSString * const kJSQDemoAvatarNameCook = @"Tim Cook";
-static NSString * const kJSQDemoAvatarNameJobs = @"Jobs";
-static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 @implementation MessageThreadViewController
 
@@ -46,16 +48,40 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     return self;
 }
 
+- (id)initWithThreadID:(NSString *)threadID
+{
+    MessageThread *thread = [MessageThread MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:threadID];
+    [[MessageClient sharedClient] refreshMessagesWithCompletion:^(NSArray *messages, NSArray *createdMessages, NSArray *createdMessageThreads, NSError *error) {
+        MessageThread *fetchedThread = [MessageThread MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:threadID];
+        if (!fetchedThread) {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Something went wrong" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+        self.messageThread = fetchedThread;
+    }];
+    self = [self initWithMessageThread:thread];
+    return self;
+}
+
 - (id)initWithRecipient:(User *)recipient
 {
-    MessageThread *thread = [MessageThread MR_findFirstByAttribute:@"recipient" withValue:recipient];
-    if (thread == nil) {
-        
-        thread = [MessageThread MR_createEntity];
-        thread.lastMessageTimeStamp = [NSDate date];
-        thread.recipient = recipient;
-        
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    self = [self initWithRecipients:@[recipient]];
+    return self;
+}
+
+- (id)initWithRecipients:(NSArray *)recipients
+{
+    NSMutableSet *recipientSet = [NSMutableSet setWithArray:recipients];
+    [recipientSet addObject:[AppDelegate sharedDelegate].store.currentAccount.currentUser];
+    MessageThread *thread = [MessageThread findThreadWithRecipients:recipientSet];
+    if (!thread) {
+        [[MessageClient sharedClient] postMessageThreadWithRecipients:recipientSet.allObjects completion:^(MessageThread *messageThread, NSError *error) {
+            if (error) {
+                [[[UIAlertView alloc] initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+            else {
+                self.messageThread = messageThread;
+            }
+        }];
     }
     self = [self initWithMessageThread:thread];
     return self;
@@ -65,7 +91,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = self.messageThread.recipient.fullName;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     
     NSString *sendTitle = NSLocalizedString(@"Send", @"Text for the send button on the messages view toolbar");
@@ -83,7 +108,7 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     
     UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
     info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
-    [info addTarget:self action:@selector(showContact) forControlEvents:UIControlEventTouchUpInside];
+    [info addTarget:self action:@selector(infoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
     self.navigationItem.rightBarButtonItem = item;
     
@@ -95,8 +120,6 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     currentUser = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
     self.sender =  currentUser.fullName;
 
-    
-    [self loadMessages];
     
     self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory
                                      outgoingMessageBubbleImageViewWithColor:
@@ -112,6 +135,22 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = self.avatarImageSize;
 }
 
+- (void)setMessageThread:(MessageThread *)messageThread
+{
+    _messageThread = messageThread;
+    self.navigationItem.title = messageThread.defaultTitle;
+    [self fetchMessages];
+}
+
+- (GroupMessageInfoTableViewController *)groupInfoViewController
+{
+    if (!_groupInfoViewController) {
+        _groupInfoViewController = [[GroupMessageInfoTableViewController alloc] init];
+        _groupInfoViewController.delegate = self;
+    }
+    return _groupInfoViewController;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -124,9 +163,17 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (void)receivedNewMessageNotification:(NSNotification *)notification
 {
-    MessageThread *thread = notification.userInfo[@"thread"];
-    if ([thread.objectID isEqual:self.messageThread.objectID]) {
+    NSArray *messageIDs = notification.userInfo[@"messages"];
+    BOOL reload = NO;
+    for (NSManagedObjectID *messageID in messageIDs) {
+        Message *message = (Message *)[[NSManagedObjectContext MR_defaultContext] objectWithID:messageID];
+        if ([message.messageThread.identifier isEqualToString:self.messageThread.identifier]) {
+            reload = YES;
+        }
+    }
+    if (reload) {
         [self fetchMessages];
+        [self.messageThread markAsRead];
     }
 }
 
@@ -148,19 +195,28 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
+    self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.shadowImage = nil;
     [NotificationManager sharedManager].visibleMessageThreadViewController = self;
+    [super viewWillAppear:animated];
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    
-    [self.inputToolbar.contentView.textView resignFirstResponder];
     [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
     [self.navigationController setSGProgressPercentage:0];
+    self.navigationController.navigationBar.translucent = NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.showKeyboardOnAppear) {
+        [self.inputToolbar.contentView.textView becomeFirstResponder];
+        self.showKeyboardOnAppear = NO;
+    }
 }
 
 
@@ -197,32 +253,91 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
     [self.progressTimer invalidate];
 }
 
-
--(void)showContact {
-    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:self.messageThread.recipient];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationController pushViewController:contactVC animated:YES];
+- (void)infoButtonTouched:(id)sender
+{
+    if (!self.messageThread) {
+        return;
+    }
+    if (self.messageThread.isGroupThread) {
+        if (self.showingGroupInfo) {
+            [self dismissGroupInfo];
+        }
+        else {
+            [self showGroupInfo];
+        }
+    }
+    else {
+        [self showContact:self.messageThread.directMessageRecipient];
+    }
 }
 
-- (void)loadMessages
+- (void)showGroupInfo
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"messageThread == %@", self.messageThread];
-    self.messages = [NSMutableArray arrayWithArray:[Message MR_findAllWithPredicate:predicate]];
+    [self.inputToolbar.contentView.textView resignFirstResponder];
+    self.showingGroupInfo = YES;
+    self.groupInfoViewController.users = self.messageThread.recipientsExcludeUser.allObjects;
+    if (!self.groupInfoBackgroundView) {
+        CGRect frame;
+        if (self.navigationController.navigationBar.isTranslucent) {
+            frame.origin.y = self.navigationController.navigationBar.bottom;
+            frame.size = CGSizeMake(self.view.width, self.view.height - frame.origin.y);
+        }
+        else {
+            frame = self.view.bounds;
+        }
+        self.groupInfoBackgroundView = [[FXBlurView alloc] initWithFrame:frame];
+        UIView *overlayView = [[UIView alloc] initWithFrame:self.groupInfoBackgroundView.bounds];
+        overlayView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+        [self.groupInfoBackgroundView addSubview:overlayView];
+        self.groupInfoBackgroundView.blurEnabled = YES;
+        self.groupInfoBackgroundView.blurRadius = 10;
+        self.groupInfoBackgroundView.tintColor = nil;
+        self.groupInfoBackgroundView.dynamic = NO;
+        self.groupInfoViewController.view.frame = self.groupInfoBackgroundView.bounds;
+    }
+    self.groupInfoViewController.view.backgroundColor = [UIColor clearColor];
+    [self addChildViewController:self.groupInfoViewController];
+    [self.groupInfoBackgroundView addSubview:self.groupInfoViewController.view];
+    [self.view addSubview:self.groupInfoBackgroundView];
+    self.groupInfoBackgroundView.alpha = 0;
+    self.groupInfoViewController.view.transform = CGAffineTransformMakeTranslation(0, -self.groupInfoViewController.view.height);
+    [UIView animateWithDuration:0.3 animations:^{
+        self.groupInfoBackgroundView.alpha = 1;
+        self.groupInfoViewController.view.transform = CGAffineTransformIdentity;
+    }];
+}
+
+- (void)dismissGroupInfo
+{
+    self.showingGroupInfo = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.groupInfoViewController.view.transform = CGAffineTransformMakeTranslation(0, -self.groupInfoViewController.view.height);
+        self.groupInfoBackgroundView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.groupInfoBackgroundView removeFromSuperview];
+    }];
+}
+
+-(void)showContact:(User *)user
+{
+    [self.inputToolbar.contentView.textView resignFirstResponder];
+    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
+    [self.navigationController pushViewController:contactVC animated:YES];
 }
 
 - (void)fetchMessages {
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findByAttribute:@"messageThread" withValue:self.messageThread andOrderBy:@"timestamp" ascending:YES]];
+    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
     [self.collectionView reloadData];
-    if (self.automaticallyHandlesScrolling) {
-        [self scrollToBottomAnimated:YES];
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
-    self.collectionView.collectionViewLayout.springinessEnabled = NO;
+//    hack to fix scrolling issue when receiving a message (if don't dispatch then doesn't scroll to show entire message)
+    jadispatch_after_delay(0.1, dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:1 animations:^{
+            [self scrollToBottomAnimated:NO];
+        } completion:^(BOOL finished) {
+        }];
+    });
+    
 }
 
 #pragma mark - JSQMessagesViewController method overrides
@@ -232,14 +347,9 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
                     sender:(NSString *)sender
                       date:(NSDate *)date
 {
-    /**
-     *  Sending a message. Your implementation of this method should do *at least* the following:
-     *
-     *  1. Play sound (optional)
-     *  2. Add new id<JSQMessageData> object to your data source
-     *  3. Call `finishSendingMessage`
-     */
-    
+    if (self.sendingMessage) {
+        return;
+    }
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
     Message *message = [self createMessageWithText:text andAuthor:currentUser];
@@ -251,26 +361,25 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 - (void)sendMessage:(Message *)message
 {
-    SINOutgoingMessage *sinMessage = [SINOutgoingMessage messageWithRecipient:self.messageThread.recipient.identifier text:message.text];
-    message.uniqueID = sinMessage.messageId;
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-    [self.messageQueue addObject:message.uniqueID];
+    [self.messageQueue addObject:message];
     [self startProgressBar];
-    if (!self.messageThread.recipient.installedApp.boolValue) {
-        [self.messageThread.recipient emailMessage:message.text withCompletion:^(NSError *error) {
-            [self finishProgressBar];
-            [self.messageQueue removeObject:message.uniqueID];
-        }];
-    }
-    else {
-        [[SinchClient sharedClient].client.messageClient sendMessage:sinMessage];
-    }
-    [[AnalyticsManager sharedManager] messageSentToRecipient:self.messageThread.recipient.identifier];
+    self.sendingMessage = YES;
+    NSLog(@"sending message %@", message);
+    [[MessageClient sharedClient] sendMessage:message withCompletion:^(Message *message, NSError *error) {
+        self.sendingMessage = NO;
+        NSLog(@"completing message %@", message);
+        [self.messageQueue removeObject:message];
+        [self updateProgressBar];
+        [self fetchMessages];
+    }];
+    [[AnalyticsManager sharedManager] messageSent];
 }
 
 - (void)resendMessage:(Message *)message
 {
-    [self sendMessage:message];
+    if (!self.sendingMessage) {
+        [self sendMessage:message];
+    }
 }
 
 - (Message *)createMessageWithText:(NSString *)text andAuthor:(User *)user {
@@ -483,6 +592,12 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
                 header:(JSQMessagesLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender
 {
     NSLog(@"Load earlier messages!");
+}
+
+#pragma mark - Group Message Info Delegate
+- (void)groupMessageInfoTableViewController:(GroupMessageInfoTableViewController *)groupMessageInfoViewController didSelectUser:(User *)user
+{
+    [self showContact:user];
 }
 
 

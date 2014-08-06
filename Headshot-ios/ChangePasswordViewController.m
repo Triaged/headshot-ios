@@ -24,6 +24,8 @@
 {
     [super viewDidLoad];
     
+    self.title = @"Change Password";
+    
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTouched:)];
     self.navigationItem.rightBarButtonItem = saveButton;
     
@@ -36,7 +38,7 @@
     
     self.passwordFormView = [[FormView alloc] init];
     self.passwordFormView.fieldName = @"New Password";
-    self.passwordFormView.textField.placeholder = @"At least 6 characters";
+    self.passwordFormView.textField.placeholder = @"At least 8 characters";
     self.passwordFormView.textField.returnKeyType = UIReturnKeyDone;
     self.passwordFormView.textField.secureTextEntry = YES;
     self.passwordFormView.textField.delegate = self;
@@ -49,14 +51,27 @@
     self.confirmPasswordFormView.textField.delegate = self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    // scroll the search bar off-screen
+    self.navigationController.navigationBar.shadowImage = nil;
+}
+
 - (void)saveButtonTouched:(id)sender
 {
-    [[AppDelegate sharedDelegate].store.currentAccount updatePassword:self.oldPasswordFormView.textField.text password:self.passwordFormView.textField.text confirmedPassword:self.confirmPasswordFormView.textField.text withSuccess:^{
-        UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Your password was successfully changed." delegate:nil cancelButtonTitle:@"Onward" otherButtonTitles:nil];
-        [successAlert show];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    [[AppDelegate sharedDelegate].store.currentAccount updatePassword:self.oldPasswordFormView.textField.text password:self.passwordFormView.textField.text confirmedPassword:self.confirmPasswordFormView.textField.text withCompletion:^(NSError *error) {
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
+        if (!error) {
+            [SVProgressHUD showSuccessWithStatus:@"Password Changed"];
+//            UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Your password was successfully changed." delegate:nil cancelButtonTitle:@"Onward" otherButtonTitles:nil];
+//            [successAlert show];
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [SVProgressHUD dismiss];
+            UIAlertView *failedAlert = [[UIAlertView alloc] initWithTitle:@"Failed" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
+            [failedAlert show];
+        }
+        
     }];
 }
 

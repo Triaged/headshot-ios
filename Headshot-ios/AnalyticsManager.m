@@ -8,8 +8,7 @@
 
 #import "AnalyticsManager.h"
 #import <Mixpanel/Mixpanel.h>
-
-static NSString * kMixpanelToken = @"b9c753b3560536492eba971a53213f5f";
+#import "User.h"
 
 @implementation AnalyticsManager
 
@@ -34,7 +33,7 @@ static NSString * kMixpanelToken = @"b9c753b3560536492eba971a53213f5f";
 
 - (void)startMixpanel
 {
-    [Mixpanel sharedInstanceWithToken:kMixpanelToken];
+    [Mixpanel sharedInstanceWithToken:[[ConstantsManager sharedConstants] mixpanelToken]];
 }
 
 - (void)setupForUser
@@ -117,10 +116,9 @@ static NSString * kMixpanelToken = @"b9c753b3560536492eba971a53213f5f";
     [self sendEvent:@"subordinate_tapped" withProperties:properties];
 }
 
-- (void)messageSentToRecipient:(NSString *)recipientIdentifier
+- (void)messageSent
 {
-    NSDictionary *properties = @{@"recipient_id" : recipientIdentifier};
-    [self sendEvent:@"message_sent" withProperties:properties];
+    [self sendEvent:@"message_sent" withProperties:nil];
 }
 
 - (void)profileViewed:(NSString *)profileIdentifier

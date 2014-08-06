@@ -10,6 +10,7 @@
 #import "User.h"
 #import "ContactsDataSource.h"
 #import "ContactViewController.h"
+#import "ContactsContainerViewController.h"
 
 @interface ContactsTableViewController ()
 
@@ -51,7 +52,6 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchContacts) forControlEvents:UIControlEventValueChanged];
 
-    
 }
 
 
@@ -79,6 +79,7 @@
     self.contactsDataSource.tableViewController = self;
     self.tableView.dataSource = self.contactsDataSource;
     self.tableView.delegate = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
@@ -99,8 +100,10 @@
 - (void) fetchContacts {
     [User usersWithCompletionHandler:^(NSArray *users, NSError *error) {
         self.contactsDataSource.users = [User findAllExcludeCurrent];
-        [self.tableView reloadData];
+        UITableView *tableView = self.containerViewController ? self.containerViewController.tableView : self.tableView;
+        [tableView reloadData];
         [self.refreshControl endRefreshing];
+
     }];
 }
 
@@ -119,27 +122,29 @@
     return [self.contactsDataSource tableView:tableView viewForHeaderInSection:section];
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.contactsDataSource tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
     
-    ContactViewController *contactVC = [[ContactViewController alloc] initWitUser:user];
-    [self.navigationController pushViewController:contactVC animated:YES];
-    
-    _verticalContentOffset  = tableView.contentOffset.y;
+    if ([self.contactsTableViewControllerDelegate respondsToSelector:@selector(contactsTableViewController:didSelectContact:)]) {
+        [self.contactsTableViewControllerDelegate contactsTableViewController:self didSelectContact:user];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    [self.segmentViewController hideNavBar];
-    
+    [self.containerViewController.navigationController setNavigationBarHidden:YES animated:YES];
     return YES;
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-    [self.segmentViewController showNavBar];
-    
+    [self.containerViewController.navigationController setNavigationBarHidden:NO animated:YES];
     return YES;
 }
 

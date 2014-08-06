@@ -8,7 +8,8 @@
 
 #import "EditAccountViewController.h"
 #import <AFNetworking/UIKit+AFNetworking.h>
-#import "HeadshotRequestAPIClient.h"
+#import <BlocksKit+UIKit.h>
+#import "HeadshotAPIClient.h"
 #import "OnboardSelectDepartmentViewController.h"
 #import "OnboardSelectManagersViewControllers.h"
 #import "OfficesViewController.h"
@@ -20,6 +21,7 @@
 #import "OfficeLocation.h"
 #import "EmployeeInfo.h"
 #import "DatePickerModalView.h"
+#import "CommonMacros.h"
 
 @interface EditAccountViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate, OfficesViewControllerDelegate, PMEDatePickerDelegate>
 
@@ -56,7 +58,7 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"Edit Profile";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SAVE" style:UIBarButtonItemStyleDone target:self action:@selector(saveAccount)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SAVE" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTouched:)];
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 166)];
     self.avatarImageView = [[EditAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 105, 105)];
     UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTapped:)];
@@ -138,7 +140,17 @@
     self.account = [AppDelegate sharedDelegate].store.currentAccount;
 }
 
-
+- (void)doneButtonTouched:(id)sender
+{
+    [self validateFields:^(BOOL valid, NSString *message) {
+        if (valid) {
+            [self saveAccount];
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }];
+}
 
 - (void)saveAccount
 {
@@ -147,7 +159,8 @@
     }
     [SVProgressHUD show];
     [self.account updateAccountWithSuccess:^(Account *account) {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showSuccessWithStatus:@"Profile Saved"];
+        [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
     }];
@@ -213,20 +226,36 @@
 {
     [[PhotoManager sharedManager] presentImagePickerForSourceType:sourceType fromViewController:self completion:^(UIImage *image, BOOL cancelled) {
         if (image) {
-            UIImage *currentImage=  self.avatarImageView.imageView.image;
+            UIImage *currentImage = self.avatarImageView.imageView.image;
             self.avatarImageView.imageView.image = image;
-            NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
             [SVProgressHUD show];
-            [[HeadshotRequestAPIClient sharedClient] POST:@"account/avatar/" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                [formData appendPartWithFileData:imageData name:@"user[avatar]" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
-            } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[AppDelegate sharedDelegate].store.currentAccount updateAvatarImage:image withCompletion:^(UIImage *image, NSError *error) {
                 [SVProgressHUD dismiss];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [SVProgressHUD dismiss];
-                self.avatarImageView.imageView.image = currentImage;
+                if (error) {
+                    self.avatarImageView.imageView.image = currentImage;
+                }
             }];
         }
     }];
+}
+
+- (void)validateFields:(void (^)(BOOL valid, NSString *message))validationBlock
+{
+    BOOL valid = YES;
+    NSString *message;
+    NSString *workPhone = self.workPhoneFormView.textField.text;
+    NSString *cellPhone = self.homePhoneFormView.textField.text;
+    if (!isValidPhone(cellPhone)) {
+        valid = NO;
+        message = @"Please enter a valid cell phone number";
+    }
+    if (workPhone && workPhone.length && !isValidPhone(workPhone)) {
+        valid = NO;
+        message = @"Please enter a valid office phone number";
+    }
+    if (validationBlock) {
+        validationBlock(valid, message);
+    }
 }
 
 #pragma mark - Table view data source

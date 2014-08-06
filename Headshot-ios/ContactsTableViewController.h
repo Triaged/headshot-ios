@@ -7,11 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SDCSegmentedViewController.h"
+#import "User.h"
 
+@class ContactsTableViewController;
+@protocol ContactsTableViewControllerDelegate <NSObject>
+
+- (void)contactsTableViewController:(ContactsTableViewController *)contactsTableViewController didSelectContact:(User *)user;
+
+@end
+@class ContactsContainerViewController;
 @interface ContactsTableViewController : UITableViewController <UITableViewDelegate, UISearchBarDelegate>
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
-@property (nonatomic, strong) SDCSegmentedViewController *segmentViewController;
+@property (nonatomic, weak)  ContactsContainerViewController *containerViewController;
+@property (nonatomic, weak) id<ContactsTableViewControllerDelegate> contactsTableViewControllerDelegate;
 
 @end

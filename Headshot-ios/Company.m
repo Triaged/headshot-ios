@@ -15,6 +15,7 @@
 
 @dynamic identifier;
 @dynamic name;
+@dynamic logoURL;
 @dynamic usesDepartments;
 @dynamic users;
 @dynamic officeLocations;

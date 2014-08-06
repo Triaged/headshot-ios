@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class User, OfficeLocation;
+@class User, OfficeLocation, Department;
 
 @interface Company : NSManagedObject
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString *logoURL;
 @property (nonatomic, retain) NSNumber * usesDepartments;
 @property (nonatomic, retain) NSSet *officeLocations;
 @property (nonatomic, retain) NSSet *departments;

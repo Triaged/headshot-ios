@@ -21,5 +21,6 @@
 - (User *)userAtIndexPath:(NSIndexPath *)indexPath;
 - (NSArray *)usersInSection:(NSInteger)section;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+- (void)endSearch;
 
 @end

@@ -21,11 +21,15 @@
 @dynamic sharingOfficeLocation;
 @dynamic email;
 @dynamic avatarFaceUrl;
+@dynamic avatarFace2xUrl;
 @dynamic avatarUrl;
 @dynamic employeeInfo;
 @dynamic company;
+@dynamic department;
+@dynamic currentOfficeLocation;
 @dynamic manager;
 @dynamic subordinates;
+@dynamic messageThreads;
 
 + (void)initialize
 {
@@ -37,23 +41,15 @@
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
 
-- (void)emailMessage:(NSString *)messageText withCompletion:(void (^)(NSError *error))completion
++ (NSArray *)findAllExcludeCurrent
 {
-    NSString *path = [NSString stringWithFormat:@"users/%@/email_message", self.identifier];
-    NSDictionary *parameters = @{@"message" : @{@"body": messageText}};
-    [[HeadshotRequestAPIClient sharedClient] POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (completion) {
-            completion(nil);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (completion) {
-            completion(error);
-        }
-    }];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier];
+    return [User MR_findAllWithPredicate:predicate];
 }
 
 - (NSString *)nameInitials
 {
     return [NSString stringWithFormat:@"%@%@", [self.firstName substringToIndex:1], [self.lastName substringToIndex:1]];
 }
+
 @end

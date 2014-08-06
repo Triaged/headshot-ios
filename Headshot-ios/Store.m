@@ -8,13 +8,14 @@
 
 #import "Store.h"
 #import "HeadshotAPIClient.h"
+#import "MessageClient.h"
 #import "AppDelegate.h"
 #import "CredentialStore.h"
-#import "SinchClient.h"
 #import "User.h"
 #import "NotificationManager.h"
 #import "Device.h"
 #import "OfficeLocation.h"
+#import "OnboardNavigationController.h"
 
 
 
@@ -32,15 +33,17 @@
 - (id)init
 {
     self = [super init];
-    if (self) {
-        if ([[CredentialStore sharedClient] isLoggedIn]) {
-            if (![self currentAccount]) {
-                [self fetchRemoteUserAccount];
-            } else {
-                [self setUpAccount:[self currentAccount]];
-            }
+    if (!self) {
+        return nil;
+    }
+    if ([[CredentialStore sharedStore] isLoggedIn]) {
+        if (![self currentAccount]) {
+            [self fetchRemoteUserAccount];
+        } else {
+            [self setUpAccount:[self currentAccount]];
         }
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAuthorizationError:) name:kRequestAuthorizationErrorNotification object:nil];
     return self;
 }
 
@@ -71,6 +74,7 @@
     [self setUpAccount:account];
     [[AnalyticsManager sharedManager] setupForUser];
     [[AnalyticsManager sharedManager] login];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserLogginInNotification object:nil userInfo:nil];
 }
 
 - (void)setUpAccount:(Account *)account
@@ -85,27 +89,23 @@
         [account resetBadgeCount];
     }
     
-    [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:nil] postDeviceWithSuccess:nil failure:nil];
-    [[SinchClient sharedClient] initSinchClientWithUserId:account.identifier];
+    [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:nil] postDeviceWithCompletion:nil];
     
     [Company companyWithCompletionHandler:^(Company *company, NSError *error) {
         self.hasStoredCompany = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHasStoredCompanyNotification object:nil];
         [[AnalyticsManager sharedManager] updateSuperProperties];
+        [[MessageClient sharedClient] refreshMessagesWithCompletion:nil];
     }];
-    
-    
-    //        }
-    
-    //        Mixpanel *mixpanel = [Mixpanel sharedInstance];
-    //        [mixpanel identify:account.identifier];
-    //        [mixpanel track:@"signup" properties:@{@"id": account.identifier,
-    //                                               @"email" : account.currentUser.email,
-    //                                               @"company" : account.companyName}];
-    
-    //[Intercom beginSessionForUserWithUserId:account.identifier andEmail:account.currentUser.email];
-    
-    //    }];
+}
+
+- (void)receivedAuthorizationError:(NSNotification *)notification
+{
+    BOOL loggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
+    if (loggedIn) {
+        [self logout];
+        [[[UIAlertView alloc] initWithTitle:@"Session Expired" message:@"Please Login Again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
 }
 
 -(void)logout
@@ -113,10 +113,9 @@
 //    remove all user defaults
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    [[SinchClient sharedClient] logoutOfSinchClient];
     [[TRDataStoreManager sharedInstance] resetPersistentStore];
-    [[CredentialStore sharedClient] clearSavedCredentials];
-    [AppDelegate sharedDelegate].tabBarController = nil;
+    [[CredentialStore sharedStore] clearSavedCredentials];
+    [[AppDelegate sharedDelegate] showLogin];
 }
 
 - (void) userSignedOut

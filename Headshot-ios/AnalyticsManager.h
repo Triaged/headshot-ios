@@ -20,7 +20,7 @@
 - (void)appForeground;
 - (void)managerTapped:(NSString *)managerIdentifier;
 - (void)subordinateTapped:(NSString *)subordinateIdentifier;
-- (void)messageSentToRecipient:(NSString *)recipientIdentifier;
+- (void)messageSent;
 - (void)profileViewed:(NSString *)profileIdentifier;
 - (void)profileButtonTouched:(NSString *)buttonDescription;
 

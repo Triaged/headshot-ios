@@ -21,6 +21,7 @@
     [self setImage:[[UIImage alloc] init] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     [self setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(1, frame.size.height)] forState:UIControlStateNormal];
     self.searchBarStyle = UISearchBarStyleMinimal;
+    self.backgroundColor = [UIColor whiteColor];
     [[UITextField appearanceWhenContainedIn:[TRSearchBar class], nil] setFont:[ThemeManager regularFontOfSize:14]];
     return self;
 }

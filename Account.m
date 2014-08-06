@@ -34,11 +34,11 @@
 + (void)requestPasswordResetForEmail:(NSString *)email completion:(void (^)(NSString *, NSError *))completionHandler
 {
     NSDictionary *parameters = @{@"email" : email};
-    [[HeadshotRequestAPIClient sharedClient] POST:@"account/reset_password" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[HeadshotAPIClient sharedClient] POST:@"account/reset_password" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         if (completionHandler) {
             completionHandler(responseObject[@"message"], nil);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (completionHandler) {
             completionHandler(nil, error);
         }
@@ -85,12 +85,49 @@
     } failure:failure];
 }
 
-- (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withSuccess:(void (^)())success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+- (void)logoutWithCompletion:(void (^)(NSError *error))completion
+{
+    NSString *deviceIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsDeviceIdentifier];
+    NSString *path = [NSString stringWithFormat:@"devices/%@/sign_out", deviceIdentifier];
+    
+    [[HeadshotAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (completion) {
+            completion(nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(error);
+        }
+    }];
+}
+
+- (void)updateAvatarImage:(UIImage *)image withCompletion:(void (^)(UIImage *image, NSError *error))completion
+{
+    [[HeadshotAPIClient sharedClient] performMultipartFormRequestWithMethod:@"POST" path:@"account/avatar" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
+        [formData appendPartWithFileData:imageData name:@"user[avatar]" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
+    } completion:^(id responseObject, NSError *error) {
+        [Account updatedObjectWithRawJSONDictionary:responseObject inManagedObjectContext:self.managedObjectContext];
+        if (completion) {
+            completion(image, error);
+        }
+    }];
+}
+
+- (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withCompletion:(void (^)(NSError *error))completion
 {
     NSDictionary *parameters = @{@"user": @{@"current_password": currentPassword,
                                             @"password" :password,
                                             @"password_confirmation" : confirmedPassword}};
-    [[HeadshotAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:success failure:failure];
+    [[HeadshotAPIClient sharedClient] PUT:@"account/update_password" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (completion) {
+            completion(nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(error);
+        }
+    }];
 }
 
 - (void)resetBadgeCount {

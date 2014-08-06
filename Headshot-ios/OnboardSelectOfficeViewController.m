@@ -9,6 +9,7 @@
 #import "OnboardSelectOfficeViewController.h"
 #import "AddOfficeViewController.h"
 #import "OfficeLocation.h"
+#import "User.h"
 
 @interface OnboardSelectOfficeViewController () <AddOfficeViewControllerDelegate>
 
@@ -72,6 +73,9 @@
     //    default to first office if only one
     if (!self.selectedOffice && self.offices && self.offices.count == 1) {
         self.selectedOffice = [self.offices firstObject];
+    } else {
+        User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
+        self.selectedOffice = user.primaryOfficeLocation;
     }
     [self.tableView reloadData];
 }

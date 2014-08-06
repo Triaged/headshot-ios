@@ -13,4 +13,6 @@
 
 + (instancetype)sharedClient;
 
+- (void)performMultipartFormRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData> formData))block completion:(void (^)(id responseObject, NSError *error))completion;
+
 @end

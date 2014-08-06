@@ -11,5 +11,7 @@
 
 extern BOOL isEmpty(id object);
 
+extern BOOL isValidPhone(NSString *phone);
+
 
 #endif

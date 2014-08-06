@@ -16,6 +16,14 @@
 
 @property (strong, nonatomic) UILabel *timeLabel;
 @property (strong, nonatomic) TRAvatarImageView *avatarImageView;
+@property (strong, nonatomic) UIFont *textFont;
+@property (strong, nonatomic) UIFont *unreadTextFont;
+@property (strong, nonatomic) UIFont *detailTextFont;
+@property (strong, nonatomic) UIFont *unreadDetailTextFont;
+@property (strong, nonatomic) UIColor *textColor;
+@property (strong, nonatomic) UIColor *unreadTextColor;
+@property (strong, nonatomic) UIColor *detailTextColor;
+@property (strong, nonatomic) UIColor *unreadDetailTextColor;
 
 @end
 
@@ -27,11 +35,17 @@
     if (!self) {
         return nil;
     }
-    self.textLabel.font = [ThemeManager regularFontOfSize:15.0];
-    self.textLabel.textColor = [[ThemeManager sharedTheme] orangeColor];
-    self.detailTextLabel.font = [ThemeManager regularFontOfSize:12];
-    self.detailTextLabel.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
-    self.detailTextLabel.numberOfLines = 3;
+    self.textFont = [ThemeManager regularFontOfSize:16.0];
+    self.unreadTextFont = [ThemeManager boldFontOfSize:16.0];
+    self.detailTextFont = [ThemeManager regularFontOfSize:15.0];
+    self.unreadDetailTextFont = [ThemeManager regularFontOfSize:15.0];
+    self.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
+    self.unreadTextColor = [[ThemeManager sharedTheme] orangeColor];
+    self.detailTextColor = [[ThemeManager sharedTheme] lightGrayTextColor];
+    self.unreadDetailTextColor = [[ThemeManager sharedTheme] darkGrayTextColor];
+
+    self.detailTextLabel.numberOfLines = 2;
+    self.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
     self.timeLabel = [[UILabel alloc] init];
     self.timeLabel.size = CGSizeMake(100, 31);
@@ -42,7 +56,7 @@
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.timeLabel];
     
-    self.avatarImageView = [[TRAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    self.avatarImageView = [[TRAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     [self.contentView addSubview:self.avatarImageView];
     
     return self;
@@ -52,9 +66,10 @@
 {
     [super layoutSubviews];
     self.avatarImageView.x = 15;
-    self.avatarImageView.size = CGSizeMake(40, 40);
+    self.avatarImageView.size = CGSizeMake(50, 50);
     self.avatarImageView.centerY = self.height/2.0;
     self.textLabel.x = self.avatarImageView.right + 15;
+    self.textLabel.width = self.contentView.width - self.textLabel.x - 60;
     self.detailTextLabel.x = self.textLabel.x;
     self.detailTextLabel.width = self.contentView.width - self.detailTextLabel.x - 15;
 }
@@ -62,11 +77,29 @@
 - (void)setMessageThread:(MessageThread *)messageThread
 {
     _messageThread = messageThread;
-    self.avatarImageView.user = messageThread.recipient;
+    if (messageThread.isGroupThread) {
+        self.avatarImageView.image = [UIImage imageNamed:@"messages-group"];
+    }
+    else {
+        User *recipient = messageThread.directMessageRecipient;
+        self.avatarImageView.user = recipient;
+    }
     Message *lastMessage = messageThread.lastMessage;
-    self.textLabel.text = messageThread.recipient.fullName;
+    self.textLabel.text = messageThread.defaultTitle;
     self.detailTextLabel.text = lastMessage.text;
     self.timeLabel.text = [lastMessage.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
+    if (messageThread.unread.boolValue) {
+        self.textLabel.font = self.unreadTextFont;
+        self.detailTextLabel.font = self.unreadDetailTextFont;
+        self.textLabel.textColor = self.unreadTextColor;
+        self.detailTextLabel.textColor = self.unreadDetailTextColor;
+    }
+    else {
+        self.textLabel.font = self.textFont;
+        self.detailTextLabel.font = self.detailTextFont;
+        self.textLabel.textColor = self.textColor;
+        self.detailTextLabel.textColor = self.detailTextColor;
+    }
 }
 
 @end

@@ -12,13 +12,14 @@
 #import "TRDataStoreManager.h"
 #import "TRBackgroundQueue.h"
 #import "LocationClient.h"
-#import "SinchClient.h"
+#import "MessageClient.h"
 #import "CredentialStore.h"
 #import "NotificationManager.h"
 #import "OnboardNavigationController.h"
 #import "MessageThreadViewController.h"
 #import "MailComposer.h"
 #import "VersionManager.h"
+#import "FileLogManager.h"
 #import <Crashlytics/Crashlytics.h>
 
 
@@ -48,12 +49,12 @@
 {
     // Override point for customization after application launch.
     
-    [NotificationManager sharedManager];
     [self setDataStore];
     [[ThemeManager sharedTheme] customizeAppearance];
     [self setupLoggedInUser];
     [self setupLogging];
     [self setWindowAndRootVCForApplication:application withLaunchOptions:launchOptions];
+    [NotificationManager sharedManager];
     return YES;
 }
 
@@ -65,10 +66,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [[SinchClient sharedClient].client stopListeningOnActiveConnection];
-    [[SinchClient sharedClient].client stop];
+    [[MessageClient sharedClient] stop];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -79,18 +77,20 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [[SinchClient sharedClient].client start];
-    [[SinchClient sharedClient].client startListeningOnActiveConnection];
+//    possible data loss issue where we think user is logged in but don't have data. Causes crashes so just log out
+    BOOL invalid = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn] && [AppDelegate sharedDelegate].store.currentAccount == nil;
+    if (invalid) {
+        [self.store logout];
+    }
+    
+    [[MessageClient sharedClient] start];
     [[VersionManager sharedManager] notifyOfUpdate];
     [[AnalyticsManager sharedManager] appForeground];
+    [[MessageClient sharedClient] refreshMessagesWithCompletion:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [[SinchClient sharedClient].client stopListeningOnActiveConnection];
-    [[SinchClient sharedClient].client stop];
-
     [MagicalRecord cleanUp];
 }
 
@@ -106,10 +106,16 @@
         [self.window setRootViewController:self.tabBarController];
     }
     else {
-        self.window.rootViewController = [[OnboardNavigationController alloc] init];
+        [self showLogin];
     }
 
     [self.window makeKeyAndVisible];
+}
+
+- (void)showLogin
+{
+    [AppDelegate sharedDelegate].tabBarController = nil;
+    self.window.rootViewController = [[OnboardNavigationController alloc] init];
 }
 
 - (void)setupLoggedInUser
@@ -124,6 +130,7 @@
 
 -(void) setupLogging {
     [Crashlytics startWithAPIKey:@"2776a41715c04dde4ba5d15b716b66a51e353b0f"];
+    [[FileLogManager sharedManager] setUpFileLogging];
 }
 
 
@@ -142,7 +149,7 @@
     [SLObjectConverter setDefaultDateTimeFormat:@"yyyy-MM-dd'T'HH:mm:ss.sssZ"];
     [SLAttributeMapping registerDefaultObjcNamingConvention:@"identifier" forJSONNamingConvention:@"id"];
     
-    [MagicalRecord setupCoreDataStackWithStoreNamed:@"Headshot.sqlite"];
+    [MagicalRecord setupCoreDataStackWithStoreNamed:kPersistentStoreName];
     [NSManagedObjectContext MR_setDefaultContext:[TRDataStoreManager sharedInstance].mainThreadManagedObjectContext];
     
 }
@@ -150,14 +157,21 @@
 - (void)logout
 {
     [[AnalyticsManager sharedManager] logout];
-    [self.store logout];
-    self.window.rootViewController = [[OnboardNavigationController alloc] init];
+    [SVProgressHUD show];
+    [self.store.currentAccount logoutWithCompletion:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        if (!error) {
+            [self.store logout];
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Logout failed. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }];
 }
 
-- (void)setTopViewControllerToMessageThreadViewControllerWithAuthorID:(NSString *)authorID
+- (void)setTopViewControllerToMessageThreadViewControllerWithID:(NSString *)threadID
 {
-    User *user = [User MR_findFirstByAttribute:@"identifier" withValue:authorID];
-    MessageThreadViewController *messageThreadViewControllor = [[MessageThreadViewController alloc] initWithRecipient:user];
+    MessageThreadViewController *messageThreadViewControllor = [[MessageThreadViewController alloc] initWithThreadID:threadID];
     self.window.rootViewController = self.tabBarController;
     [self.tabBarController selectMessagesViewController];
     UINavigationController *navigationController = (UINavigationController *)self.tabBarController.selectedViewController;
