@@ -48,7 +48,7 @@
     if (error) {
         NSHTTPURLResponse *httpResponse = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
         if (httpResponse.statusCode == kHTTPStatusCodeUnauthorized){
-            [[NSNotificationCenter defaultCenter] postNotificationName:kRequestAuthorizationErrorNotification object:error userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kRequestAuthorizationErrorNotification object:nil userInfo:nil];
         }
     }
 }
