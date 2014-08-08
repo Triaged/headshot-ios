@@ -86,7 +86,13 @@ static const CLLocationDistance kOfficeRadius = 250;
             // Start Monitoring Region
             [self.locationManager startMonitoringForRegion:region];
             DDLogInfo(@"started monitoring location with identifier %@", location.identifier);
-            [self.locationManager requestStateForRegion:region];
+            
+            /*for whatever reason requesting state immediately after starting to monitor
+             results in didDetermineState: never being called. dispatching for later seems to
+             solve this*/
+            jadispatch_after_delay(1, dispatch_get_main_queue(), ^{
+                [self.locationManager requestStateForRegion:region];
+            });
         }
     }];
 }
