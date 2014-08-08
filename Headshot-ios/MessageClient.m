@@ -51,7 +51,7 @@
 - (void)initFayeClient
 {
     NSString *urlString = [[ConstantsManager sharedConstants] messageServerURLString];
-    NSString *fayeURLString = [NSString stringWithFormat:@"wss://%@/streaming", urlString];
+    NSString *fayeURLString = [NSString stringWithFormat:@"ws://%@/streaming", urlString];
     self.fayeClient = [[TRFayeClient alloc] initWithURL:[NSURL URLWithString:fayeURLString]];
     self.fayeClient.messageDelegate = self;
 }
