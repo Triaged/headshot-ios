@@ -20,7 +20,13 @@
     [super viewDidLoad];
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonTouched:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
+    [self reloadData];
+}
+
+- (void)reloadData
+{
     self.offices = [OfficeLocation MR_findAll];
+    [self.tableView reloadData];
 }
 
 - (void)cancelButtonTouched:(id)sender
@@ -101,6 +107,11 @@
 - (void)didCancelOfficeViewController:(AddOfficeViewController *)addOfficeViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)addOfficeViewController:(AddOfficeViewController *)addOfficeViewController didAddOffice:(OfficeLocation *)office
+{
+    [self reloadData];
 }
 
 

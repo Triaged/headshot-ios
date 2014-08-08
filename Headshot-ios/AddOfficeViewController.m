@@ -165,6 +165,9 @@
     if (![self validateFields]) {
         return;
     }
+    if (self.officeLocation) {
+        [self.officeLocation.managedObjectContext deleteObject:self.officeLocation];
+    }
     self.officeLocation = [self officeLocationFromFields];
     [SVProgressHUD show];
     [self.officeLocation postWithCompletion:^(OfficeLocation *officeLocation, NSError *error) {

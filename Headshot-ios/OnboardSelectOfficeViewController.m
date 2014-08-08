@@ -67,17 +67,22 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [self reloadData];
+}
+
+- (void)reloadData
+{
     self.offices = [OfficeLocation MR_findAll];
     
     //    default to first office if only one
-    if (!self.selectedOffice && self.offices && self.offices.count == 1) {
+    if (!self.selectedOffice && self.offices && self.offices.count == 1 && !self.noOffice) {
         self.selectedOffice = [self.offices firstObject];
     } else {
         User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
         self.selectedOffice = user.primaryOfficeLocation;
     }
     [self.tableView reloadData];
+    
 }
 
 - (void)nextButtonTouched:(id)sender
@@ -154,7 +159,7 @@
     else if (self.selectedOffice) {
         [AppDelegate sharedDelegate].store.currentAccount.currentUser.primaryOfficeLocation = self.selectedOffice;
     }
-    [tableView reloadData];
+    [self reloadData];
 }
 
 #pragma mark - add office view controller delegate
@@ -166,7 +171,7 @@
 - (void)addOfficeViewController:(AddOfficeViewController *)addOfficeViewController didAddOffice:(OfficeLocation *)office
 {
     self.selectedOffice = office;
-    [self.tableView reloadData];
+    [self reloadData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
