@@ -10,6 +10,16 @@
 #import "SLRESTfulCoreData.h"
 #import "User.h"
 
+static const NSInteger maxRetries = 3;
+
+@interface OfficeLocation()
+{
+    NSInteger _enterLocationRetryCount;
+    NSInteger _exityLocationRetryCount;
+}
+
+@end
+
 
 @implementation OfficeLocation
 
@@ -74,6 +84,15 @@
 
 - (void)enterLocation {
     DDLogInfo(@"Starting ENTER location request for region with identifier %@", self.identifier);
+    _enterLocationRetryCount = 0;
+    [self _enterLocation];
+}
+
+- (void)_enterLocation
+{
+    if (_enterLocationRetryCount > 0) {
+        DDLogInfo(@"Retrying ENTER location request for region with identifier %@", self.identifier);
+    }
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/entered", self.identifier]];
     [self putToURL:URL completionHandler:^(id JSONObject, NSError *error) {
         if (!error) {
@@ -83,19 +102,33 @@
         }
         else {
             DDLogInfo(@"Failed ENTER location request with error %@", error.localizedDescription);
+            _enterLocationRetryCount++;
+            if (_enterLocationRetryCount < maxRetries) {
+                [self _enterLocation];
+            }
         }
     }];
-    NSLog(@"entered location");
 }
 
 
 - (void)exitLocation {
+    _exityLocationRetryCount = 0;
+    [self _exitLocation];
+}
+
+- (void)_exitLocation
+{
     OfficeLocation *currentOfficeLocation = [OfficeLocation currentOfficeLocation];
     if (!currentOfficeLocation || ![currentOfficeLocation.identifier isEqualToString:self.identifier]) {
         DDLogInfo(@"Not starting EXIT location request for %@ since not currently in this office", self.identifier);
         return;
     }
-    DDLogInfo(@"Starting EXIT location request for region with identifier %@", self.identifier);
+    if (!_exityLocationRetryCount) {
+        DDLogInfo(@"Starting EXIT location request for region with identifier %@", self.identifier);
+    }
+    else {
+        DDLogInfo(@"Retrying EXIT location request for region with identifier %@", self.identifier);
+    }
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"office_locations/%@/exited", self.identifier]];
     [self putToURL:URL completionHandler:^(id JSONObject, NSError *error) {
         if (!error) {
@@ -108,6 +141,10 @@
         }
         else {
             DDLogInfo(@"Failed EXIT location request with error %@", error.localizedDescription);
+            _exityLocationRetryCount++;
+            if (_exityLocationRetryCount < maxRetries) {
+                [self _exitLocation];
+            }
         }
     }];
 }
