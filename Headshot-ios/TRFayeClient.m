@@ -7,6 +7,7 @@
 //
 
 #import "TRFayeClient.h"
+#import <Reachability.h>
 #import "FileLogManager.h"
 
 @interface TRFayeMessage : NSObject
@@ -124,7 +125,9 @@
 
 - (void)fayeClient:(MZFayeClient *)client didFailWithError:(NSError *)error
 {
-    DDLogInfo(@"FAYE: error: %@",error);
+    if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus != NotReachable) {
+        DDLogInfo(@"FAYE: error: %@",error);
+    }
 //    It's possible that the faye client failed after sending message and before receiving a response. Give some time for reconnect before marking message as failed
 //    mark all pending sent messages as failed
     [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(failedTimerFired:) userInfo:@{@"messages" : self.sentMessages.allValues, @"error" : error} repeats:NO];
@@ -132,7 +135,9 @@
 
 - (void)failedTimerFired:(NSTimer *)timer
 {
-    DDLogInfo(@"FAYE: fail timer fired");
+    if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus != NotReachable) {
+        DDLogInfo(@"FAYE: fail timer fired");
+    }
     NSError *error = timer.userInfo[@"error"];
     NSArray *messages = timer.userInfo[@"messages"];
     [self setMessagesToFailed:messages error:error];
