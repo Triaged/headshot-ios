@@ -119,6 +119,8 @@
     
     currentUser = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
     self.sender =  currentUser.fullName;
+    
+    self.collectionView.collectionViewLayout.messageBubbleFont = [UIFont fontWithName:[[ThemeManager sharedTheme] regularFontName] size:15.0f];
 
     
     self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory

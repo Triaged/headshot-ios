@@ -97,6 +97,12 @@
     [[UIBarButtonItem appearance] setTintColor:buttonTint];
     [[UIButton appearanceWhenContainedIn:[UIActionSheet class], nil] setTitleColor:buttonTint forState:UIControlStateNormal];
     
+    NSDictionary *segmentAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
+                                                                                 fontWithName:@"Whitney-Medium" size:13], NSFontAttributeName, buttonTint,NSForegroundColorAttributeName, nil];
+    [[UISegmentedControl appearance] setTitleTextAttributes:segmentAttributes forState:UIControlStateNormal];
+    
+    
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [UINavigationBar appearance].backIndicatorImage = [self.backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [UINavigationBar appearance].backIndicatorTransitionMaskImage = [self.backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

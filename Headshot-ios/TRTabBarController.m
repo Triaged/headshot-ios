@@ -55,8 +55,10 @@
     
     self.tabBar.translucent = NO;
     self.tabBar.tintColor = [[ThemeManager sharedTheme] orangeColor];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [[ThemeManager sharedTheme] orangeColor], NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[[ThemeManager sharedTheme] disabledGrayTextColor], NSForegroundColorAttributeName, nil]
+    
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [[ThemeManager sharedTheme] orangeColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Whitney-Medium" size:12], NSFontAttributeName, nil]  forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[[ThemeManager sharedTheme] disabledGrayTextColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Whitney-Medium" size:12], NSFontAttributeName, nil]
                                              forState:UIControlStateNormal];
     self.tabBar.backgroundColor = [UIColor whiteColor];
     
