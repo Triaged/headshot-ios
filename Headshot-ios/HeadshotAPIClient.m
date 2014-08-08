@@ -51,6 +51,23 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kRequestAuthorizationErrorNotification object:nil userInfo:nil];
         }
     }
+#ifdef INTERNAL
+    [self logHTTPOperation:notification];
+#endif
+}
+
+- (void)logHTTPOperation:(NSNotification *)notification
+{
+    NSURLResponse *response = [notification.object response];
+    DDLogInfo(@"finished request:\n%@", response);
+    NSDictionary *responseData = [notification.userInfo objectForKey:AFNetworkingTaskDidCompleteSerializedResponseKey];
+    if (responseData) {
+        DDLogInfo(@"Response data:\n%@", responseData);
+    }
+    NSError *error = [notification.userInfo objectForKey:AFNetworkingTaskDidCompleteErrorKey];
+    if (error) {
+        DDLogInfo(@"Response error:\n%@", error);
+    }
 }
 
 - (void)setAuthTokenHeader {
