@@ -158,6 +158,20 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)showUnreadMessageIndicator
+{
+    UIImage *backButtonImage = [[[ThemeManager sharedTheme] unreadMessageBackButtonImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationController.navigationBar.backIndicatorImage = backButtonImage;
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = backButtonImage;
+}
+
+- (void)dismissUnreadMessageIndicator
+{
+    UIImage *backButtonImage = [[[ThemeManager sharedTheme] backButtonImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationController.navigationBar.backIndicatorImage = backButtonImage;
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = backButtonImage;
+}
+
 - (BOOL)hidesBottomBarWhenPushed
 {
     return YES;
@@ -167,15 +181,22 @@
 {
     NSArray *messageIDs = notification.userInfo[@"messages"];
     BOOL reload = NO;
+    BOOL showIndicator = NO;
     for (NSManagedObjectID *messageID in messageIDs) {
         Message *message = (Message *)[[NSManagedObjectContext MR_defaultContext] objectWithID:messageID];
         if ([message.messageThread.identifier isEqualToString:self.messageThread.identifier]) {
             reload = YES;
         }
+        else {
+            showIndicator = YES;
+        }
     }
     if (reload) {
         [self fetchMessages];
         [self.messageThread markAsRead];
+    }
+    if (showIndicator) {
+        [self showUnreadMessageIndicator];
     }
 }
 
@@ -210,6 +231,7 @@
     [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
     [self.navigationController setSGProgressPercentage:0];
     self.navigationController.navigationBar.translucent = NO;
+    [self dismissUnreadMessageIndicator];
 }
 
 - (void)viewDidAppear:(BOOL)animated

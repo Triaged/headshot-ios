@@ -140,8 +140,6 @@ typedef void (^RemoteNotificationRegistrationBlock)(NSData *devToken, NSError *e
     }
     backButtonImage = [backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [AppDelegate sharedDelegate].tabBarController.messagesTableViewController.navigationController.tabBarItem.badgeValue = badgeValue;
-    [AppDelegate sharedDelegate].tabBarController.messageNavigationController.navigationBar.backIndicatorImage = backButtonImage;
-    [AppDelegate sharedDelegate].tabBarController.messageNavigationController.navigationBar.backIndicatorTransitionMaskImage = backButtonImage;
 }
 
 @end
