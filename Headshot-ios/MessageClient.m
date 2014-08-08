@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) NSDictionary *authExtension;
 @property (strong, nonatomic) NSTimer *fayeHeartbeatTimer;
+@property (assign, nonatomic) BOOL hasSetAuthorizationHeader;
 
 @end
 
@@ -43,14 +44,14 @@
 - (void)initHttpClient
 {
     NSString *urlString = [[ConstantsManager sharedConstants] messageServerURLString];
-    NSString *httpURLString = [NSString stringWithFormat:@"http://%@/api/v1", urlString];
+    NSString *httpURLString = [NSString stringWithFormat:@"https://%@/api/v1", urlString];
     self.httpClient = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:httpURLString]];
 }
 
 - (void)initFayeClient
 {
     NSString *urlString = [[ConstantsManager sharedConstants] messageServerURLString];
-    NSString *fayeURLString = [NSString stringWithFormat:@"ws://%@/streaming", urlString];
+    NSString *fayeURLString = [NSString stringWithFormat:@"wss://%@/streaming", urlString];
     self.fayeClient = [[TRFayeClient alloc] initWithURL:[NSURL URLWithString:fayeURLString]];
     self.fayeClient.messageDelegate = self;
 }
@@ -88,6 +89,7 @@
     [self.httpClient.requestSerializer setValue:authToken forHTTPHeaderField:@"authorization"];
     [self.httpClient.requestSerializer setValue:userID forHTTPHeaderField:@"user_id"];
     self.authExtension = @{@"auth_token" : authToken, @"user_id" : userID };
+    self.hasSetAuthorizationHeader = YES;
 }
 
 - (void)receivedUserLoggedInNotification:(NSNotification *)notification
@@ -146,6 +148,13 @@
 
 - (void)getMessagesSinceDate:(NSDate *)date completion:(void (^)(NSArray *messages, NSArray *createdMessages, NSArray *createdMessageThreads, NSError *error))completion
 {
+    if (!self.hasSetAuthorizationHeader) {
+        if (completion) {
+            NSError *error = [[NSError alloc] init];
+            completion(nil, nil, nil, error);
+        }
+        return;
+    }
     NSDictionary *parameters;
     if (date) {
         parameters = @{@"timestamp" : @([date timeIntervalSince1970])};
