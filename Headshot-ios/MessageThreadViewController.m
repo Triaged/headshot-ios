@@ -174,7 +174,7 @@
 
 - (BOOL)hidesBottomBarWhenPushed
 {
-    return YES;
+    return self.navigationController.topViewController == self;
 }
 
 - (void)receivedNewMessageNotification:(NSNotification *)notification
