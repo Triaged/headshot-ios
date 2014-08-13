@@ -20,7 +20,7 @@
 #import "MailComposer.h"
 #import "VersionManager.h"
 #import "FileLogManager.h"
-#import <Crashlytics/Crashlytics.h>
+#import "CrashManager.h"
 
 
 @interface NSManagedObjectContext ()
@@ -129,7 +129,7 @@
 }
 
 -(void) setupLogging {
-    [Crashlytics startWithAPIKey:@"2776a41715c04dde4ba5d15b716b66a51e353b0f"];
+    [[CrashManager sharedManager] start];
     [[FileLogManager sharedManager] setUpFileLogging];
 }
 

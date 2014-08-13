@@ -10,6 +10,7 @@
 #import "HeadshotAPIClient.h"
 #import "MessageClient.h"
 #import "AppDelegate.h"
+#import "CrashManager.h"
 #import "CredentialStore.h"
 #import "User.h"
 #import "NotificationManager.h"
@@ -74,6 +75,7 @@
     [self setUpAccount:account];
     [[AnalyticsManager sharedManager] setupForUser];
     [[AnalyticsManager sharedManager] login];
+    [[CrashManager sharedManager] setupForUser];
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserLogginInNotification object:nil userInfo:nil];
 }
 
