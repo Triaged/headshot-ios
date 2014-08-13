@@ -113,9 +113,10 @@
 //    remove all user defaults
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    [[TRDataStoreManager sharedInstance] resetPersistentStore];
-    [[CredentialStore sharedStore] clearSavedCredentials];
-    [[AppDelegate sharedDelegate] showLogin];
+    [[TRDataStoreManager sharedInstance] resetPersistentStore:^{
+        [[CredentialStore sharedStore] clearSavedCredentials];
+        [[AppDelegate sharedDelegate] showLogin];
+    }];
 }
 
 - (void) userSignedOut

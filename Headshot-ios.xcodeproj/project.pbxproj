@@ -48,6 +48,7 @@
 		96B69EEA197D60EF008A7D1B /* TRFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B69EE9197D60EF008A7D1B /* TRFayeClient.m */; };
 		96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */; };
 		96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9E19577EE300E77CFD /* SettingsViewController.m */; };
+		96D1D564199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1D563199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m */; };
 		96D37F4819608C7900212CDF /* TRAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D37F4719608C7800212CDF /* TRAvatarImageView.m */; };
 		96D4ECAE1976CB9400234ECF /* ContactsContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4ECAD1976CB9400234ECF /* ContactsContainerViewController.m */; };
 		96D4ECB11977116500234ECF /* TRSearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4ECB01977116500234ECF /* TRSearchDisplayController.m */; };
@@ -228,6 +229,8 @@
 		96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAccountViewController.m; sourceTree = "<group>"; };
 		96C2CF9D19577EE300E77CFD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		96C2CF9E19577EE300E77CFD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		96D1D562199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+TRDeleteAll.h"; sourceTree = "<group>"; };
+		96D1D563199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+TRDeleteAll.m"; sourceTree = "<group>"; };
 		96D37F4619608C7800212CDF /* TRAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAvatarImageView.h; sourceTree = "<group>"; };
 		96D37F4719608C7800212CDF /* TRAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAvatarImageView.m; sourceTree = "<group>"; };
 		96D4ECAC1976CB9400234ECF /* ContactsContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsContainerViewController.h; sourceTree = "<group>"; };
@@ -463,6 +466,8 @@
 				96467B83195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m */,
 				96D4F238196463DE00147DEB /* UIViewController+BackViewController.h */,
 				96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */,
+				96D1D562199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.h */,
+				96D1D563199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -1031,6 +1036,7 @@
 				96D4F23A196463DE00147DEB /* UIViewController+BackViewController.m in Sources */,
 				CBBA68DE192FE0B5005A6949 /* User.m in Sources */,
 				CBBA6875192FD646005A6949 /* AppDelegate.m in Sources */,
+				96D1D564199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m in Sources */,
 				964A6BE3194E6B9B0024B3C2 /* AddOfficeViewController.m in Sources */,
 				CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */,
 				96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */,

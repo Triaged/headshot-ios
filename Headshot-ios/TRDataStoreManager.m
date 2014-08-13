@@ -7,6 +7,16 @@
 //
 
 #import "TRDataStoreManager.h"
+#import <MagicalRecord.h>
+#import "NSManagedObjectContext+TRDeleteAll.h"
+#import "Message.h"
+#import "MessageThread.h"
+#import "User.h"
+#import "Account.h"
+#import "Company.h"
+#import "EmployeeInfo.h"
+#import "OfficeLocation.h"
+#import "Department.h"
 
 @implementation TRDataStoreManager
 
@@ -43,42 +53,34 @@
     }
 }
 
-- (void)resetPersistentStore
+- (void)resetPersistentStore:(void (^)())completion
 {
-    NSLog(@"resetting persistent store");
-    NSError *error = nil;
-    
-    [MagicalRecord cleanUp];
-    
-    // FIXME: dirty. If there are many stores...
-    //NSPersistentStore *store = [[self.managedObjectContext.persistentStoreCoordinator persistentStores] lastObject];
-    
-    //    if (![self.managedObjectContext.persistentStoreCoordinator removePersistentStore:store error:&error]) {
-    //        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    //        abort();
-    //    }
-    
-    // Delete file
-    NSURL *fileURL = [NSPersistentStore MR_urlForStoreName:kPersistentStoreName];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
-        BOOL removed = [[NSFileManager defaultManager] removeItemAtPath:fileURL.path error:&error];
-        if (!removed) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
+    [self.mainThreadManagedObjectContext reset];
+    NSArray *entityNames = @[NSStringFromClass([User class]),
+                             NSStringFromClass([Message class]),
+                             NSStringFromClass([MessageThread class]),
+                             NSStringFromClass([Account class]),
+                             NSStringFromClass([Company class]),
+                             NSStringFromClass([EmployeeInfo class]),
+                             NSStringFromClass([OfficeLocation class]),
+                             NSStringFromClass([Department class])];
+    for (NSString *name in entityNames) {
+        [self.mainThreadManagedObjectContext deleteAllWithEntityName:name];
     }
-    
-    [TRDataStoreManager sharedInstance].mainThreadManagedObjectContext = nil;
-    [TRDataStoreManager sharedInstance].backgroundThreadManagedObjectContext = nil;
-    
-    //[NSManagedObjectContext MR_setDefaultContext: nil];
-    [NSPersistentStore MR_setDefaultPersistentStore:nil];
-    [NSManagedObjectModel MR_setDefaultManagedObjectModel:nil];
-    [NSPersistentStoreCoordinator MR_setDefaultStoreCoordinator: nil];
-    
-    
-    
-    [[AppDelegate sharedDelegate] setDataStore];
+    NSError *saveError = nil;
+    [self.mainThreadManagedObjectContext save:&saveError];
+    self.mainThreadManagedObjectContext = nil;
+    [self.backgroundThreadManagedObjectContext performBlock:^{
+        [self.backgroundThreadManagedObjectContext reset];
+        [self.backgroundThreadManagedObjectContext processPendingChanges];
+        self.backgroundThreadManagedObjectContext = nil;
+        jadispatch_main_qeue(^{
+            [[AppDelegate sharedDelegate] setDataStore];
+            if (completion) {
+                completion();
+            }
+        });
+    }];
 }
 
 
