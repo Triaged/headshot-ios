@@ -94,10 +94,12 @@
     [[[Device alloc] initWithDevice:[UIDevice currentDevice] token:nil] postDeviceWithCompletion:nil];
     
     [Company companyWithCompletionHandler:^(Company *company, NSError *error) {
-        self.hasStoredCompany = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHasStoredCompanyNotification object:nil];
-        [[AnalyticsManager sharedManager] updateSuperProperties];
-        [[MessageClient sharedClient] refreshMessagesWithCompletion:nil];
+            [User usersWithCompletionHandler:^(NSArray *users, NSError *error) {
+                self.hasStoredCompany = YES;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHasStoredCompanyNotification object:nil];
+                [[AnalyticsManager sharedManager] updateSuperProperties];
+                [[MessageClient sharedClient] refreshMessagesWithCompletion:nil];
+            }];
     }];
 }
 

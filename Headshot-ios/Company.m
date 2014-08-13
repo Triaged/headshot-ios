@@ -22,7 +22,7 @@
 @dynamic departments;
 
 + (void)companyWithCompletionHandler:(void(^)(Company *company, NSError *error))completionHandler {
-    NSURL *URL = [NSURL URLWithString:@"company?exclude_current_user=true"];
+    NSURL *URL = [NSURL URLWithString:@"company"];
     [self fetchObjectFromURL:URL completionHandler:completionHandler];
 }
 
