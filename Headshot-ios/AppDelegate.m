@@ -78,7 +78,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
 //    possible data loss issue where we think user is logged in but don't have data. Causes crashes so just log out
-    BOOL invalid = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn] && [AppDelegate sharedDelegate].store.currentAccount == nil;
+    BOOL invalid = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn] && ![CredentialStore sharedStore].userID;
     if (invalid) {
         [self.store logout];
     }

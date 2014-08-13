@@ -59,12 +59,12 @@
 - (void)start
 {
     BOOL loggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn];
-    BOOL hasAccount = [AppDelegate sharedDelegate].store.currentAccount != nil;
-    if (loggedIn && hasAccount) {
+    NSString *userID = [CredentialStore sharedStore].userID;
+    if (loggedIn && userID) {
         [self initFayeClient];
         [self.fayeClient connect];
         [self setAuthorizationHeader];
-        [self subscribeForUserID:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
+        [self subscribeForUserID:userID];
         self.fayeHeartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(fireHeartbeat:) userInfo:nil repeats:YES];
     }
 }
@@ -78,14 +78,14 @@
 - (void)fireHeartbeat:(id)sender
 {
     
-    NSString *heartbeatChannel = [NSString stringWithFormat:@"/users/heartbeat/%@", [AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
+    NSString *heartbeatChannel = [NSString stringWithFormat:@"/users/heartbeat/%@", self.authExtension[@"user_id"]];
     [self.fayeClient sendMessage:@{} toChannel:heartbeatChannel usingExtension:self.authExtension];
 }
 
 - (void)setAuthorizationHeader
 {
     NSString *authToken = [CredentialStore sharedStore].authToken;
-    NSString *userID = [AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier;
+    NSString *userID = [CredentialStore sharedStore].userID;
     [self.httpClient.requestSerializer setValue:authToken forHTTPHeaderField:@"authorization"];
     [self.httpClient.requestSerializer setValue:userID forHTTPHeaderField:@"user_id"];
     self.authExtension = @{@"auth_token" : authToken, @"user_id" : userID };
