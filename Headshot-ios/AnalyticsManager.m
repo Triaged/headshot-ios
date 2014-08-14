@@ -133,6 +133,27 @@
     [self sendEvent:@"profile_button_touched" withProperties:properties];
 }
 
+- (void)avatarUploaded
+{
+    [self sendEvent:@"avatar_uploaded" withProperties:nil];
+}
+
+- (void)locationEnabled
+{
+    [self sendEvent:@"location_enabled" withProperties:nil];
+}
+
+- (void)locationDisabled
+{
+    [self sendEvent:@"location_disabled" withProperties:nil];
+}
+
+
+- (void)pushEnabled
+{
+    [self sendEvent:@"push_enabled" withProperties:nil];
+}
+
 
 
 @end

@@ -80,6 +80,12 @@
 - (void)permissionButtonTouched:(id)sender
 {
     [[LocationClient sharedClient] requestLocationPermissions:^(CLAuthorizationStatus authorizationStatus) {
+        if (authorizationStatus == kCLAuthorizationStatusAuthorized) {
+            [[AnalyticsManager sharedManager] locationEnabled];
+        } else {
+            [[AnalyticsManager sharedManager] locationDisabled];
+        }
+        
         [[LocationClient sharedClient] startMonitoringOffices];
         if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
             [self.delegate onboardViewController:self doneButtonTouched:sender];

@@ -76,6 +76,7 @@
     [[NotificationManager sharedManager] registerForRemoteNotificationsWithCompletion:^(NSData *devToken, NSError *error) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserDefaultsHasRequestedPushPermission];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        [[AnalyticsManager sharedManager] pushEnabled];
         if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
             [self.delegate onboardViewController:self doneButtonTouched:sender];
         }
