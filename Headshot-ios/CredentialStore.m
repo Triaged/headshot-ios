@@ -13,6 +13,7 @@
 
 #define SERVICE_NAME @"Triage-AuthClient"
 #define AUTH_TOKEN_KEY @"auth_token"
+#define USER_ID @"user_id"
 
 @implementation CredentialStore
 
@@ -35,7 +36,19 @@
 
 - (void)clearSavedCredentials {
     [self setAuthToken:nil];
+    [self setUserID:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"signout" object:self];
+}
+
+- (NSString *)userID
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:USER_ID];
+}
+
+- (void)setUserID:(NSString *)userID
+{
+    [[NSUserDefaults standardUserDefaults] setObject:userID forKey:USER_ID];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (NSString *)authToken {

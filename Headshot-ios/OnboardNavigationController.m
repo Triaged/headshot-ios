@@ -139,7 +139,7 @@
     else if (previousViewController == self.locationPermissionsViewController) {
         nextViewController = self.pushPermissionsViewController;
     }
-    if (nextViewController) {
+    if (nextViewController && nextViewController != self.topViewController) {
         [self pushViewController:nextViewController animated:YES];
     }
     else {

@@ -20,7 +20,7 @@
 #import "MailComposer.h"
 #import "VersionManager.h"
 #import "FileLogManager.h"
-#import <Crashlytics/Crashlytics.h>
+#import "CrashManager.h"
 
 
 @interface NSManagedObjectContext ()
@@ -78,7 +78,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
 //    possible data loss issue where we think user is logged in but don't have data. Causes crashes so just log out
-    BOOL invalid = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn] && [AppDelegate sharedDelegate].store.currentAccount == nil;
+    BOOL invalid = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLoggedIn] && ![CredentialStore sharedStore].userID;
     if (invalid) {
         [self.store logout];
     }
@@ -129,7 +129,7 @@
 }
 
 -(void) setupLogging {
-    [Crashlytics startWithAPIKey:@"2776a41715c04dde4ba5d15b716b66a51e353b0f"];
+    [[CrashManager sharedManager] start];
     [[FileLogManager sharedManager] setUpFileLogging];
 }
 
