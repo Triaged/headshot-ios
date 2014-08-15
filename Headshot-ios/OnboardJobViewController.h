@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "OnboardNavigationController.h"
+#import "User.h"
 
 @interface OnboardJobViewController : UITableViewController <OnboardViewController>
+
+@property (strong, nonatomic) User *user;
 
 
 @end

@@ -78,8 +78,7 @@
     if (!self.selectedOffice && self.offices && self.offices.count == 1 && !self.noOffice) {
         self.selectedOffice = [self.offices firstObject];
     } else {
-        User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-        self.selectedOffice = user.primaryOfficeLocation;
+        self.selectedOffice = self.user.primaryOfficeLocation;
     }
     [self.tableView reloadData];
     
@@ -118,7 +117,7 @@
         OfficeLocation *office = self.offices[indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@ Office", office.city];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@ %@", office.streetAddress, office.city, office.zipCode];
-        if ([self.selectedOffice isEqual:office]) {
+        if ([self.selectedOffice.identifier isEqual:office.identifier]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
@@ -153,12 +152,16 @@
         addOfficeViewController.delegate = self;
         [self presentViewControllerWithNav:addOfficeViewController animated:YES completion:nil];
     }
-    if (self.noOffice) {
-        [AppDelegate sharedDelegate].store.currentAccount.currentUser.primaryOfficeLocation = nil;
-    }
-    else if (self.selectedOffice) {
-        [AppDelegate sharedDelegate].store.currentAccount.currentUser.primaryOfficeLocation = self.selectedOffice;
-    }
+    [self.user.managedObjectContext performBlockAndWait:^{
+        if (self.noOffice) {
+            self.user.primaryOfficeLocation = nil;
+        }
+        else if (self.selectedOffice) {
+            OfficeLocation *office = (OfficeLocation *)[self.user.managedObjectContext objectWithID:self.selectedOffice.objectID];
+            self.user.primaryOfficeLocation = office;
+        }
+    }];
+
     [self reloadData];
 }
 

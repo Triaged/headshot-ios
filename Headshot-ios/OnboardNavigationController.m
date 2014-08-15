@@ -30,6 +30,8 @@
 @property (strong, nonatomic) OnboardSelectOfficeViewController *selectOfficeViewController;
 @property (strong, nonatomic) OnboardLocationPermissionViewController *locationPermissionsViewController;
 @property (strong, nonatomic) OnboardPushPermissionViewController *pushPermissionsViewController;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) User *user;
 
 @end
 
@@ -44,6 +46,9 @@
     self.delegate = self;
     self.loginViewController = [[EmailLoginViewController alloc] init];
     self.loginViewController.delegate = self;
+    
+    self.userDetailsViewController = [[OnboardUserDetailsViewController alloc] init];
+    self.userDetailsViewController.delegate = self;
     
     self.addPhotoViewController = [[OnboardAddPhotoViewController alloc] init];
     self.addPhotoViewController.delegate = self;
@@ -74,15 +79,10 @@
         [self pushViewController:self.userDetailsViewController animated:NO];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hasStoredCompany) name:kHasStoredCompanyNotification object:nil];
-}
-
-- (OnboardUserDetailsViewController *)userDetailsViewController
-{
-    if (!_userDetailsViewController) {
-        _userDetailsViewController = [[OnboardUserDetailsViewController alloc] initWithUser:[AppDelegate sharedDelegate].store.currentAccount.currentUser];
-        _userDetailsViewController.delegate = self;
-    }
-    return _userDetailsViewController;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(contextDidSave:)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:nil];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -115,6 +115,10 @@
     UIViewController *nextViewController;
     if (previousViewController == self.loginViewController) {
         nextViewController = self.userDetailsViewController;
+        self.managedObjectContext = [NSManagedObjectContext MR_newMainQueueContext];
+        self.managedObjectContext.persistentStoreCoordinator = [NSManagedObjectContext MR_defaultContext].persistentStoreCoordinator;
+        self.user = (User *)[self.managedObjectContext objectWithID:[AppDelegate sharedDelegate].store.currentAccount.currentUser.objectID];
+        self.userDetailsViewController.user = self.user;
     }
     else if (previousViewController == self.userDetailsViewController) {
         if (![AppDelegate sharedDelegate].store.hasStoredCompany) {
@@ -126,14 +130,15 @@
     }
     else if (previousViewController == self.addPhotoViewController) {
         nextViewController = self.jobViewController;
+        self.jobViewController.user = self.user;
     }
     else if (previousViewController == self.jobViewController) {
         nextViewController = self.selectOfficeViewController;
+        self.selectOfficeViewController.user = self.user;
     }
     else if (previousViewController == self.selectOfficeViewController) {
-        [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:^(Account *account) {
-            
-        } failure:nil];
+        [self saveAccountChangesWithCompletion:^(Account *account, NSError *error) {
+        }];
         nextViewController = self.locationPermissionsViewController;
     }
     else if (previousViewController == self.locationPermissionsViewController) {
@@ -148,6 +153,20 @@
         [AppDelegate sharedDelegate].window.rootViewController = [AppDelegate sharedDelegate].tabBarController;
         [[AppDelegate sharedDelegate].tabBarController setSelectedIndex:1];
     }
+}
+
+- (void)saveAccountChangesWithCompletion:(void (^)(Account *account, NSError *error))completion
+{
+    [self.managedObjectContext save:nil];
+    [[AppDelegate sharedDelegate].store.currentAccount updateAccountWithSuccess:^(Account *account) {
+        if (completion) {
+            completion(account, nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(nil, error);
+        }
+    }];
 }
 
 #pragma mark - Navigation Controller Delegate
@@ -169,6 +188,17 @@
     if (vcCount >= 2) {
         UIViewController *previous = navigationController.viewControllers[navigationController.viewControllers.count - 2];
         previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    }
+}
+
+- (void)contextDidSave:(NSNotification *)notification
+{
+    if (notification.object == self.managedObjectContext) {
+        [[NSManagedObjectContext MR_defaultContext] mergeChangesFromContextDidSaveNotification:notification];
+    }
+    else {
+        self.managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+        [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
     }
 }
 

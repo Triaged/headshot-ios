@@ -88,8 +88,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
-    if ([self.delegate respondsToSelector:@selector(selectManagersViewController:didSelectUser:)]) {
-        [self.delegate selectManagersViewController:self didSelectUser:user];
+    if ([self.delegate respondsToSelector:@selector(selectManagersViewController:didSelectUserWithIdentifier:)]) {
+        [self.delegate selectManagersViewController:self didSelectUserWithIdentifier:user.identifier];
     }
 }
 

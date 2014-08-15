@@ -82,8 +82,8 @@
 {
     if (indexPath.row < self.departments.count) {
         Department *department = self.departments[indexPath.row];
-        if ([self.delegate respondsToSelector:@selector(OnboardSelectDepartmentViewController:didSelectDepartment:)]) {
-            [self.delegate OnboardSelectDepartmentViewController:self didSelectDepartment:department];
+        if ([self.delegate respondsToSelector:@selector(OnboardSelectDepartmentViewController:didSelectDepartmentWithIdentifier:)]) {
+            [self.delegate OnboardSelectDepartmentViewController:self didSelectDepartmentWithIdentifier:department.identifier];
         }
     }
     else {

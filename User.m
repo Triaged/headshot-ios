@@ -13,6 +13,7 @@
 
 @implementation User
 
+@dynamic account;
 @dynamic identifier;
 @dynamic firstName;
 @dynamic lastName;

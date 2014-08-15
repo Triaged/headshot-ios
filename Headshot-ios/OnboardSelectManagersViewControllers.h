@@ -12,7 +12,7 @@
 @class OnboardSelectManagersViewControllers;
 @protocol SelectManagersViewControllerDelegate <NSObject>
 
-- (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUser:(User *)user;
+- (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUserWithIdentifier:(NSString *)identifier;
 - (void)didCancelSelectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController;
 
 @end

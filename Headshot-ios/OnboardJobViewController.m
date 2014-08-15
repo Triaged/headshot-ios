@@ -86,33 +86,19 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-    self.jobTitleFormView.textField.text = user.employeeInfo.jobTitle;
-    if (user.department) {
-        self.departmentFormView.textField.text = user.department.name;
+    self.jobTitleFormView.textField.text = self.user.employeeInfo.jobTitle;
+    if (self.user.department) {
+        self.departmentFormView.textField.text = self.user.department.name;
     }
-    if (user.manager) {
-        self.managerFormView.textField.text = user.manager.fullName;
+    if (self.user.manager) {
+        self.managerFormView.textField.text = self.user.manager.fullName;
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-//    User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
-//    self.jobTitleFormView.textField.text = user.employeeInfo.jobTitle;
-//    if (user.department) {
-//        self.departmentFormView.textField.text = user.department.name;
-//    }
-//    if (user.manager) {
-//        self.managerFormView.textField.text = user.manager.fullName;
-//    }
 }
 
 - (void)nextButtonTouched:(id)sender
 {
     NSString *jobTitle = self.jobTitleFormView.textField.text;
-    [AppDelegate sharedDelegate].store.currentAccount.currentUser.employeeInfo.jobTitle = jobTitle;
+    self.user.employeeInfo.jobTitle = jobTitle;
     
     if ([self.delegate respondsToSelector:@selector(onboardViewController:doneButtonTouched:)]) {
         [self.delegate onboardViewController:self doneButtonTouched:sender];
@@ -130,7 +116,7 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 {
     NSString *text = textField.text;
     if (textField == self.jobTitleFormView.textField) {
-        [AppDelegate sharedDelegate].store.currentAccount.currentUser.employeeInfo.jobTitle = text;
+        self.user.employeeInfo.jobTitle = text;
     }
 }
 
@@ -186,11 +172,14 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 }
 
 #pragma mark - Select Department View Controller Delegate
-- (void)OnboardSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController didSelectDepartment:(Department *)department
+- (void)OnboardSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController didSelectDepartmentWithIdentifier:(NSString *)identifier
 {
+    Department *department = [Department MR_findFirstByAttribute:@"identifier" withValue:identifier inContext:self.user.managedObjectContext];
     self.selectedDepartment = department;
+    [self.user.managedObjectContext performBlockAndWait:^{
+        self.user.department = department;
+    }];
     self.departmentFormView.textField.text = department.name;
-    [AppDelegate sharedDelegate].store.currentAccount.currentUser.department = department;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -200,10 +189,13 @@ typedef NS_ENUM(NSUInteger, JobTableRow)  {
 }
 
 #pragma mark - Select Managers View Controller Delegate
-- (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUser:(User *)user
+- (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUserWithIdentifier:(NSString *)identifier
 {
-    self.managerFormView.textField.text = user.fullName;
-    [AppDelegate sharedDelegate].store.currentAccount.currentUser.manager = user;
+    User *manager = [User MR_findFirstByAttribute:@"identifier" withValue:identifier inContext:self.user.managedObjectContext];
+    self.managerFormView.textField.text = manager.fullName;
+    [self.user.managedObjectContext performBlockAndWait:^{
+        self.user.manager = manager;
+    }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

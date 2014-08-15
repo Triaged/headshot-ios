@@ -14,5 +14,6 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *offices;
+@property (strong, nonatomic) User *user;
 
 @end

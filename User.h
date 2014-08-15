@@ -12,10 +12,11 @@
 #import "HeadshotAPIClient.h"
 
 
-@class Company, EmployeeInfo, Department, OfficeLocation;
+@class Company, EmployeeInfo, Department, OfficeLocation, Account;
 
 @interface User : NSManagedObject
 
+@property (nonatomic, retain) Account * account;
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
