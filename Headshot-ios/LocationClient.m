@@ -46,8 +46,16 @@ static const CLLocationDistance kOfficeRadius = 250;
                 [self startMonitoringOffices];
             }
         }
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedApplicationDidBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
     }
     return self;
+}
+
+- (void)receivedApplicationDidBecomeActiveNotification:(NSNotification *)notification
+{
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) {
+        [self updateOfficeStatus];
+    }
 }
 
 - (void)requestLocationPermissions:(void (^)(CLAuthorizationStatus authorizationStatus))response
@@ -70,6 +78,45 @@ static const CLLocationDistance kOfficeRadius = 250;
     [self.locationManager stopMonitoringSignificantLocationChanges];
 }
 
+- (void)updateOfficeStatus
+{
+    DDLogInfo(@"Checking if in office");
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:3 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        DDLogInfo(@"Finished location request with status %d", status);
+        NSError *error;
+        NSMutableArray *inside = [[NSMutableArray alloc] init];
+        NSMutableArray *outside = [[NSMutableArray alloc] init];
+        if (currentLocation) {
+            for (OfficeLocation *office in [OfficeLocation MR_findAll]) {
+                CLLocationDistance distance = [office.location distanceFromLocation:currentLocation];
+                if (distance > kOfficeRadius) {
+                    [outside addObject:office];
+                }
+                else {
+                    [inside addObject:office];
+                }
+            }
+            if (inside.count) {
+                OfficeLocation *office = [inside firstObject];
+                [office enterLocation];
+            }
+            else {
+                User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
+                if (user.currentOfficeLocation) {
+                    for (OfficeLocation *office in outside) {
+                        if ([office.identifier isEqualToString:user.currentOfficeLocation.identifier]) {
+                            [office exitLocation];
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            error = [[NSError alloc] initWithDomain:@"TRLocationDomain" code:status userInfo:nil];
+        }
+    }];
+}
+
 - (void)startMonitoringOffices
 {
     DDLogInfo(@"retreiving offices");
@@ -86,16 +133,12 @@ static const CLLocationDistance kOfficeRadius = 250;
             // Start Monitoring Region
             [self.locationManager startMonitoringForRegion:region];
             DDLogInfo(@"started monitoring location with identifier %@", location.identifier);
-            
-            /*for whatever reason requesting state immediately after starting to monitor
-             results in didDetermineState: never being called. dispatching for later seems to
-             solve this*/
-            jadispatch_after_delay(1, dispatch_get_main_queue(), ^{
-                [self.locationManager requestStateForRegion:region];
-            });
         }
+        [self updateOfficeStatus];
     }];
 }
+
+
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
