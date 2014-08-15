@@ -106,6 +106,7 @@
     [[HeadshotAPIClient sharedClient] performMultipartFormRequestWithMethod:@"POST" path:@"account/avatar" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
         [formData appendPartWithFileData:imageData name:@"user[avatar]" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
+        [[AnalyticsManager sharedManager] avatarUploaded];
     } completion:^(id responseObject, NSError *error) {
         [Account updatedObjectWithRawJSONDictionary:responseObject inManagedObjectContext:self.managedObjectContext];
         if (completion) {

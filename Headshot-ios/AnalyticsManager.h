@@ -23,5 +23,11 @@
 - (void)messageSent;
 - (void)profileViewed:(NSString *)profileIdentifier;
 - (void)profileButtonTouched:(NSString *)buttonDescription;
+- (void)avatarUploaded;
+- (void)locationEnabled;
+- (void)locationDisabled;
+- (void)pushEnabled;
+
+
 
 @end
