@@ -12,7 +12,7 @@
 #import "User.h"
 
 typedef void (^LocationPermissionRequestBlock)(CLAuthorizationStatus);
-static const CLLocationDistance kOfficeRadius = 250;
+static const CLLocationDistance kOfficeRadius = 500;
 
 @interface LocationClient()
 
