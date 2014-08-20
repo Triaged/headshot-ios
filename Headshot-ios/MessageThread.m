@@ -9,14 +9,17 @@
 #import "MessageThread.h"
 #import "User.h"
 #import "Message.h"
+#import "MessageClient.h"
 
 @implementation MessageThread
 
+@dynamic name;
 @dynamic lastMessageTimeStamp;
 @dynamic recipients;
 @dynamic messages;
 @dynamic identifier;
 @dynamic unread;
+@dynamic muted;
 
 + (MessageThread *)findThreadWithRecipients:(NSSet *)recipients
 {
@@ -58,6 +61,40 @@
         [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
         [[NSNotificationCenter defaultCenter] postNotificationName:kMarkedMessageThreadAsReadNotification object:nil userInfo:nil];
     }
+}
+
+- (void)updateMuted:(BOOL)muted withCompletion:(void (^)(MessageThread *thread, NSError *error))completion
+{
+    NSString *muteString = muted ? @"mute" : @"unmute";
+    NSString *path = [NSString stringWithFormat:@"message_threads/%@/%@", self.identifier, muteString];
+    [[MessageClient sharedClient].httpClient POST:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        self.muted = responseObject[@"muted"];
+        [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+        if (completion) {
+            completion(self, nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(nil, error);
+        }
+    }];
+}
+
+- (void)updateName:(NSString *)name withCompletion:(void (^)(MessageThread *thread, NSError *error))completion
+{
+    NSString *path = [NSString stringWithFormat:@"message_threads/%@", self.identifier];
+    NSDictionary *parameters = @{@"message_thread" : @{@"name" : name}};
+    [[MessageClient sharedClient].httpClient PUT:path parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        self.name = name;
+        [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+        if (completion) {
+            completion(self, nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(nil, error);
+        }
+    }];
 }
 
 - (User *)directMessageRecipient

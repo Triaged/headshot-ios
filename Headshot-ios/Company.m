@@ -10,6 +10,7 @@
 #import "User.h"
 #import "SLRESTfulCoreData.h"
 #import "HeadshotAPIClient.h"
+#import "TRDataStoreManager.h"
 
 
 @implementation Company
@@ -25,13 +26,20 @@
 + (void)companyWithCompletionHandler:(void(^)(Company *company, NSError *error))completionHandler {
     [[HeadshotAPIClient sharedClient] GET:@"company" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //        SLRESTful can not handle the associated ids passed in the user objects unless the users behind the association are already in core data. So we must iterate through the users again after saving the company and update them.
-        Company *company = [Company updatedObjectWithRawJSONDictionary:responseObject[0] inManagedObjectContext:[NSManagedObjectContext MR_defaultContext]];
-        for (NSDictionary *userData in responseObject[0][@"users"]) {
-            [User updatedObjectWithRawJSONDictionary:userData inManagedObjectContext:[NSManagedObjectContext MR_defaultContext]];
-        }
-        if (completionHandler) {
-            completionHandler(company, nil);
-        }
+        NSManagedObjectContext *backgroundContext = [TRDataStoreManager sharedInstance].backgroundThreadManagedObjectContext;
+        [backgroundContext performBlock:^{
+            Company *company = [Company updatedObjectWithRawJSONDictionary:responseObject[0] inManagedObjectContext:backgroundContext];
+            for (NSDictionary *userData in responseObject[0][@"users"]) {
+                [User updatedObjectWithRawJSONDictionary:userData inManagedObjectContext:backgroundContext];
+            }
+            NSManagedObjectID *companyID = company.objectID;
+            if (completionHandler) {
+                [[TRDataStoreManager sharedInstance].mainThreadManagedObjectContext performBlockAndWait:^{
+                    Company *mainCompany = (Company *)[[TRDataStoreManager sharedInstance].mainThreadManagedObjectContext existingObjectWithID:companyID error:nil];
+                    completionHandler(mainCompany, nil);
+                }];
+            }
+        }];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (completionHandler) {
             completionHandler(nil, error);

@@ -69,8 +69,6 @@
     ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[ContactCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        UIImageView *accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navbar-icn-profile"]];
-        cell.accessoryView = accessoryView;
     }
     cell.user = [self userForIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];

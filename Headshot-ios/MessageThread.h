@@ -13,11 +13,13 @@
 
 @interface MessageThread : NSManagedObject
 
+@property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSDate * lastMessageTimeStamp;
 @property (nonatomic, retain) NSSet *recipients;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) NSString *identifier;
 @property (nonatomic, retain) NSNumber *unread;
+@property (nonatomic, retain) NSNumber *muted;
 
 @property (nonatomic, readonly) Message *lastMessage;
 @property (nonatomic, readonly) BOOL isGroupThread;
@@ -32,7 +34,8 @@
 + (MessageThread *)findThreadWithRecipients:(NSSet *)recipients;
 
 - (void)markAsRead;
-
+- (void)updateName:(NSString *)name withCompletion:(void (^)(MessageThread *thread, NSError *error))completion;
+- (void)updateMuted:(BOOL)muted withCompletion:(void (^)(MessageThread *thread, NSError *error))completion;
 @end
 
 @interface MessageThread (CoreDataGeneratedAccessors)

@@ -8,16 +8,18 @@
 
 #import "MessageThreadViewController.h"
 #import <UINavigationController+SGProgress.h>
+#import <UIButton+JACenter.h>
 #import <FXBlurView.h>
 #import "User.h"
 #import "ContactViewController.h"
 #import "GroupMessageInfoTableViewController.h"
+#import "NewThreadTableViewController.h"
 #import "NotificationManager.h"
 #import "HeadshotAPIClient.h"
 #import "MessageClient.h"
 #import "TRAvatarImageView.h"
 
-@interface MessageThreadViewController () <GroupMessageInfoTableViewController>
+@interface MessageThreadViewController () <GroupMessageInfoTableViewController, NewThreadTableViewControllerDelegate, UITextFieldDelegate>
 
 @property (assign, nonatomic) CGSize avatarImageSize;
 @property (strong, nonatomic) NSMutableOrderedSet *messageQueue;
@@ -30,6 +32,8 @@
 @property (strong, nonatomic) FXBlurView *groupInfoBackgroundView;
 @property (assign, nonatomic) BOOL showingGroupInfo;
 @property (assign, nonatomic) BOOL sendingMessage;
+@property (strong, nonatomic) UITextField *editNameTextField;
+@property (strong, nonatomic) UIButton *muteButton;
 
 @end
 
@@ -135,12 +139,27 @@
     self.avatarImageSize = CGSizeMake(40, 40);
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = self.avatarImageSize;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = self.avatarImageSize;
+    
+    self.editNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 150, 44)];
+    self.editNameTextField.font = [ThemeManager regularFontOfSize:16];
+    self.editNameTextField.textColor = [[ThemeManager sharedTheme] greenColor];
+    self.editNameTextField.returnKeyType = UIReturnKeyDone;
+    self.editNameTextField.placeholder = @"Name of the group";
+    self.editNameTextField.tintColor = [[ThemeManager sharedTheme] orangeColor];
+    self.editNameTextField.delegate = self;
+    self.editNameTextField.textAlignment = NSTextAlignmentCenter;
+    
 }
 
 - (void)setMessageThread:(MessageThread *)messageThread
 {
     _messageThread = messageThread;
-    self.navigationItem.title = messageThread.defaultTitle;
+    if (messageThread.name) {
+        self.navigationItem.title = messageThread.name;
+    }
+    else {
+        self.navigationItem.title = messageThread.defaultTitle;
+    }
     [self fetchMessages];
 }
 
@@ -149,8 +168,62 @@
     if (!_groupInfoViewController) {
         _groupInfoViewController = [[GroupMessageInfoTableViewController alloc] init];
         _groupInfoViewController.delegate = self;
+        UIView *toolBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 54)];
+        toolBarBackground.backgroundColor = [UIColor whiteColor];
+        [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+        UIButton *addMembersButton = [[UIButton alloc] init];
+        addMembersButton.titleLabel.font = [ThemeManager regularFontOfSize:9];
+        [addMembersButton setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
+        [addMembersButton setImage:[UIImage imageNamed:@"navbar-icn-profile"] forState:UIControlStateNormal];
+        [addMembersButton setTitle:@"Add Members" forState:UIControlStateNormal];
+        [addMembersButton ja_horizontallyCenterTitleAndImageWithSpacing:0 imageOnTop:YES];
+        [addMembersButton addTarget:self action:@selector(addMembersButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIButton *editNameButton = [[UIButton alloc] init];
+        [editNameButton setTitle:@"Edit Name" forState:UIControlStateNormal];
+        [editNameButton setImage:[UIImage imageNamed:@"navbar-icn-profile"] forState:UIControlStateNormal];
+        [editNameButton addTarget:self action:@selector(editNameButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.muteButton = [[UIButton alloc] init];
+        [self updateMuteButton];
+        [self.muteButton addTarget:self action:@selector(mutedButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        
+        NSMutableArray *tabBarItems = [[NSMutableArray alloc] init];
+        [@[addMembersButton, editNameButton, self.muteButton] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            UIButton *button = (UIButton *)obj;
+            button.size = CGSizeMake(72, 54);
+            [button setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
+            button.titleLabel.font = [ThemeManager regularFontOfSize:9];
+            [button ja_horizontallyCenterTitleAndImageWithSpacing:4 imageOnTop:YES];
+            [tabBarItems addObject:[[UIBarButtonItem alloc] initWithCustomView:button]];
+            if (idx < 2) {
+                [tabBarItems addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+            }
+        }];
+        
+        UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:toolBarBackground.bounds];
+        toolBar.centerX = toolBarBackground.width/2.0;
+        toolBar.centerY = toolBarBackground.height/2.0;
+        [toolBarBackground addSubview:toolBar];
+        toolBar.backgroundColor = [UIColor whiteColor];
+        toolBar.items = tabBarItems;
+        toolBar.tintColor = [UIColor whiteColor];
+        toolBar.translucent = NO;
+        [toolBar addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+        _groupInfoViewController.tableView.tableHeaderView = toolBarBackground;
+        _groupInfoViewController.tableView.bounces = NO;
     }
     return _groupInfoViewController;
+}
+
+- (void)updateMuteButton
+{
+    [self.muteButton setTitle:@"Mute" forState:UIControlStateNormal];
+    [self.muteButton setImage:[UIImage imageNamed:@"navbar-icn-profile"] forState:UIControlStateNormal];
+    [self.muteButton setTitle:@"Unmute" forState:UIControlStateSelected];
+    [self.muteButton setImage:[UIImage imageNamed:@"navbar-icn-profile"] forState:UIControlStateSelected];
+    self.muteButton.selected = !self.messageThread.muted.boolValue;
+    [self.muteButton ja_horizontallyCenterTitleAndImageWithSpacing:4 imageOnTop:YES];
 }
 
 - (void)dealloc
@@ -624,6 +697,69 @@
     [self showContact:user];
 }
 
+- (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUsers:(NSArray *)users
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissGroupInfo];
+    NSMutableSet *recipientSet = [NSMutableSet setWithSet:self.messageThread.recipients];
+    [recipientSet addObjectsFromArray:users];
+    MessageThread *thread = [MessageThread findThreadWithRecipients:recipientSet];
+    if (!thread) {
+        [[MessageClient sharedClient] postMessageThreadWithRecipients:recipientSet.allObjects completion:^(MessageThread *messageThread, NSError *error) {
+            if (error) {
+                [[[UIAlertView alloc] initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+            else {
+                self.messageThread = messageThread;
+            }
+        }];
+    }
+    else {
+        self.messageThread = thread;
+    }
+}
+
+- (void)addMembersButtonTouched:(id)sender
+{
+    NewThreadTableViewController *newThreadTableViewController = [[NewThreadTableViewController alloc] init];
+    newThreadTableViewController.delegate = self;
+    newThreadTableViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(addMembersCancelled:)];
+    [self presentViewControllerWithNav:newThreadTableViewController animated:NO completion:nil];
+}
+
+- (void)editNameButtonTouched:(id)sender
+{
+    self.editNameTextField.text = self.messageThread.name;
+    self.navigationItem.titleView = self.editNameTextField;
+    [self.editNameTextField becomeFirstResponder];
+}
+
+- (void)mutedButtonTouched:(id)sender
+{
+    [SVProgressHUD show];
+    [self.messageThread updateMuted:!self.messageThread.muted.boolValue withCompletion:^(MessageThread *thread, NSError *error) {
+        [SVProgressHUD dismiss];
+        [self updateMuteButton];
+    }];
+}
+
+- (void)addMembersCancelled:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [SVProgressHUD show];
+    [self.messageThread updateName:textField.text withCompletion:^(MessageThread *thread, NSError *error) {
+        self.navigationItem.titleView = nil;
+        self.navigationItem.title = self.messageThread.name;
+        [SVProgressHUD dismiss];
+    }];
+    return NO;
+}
 
 
 @end

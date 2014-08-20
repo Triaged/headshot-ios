@@ -77,7 +77,7 @@ NSString * const kPersistentStoreName = @"Headshot.sqlite";
 
 + (ServerEnvironment)ServerEnvironment
 {
-    return ServerEnvironmentProduction;
+    return ServerEnvironmentStaging;
 }
 
 + (id<Constants>)sharedConstants
