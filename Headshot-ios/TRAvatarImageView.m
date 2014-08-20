@@ -8,6 +8,7 @@
 
 #import "TRAvatarImageView.h"
 #import "TRInitialView.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface TRAvatarImageView()
 
@@ -41,7 +42,7 @@
     if (user.avatarFace2xUrl) {
         [self.initialView removeFromSuperview];
         NSURL *url = [NSURL URLWithString:user.avatarFace2xUrl];
-        [self setImageWithURL:url placeholderImage:nil];
+        [self sd_setImageWithURL:url placeholderImage:nil];
     }
     else {
         [self addSubview:self.initialView];

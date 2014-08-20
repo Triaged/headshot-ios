@@ -97,6 +97,9 @@ PODS:
   - PMEDatePicker (0.0.1)
   - RDVTabBarController (1.1.6)
   - Reachability (3.1.1)
+  - SDWebImage (3.7.1):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.7.1)
   - SGNavigationProgress (1.2)
   - SLCoreDataStack (0.6.0)
   - SLRESTfulCoreData (1.9.1):
@@ -135,6 +138,7 @@ DEPENDENCIES:
   - PMEDatePicker (~> 0.0.1)
   - RDVTabBarController
   - Reachability
+  - SDWebImage (~> 3.6)
   - SGNavigationProgress
   - SLRESTfulCoreData
   - SSKeychain
@@ -191,6 +195,7 @@ SPEC CHECKSUMS:
   PMEDatePicker: a44e15d953cf7c568d2546914d088463431f1f18
   RDVTabBarController: 252dafb16725f9a07026618ff51acf06a12b206b
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
+  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SGNavigationProgress: 6c38006ca3c652618411c67d493b263343d5aece
   SLCoreDataStack: 3cbb4bc9ea1f0ba6d7a3a382b1d0cf879b5f3cd4
   SLRESTfulCoreData: 4933bf01fc97fdd3c50c7786fdda6c483f1136c3
