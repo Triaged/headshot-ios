@@ -95,6 +95,24 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
+- (void)setAddMemberMode:(BOOL)addMemberMode
+{
+    [self view];
+    _addMemberMode = addMemberMode;
+    NSString *nextButtonTitle;
+    NSString *title;
+    if (_addMemberMode) {
+        nextButtonTitle = @"Add";
+        title = @"Add Members";
+    }
+    else {
+        nextButtonTitle = @"Next";
+        title = @"New Message";
+    }
+    self.navigationItem.rightBarButtonItem.title = nextButtonTitle;
+    self.title = title;
+}
+
 - (void)nextButtonTouched:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(newThreadTableViewController:didSelectUsers:)]) {
@@ -121,6 +139,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     User *user = [self.contactsDataSource userAtIndexPath:indexPath];
+    if ([self.unselectableUsers containsObject:user]) {
+        return;
+    }
     if (![self.selectedUsers containsObject:user]) {
         [self.selectedUsers addObject:user];
     }
@@ -142,6 +163,10 @@
     if ([self.selectedUsers containsObject:user]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         cell.tintColor = [[ThemeManager sharedTheme] greenColor];
+    }
+    else if ([self.unselectableUsers containsObject:user]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.tintColor = [UIColor lightGrayColor];
     }
     else {
         cell.accessoryType = UITableViewCellAccessoryNone;

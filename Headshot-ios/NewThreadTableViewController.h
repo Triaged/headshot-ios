@@ -22,5 +22,7 @@
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (weak, nonatomic) id<NewThreadTableViewControllerDelegate>delegate;
 @property (strong, nonatomic) UITableView *tableView;
+@property (assign, nonatomic) BOOL addMemberMode;
+@property (strong, nonatomic) NSSet *unselectableUsers;
 
 @end

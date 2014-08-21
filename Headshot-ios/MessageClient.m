@@ -272,6 +272,7 @@
     NSString *identifier = messageThreadData[@"id"];
     NSArray *messagesData = messageThreadData[@"messages"];
     NSArray *usersData = messageThreadData[@"user_ids"];
+    NSString *name = messageThreadData[@"name"];
     MessageThread *messageThread = [MessageThread MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:identifier inContext:managedObjectContext];
     if (!messageThread) {
         messageThread = [MessageThread MR_createInContext:managedObjectContext];
@@ -279,6 +280,9 @@
         *_created = YES;
     }
     
+    if (!isEmpty(name)) {
+        messageThread.name = name;
+    }
     NSMutableArray *messages = [[NSMutableArray alloc] init];
     for (NSDictionary *messageData in messagesData) {
         BOOL messageCreated = NO;

@@ -34,6 +34,7 @@
 @property (assign, nonatomic) BOOL sendingMessage;
 @property (strong, nonatomic) UITextField *editNameTextField;
 @property (strong, nonatomic) UIButton *muteButton;
+@property (assign, nonatomic) BOOL presentingNewThreadViewController;
 
 @end
 
@@ -168,48 +169,41 @@
     if (!_groupInfoViewController) {
         _groupInfoViewController = [[GroupMessageInfoTableViewController alloc] init];
         _groupInfoViewController.delegate = self;
-        UIView *toolBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 54)];
-        toolBarBackground.backgroundColor = [UIColor whiteColor];
+        UIView *toolBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 56)];
         [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+        
         UIButton *addMembersButton = [[UIButton alloc] init];
         addMembersButton.titleLabel.font = [ThemeManager regularFontOfSize:9];
         [addMembersButton setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
-        [addMembersButton setImage:[UIImage imageNamed:@"navbar-icn-profile"] forState:UIControlStateNormal];
+        [addMembersButton setImage:[UIImage imageNamed:@"messages-add-member"] forState:UIControlStateNormal];
         [addMembersButton setTitle:@"Add Members" forState:UIControlStateNormal];
         [addMembersButton ja_horizontallyCenterTitleAndImageWithSpacing:0 imageOnTop:YES];
         [addMembersButton addTarget:self action:@selector(addMembersButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *editNameButton = [[UIButton alloc] init];
         [editNameButton setTitle:@"Edit Name" forState:UIControlStateNormal];
-        [editNameButton setImage:[UIImage imageNamed:@"navbar-icn-profile"] forState:UIControlStateNormal];
+        [editNameButton setImage:[UIImage imageNamed:@"messages-edit-name"] forState:UIControlStateNormal];
         [editNameButton addTarget:self action:@selector(editNameButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
         self.muteButton = [[UIButton alloc] init];
         [self updateMuteButton];
         [self.muteButton addTarget:self action:@selector(mutedButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
-        NSMutableArray *tabBarItems = [[NSMutableArray alloc] init];
+        CGSize buttonSize = CGSizeMake(self.view.width/3.0, toolBarBackground.height);
         [@[addMembersButton, editNameButton, self.muteButton] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             UIButton *button = (UIButton *)obj;
-            button.size = CGSizeMake(72, 54);
+            button.size = buttonSize;
+            button.x = idx*buttonSize.width;
             [button setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
             button.titleLabel.font = [ThemeManager regularFontOfSize:9];
             [button ja_horizontallyCenterTitleAndImageWithSpacing:4 imageOnTop:YES];
-            [tabBarItems addObject:[[UIBarButtonItem alloc] initWithCustomView:button]];
+            [toolBarBackground addSubview:button];
             if (idx < 2) {
-                [tabBarItems addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+                [button addEdge:UIRectEdgeRight width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
             }
         }];
         
-        UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:toolBarBackground.bounds];
-        toolBar.centerX = toolBarBackground.width/2.0;
-        toolBar.centerY = toolBarBackground.height/2.0;
-        [toolBarBackground addSubview:toolBar];
-        toolBar.backgroundColor = [UIColor whiteColor];
-        toolBar.items = tabBarItems;
-        toolBar.tintColor = [UIColor whiteColor];
-        toolBar.translucent = NO;
-        [toolBar addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+        [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
         _groupInfoViewController.tableView.tableHeaderView = toolBarBackground;
         _groupInfoViewController.tableView.bounces = NO;
     }
@@ -219,10 +213,10 @@
 - (void)updateMuteButton
 {
     [self.muteButton setTitle:@"Mute" forState:UIControlStateNormal];
-    [self.muteButton setImage:[UIImage imageNamed:@"navbar-icn-profile"] forState:UIControlStateNormal];
+    [self.muteButton setImage:[UIImage imageNamed:@"messages-mute"] forState:UIControlStateNormal];
     [self.muteButton setTitle:@"Unmute" forState:UIControlStateSelected];
-    [self.muteButton setImage:[UIImage imageNamed:@"navbar-icn-profile"] forState:UIControlStateSelected];
-    self.muteButton.selected = !self.messageThread.muted.boolValue;
+    [self.muteButton setImage:[UIImage imageNamed:@"messages-unmute"] forState:UIControlStateSelected];
+    self.muteButton.selected = self.messageThread.muted.boolValue;
     [self.muteButton ja_horizontallyCenterTitleAndImageWithSpacing:4 imageOnTop:YES];
 }
 
@@ -303,7 +297,9 @@
     
     [NotificationManager sharedManager].visibleMessageThreadViewController = nil;
     [self.navigationController setSGProgressPercentage:0];
-    self.navigationController.navigationBar.translucent = NO;
+    if (!self.presentingNewThreadViewController) {
+        self.navigationController.navigationBar.translucent = NO;
+    }
     [self dismissUnreadMessageIndicator];
 }
 
@@ -355,16 +351,11 @@
     if (!self.messageThread) {
         return;
     }
-    if (self.messageThread.isGroupThread) {
-        if (self.showingGroupInfo) {
-            [self dismissGroupInfo];
-        }
-        else {
-            [self showGroupInfo];
-        }
+    if (self.showingGroupInfo) {
+        [self dismissGroupInfo];
     }
     else {
-        [self showContact:self.messageThread.directMessageRecipient];
+        [self showGroupInfo];
     }
 }
 
@@ -722,9 +713,14 @@
 - (void)addMembersButtonTouched:(id)sender
 {
     NewThreadTableViewController *newThreadTableViewController = [[NewThreadTableViewController alloc] init];
+    newThreadTableViewController.addMemberMode = YES;
+    newThreadTableViewController.unselectableUsers = self.messageThread.recipients;
     newThreadTableViewController.delegate = self;
     newThreadTableViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(addMembersCancelled:)];
-    [self presentViewControllerWithNav:newThreadTableViewController animated:NO completion:nil];
+    self.presentingNewThreadViewController = YES;
+    [[AppDelegate sharedDelegate].window.rootViewController presentViewControllerWithNav:newThreadTableViewController animated:YES completion:^{
+        self.presentingNewThreadViewController = NO;
+    }];
 }
 
 - (void)editNameButtonTouched:(id)sender
@@ -751,13 +747,13 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
     [SVProgressHUD show];
     [self.messageThread updateName:textField.text withCompletion:^(MessageThread *thread, NSError *error) {
         self.navigationItem.titleView = nil;
         self.navigationItem.title = self.messageThread.name;
         [SVProgressHUD dismiss];
     }];
+    [textField resignFirstResponder];
     return NO;
 }
 
