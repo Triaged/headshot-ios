@@ -15,7 +15,7 @@
 @interface MessageThreadPreviewCell()
 
 @property (strong, nonatomic) UILabel *timeLabel;
-@property (strong, nonatomic) TRAvatarImageView *avatarImageView;
+@property (strong, nonatomic) UIView *avatarContainerView;
 @property (strong, nonatomic) UIFont *textFont;
 @property (strong, nonatomic) UIFont *unreadTextFont;
 @property (strong, nonatomic) UIFont *detailTextFont;
@@ -56,19 +56,16 @@
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.timeLabel];
     
-    self.avatarImageView = [[TRAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    [self.contentView addSubview:self.avatarImageView];
-    
     return self;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.avatarImageView.x = 15;
-    self.avatarImageView.size = CGSizeMake(50, 50);
-    self.avatarImageView.centerY = self.height/2.0;
-    self.textLabel.x = self.avatarImageView.right + 15;
+    self.avatarContainerView.x = 15;
+    self.avatarContainerView.size = CGSizeMake(50, 50);
+    self.avatarContainerView.centerY = self.height/2.0;
+    self.textLabel.x = self.avatarContainerView.right + 15;
     self.textLabel.width = self.contentView.width - self.textLabel.x - 60;
     self.detailTextLabel.x = self.textLabel.x;
     self.detailTextLabel.width = self.contentView.width - self.detailTextLabel.x - 15;
@@ -77,13 +74,6 @@
 - (void)setMessageThread:(MessageThread *)messageThread
 {
     _messageThread = messageThread;
-    if (messageThread.isGroupThread) {
-        self.avatarImageView.image = [UIImage imageNamed:@"messages-group"];
-    }
-    else {
-        User *recipient = messageThread.directMessageRecipient;
-        self.avatarImageView.user = recipient;
-    }
     Message *lastMessage = messageThread.lastMessage;
     if (messageThread.name) {
         self.textLabel.text  = messageThread.name;
@@ -105,6 +95,82 @@
         self.textLabel.textColor = self.textColor;
         self.detailTextLabel.textColor = self.detailTextColor;
     }
+    if (self.avatarContainerView) {
+        [self.avatarContainerView removeFromSuperview];
+    }
+    self.avatarContainerView = [self avatarContainerViewForRecipients:messageThread.recipientsExcludeUser];
+    [self.contentView addSubview:self.avatarContainerView];
+}
+
+- (UIView *)avatarContainerViewForRecipients:(NSSet *)recipients
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    CGSize avatarSize = CGSizeMake(50, 50);
+    NSInteger numberOfShownAvatars = 1;
+    if (recipients.count == 2) {
+        avatarSize = CGSizeMake(34, 34);
+        numberOfShownAvatars = 2;
+    }
+    else if (recipients.count == 3 || recipients.count > 4) {
+        avatarSize = CGSizeMake(25, 25);
+        numberOfShownAvatars = 3;
+    }
+    else if (recipients.count == 4) {
+        avatarSize = CGSizeMake(25, 25);
+        numberOfShownAvatars = 4;
+    }
+    NSMutableArray *avatarImageViews = [[NSMutableArray alloc] init];
+    NSArray *recipientArray = recipients.allObjects;
+    for (NSInteger i=0; i<numberOfShownAvatars; i++) {
+        User *user = recipientArray[i];
+        TRAvatarImageView *avatarImageView = [[TRAvatarImageView alloc] init];
+        avatarImageView.size = avatarSize;
+        avatarImageView.user = user;
+        [avatarImageViews addObject:avatarImageView];
+    }
+    if (recipients.count > 4) {
+        UILabel *moreRecipientsView = [[UILabel alloc] init];
+        moreRecipientsView.size = avatarSize;
+        moreRecipientsView.backgroundColor = [[ThemeManager sharedTheme] orangeColor];
+        moreRecipientsView.text = [NSString stringWithFormat:@"+%d", recipients.count - 3];
+        moreRecipientsView.textAlignment = NSTextAlignmentCenter;
+        moreRecipientsView.font = [ThemeManager regularFontOfSize:11];
+        moreRecipientsView.textColor = [UIColor whiteColor];
+        [avatarImageViews addObject:moreRecipientsView];
+    }
+    for (UIView *avatarView in avatarImageViews) {
+        avatarView.layer.cornerRadius = avatarView.size.width/2.0;
+        avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
+        avatarView.layer.borderWidth = 1;
+        avatarView.clipsToBounds = YES;
+        [view addSubview:avatarView];
+    }
+    if (recipients.count == 2) {
+        UIView *avatar1 = avatarImageViews[0];
+        UIView *avatar2 = avatarImageViews[1];
+        avatar1.x = 19;
+        avatar2.bottom = view.height;
+    }
+    else if (recipients.count == 3) {
+        UIView *avatar1 = avatarImageViews[0];
+        UIView *avatar2 = avatarImageViews[1];
+        UIView *avatar3 = avatarImageViews[2];
+        avatar1.bottom = view.height;
+        avatar3.bottom = avatar1.bottom;
+        avatar3.right = view.width;
+        avatar2.centerX = view.width/2.0;
+    }
+    else if (recipients.count > 3) {
+        UIView *avatar2 = avatarImageViews[1];
+        UIView *avatar3 = avatarImageViews[2];
+        UIView *avatar4 = avatarImageViews[3];
+        avatar2.right = view.width;
+        avatar3.bottom = view.bottom;
+        avatar4.right = avatar2.right;
+        avatar4.bottom = avatar3.bottom;
+    }
+    
+    return view;
 }
 
 @end
