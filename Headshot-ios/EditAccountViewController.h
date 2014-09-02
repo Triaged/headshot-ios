@@ -12,5 +12,6 @@
 @interface EditAccountViewController : UITableViewController
 
 @property (strong, nonatomic) Account *account;
+@property (assign, nonatomic) BOOL departmentsHidden;
 
 @end

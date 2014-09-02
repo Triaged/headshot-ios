@@ -23,6 +23,13 @@
 #import "DatePickerModalView.h"
 #import "CommonMacros.h"
 
+typedef NS_ENUM(NSInteger, EditAccountSection) {
+    EditAccountSectionName,
+    EditAccountSectionContactInformation,
+    EditAccountSectionPosition,
+    EditAccountSectionPersonal
+};
+
 @interface EditAccountViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate, OfficesViewControllerDelegate, PMEDatePickerDelegate>
 
 @property (strong, nonatomic) EditAvatarImageView *avatarImageView;
@@ -138,6 +145,12 @@
     }
     
     self.account = [AppDelegate sharedDelegate].store.currentAccount;
+}
+
+- (void)setDepartmentsHidden:(BOOL)departmentsHidden
+{
+    _departmentsHidden = departmentsHidden;
+    [self.tableView reloadData];
 }
 
 - (void)doneButtonTouched:(id)sender
@@ -268,16 +281,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger numRows = 0;
-    if (!section) {
+    if (section == EditAccountSectionName) {
         numRows = 2;
     }
-    else if (section == 1) {
+    else if (section == EditAccountSectionContactInformation) {
         numRows = 3;
     }
-    else if (section == 2) {
-        numRows = 5;
+    else if (section == EditAccountSectionPosition) {
+        numRows = self.departmentsHidden ? 4 : 5;
     }
-    else if (section == 3) {
+    else if (section == EditAccountSectionPersonal) {
         numRows = 1;
     }
     return numRows;
@@ -323,49 +336,32 @@
     return titles[section];
 }
 
+- (NSArray *)formViewsForSection:(NSInteger)section
+{
+    NSArray *formViews;
+    if (section == EditAccountSectionName) {
+        formViews = @[self.firstNameFormView, self.lastNameFormView];
+    }
+    else if (section == EditAccountSectionContactInformation) {
+        formViews = @[self.emailFormView, self.homePhoneFormView, self.workPhoneFormView];
+    }
+    else if (section == EditAccountSectionPosition) {
+        NSMutableArray *mutableFormViews = [NSMutableArray arrayWithArray:@[self.jobTitleFormView, self.departmentFormView, self.managerFormView, self.officeFormView, self.startDateFormView]];
+        if (self.departmentsHidden) {
+            [mutableFormViews removeObject:self.departmentFormView];
+        }
+        formViews = [NSArray arrayWithArray:mutableFormViews];
+    }
+    else if (section == EditAccountSectionPersonal) {
+        formViews = @[self.birthdayFormView];
+    }
+    return formViews;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    FormView *formView;
-    if (!indexPath.section) {
-        if (!indexPath.row) {
-            formView = self.firstNameFormView;
-        }
-        else {
-            formView = self.lastNameFormView;
-        }
-    }
-    else if (indexPath.section == 1) {
-        if (!indexPath.row) {
-            formView = self.emailFormView;
-        }
-        else if (indexPath.row == 1) {
-            formView = self.homePhoneFormView;
-        }
-        else {
-            formView = self.workPhoneFormView;
-        }
-    }
-    else if (indexPath.section == 2) {
-        if (!indexPath.row) {
-            formView = self.jobTitleFormView;
-        }
-        else if (indexPath.row == 1) {
-            formView = self.departmentFormView;
-        }
-        else if (indexPath.row == 2) {
-            formView = self.managerFormView;
-        }
-        else if (indexPath.row == 3) {
-            formView = self.officeFormView;
-        }
-        else {
-            formView = self.startDateFormView;
-        }
-    }
-    else {
-        formView = self.birthdayFormView;
-    }
+    FormView *formView  = [self formViewsForSection:indexPath.section][indexPath.row];
     formView.frame = cell.contentView.bounds;
     formView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [cell.contentView addSubview:formView];

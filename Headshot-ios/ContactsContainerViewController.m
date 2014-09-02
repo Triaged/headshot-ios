@@ -37,15 +37,9 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Contacts", @"Departments"]];
-    self.segmentedControl.width = 200;
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 50)];
-    headerView.backgroundColor = [UIColor whiteColor];
-    self.segmentedControl.centerX = headerView.width/2.0;
-    self.segmentedControl.centerY = headerView.height/2.0;
     self.segmentedControl.tintColor = [[ThemeManager sharedTheme] orangeColor];
     [self.segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [headerView addSubview:self.segmentedControl];
-    self.tableView.tableHeaderView = headerView;
+    self.departmentsHidden = NO;
     
     self.contactsViewController = [[ContactsTableViewController alloc] init];
     self.contactsViewController.containerViewController = self;
@@ -69,6 +63,22 @@
     self.searchController.delegate = (id<UISearchDisplayDelegate>)self.contactsViewController.tableView.dataSource;
     self.searchController.searchResultsDelegate = self.contactsViewController.tableView.delegate;
     self.searchController.searchResultsDataSource = self.contactsViewController.tableView.dataSource;
+}
+
+- (void)setDepartmentsHidden:(BOOL)departmentsHidden
+{
+    _departmentsHidden = departmentsHidden;
+    UIView *headerView;
+    if (!departmentsHidden) {
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 50)];
+        headerView.backgroundColor = [UIColor whiteColor];
+        [headerView addSubview:self.segmentedControl];
+        self.tableView.tableHeaderView = headerView;
+        self.segmentedControl.width = 200;
+        self.segmentedControl.centerX = headerView.width/2.0;
+        self.segmentedControl.centerY = headerView.height/2.0;
+    }
+    self.tableView.tableHeaderView = headerView;
 }
 
 - (void)viewWillAppear:(BOOL)animated
