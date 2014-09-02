@@ -33,6 +33,7 @@
 @property (assign, nonatomic) BOOL showingGroupInfo;
 @property (assign, nonatomic) BOOL sendingMessage;
 @property (strong, nonatomic) UITextField *editNameTextField;
+@property (strong, nonatomic) UIButton *infoButton;
 @property (strong, nonatomic) UIButton *muteButton;
 @property (strong, nonatomic) UIButton *editNameButton;
 @property (strong, nonatomic) UIButton *addMembersButton;
@@ -113,10 +114,10 @@
     sendButton.enabled = NO;
     self.inputToolbar.contentView.rightBarButtonItem = sendButton;
     
-    UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    info.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
-    [info addTarget:self action:@selector(infoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:info];
+    self.infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    self.infoButton.tintColor = [[ThemeManager sharedTheme] buttonTintColor];
+    [self.infoButton addTarget:self action:@selector(infoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.infoButton];
     self.navigationItem.rightBarButtonItem = item;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
@@ -752,6 +753,21 @@
 }
 
 #pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    for (UIView *view in @[self.muteButton, self.addMembersButton, self.groupInfoViewController.tableView, self.infoButton]) {
+        view.userInteractionEnabled = NO;
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    for (UIView *view in @[self.muteButton, self.addMembersButton, self.groupInfoViewController.tableView, self.infoButton]) {
+        view.userInteractionEnabled = YES;
+    }
+    return YES;
+}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [SVProgressHUD show];
