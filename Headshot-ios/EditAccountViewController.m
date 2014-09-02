@@ -423,16 +423,18 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)OnboardSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController didSelectDepartment:(Department *)department
+- (void)OnboardSelectDepartmentViewController:(OnboardSelectDepartmentViewController *)selectDepartmentViewController didSelectDepartmentWithIdentifier:(NSString *)identifier
 {
+    Department *department = [Department MR_findFirstByAttribute:@"identifier" withValue:identifier];
     self.account.currentUser.department = department;
     [self reloadData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Select Manager View Controller Delegate
-- (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUser:(User *)user
+- (void)selectManagersViewController:(OnboardSelectManagersViewControllers *)selectManagersViewController didSelectUserWithIdentifier:(NSString *)identifier
 {
+    User *user = [User MR_findFirstByAttribute:@"identifier" withValue:identifier];
     self.account.currentUser.manager = user;
     [self reloadData];
     [self dismissViewControllerAnimated:YES completion:nil];
