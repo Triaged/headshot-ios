@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) ContactsTableViewController *contactsViewController;
 @property (strong, nonatomic) DepartmentsTableViewController *departmentsViewController;
+@property (assign, nonatomic) BOOL departmentsHidden;
 
 @end

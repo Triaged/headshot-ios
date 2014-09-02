@@ -380,7 +380,7 @@
 {
     [self.inputToolbar.contentView.textView resignFirstResponder];
     self.showingGroupInfo = YES;
-    self.groupInfoViewController.users = self.messageThread.recipientsExcludeUser.allObjects;
+    self.groupInfoViewController.users = [self.messageThread.recipientsExcludeUser filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"archived == NO"]].allObjects;;
     if (!self.groupInfoBackgroundView) {
         CGRect frame;
         if (self.navigationController.navigationBar.isTranslucent) {

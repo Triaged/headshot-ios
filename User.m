@@ -20,6 +20,7 @@
 @dynamic fullName;
 @dynamic installedApp;
 @dynamic sharingOfficeLocation;
+@dynamic archived;
 @dynamic email;
 @dynamic avatarFaceUrl;
 @dynamic avatarFace2xUrl;
@@ -44,7 +45,7 @@
 
 + (NSArray *)findAllExcludeCurrent
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@", [AppDelegate sharedDelegate].store.currentAccount.identifier];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@ && archived == NO", [AppDelegate sharedDelegate].store.currentAccount.identifier];
     return [User MR_findAllWithPredicate:predicate];
 }
 

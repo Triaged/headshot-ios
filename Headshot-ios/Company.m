@@ -28,8 +28,8 @@
 //        SLRESTful can not handle the associated ids passed in the user objects unless the users behind the association are already in core data. So we must iterate through the users again after saving the company and update them.
         NSManagedObjectContext *backgroundContext = [TRDataStoreManager sharedInstance].backgroundThreadManagedObjectContext;
         [backgroundContext performBlock:^{
-            Company *company = [Company updatedObjectWithRawJSONDictionary:responseObject[0] inManagedObjectContext:backgroundContext];
-            for (NSDictionary *userData in responseObject[0][@"users"]) {
+            Company *company = [Company updatedObjectWithRawJSONDictionary:responseObject inManagedObjectContext:backgroundContext];
+            for (NSDictionary *userData in responseObject[@"users"]) {
                 [User updatedObjectWithRawJSONDictionary:userData inManagedObjectContext:backgroundContext];
             }
             NSManagedObjectID *companyID = company.objectID;
