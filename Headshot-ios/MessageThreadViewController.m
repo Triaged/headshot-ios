@@ -34,6 +34,8 @@
 @property (assign, nonatomic) BOOL sendingMessage;
 @property (strong, nonatomic) UITextField *editNameTextField;
 @property (strong, nonatomic) UIButton *muteButton;
+@property (strong, nonatomic) UIButton *editNameButton;
+@property (strong, nonatomic) UIButton *addMembersButton;
 @property (assign, nonatomic) BOOL presentingNewThreadViewController;
 
 @end
@@ -161,6 +163,7 @@
     else {
         self.navigationItem.title = messageThread.defaultTitle;
     }
+    self.groupInfoViewController.tableView.tableHeaderView = [self infoToolBarForMessageThread:messageThread];
     [self fetchMessages];
 }
 
@@ -169,45 +172,57 @@
     if (!_groupInfoViewController) {
         _groupInfoViewController = [[GroupMessageInfoTableViewController alloc] init];
         _groupInfoViewController.delegate = self;
-        UIView *toolBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 56)];
-        [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
         
-        UIButton *addMembersButton = [[UIButton alloc] init];
-        addMembersButton.titleLabel.font = [ThemeManager regularFontOfSize:9];
-        [addMembersButton setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
-        [addMembersButton setImage:[UIImage imageNamed:@"messages-add-member"] forState:UIControlStateNormal];
-        [addMembersButton setTitle:@"Add Members" forState:UIControlStateNormal];
-        [addMembersButton ja_horizontallyCenterTitleAndImageWithSpacing:0 imageOnTop:YES];
-        [addMembersButton addTarget:self action:@selector(addMembersButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        self.addMembersButton = [[UIButton alloc] init];
+        self.addMembersButton.titleLabel.font = [ThemeManager regularFontOfSize:9];
+        [self.addMembersButton setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
+        [self.addMembersButton setImage:[UIImage imageNamed:@"messages-add-member"] forState:UIControlStateNormal];
+        [self.addMembersButton setTitle:@"Add Members" forState:UIControlStateNormal];
+        [self.addMembersButton ja_horizontallyCenterTitleAndImageWithSpacing:0 imageOnTop:YES];
+        [self.addMembersButton addTarget:self action:@selector(addMembersButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIButton *editNameButton = [[UIButton alloc] init];
-        [editNameButton setTitle:@"Edit Name" forState:UIControlStateNormal];
-        [editNameButton setImage:[UIImage imageNamed:@"messages-edit-name"] forState:UIControlStateNormal];
-        [editNameButton addTarget:self action:@selector(editNameButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        self.editNameButton = [[UIButton alloc] init];
+        [self.editNameButton setTitle:@"Edit Name" forState:UIControlStateNormal];
+        [self.editNameButton setImage:[UIImage imageNamed:@"messages-edit-name"] forState:UIControlStateNormal];
+        [self.editNameButton addTarget:self action:@selector(editNameButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
         self.muteButton = [[UIButton alloc] init];
         [self updateMuteButton];
         [self.muteButton addTarget:self action:@selector(mutedButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
-        CGSize buttonSize = CGSizeMake(self.view.width/3.0, toolBarBackground.height);
-        [@[addMembersButton, editNameButton, self.muteButton] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            UIButton *button = (UIButton *)obj;
-            button.size = buttonSize;
-            button.x = idx*buttonSize.width;
-            [button setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
-            button.titleLabel.font = [ThemeManager regularFontOfSize:9];
-            [button ja_horizontallyCenterTitleAndImageWithSpacing:4 imageOnTop:YES];
-            [toolBarBackground addSubview:button];
-            if (idx < 2) {
-                [button addEdge:UIRectEdgeRight width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
-            }
-        }];
-        
-        [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
-        _groupInfoViewController.tableView.tableHeaderView = toolBarBackground;
         _groupInfoViewController.tableView.bounces = NO;
     }
     return _groupInfoViewController;
+}
+
+- (UIView *)infoToolBarForMessageThread:(MessageThread *)messageThread
+{
+    UIView *toolBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 56)];
+    [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+    
+    NSArray *buttons;
+    if (messageThread.isGroupThread) {
+        buttons = @[self.addMembersButton, self.editNameButton, self.muteButton];
+    }
+    else {
+        buttons = @[self.addMembersButton, self.muteButton];
+    }
+    CGSize buttonSize = CGSizeMake(self.view.width/buttons.count, toolBarBackground.height);
+    [buttons enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UIButton *button = (UIButton *)obj;
+        button.size = buttonSize;
+        button.x = idx*buttonSize.width;
+        [button setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [ThemeManager regularFontOfSize:9];
+        [button ja_horizontallyCenterTitleAndImageWithSpacing:4 imageOnTop:YES];
+        [toolBarBackground addSubview:button];
+        if (idx < 2) {
+            [button addEdge:UIRectEdgeRight width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+        }
+    }];
+    
+    [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+    return toolBarBackground;
 }
 
 - (void)updateMuteButton
