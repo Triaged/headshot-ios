@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) UILabel *timeLabel;
 @property (strong, nonatomic) UIView *avatarContainerView;
+@property (strong, nonatomic) UIImageView *mutedImageView;
 @property (strong, nonatomic) UIFont *textFont;
 @property (strong, nonatomic) UIFont *unreadTextFont;
 @property (strong, nonatomic) UIFont *detailTextFont;
@@ -56,6 +57,10 @@
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.timeLabel];
     
+    UIImage *muteImage = [UIImage imageNamed:@"messages-muted"];
+    self.mutedImageView = [[UIImageView alloc] initWithImage:muteImage];
+    [self.contentView addSubview:self.mutedImageView];
+    
     return self;
 }
 
@@ -69,6 +74,9 @@
     self.textLabel.width = self.contentView.width - self.textLabel.x - 60;
     self.detailTextLabel.x = self.textLabel.x;
     self.detailTextLabel.width = self.contentView.width - self.detailTextLabel.x - 15;
+    
+    self.mutedImageView.right = self.timeLabel.right;
+    self.mutedImageView.bottom = self.contentView.height - 8;
 }
 
 - (void)setMessageThread:(MessageThread *)messageThread
@@ -100,6 +108,8 @@
     }
     self.avatarContainerView = [self avatarContainerViewForRecipients:messageThread.recipientsExcludeUser];
     [self.contentView addSubview:self.avatarContainerView];
+    
+    self.mutedImageView.hidden = !messageThread.muted.boolValue;
 }
 
 - (UIView *)avatarContainerViewForRecipients:(NSSet *)recipients
