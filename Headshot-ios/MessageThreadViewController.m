@@ -261,6 +261,7 @@
     if (reload) {
         [self fetchMessages];
         [self.messageThread markAsRead];
+        [self scrollToBottomAnimated:YES];
     }
     if (showIndicator) {
         [self showUnreadMessageIndicator];
@@ -417,15 +418,6 @@
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findByAttribute:@"messageThread" withValue:self.messageThread andOrderBy:@"timestamp" ascending:YES]];
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
     [self.collectionView reloadData];
-    
-//    hack to fix scrolling issue when receiving a message (if don't dispatch then doesn't scroll to show entire message)
-    jadispatch_after_delay(0.1, dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:1 animations:^{
-            [self scrollToBottomAnimated:NO];
-        } completion:^(BOOL finished) {
-        }];
-    });
-    
 }
 
 #pragma mark - JSQMessagesViewController method overrides
