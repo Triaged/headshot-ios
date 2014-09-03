@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 hotspot. All rights reserved.
 //
 
-#ifndef HappyHours_CommonMacros_h
-#define HappyHours_CommonMacros_h
+#ifndef CommonMacros_h
+#define CommonMacros_h
 
 extern BOOL isEmpty(id object);
 
