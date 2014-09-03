@@ -43,7 +43,7 @@
     descriptionLabel.centerX = headerView.width/2.0;
     descriptionLabel.y = jobImageView.bottom;
     descriptionLabel.numberOfLines = 2;
-    descriptionLabel.text = @"At Which Office Do You Work?";
+    descriptionLabel.text = @"What Office Do You Work At?";
     descriptionLabel.font = [ThemeManager regularFontOfSize:24];
     descriptionLabel.textColor = [[ThemeManager sharedTheme] greenColor];
     descriptionLabel.textAlignment = NSTextAlignmentCenter;
