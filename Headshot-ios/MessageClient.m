@@ -309,6 +309,10 @@
     NSNumber *timestamp = messageData[@"timestamp"];
     NSString *guid = messageData[@"guid"];
     User *author = [User MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:author_id];
+    if (!author) {
+        author = [User MR_createEntity];
+        author.identifier = author_id;
+    }
     NSAssert(author, @"Author must exist in core data");
     Message *message = [Message MR_findFirstByAttribute:NSStringFromSelector(@selector(uniqueID)) withValue:guid];
     if (!message) {
