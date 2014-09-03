@@ -42,7 +42,7 @@
     if (user.avatarFace2xUrl) {
         [self.initialView removeFromSuperview];
         NSURL *url = [NSURL URLWithString:user.avatarFace2xUrl];
-        [self sd_setImageWithURL:url placeholderImage:nil];
+        [self sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"avatar"]];
     }
     else {
         [self addSubview:self.initialView];
