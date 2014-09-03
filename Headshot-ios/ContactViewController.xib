@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="14A261i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -31,20 +31,24 @@
                                 <constraint firstAttribute="width" constant="105" id="kNl-CU-fAl"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18x-wu-T4t">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18x-wu-T4t">
                             <rect key="frame" x="0.0" y="113" width="320" height="29"/>
                             <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="24"/>
                             <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqI-mJ-fvb">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqI-mJ-fvb">
                             <rect key="frame" x="0.0" y="144" width="320" height="20"/>
                             <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="16"/>
                             <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yx4-tP-joF">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yx4-tP-joF">
                             <rect key="frame" x="35" y="181" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="2Tv-RQ-Ypq"/>
+                                <constraint firstAttribute="width" constant="60" id="ahU-PY-yrU"/>
+                            </constraints>
                             <state key="normal" image="profile-message">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -52,7 +56,7 @@
                                 <action selector="messageTapped:" destination="-1" eventType="touchUpInside" id="p2A-1r-1WL"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2U5-vF-bfe">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2U5-vF-bfe">
                             <rect key="frame" x="225" y="181" width="60" height="60"/>
                             <state key="normal" image="profile-email">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -61,7 +65,7 @@
                                 <action selector="emailTapped:" destination="-1" eventType="touchUpInside" id="59R-PA-R4W"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOk-K1-Nwj">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOk-K1-Nwj">
                             <rect key="frame" x="130" y="181" width="60" height="60"/>
                             <state key="normal" image="profile-call">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -71,25 +75,25 @@
                                 <action selector="callTapped:" destination="-1" eventType="touchUpInside" id="LpX-Be-SlM"/>
                             </connections>
                         </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUs-y9-JXK">
-                            <rect key="frame" x="42" y="249" width="46" height="15"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUs-y9-JXK">
+                            <rect key="frame" x="35" y="249" width="60" height="15"/>
                             <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
                             <color key="textColor" red="0.97254901960784312" green="0.67450980392156867" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="und-Hm-2TP">
-                            <rect key="frame" x="232" y="249" width="46" height="15"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="und-Hm-2TP">
+                            <rect key="frame" x="225" y="249" width="60" height="15"/>
                             <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
                             <color key="textColor" red="0.97254901959999995" green="0.67450980390000004" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aga-IV-wv2">
-                            <rect key="frame" x="137" y="249" width="46" height="15"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Call" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aga-IV-wv2">
+                            <rect key="frame" x="130" y="249" width="60" height="15"/>
                             <fontDescription key="fontDescription" name="Whitney-Medium" family="Whitney" pointSize="12"/>
                             <color key="textColor" red="0.97254901959999995" green="0.67450980390000004" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="9gz-kL-zQ3">
+                        <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="9gz-kL-zQ3">
                             <rect key="frame" x="0.0" y="284" width="320" height="206"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
@@ -101,7 +105,6 @@
                         <constraint firstItem="YqI-mJ-fvb" firstAttribute="trailing" secondItem="18x-wu-T4t" secondAttribute="trailing" id="1yO-Vr-zoZ"/>
                         <constraint firstItem="18x-wu-T4t" firstAttribute="leading" secondItem="YqI-mJ-fvb" secondAttribute="leading" id="20Z-p0-iQ0"/>
                         <constraint firstAttribute="trailing" secondItem="18x-wu-T4t" secondAttribute="trailing" id="4QQ-cN-PWE"/>
-                        <constraint firstItem="aga-IV-wv2" firstAttribute="leading" secondItem="LUs-y9-JXK" secondAttribute="trailing" constant="49" id="53D-9J-GRy"/>
                         <constraint firstItem="LUs-y9-JXK" firstAttribute="baseline" secondItem="aga-IV-wv2" secondAttribute="baseline" id="99c-7F-T9V"/>
                         <constraint firstItem="9gz-kL-zQ3" firstAttribute="leading" secondItem="YqI-mJ-fvb" secondAttribute="leading" id="FBj-Bi-e1b"/>
                         <constraint firstItem="2U5-vF-bfe" firstAttribute="leading" secondItem="EOk-K1-Nwj" secondAttribute="trailing" constant="35" id="Fq7-gT-kSd"/>
@@ -112,8 +115,6 @@
                         <constraint firstAttribute="bottom" secondItem="9gz-kL-zQ3" secondAttribute="bottom" id="VkP-tI-eDP"/>
                         <constraint firstItem="EOk-K1-Nwj" firstAttribute="centerX" secondItem="YqI-mJ-fvb" secondAttribute="centerX" id="Wib-gw-g9x"/>
                         <constraint firstItem="aga-IV-wv2" firstAttribute="top" secondItem="EOk-K1-Nwj" secondAttribute="bottom" constant="8" symbolic="YES" id="Wv7-9A-3uC"/>
-                        <constraint firstItem="und-Hm-2TP" firstAttribute="leading" secondItem="aga-IV-wv2" secondAttribute="trailing" constant="49" id="eKC-PX-TO7"/>
-                        <constraint firstItem="LUs-y9-JXK" firstAttribute="leading" secondItem="DrD-vH-9Xm" secondAttribute="leading" constant="42" id="g8W-f8-d1Q"/>
                         <constraint firstItem="und-Hm-2TP" firstAttribute="centerX" secondItem="2U5-vF-bfe" secondAttribute="centerX" id="iMa-1U-NST"/>
                         <constraint firstItem="LUs-y9-JXK" firstAttribute="top" secondItem="yx4-tP-joF" secondAttribute="bottom" constant="8" symbolic="YES" id="jD3-LM-fsX"/>
                         <constraint firstItem="YqI-mJ-fvb" firstAttribute="top" secondItem="18x-wu-T4t" secondAttribute="bottom" constant="2" id="lrs-6K-CQv"/>
