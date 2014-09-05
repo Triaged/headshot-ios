@@ -36,6 +36,8 @@
         <attribute name="uniqueID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="messages" inverseEntity="User" syncable="YES"/>
         <relationship name="messageThread" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MessageThread" inverseName="messages" inverseEntity="MessageThread" syncable="YES"/>
+        <relationship name="readReceipts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReadReceipt" inverseName="message" inverseEntity="ReadReceipt" syncable="YES"/>
+        <relationship name="userReadReceipt" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReadReceipt" syncable="YES"/>
     </entity>
     <entity name="MessageThread" representedClassName="MessageThread" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
@@ -60,6 +62,12 @@
         <relationship name="currentEmployees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="currentOfficeLocation" inverseEntity="User" syncable="YES"/>
         <relationship name="primaryEmployees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="primaryOfficeLocation" inverseEntity="User" syncable="YES"/>
     </entity>
+    <entity name="ReadReceipt" representedClassName="ReadReceipt" syncable="YES">
+        <attribute name="acknowledged" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="message" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="readReceipts" inverseEntity="Message" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="readMessages" inverseEntity="User" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="archived" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="avatarFace2xUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -81,6 +89,7 @@
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="author" inverseEntity="Message" syncable="YES"/>
         <relationship name="messageThreads" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageThread" inverseName="recipients" inverseEntity="MessageThread" syncable="YES"/>
         <relationship name="primaryOfficeLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OfficeLocation" inverseName="primaryEmployees" inverseEntity="OfficeLocation" syncable="YES"/>
+        <relationship name="readMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReadReceipt" inverseName="user" inverseEntity="ReadReceipt" syncable="YES"/>
         <relationship name="subordinates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="manager" inverseEntity="User" syncable="YES"/>
     </entity>
     <elements>
@@ -88,9 +97,10 @@
         <element name="Company" positionX="0" positionY="0" width="128" height="148"/>
         <element name="Department" positionX="0" positionY="0" width="128" height="120"/>
         <element name="EmployeeInfo" positionX="0" positionY="0" width="128" height="148"/>
-        <element name="Message" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="Message" positionX="0" positionY="0" width="128" height="178"/>
         <element name="MessageThread" positionX="0" positionY="0" width="128" height="150"/>
         <element name="OfficeLocation" positionX="0" positionY="0" width="128" height="223"/>
-        <element name="User" positionX="0" positionY="0" width="128" height="360"/>
+        <element name="ReadReceipt" positionX="9" positionY="153" width="128" height="103"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="375"/>
     </elements>
 </model>

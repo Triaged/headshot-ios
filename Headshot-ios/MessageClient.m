@@ -308,6 +308,7 @@
     NSString *body = messageData[@"body"];
     NSNumber *timestamp = messageData[@"timestamp"];
     NSString *guid = messageData[@"guid"];
+    NSArray *receipts = messageData[@"read_receipts"];
     User *author = [User MR_findFirstByAttribute:NSStringFromSelector(@selector(identifier)) withValue:author_id];
     if (!author) {
         author = [User MR_createEntity];
@@ -328,9 +329,29 @@
     message.messageText = body;
     message.author = author;
     message.timestamp = [NSDate dateWithTimeIntervalSince1970:timestamp.doubleValue];
+    for (NSDictionary *receiptData in receipts) {
+        BOOL receiptCreated = NO;
+        [self findOrCreateReadReceiptWithData:receiptData message:message inManagedObjectContext:managedObjectContext created:&receiptCreated];
+    }
     return message;
 }
-     
-     
+
+- (ReadReceipt *)findOrCreateReadReceiptWithData:(NSDictionary *)receiptData message:(Message *)message inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)_created
+{
+    NSString *userID = receiptData[@"user_id"];
+    NSNumber *timestamp = receiptData[@"timestamp"];
+    NSNumber *messageID = receiptData[@"message_id"];
+    
+    ReadReceipt *receipt = [ReadReceipt MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"user.identifier = %@ AND message.messageID = %@",userID, messageID]];
+    if (!receipt) {
+        receipt = [ReadReceipt MR_createInContext:managedObjectContext];
+        receipt.user = [User MR_findFirstByAttribute:@"identifier" withValue:userID inContext:managedObjectContext];
+        receipt.timestamp = [NSDate dateWithTimeIntervalSince1970:timestamp.doubleValue];
+        receipt.acknowledged = @(YES);
+        receipt.message = message;
+        *_created = YES;
+    }
+    return receipt;
+}
 
 @end

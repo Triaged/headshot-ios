@@ -306,6 +306,7 @@
     self.navigationController.navigationBar.shadowImage = nil;
     [NotificationManager sharedManager].visibleMessageThreadViewController = self;
     [super viewWillAppear:animated];
+    [self scrollToBottomAnimated:NO];
 }
 
 

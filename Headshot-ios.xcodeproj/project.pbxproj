@@ -14,6 +14,7 @@
 		960A8EF9197041BD00CFBCEC /* FileLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 960A8EF8197041BD00CFBCEC /* FileLogManager.m */; };
 		96119B241991791900C9DD8C /* MessageNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96119B231991791900C9DD8C /* MessageNavigationController.m */; };
 		961E5396196C511000F8A158 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E5395196C511000F8A158 /* ForgotPasswordViewController.m */; };
+		9624690319B7B7E300924100 /* ReadReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 9624690219B7B7E300924100 /* ReadReceipt.m */; };
 		962FD81A1959DCEB00A313AC /* UIImage+SolidColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */; };
 		962FD81D1959E2E000A313AC /* TRSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FD81C1959E2E000A313AC /* TRSearchBar.m */; };
 		96467B81195A01D000B45C5D /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96467B80195A01D000B45C5D /* OfficesViewController.m */; };
@@ -160,6 +161,8 @@
 		96119B231991791900C9DD8C /* MessageNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageNavigationController.m; sourceTree = "<group>"; };
 		961E5394196C511000F8A158 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		961E5395196C511000F8A158 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
+		9624690119B7B7E300924100 /* ReadReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadReceipt.h; sourceTree = "<group>"; };
+		9624690219B7B7E300924100 /* ReadReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadReceipt.m; sourceTree = "<group>"; };
 		962FD8181959DCEB00A313AC /* UIImage+SolidColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SolidColor.h"; sourceTree = "<group>"; };
 		962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SolidColor.m"; sourceTree = "<group>"; };
 		962FD81B1959E2E000A313AC /* TRSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSearchBar.h; sourceTree = "<group>"; };
@@ -438,6 +441,8 @@
 			children = (
 				968436361961E3FD0001259F /* CommonMacros.h */,
 				968436371961E3FD0001259F /* CommonMacros.m */,
+				9624690119B7B7E300924100 /* ReadReceipt.h */,
+				9624690219B7B7E300924100 /* ReadReceipt.m */,
 				968436381961E3FD0001259F /* JAGrandCentralDispatch.h */,
 				968436391961E3FD0001259F /* JAGrandCentralDispatch.m */,
 				964839821958A1E600E4792A /* PhotoManager.h */,
@@ -1120,6 +1125,7 @@
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,
 				96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */,
 				CBBA68AB192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m in Sources */,
+				9624690319B7B7E300924100 /* ReadReceipt.m in Sources */,
 				CBBA6878192FD646005A6949 /* Headshot.xcdatamodeld in Sources */,
 				CB1F31C919325D8600CDCFD4 /* ContactViewController.m in Sources */,
 				CB04186E194A358600B3DE97 /* DepartmentCell.m in Sources */,

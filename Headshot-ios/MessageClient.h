@@ -9,6 +9,7 @@
 #import "TRFayeClient.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import "Message.h"
+#import "ReadReceipt.h"
 #import "MessageThread.h"
 #import "User.h"
 

@@ -18,6 +18,8 @@
 @dynamic messageID;
 @dynamic messageText;
 @dynamic timestamp;
+@dynamic userReadReceipt;
+@dynamic readReceipts;
 @dynamic messageThread;
 @dynamic author;
 

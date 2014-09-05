@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import <JSQMessagesViewController/JSQMessages.h>
 
-@class MessageThread, User;
+@class MessageThread, User, ReadReceipt;
 
 @interface Message : NSManagedObject <JSQMessageData>
 
@@ -19,6 +19,8 @@
 @property (nonatomic, retain) NSString * messageID;
 @property (nonatomic, retain) NSString * messageText;
 @property (nonatomic, retain) NSDate * timestamp;
+@property (nonatomic, retain) ReadReceipt *userReadReceipt;
+@property (nonatomic, retain) NSSet *readReceipts;
 @property (nonatomic, retain) MessageThread *messageThread;
 @property (nonatomic, retain) User *author;
 

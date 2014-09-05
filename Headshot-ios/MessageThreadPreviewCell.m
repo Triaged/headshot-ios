@@ -116,8 +116,11 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     CGSize avatarSize = CGSizeMake(50, 50);
-    NSInteger numberOfShownAvatars = 1;
-    if (recipients.count == 2) {
+    NSInteger numberOfShownAvatars = 0;
+    if (recipients.count == 1) {
+        numberOfShownAvatars = 1;
+    }
+    else if (recipients.count == 2) {
         avatarSize = CGSizeMake(34, 34);
         numberOfShownAvatars = 2;
     }

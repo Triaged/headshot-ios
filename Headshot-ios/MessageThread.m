@@ -10,6 +10,7 @@
 #import "User.h"
 #import "Message.h"
 #import "MessageClient.h"
+#import "ReadReceipt.h"
 
 @implementation MessageThread
 
@@ -57,9 +58,26 @@
 {
     BOOL unread = self.unread && self.unread.boolValue;
     if (unread) {
-        self.unread = @(NO);
-        [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kMarkedMessageThreadAsReadNotification object:nil userInfo:nil];
+        NSArray *unreadMessages = [Message MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageThread = %@ AND userReadReceipt = nil", self, [AppDelegate sharedDelegate].store.currentAccount.currentUser]];
+        NSDate *timestamp = [NSDate date];
+        NSMutableArray *createdReceipts = [[NSMutableArray alloc] init];
+        for (Message *message in unreadMessages) {
+            ReadReceipt *readReceipt = [ReadReceipt MR_createEntity];
+            readReceipt.message = message;
+            readReceipt.timestamp = timestamp;
+            [createdReceipts addObject:readReceipt];
+            message.userReadReceipt = readReceipt;
+        }
+        [ReadReceipt postReceipts:createdReceipts withCompletion:^(NSArray *receipts, NSError *error) {
+            if (!error) {
+                for (ReadReceipt *receipt in receipts) {
+                    receipt.acknowledged = @(YES);
+                }
+            }
+            self.unread = @(NO);
+            [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMarkedMessageThreadAsReadNotification object:nil userInfo:nil];
+        }];
     }
 }
 
