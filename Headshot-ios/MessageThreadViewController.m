@@ -700,6 +700,7 @@
 - (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUsers:(NSArray *)users
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.inputToolbar.contentView.textView becomeFirstResponder];
     [self dismissGroupInfo];
     NSMutableSet *recipientSet = [NSMutableSet setWithSet:self.messageThread.recipients];
     [recipientSet addObjectsFromArray:users];
