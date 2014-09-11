@@ -20,6 +20,8 @@
 @dynamic officePhone;
 @dynamic identifier;
 @dynamic user;
+@dynamic website;
+@dynamic linkedin;
 
 
 - (BOOL) hasPhoneNumber {

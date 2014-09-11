@@ -44,6 +44,8 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
 @property (strong, nonatomic) FormView *officeFormView;
 @property (strong, nonatomic) FormView *startDateFormView;
 @property (strong, nonatomic) FormView *birthdayFormView;
+@property (strong, nonatomic) FormView *linkedInFormView;
+@property (strong, nonatomic) FormView *websiteFormView;
 @property (strong, nonatomic) UITextField *activeTextField;
 @property (strong, nonatomic) FormView *selectedDateFormView;
 @property (strong, nonatomic) NSArray *orderedTextFields;
@@ -66,21 +68,18 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
     [super viewDidLoad];
     self.navigationItem.title = @"Edit Profile";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SAVE" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonTouched:)];
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 166)];
-    self.avatarImageView = [[EditAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 105, 105)];
-    UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTapped:)];
-    self.avatarImageView.userInteractionEnabled = YES;
-    [self.avatarImageView addGestureRecognizer:avatarTap];
-    self.avatarImageView.centerX = headerView.width/2.0;
-    self.avatarImageView.centerY = headerView.height/2.0;
-    [headerView addSubview:self.avatarImageView];
-    self.tableView.tableHeaderView = headerView;
     
     self.firstNameFormView = [[FormView alloc] init];
     self.firstNameFormView.fieldName = @"First Name";
     
     self.lastNameFormView = [[FormView alloc] init];
     self.lastNameFormView.fieldName = @"Last Name";
+    
+    self.linkedInFormView = [[FormView alloc] init];
+    self.linkedInFormView.fieldName = @"LinkedIn";
+    
+    self.websiteFormView = [[FormView alloc] init];
+    self.websiteFormView.fieldName = @"Website";
     
     self.emailFormView = [[FormView alloc] init];
     self.emailFormView.fieldName = @"Email";
@@ -136,13 +135,23 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
     [self.birthdayFormView addGestureRecognizer:birthdayTap];
     self.birthdayFormView.fieldName = @"Birthday";
     
-    for (FormView *formView in @[self.firstNameFormView, self.lastNameFormView, self.emailFormView, self.workPhoneFormView, self.homePhoneFormView, self.jobTitleFormView, self.departmentFormView, self.managerFormView, self.officeFormView, self.startDateFormView, self.birthdayFormView]) {
+    for (FormView *formView in @[self.firstNameFormView, self.lastNameFormView, self.emailFormView, self.workPhoneFormView, self.homePhoneFormView, self.jobTitleFormView, self.departmentFormView, self.managerFormView, self.officeFormView, self.startDateFormView, self.birthdayFormView, self.websiteFormView, self.linkedInFormView]) {
         formView.textField.delegate = self;
     }
-    self.orderedTextFields = @[self.firstNameFormView.textField, self.lastNameFormView.textField, self.emailFormView.textField, self.workPhoneFormView.textField, self.homePhoneFormView.textField, self.jobTitleFormView.textField];
+    self.orderedTextFields = @[self.firstNameFormView.textField, self.lastNameFormView.textField, self.emailFormView.textField, self.workPhoneFormView.textField, self.homePhoneFormView.textField, self.jobTitleFormView.textField, self.websiteFormView.textField, self.linkedInFormView.textField];
     for (UITextField *textField in self.orderedTextFields) {
         textField.returnKeyType = UIReturnKeyNext;
     }
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 166)];
+    self.avatarImageView = [[EditAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 105, 105)];
+    UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTapped:)];
+    self.avatarImageView.userInteractionEnabled = YES;
+    [self.avatarImageView addGestureRecognizer:avatarTap];
+    self.avatarImageView.centerX = headerView.width/2.0;
+    self.avatarImageView.centerY = headerView.height/2.0;
+    [headerView addSubview:self.avatarImageView];
+    self.tableView.tableHeaderView = headerView;
     
     self.account = [AppDelegate sharedDelegate].store.currentAccount;
 }
@@ -197,6 +206,8 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
     self.workPhoneFormView.textField.text = user.employeeInfo.officePhone;
     self.homePhoneFormView.textField.text = user.employeeInfo.cellPhone;
     self.jobTitleFormView.textField.text = user.employeeInfo.jobTitle;
+    self.websiteFormView.textField.text = user.employeeInfo.website;
+    self.linkedInFormView.textField.text = user.employeeInfo.linkedin;
     Department *department = user.department;
     if (department) {
         self.departmentFormView.textField.text = department.name;
@@ -280,20 +291,7 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger numRows = 0;
-    if (section == EditAccountSectionName) {
-        numRows = 2;
-    }
-    else if (section == EditAccountSectionContactInformation) {
-        numRows = 3;
-    }
-    else if (section == EditAccountSectionPosition) {
-        numRows = self.departmentsHidden ? 4 : 5;
-    }
-    else if (section == EditAccountSectionPersonal) {
-        numRows = 1;
-    }
-    return numRows;
+    return [self formViewsForSection:section].count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -343,7 +341,7 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
         formViews = @[self.firstNameFormView, self.lastNameFormView];
     }
     else if (section == EditAccountSectionContactInformation) {
-        formViews = @[self.emailFormView, self.homePhoneFormView, self.workPhoneFormView];
+        formViews = @[self.websiteFormView, self.linkedInFormView, self.emailFormView, self.homePhoneFormView, self.workPhoneFormView];
     }
     else if (section == EditAccountSectionPosition) {
         NSMutableArray *mutableFormViews = [NSMutableArray arrayWithArray:@[self.jobTitleFormView, self.departmentFormView, self.managerFormView, self.officeFormView, self.startDateFormView]];
@@ -482,6 +480,12 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
     }
     else if (textField == self.jobTitleFormView.textField) {
         user.employeeInfo.jobTitle = text;
+    }
+    else if (textField == self.linkedInFormView.textField) {
+        user.employeeInfo.linkedin = text;
+    }
+    else if (textField == self.websiteFormView.textField) {
+        user.employeeInfo.website = text;
     }
 }
 

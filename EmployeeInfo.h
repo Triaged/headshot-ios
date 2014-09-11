@@ -20,6 +20,8 @@
 @property (nonatomic, retain) NSString * cellPhone;
 @property (nonatomic, retain) NSString * officePhone;
 @property (nonatomic, retain) NSString * identifier;
+@property (nonatomic, retain) NSString * website;
+@property (nonatomic, retain) NSString * linkedin;
 @property (nonatomic, retain) User *user;
 
 - (BOOL) hasPhoneNumber;

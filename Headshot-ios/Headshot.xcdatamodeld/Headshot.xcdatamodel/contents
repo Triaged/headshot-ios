@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="14A329f" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="14A329f" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Account" representedClassName="Account" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="currentUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="account" inverseEntity="User" syncable="YES"/>
@@ -25,7 +25,9 @@
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="jobStartDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="jobTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkedin" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="officePhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="employeeInfo" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Message" representedClassName="Message" syncable="YES">
@@ -96,7 +98,7 @@
         <element name="Account" positionX="0" positionY="0" width="128" height="75"/>
         <element name="Company" positionX="0" positionY="0" width="128" height="148"/>
         <element name="Department" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="EmployeeInfo" positionX="0" positionY="0" width="128" height="148"/>
+        <element name="EmployeeInfo" positionX="0" positionY="0" width="128" height="180"/>
         <element name="Message" positionX="0" positionY="0" width="128" height="178"/>
         <element name="MessageThread" positionX="0" positionY="0" width="128" height="150"/>
         <element name="OfficeLocation" positionX="0" positionY="0" width="128" height="223"/>

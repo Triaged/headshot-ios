@@ -22,6 +22,15 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
     kContactInfo
 };
 
+static NSString * kWebsite = @"Website";
+static NSString * kLinkedIn = @"LinkedIn";
+static NSString * kEmail = @"Email";
+static NSString * kMobilePhone = @"Mobile Phone";
+static NSString * kOfficePhone = @"Office Phone";
+static NSString * kHomeOffice = @"Home Office";
+static NSString * kBirthday = @"Birthday";
+static NSString * kStartDate = @"Start Date";
+
 @implementation ContactDetailsDataSource
 
 @synthesize contactDetailsArray, currentUser;
@@ -47,20 +56,26 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
 
 -(void)setupContactInfo {
     NSMutableArray *contactInfo = [[NSMutableArray alloc] init];
+    if (currentUser.employeeInfo.website) {
+        [contactInfo addObject:@[kWebsite, currentUser.employeeInfo.website]];
+    }
+    if (currentUser.employeeInfo.linkedin) {
+        [contactInfo addObject:@[kLinkedIn, currentUser.fullName]];
+    }
     
     if (currentUser.email)
-        [contactInfo addObject:@[@"Email", currentUser.email]];
+        [contactInfo addObject:@[kEmail, currentUser.email]];
 
     if (currentUser.employeeInfo.cellPhone)
         //ECPhoneNumberFormatter *formatter = [[ECPhoneNumberFormatter alloc] init];
         //NSString *formattedPhoneNumber = [formatter stringForObjectValue:currentUser.employeeInfo.cellPhone];
-        [contactInfo addObject:@[@"Mobile Phone", currentUser.employeeInfo.cellPhone]];
+        [contactInfo addObject:@[kMobilePhone, currentUser.employeeInfo.cellPhone]];
 
     if (currentUser.employeeInfo.officePhone)
-        [contactInfo addObject:@[@"Office Phone", currentUser.employeeInfo.officePhone]];
+        [contactInfo addObject:@[kOfficePhone, currentUser.employeeInfo.officePhone]];
     
     if (currentUser.primaryOfficeLocation) {
-        [contactInfo addObject:@[@"Home Office", currentUser.primaryOfficeLocation.name]];
+        [contactInfo addObject:@[kHomeOffice, currentUser.primaryOfficeLocation.name]];
     }
 
     
@@ -68,7 +83,7 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         NSDateFormatter *birthStartdateFormatter = [[NSDateFormatter alloc] init];
         [birthStartdateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         birthStartdateFormatter.dateFormat = [NSString stringWithFormat:@"LLLL d'%@'", [self suffixForDayInDate:currentUser.employeeInfo.birthDate]];
-        [contactInfo addObject:@[@"Birthday", [birthStartdateFormatter stringFromDate:currentUser.employeeInfo.birthDate]]];
+        [contactInfo addObject:@[kBirthday, [birthStartdateFormatter stringFromDate:currentUser.employeeInfo.birthDate]]];
     }
 
     if (currentUser.employeeInfo.jobStartDate) {
@@ -76,7 +91,7 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
         [jobStartdateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         jobStartdateFormatter.dateFormat = [NSString stringWithFormat:@"LLLL d'%@', yyyy", [self suffixForDayInDate:currentUser.employeeInfo.jobStartDate]];
 
-        [contactInfo addObject:@[@"Start Date", [jobStartdateFormatter stringFromDate:currentUser.employeeInfo.jobStartDate]]];
+        [contactInfo addObject:@[kStartDate, [jobStartdateFormatter stringFromDate:currentUser.employeeInfo.jobStartDate]]];
     }
 
     [contactDetailsArray addObject:@{[NSNumber numberWithInt:kContactInfo] : contactInfo}];
@@ -281,8 +296,23 @@ typedef NS_ENUM(NSUInteger, ContactDetailType)  {
             break;
         case kDepartment:
             [self tableView:tableView didSelectDepartmentAtIndexPath:indexPath];
+            break;
+        case kContactInfo:
+            [self tableView:tableView didSelectContactInfoAtIndexPath:indexPath];
         default:
             break;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectContactInfoAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *contactInfo = [self itemAtIndexPath:indexPath];
+    NSString *key = [contactInfo firstObject];
+    if ([key isEqualToString:kWebsite]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:currentUser.employeeInfo.website]];
+    }
+    else if ([key isEqualToString:kLinkedIn]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:currentUser.employeeInfo.linkedin]];
     }
 }
 

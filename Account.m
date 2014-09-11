@@ -75,6 +75,12 @@
     if (self.currentUser.employeeInfo.jobStartDate) {
         employeeInfoJSON[@"job_start_date"] = self.currentUser.employeeInfo.jobStartDate.badgeFormattedDate;
     }
+    if (self.currentUser.employeeInfo.website) {
+        employeeInfoJSON[@"website"] = self.currentUser.employeeInfo.website;
+    }
+    if (self.currentUser.employeeInfo.linkedin) {
+        employeeInfoJSON[@"linkedin"] = self.currentUser.employeeInfo.linkedin;
+    }
     userJSON[@"employee_info_attributes"] = employeeInfoJSON;
     NSDictionary *parameters = @{@"user" : userJSON};
     [[HeadshotAPIClient sharedClient] PUT:@"account/" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {

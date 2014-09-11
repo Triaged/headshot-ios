@@ -126,7 +126,7 @@ DEPENDENCIES:
   - FXBlurView
   - INTULocationManager
   - JACenterButton (from `https://github.com/jma256/JACenterButton.git`, commit `0d3dd00a1437c1b668ff75dd3fa968745c10e40a`)
-  - JSQMessagesViewController (from `https://github.com/jma256/JSQMessagesViewController.git`, commit `91e27f947ceb6b808c540634e135a1cb83d6224c`)
+  - JSQMessagesViewController (from `https://github.com/jma256/JSQMessagesViewController.git`, commit `0be73a9e2cf7e64b5e9972e15b2378a8bda00152`)
   - MagicalRecord
   - MBContactPicker
   - Mixpanel
@@ -160,7 +160,7 @@ EXTERNAL SOURCES:
     :commit: 0d3dd00a1437c1b668ff75dd3fa968745c10e40a
     :git: https://github.com/jma256/JACenterButton.git
   JSQMessagesViewController:
-    :commit: 91e27f947ceb6b808c540634e135a1cb83d6224c
+    :commit: 0be73a9e2cf7e64b5e9972e15b2378a8bda00152
     :git: https://github.com/jma256/JSQMessagesViewController.git
   MPGNotification:
     :git: https://github.com/jma256/MPGNotification.git

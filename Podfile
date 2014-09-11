@@ -13,7 +13,7 @@ pod 'UIView+AutoLayout'
 pod 'SLRESTfulCoreData'
 pod "MagicalRecord"
 pod 'Vertigo'
-pod 'JSQMessagesViewController', :git => 'https://github.com/jma256/JSQMessagesViewController.git', :commit => '91e27f947ceb6b808c540634e135a1cb83d6224c'
+pod 'JSQMessagesViewController', :git => 'https://github.com/jma256/JSQMessagesViewController.git', :commit => '0be73a9e2cf7e64b5e9972e15b2378a8bda00152'
 #pod 'JSQMessagesViewController'
 pod 'UIView+Positioning'
 pod 'INTULocationManager'
