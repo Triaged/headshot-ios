@@ -30,6 +30,8 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
     EditAccountSectionPersonal
 };
 
+static NSString *kLinkedInPlaceholder = @"www.linkedin.com/";
+
 @interface EditAccountViewController () <UITextFieldDelegate, OnboardSelectDepartmentViewControllerDelegate, SelectManagersViewControllerDelegate, OfficesViewControllerDelegate, PMEDatePickerDelegate>
 
 @property (strong, nonatomic) EditAvatarImageView *avatarImageView;
@@ -80,6 +82,7 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
     
     self.websiteFormView = [[FormView alloc] init];
     self.websiteFormView.fieldName = @"Website";
+    self.websiteFormView.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
     self.emailFormView = [[FormView alloc] init];
     self.emailFormView.fieldName = @"Email";
@@ -207,7 +210,12 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
     self.homePhoneFormView.textField.text = user.employeeInfo.cellPhone;
     self.jobTitleFormView.textField.text = user.employeeInfo.jobTitle;
     self.websiteFormView.textField.text = user.employeeInfo.website;
-    self.linkedInFormView.textField.text = user.employeeInfo.linkedin;
+    if (!user.employeeInfo.linkedin) {
+        self.linkedInFormView.textField.text = kLinkedInPlaceholder;
+    }
+    else {
+        self.linkedInFormView.textField.text = user.employeeInfo.linkedin;
+    }
     Department *department = user.department;
     if (department) {
         self.departmentFormView.textField.text = department.name;
@@ -482,7 +490,9 @@ typedef NS_ENUM(NSInteger, EditAccountSection) {
         user.employeeInfo.jobTitle = text;
     }
     else if (textField == self.linkedInFormView.textField) {
-        user.employeeInfo.linkedin = text;
+        if (![text isEqualToString:kLinkedInPlaceholder]) {
+            user.employeeInfo.linkedin = text;
+        }
     }
     else if (textField == self.websiteFormView.textField) {
         user.employeeInfo.website = text;
