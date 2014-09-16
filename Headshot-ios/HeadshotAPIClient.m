@@ -31,7 +31,6 @@
     if (self) {
         self.requestSerializer = [AFJSONRequestSerializer serializer];
         self.responseSerializer = [TRJSONResponseSerializerWithData serializer];
-        [self setVersionHeader];
         [self setAuthTokenHeader];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(tokenChanged:)
@@ -69,12 +68,6 @@
     if (error) {
         DDLogInfo(@"Response error:\n%@", error);
     }
-}
-
-- (void)setVersionHeader
-{
-    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
-    [self.requestSerializer setValue:appVersion forHTTPHeaderField:@"App-Version"];
 }
 
 - (void)setAuthTokenHeader {
