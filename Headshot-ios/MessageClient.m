@@ -46,6 +46,7 @@
     NSString *urlString = [[ConstantsManager sharedConstants] messageServerURLString];
     NSString *httpURLString = [NSString stringWithFormat:@"https://%@/api/v1", urlString];
     self.httpClient = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:httpURLString]];
+    [self setVersionHeader];
 }
 
 - (void)initFayeClient
@@ -80,6 +81,12 @@
     
     NSString *heartbeatChannel = [NSString stringWithFormat:@"/users/heartbeat/%@", self.authExtension[@"user_id"]];
     [self.fayeClient sendMessage:@{} toChannel:heartbeatChannel usingExtension:self.authExtension];
+}
+
+- (void)setVersionHeader
+{
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+    [self.httpClient.requestSerializer setValue:appVersion forHTTPHeaderField:@"App-Version"];
 }
 
 - (void)setAuthorizationHeader
