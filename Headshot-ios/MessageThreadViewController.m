@@ -383,7 +383,7 @@
     self.showingGroupInfo = YES;
     self.groupInfoViewController.users = [self.messageThread.recipientsExcludeUser filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"archived == NO"]].allObjects;;
     if (!self.groupInfoBackgroundView) {
-        CGRect frame;
+    CGRect frame = CGRectZero;
         if (self.navigationController.navigationBar.isTranslucent) {
             frame.origin.y = self.navigationController.navigationBar.bottom;
             frame.size = CGSizeMake(self.view.width, self.view.height - frame.origin.y);
@@ -421,6 +421,7 @@
         self.groupInfoBackgroundView.alpha = 0;
     } completion:^(BOOL finished) {
         [self.groupInfoBackgroundView removeFromSuperview];
+        [self.groupInfoViewController removeFromParentViewController];
     }];
 }
 
