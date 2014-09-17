@@ -18,6 +18,7 @@
 #import "HeadshotAPIClient.h"
 #import "MessageClient.h"
 #import "TRAvatarImageView.h"
+#import "CenterButton.h"
 
 @interface MessageThreadViewController () <GroupMessageInfoTableViewController, NewThreadTableViewControllerDelegate, UITextFieldDelegate>
 
@@ -174,20 +175,19 @@
         _groupInfoViewController = [[GroupMessageInfoTableViewController alloc] init];
         _groupInfoViewController.delegate = self;
         
-        self.addMembersButton = [[UIButton alloc] init];
+        self.addMembersButton = [[CenterButton alloc] init];
         self.addMembersButton.titleLabel.font = [ThemeManager regularFontOfSize:9];
         [self.addMembersButton setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
         [self.addMembersButton setImage:[UIImage imageNamed:@"messages-add-member"] forState:UIControlStateNormal];
         [self.addMembersButton setTitle:@"Add Members" forState:UIControlStateNormal];
-        [self.addMembersButton ja_horizontallyCenterTitleAndImageWithSpacing:0 imageOnTop:YES];
         [self.addMembersButton addTarget:self action:@selector(addMembersButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
-        self.editNameButton = [[UIButton alloc] init];
+        self.editNameButton = [[CenterButton alloc] init];
         [self.editNameButton setTitle:@"Edit Name" forState:UIControlStateNormal];
         [self.editNameButton setImage:[UIImage imageNamed:@"messages-edit-name"] forState:UIControlStateNormal];
         [self.editNameButton addTarget:self action:@selector(editNameButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
-        self.muteButton = [[UIButton alloc] init];
+        self.muteButton = [[CenterButton alloc] init];
         [self updateMuteButton];
         [self.muteButton addTarget:self action:@selector(mutedButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -210,12 +210,12 @@
     }
     CGSize buttonSize = CGSizeMake(self.view.width/buttons.count, toolBarBackground.height);
     [buttons enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        UIButton *button = (UIButton *)obj;
+        CenterButton *button = (CenterButton *)obj;
         button.size = buttonSize;
         button.x = idx*buttonSize.width;
+        button.padding = 2;
         [button setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
         button.titleLabel.font = [ThemeManager regularFontOfSize:9];
-        [button ja_horizontallyCenterTitleAndImageWithSpacing:4 imageOnTop:YES];
         [toolBarBackground addSubview:button];
         if (idx < 2) {
             [button addEdge:UIRectEdgeRight width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
