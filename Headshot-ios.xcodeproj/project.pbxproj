@@ -58,7 +58,15 @@
 		96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F23D196465E800147DEB /* AnalyticsManager.m */; };
 		96D4F2411964860700147DEB /* VersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F2401964860700147DEB /* VersionManager.m */; };
 		96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */; };
+		96E5BA8919BE544B008F2174 /* TaskTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E5BA8819BE544B008F2174 /* TaskTabBarController.m */; };
+		96E5BA8C19BE548C008F2174 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E5BA8B19BE548C008F2174 /* UsersViewController.m */; };
+		96DCACB819C78EAD00A1460E /* AuthValidationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DCACB719C78EAD00A1460E /* AuthValidationViewController.m */; };
+		96DCACBC19C895CC00A1460E /* InviteContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DCACBB19C895CC00A1460E /* InviteContactViewController.m */; };
+		96DCACBF19C8A95B00A1460E /* ContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DCACBE19C8A95B00A1460E /* ContactManager.m */; };
+		96DCACC219C8A9BF00A1460E /* AddressBookContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DCACC119C8A9BF00A1460E /* AddressBookContact.m */; };
+		96DCACC419C8B36500A1460E /* blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 96DCACC319C8B36500A1460E /* blacklist.txt */; };
 		96F0B5D5195882F70001A204 /* EditAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F0B5D4195882F70001A204 /* EditAvatarImageView.m */; };
+		96F75E3719C7818F00C3EB30 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F75E3619C7818F00C3EB30 /* AuthenticationViewController.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
 		CB0418611948C59600B3DE97 /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */; };
 		CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0418641949310300B3DE97 /* DepartmentsTableViewController.m */; };
@@ -251,8 +259,23 @@
 		96D4F2401964860700147DEB /* VersionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionManager.m; sourceTree = "<group>"; };
 		96DB2DFC19539E27005E1F93 /* OnboardSelectManagersViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectManagersViewControllers.h; sourceTree = "<group>"; };
 		96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectManagersViewControllers.m; sourceTree = "<group>"; };
+		96E5BA8719BE544B008F2174 /* TaskTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskTabBarController.h; sourceTree = "<group>"; };
+		96E5BA8819BE544B008F2174 /* TaskTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskTabBarController.m; sourceTree = "<group>"; };
+		96E5BA8A19BE548C008F2174 /* UsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
+		96E5BA8B19BE548C008F2174 /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
+		96DCACB619C78EAD00A1460E /* AuthValidationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthValidationViewController.h; sourceTree = "<group>"; };
+		96DCACB719C78EAD00A1460E /* AuthValidationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthValidationViewController.m; sourceTree = "<group>"; };
+		96DCACBA19C895CC00A1460E /* InviteContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteContactViewController.h; sourceTree = "<group>"; };
+		96DCACBB19C895CC00A1460E /* InviteContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteContactViewController.m; sourceTree = "<group>"; };
+		96DCACBD19C8A95B00A1460E /* ContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactManager.h; sourceTree = "<group>"; };
+		96DCACBE19C8A95B00A1460E /* ContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactManager.m; sourceTree = "<group>"; };
+		96DCACC019C8A9BF00A1460E /* AddressBookContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookContact.h; sourceTree = "<group>"; };
+		96DCACC119C8A9BF00A1460E /* AddressBookContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookContact.m; sourceTree = "<group>"; };
+		96DCACC319C8B36500A1460E /* blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blacklist.txt; sourceTree = "<group>"; };
 		96F0B5D3195882F70001A204 /* EditAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAvatarImageView.h; sourceTree = "<group>"; };
 		96F0B5D4195882F70001A204 /* EditAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAvatarImageView.m; sourceTree = "<group>"; };
+		96F75E3519C7818F00C3EB30 /* AuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationViewController.h; sourceTree = "<group>"; };
+		96F75E3619C7818F00C3EB30 /* AuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
 		CB04185D1948C59600B3DE97 /* ContactInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoTableViewCell.h; sourceTree = "<group>"; };
 		CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoTableViewCell.m; sourceTree = "<group>"; };
 		CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -439,6 +462,8 @@
 		964839811958A1D900E4792A /* other */ = {
 			isa = PBXGroup;
 			children = (
+				96DCACBD19C8A95B00A1460E /* ContactManager.h */,
+				96DCACBE19C8A95B00A1460E /* ContactManager.m */,
 				968436361961E3FD0001259F /* CommonMacros.h */,
 				968436371961E3FD0001259F /* CommonMacros.m */,
 				9624690119B7B7E300924100 /* ReadReceipt.h */,
@@ -572,6 +597,15 @@
 			name = analytics;
 			sourceTree = "<group>";
 		};
+		96DCACB919C8945700A1460E /* invite */ = {
+			isa = PBXGroup;
+			children = (
+				96DCACBA19C895CC00A1460E /* InviteContactViewController.h */,
+				96DCACBB19C895CC00A1460E /* InviteContactViewController.m */,
+			);
+			name = invite;
+			sourceTree = "<group>";
+		};
 		CB041862194930E000B3DE97 /* departments */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +620,7 @@
 		CBA5D0731936BAE40044BBCC /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				96DCACC319C8B36500A1460E /* blacklist.txt */,
 				CBB53205195CCE3200E33724 /* Crashlytics.framework */,
 				CBB5183F194A3F25001C2E0C /* SDCEmbeddedSegmentSegue */,
 				CBA5D0711936B8FA0044BBCC /* Reveal.framework */,
@@ -791,6 +826,8 @@
 				CB041867194A2FFE00B3DE97 /* Department.m */,
 				96A08888195B2171008F329E /* Device.h */,
 				96A08889195B2171008F329E /* Device.m */,
+				96DCACC019C8A9BF00A1460E /* AddressBookContact.h */,
+				96DCACC119C8A9BF00A1460E /* AddressBookContact.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -798,6 +835,7 @@
 		CBBA68DF192FE12A005A6949 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				96DCACB919C8945700A1460E /* invite */,
 				96467B7E195A003500B45C5D /* offices */,
 				96C2CF9C19577ED000E77CFD /* settings */,
 				96696338194E25FC003B22B5 /* onboard */,
@@ -814,6 +852,10 @@
 		CBBA68E3192FE17C005A6949 /* login */ = {
 			isa = PBXGroup;
 			children = (
+				96F75E3519C7818F00C3EB30 /* AuthenticationViewController.h */,
+				96F75E3619C7818F00C3EB30 /* AuthenticationViewController.m */,
+				96DCACB619C78EAD00A1460E /* AuthValidationViewController.h */,
+				96DCACB719C78EAD00A1460E /* AuthValidationViewController.m */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -965,6 +1007,7 @@
 				CBA5D0791936BB2B0044BBCC /* Whitney-Medium.otf in Resources */,
 				CBBA686F192FD646005A6949 /* InfoPlist.strings in Resources */,
 				CB1F31CA19325D8600CDCFD4 /* ContactViewController.xib in Resources */,
+				96DCACC419C8B36500A1460E /* blacklist.txt in Resources */,
 				CBBA687A192FD646005A6949 /* Images.xcassets in Resources */,
 				CB1F31D11932746F00CDCFD4 /* AccountViewController.xib in Resources */,
 				CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */,
@@ -1060,6 +1103,8 @@
 				96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */,
 				CB1F31D01932746F00CDCFD4 /* AccountViewController.m in Sources */,
 				964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */,
+				96DCACC219C8A9BF00A1460E /* AddressBookContact.m in Sources */,
+				96F75E3719C7818F00C3EB30 /* AuthenticationViewController.m in Sources */,
 				96D4F2411964860700147DEB /* VersionManager.m in Sources */,
 				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
 				964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */,
@@ -1115,8 +1160,10 @@
 				CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */,
 				CB0E71A8194897B0002B2B58 /* ContactDetailsDataSource.m in Sources */,
 				96B69EEA197D60EF008A7D1B /* TRFayeClient.m in Sources */,
+				96DCACB819C78EAD00A1460E /* AuthValidationViewController.m in Sources */,
 				9647ACA4194AD89300F6A4AF /* Theme.m in Sources */,
 				96091B12195DFAA900D135A3 /* TRInitialView.m in Sources */,
+				96DCACBF19C8A95B00A1460E /* ContactManager.m in Sources */,
 				964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */,
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
 				9684363A1961E3FD0001259F /* CommonMacros.m in Sources */,
@@ -1125,6 +1172,7 @@
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,
 				96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */,
 				CBBA68AB192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m in Sources */,
+				96DCACBC19C895CC00A1460E /* InviteContactViewController.m in Sources */,
 				9624690319B7B7E300924100 /* ReadReceipt.m in Sources */,
 				CBBA6878192FD646005A6949 /* Headshot.xcdatamodeld in Sources */,
 				CB1F31C919325D8600CDCFD4 /* ContactViewController.m in Sources */,

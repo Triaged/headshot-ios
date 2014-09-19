@@ -17,6 +17,8 @@
 #import "NotificationManager.h"
 #import "OnboardNavigationController.h"
 #import "MessageThreadViewController.h"
+#import "AuthenticationViewController.h"
+#import "InviteContactViewController.h"
 #import "MailComposer.h"
 #import "VersionManager.h"
 #import "FileLogManager.h"
@@ -108,7 +110,8 @@
     else {
         [self showLogin];
     }
-
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[InviteContactViewController new]];
+//    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
 }
 
