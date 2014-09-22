@@ -17,6 +17,7 @@
 		9624690319B7B7E300924100 /* ReadReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 9624690219B7B7E300924100 /* ReadReceipt.m */; };
 		962FD81A1959DCEB00A313AC /* UIImage+SolidColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */; };
 		962FD81D1959E2E000A313AC /* TRSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FD81C1959E2E000A313AC /* TRSearchBar.m */; };
+		9631D33C19C9E3D500BF381A /* CenterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9631D33B19C9E3D500BF381A /* CenterButton.m */; };
 		96467B81195A01D000B45C5D /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96467B80195A01D000B45C5D /* OfficesViewController.m */; };
 		96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96467B83195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m */; };
 		9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA0194AD89300F6A4AF /* DefaultTheme.m */; };
@@ -175,6 +176,8 @@
 		962FD8191959DCEB00A313AC /* UIImage+SolidColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SolidColor.m"; sourceTree = "<group>"; };
 		962FD81B1959E2E000A313AC /* TRSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSearchBar.h; sourceTree = "<group>"; };
 		962FD81C1959E2E000A313AC /* TRSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRSearchBar.m; sourceTree = "<group>"; };
+		9631D33A19C9E3D500BF381A /* CenterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterButton.h; sourceTree = "<group>"; };
+		9631D33B19C9E3D500BF381A /* CenterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterButton.m; sourceTree = "<group>"; };
 		96467B7F195A01D000B45C5D /* OfficesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficesViewController.h; sourceTree = "<group>"; };
 		96467B80195A01D000B45C5D /* OfficesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficesViewController.m; sourceTree = "<group>"; };
 		96467B82195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PresentWithNavigationViewController.h"; sourceTree = "<group>"; };
@@ -533,6 +536,8 @@
 				96091B11195DFAA900D135A3 /* TRInitialView.m */,
 				96D37F4619608C7800212CDF /* TRAvatarImageView.h */,
 				96D37F4719608C7800212CDF /* TRAvatarImageView.m */,
+				9631D33A19C9E3D500BF381A /* CenterButton.h */,
+				9631D33B19C9E3D500BF381A /* CenterButton.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -973,7 +978,7 @@
 				ORGANIZATIONNAME = "Charlie White";
 				TargetAttributes = {
 					CBBA685E192FD646005A6949 = {
-						DevelopmentTeam = BYN4J9R5G7;
+						DevelopmentTeam = 5CQDN7GAK9;
 					};
 					CBBA687E192FD646005A6949 = {
 						TestTargetID = CBBA685E192FD646005A6949;
@@ -1158,6 +1163,7 @@
 				CB041868194A2FFE00B3DE97 /* Department.m in Sources */,
 				CB354D34194B710E00E537C2 /* Company.m in Sources */,
 				CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */,
+				9631D33C19C9E3D500BF381A /* CenterButton.m in Sources */,
 				CB0E71A8194897B0002B2B58 /* ContactDetailsDataSource.m in Sources */,
 				96B69EEA197D60EF008A7D1B /* TRFayeClient.m in Sources */,
 				96DCACB819C78EAD00A1460E /* AuthValidationViewController.m in Sources */,
@@ -1284,7 +1290,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0A1CFD2A-8232-493E-B847-F39116986A53";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = InternalRelease;
@@ -1404,7 +1410,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1433,7 +1439,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0A1CFD2A-8232-493E-B847-F39116986A53";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
