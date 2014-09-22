@@ -936,7 +936,7 @@
 				ORGANIZATIONNAME = "Charlie White";
 				TargetAttributes = {
 					CBBA685E192FD646005A6949 = {
-						DevelopmentTeam = BYN4J9R5G7;
+						DevelopmentTeam = 5CQDN7GAK9;
 					};
 					CBBA687E192FD646005A6949 = {
 						TestTargetID = CBBA685E192FD646005A6949;
@@ -1242,7 +1242,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0A1CFD2A-8232-493E-B847-F39116986A53";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = InternalRelease;
@@ -1362,7 +1362,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1391,7 +1391,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0A1CFD2A-8232-493E-B847-F39116986A53";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
