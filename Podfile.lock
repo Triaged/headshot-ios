@@ -124,7 +124,7 @@ DEPENDENCIES:
   - ECPhoneNumberFormatter (from `https://github.com/enriquez/ECPhoneNumberFormatter.git`)
   - FLEX
   - FXBlurView (~> 1.6.2)
-  - INTULocationManager
+  - INTULocationManager (~> 1.2.0)
   - JACenterButton (from `https://github.com/jma256/JACenterButton.git`, commit `0d3dd00a1437c1b668ff75dd3fa968745c10e40a`)
   - JSQMessagesViewController (from `https://github.com/jma256/JSQMessagesViewController.git`, commit `0be73a9e2cf7e64b5e9972e15b2378a8bda00152`)
   - MagicalRecord
