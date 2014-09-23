@@ -46,6 +46,7 @@
 		969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */; };
 		96A0888A195B2171008F329E /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A08889195B2171008F329E /* Device.m */; };
 		96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */; };
+		96AA758D19D1E87900ABA4F2 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AA758C19D1E87900ABA4F2 /* Launch Screen.xib */; };
 		96B69EE7197D5E5A008A7D1B /* MessageClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B69EE6197D5E5A008A7D1B /* MessageClient.m */; };
 		96B69EEA197D60EF008A7D1B /* TRFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B69EE9197D60EF008A7D1B /* TRFayeClient.m */; };
 		96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */; };
@@ -227,6 +228,7 @@
 		96A0888B195B42AD008F329E /* TRKeyboardAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRKeyboardAccessoryView.h; sourceTree = "<group>"; };
 		96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRKeyboardAccessoryView.m; sourceTree = "<group>"; };
 		96A0888E195B4648008F329E /* TRUIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRUIKit.h; sourceTree = "<group>"; };
+		96AA758C19D1E87900ABA4F2 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		96B69EE5197D5E5A008A7D1B /* MessageClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageClient.h; sourceTree = "<group>"; };
 		96B69EE6197D5E5A008A7D1B /* MessageClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageClient.m; sourceTree = "<group>"; };
 		96B69EE8197D60EF008A7D1B /* TRFayeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFayeClient.h; sourceTree = "<group>"; };
@@ -707,6 +709,7 @@
 				CBBA6879192FD646005A6949 /* Images.xcassets */,
 				CBBA6876192FD646005A6949 /* Headshot.xcdatamodeld */,
 				CBBA686B192FD646005A6949 /* Supporting Files */,
+				96AA758C19D1E87900ABA4F2 /* Launch Screen.xib */,
 			);
 			path = "Headshot-ios";
 			sourceTree = "<group>";
@@ -975,6 +978,7 @@
 				CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */,
 				CBA5D07A1936BB2D0044BBCC /* Whitney-Semibold.otf in Resources */,
 				CB0E71B01948BA5E002B2B58 /* ContactSectionViewController.xib in Resources */,
+				96AA758D19D1E87900ABA4F2 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
