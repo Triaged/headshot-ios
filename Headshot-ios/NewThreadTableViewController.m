@@ -66,7 +66,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     
-    self.tokenField = [[VENTokenField alloc] initWithFrame:CGRectMake(0, 0, 320, 55)];
+    self.tokenField = [[VENTokenField alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 55)];
     self.tokenField.returnKeyType = UIReturnKeyNext;
     self.tokenField.maxHeight = 55;
     [self.tokenField setColorScheme:[[ThemeManager sharedTheme] orangeColor]];
