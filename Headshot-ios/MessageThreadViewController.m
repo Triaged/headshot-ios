@@ -198,7 +198,8 @@
 
 - (UIView *)infoToolBarForMessageThread:(MessageThread *)messageThread
 {
-    UIView *toolBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 56)];
+    UIView *toolBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.groupInfoViewController.tableView.width, 56)];
+    toolBarBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
     
     NSArray *buttons;
@@ -208,7 +209,7 @@
     else {
         buttons = @[self.addMembersButton, self.muteButton];
     }
-    CGSize buttonSize = CGSizeMake(self.view.width/buttons.count, toolBarBackground.height);
+    CGSize buttonSize = CGSizeMake(toolBarBackground.width/buttons.count, toolBarBackground.height);
     [buttons enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         CenterButton *button = (CenterButton *)obj;
         button.size = buttonSize;
@@ -216,6 +217,7 @@
         button.padding = 2;
         [button setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
         button.titleLabel.font = [ThemeManager regularFontOfSize:9];
+        button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [toolBarBackground addSubview:button];
         if (idx < 2) {
             [button addEdge:UIRectEdgeRight width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
