@@ -23,6 +23,7 @@
 - (void)stop;
 - (void)subscribeForUserID:(NSString *)userID;
 - (void)sendMessage:(Message *)message withCompletion:(void (^)(Message *message, NSError *error))completion;
+- (void)postReceipts:(NSArray *)receipts withCompletion:(void (^)(NSArray *receipts, NSError *error))completion;
 - (void)postMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion;
 - (void)refreshMessagesWithCompletion:(void (^)(NSArray *messages, NSArray *createdMessages, NSArray *createdMessageThreads, NSError *error))completion;
 - (void)getMessagesSinceDate:(NSDate *)date completion:(void (^)(NSArray *messages, NSArray *createdMessages, NSArray *createdMessageThreads, NSError *error))completion;

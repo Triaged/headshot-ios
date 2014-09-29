@@ -68,16 +68,18 @@
             [createdReceipts addObject:readReceipt];
             message.userReadReceipt = readReceipt;
         }
-        [ReadReceipt postReceipts:createdReceipts withCompletion:^(NSArray *receipts, NSError *error) {
-            if (!error) {
-                for (ReadReceipt *receipt in receipts) {
-                    receipt.acknowledged = @(YES);
+        if (createdReceipts.count) {
+            [[MessageClient sharedClient] postReceipts:createdReceipts withCompletion:^(NSArray *receipts, NSError *error) {
+                if (!error) {
+                    for (ReadReceipt *receipt in receipts) {
+                        receipt.acknowledged = @(YES);
+                    }
                 }
-            }
-            self.unread = @(NO);
-            [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kMarkedMessageThreadAsReadNotification object:nil userInfo:nil];
-        }];
+                self.unread = @(NO);
+                [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kMarkedMessageThreadAsReadNotification object:nil userInfo:nil];
+            }];
+        }
     }
 }
 

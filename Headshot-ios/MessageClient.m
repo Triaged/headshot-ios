@@ -108,6 +108,30 @@
     [self.fayeClient subscribeToChannel:channel autoSubscribe:YES];
 }
 
+- (void)postReceipts:(NSArray *)receipts withCompletion:(void (^)(NSArray *receipts, NSError *error))completion
+{
+    
+//    right now we assume all the receipts to be on the same thread
+    ReadReceipt *receipt = [receipts firstObject];
+    NSString *channel = [NSString stringWithFormat:@"/threads/messages/%@", receipt.message.messageThread.identifier];
+    NSMutableArray *receiptJSON = [[NSMutableArray alloc] init];
+    for (ReadReceipt *receipt in receipts) {
+        NSDictionary *jsonValue = @{@"thread_id" : receipt.message.messageThread.identifier, @"message_id" : receipt.message.messageID, @"user_id" : [AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier, @"timestamp" : @(receipt.timestamp.timeIntervalSince1970)};
+        [receiptJSON addObject:jsonValue];
+    }
+    NSDictionary *parameters = @{@"receipts" : receiptJSON};
+    [self.fayeClient sendMessage:parameters toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
+        if (completion) {
+            if (!error) {
+                completion(nil, error);
+            }
+            else {
+                completion(receipts, nil);
+            }
+        }
+    }];
+}
+
 - (void)sendMessage:(Message *)message withCompletion:(void (^)(Message *message, NSError *error))completion
 {
 //    add guuid to message
