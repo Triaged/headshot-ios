@@ -46,8 +46,12 @@
 		969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */; };
 		96A0888A195B2171008F329E /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A08889195B2171008F329E /* Device.m */; };
 		96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */; };
+		96AA758D19D1E87900ABA4F2 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AA758C19D1E87900ABA4F2 /* Launch Screen.xib */; };
 		96B69EE7197D5E5A008A7D1B /* MessageClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B69EE6197D5E5A008A7D1B /* MessageClient.m */; };
 		96B69EEA197D60EF008A7D1B /* TRFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B69EE9197D60EF008A7D1B /* TRFayeClient.m */; };
+		96BF1D1E19DC75AB001A7908 /* InviteContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BF1D1D19DC75AB001A7908 /* InviteContactViewController.m */; };
+		96BF1D2119DC75CA001A7908 /* ContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BF1D2019DC75CA001A7908 /* ContactManager.m */; };
+		96BF1D2419DC75F1001A7908 /* AddressBookContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BF1D2319DC75F1001A7908 /* AddressBookContact.m */; };
 		96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */; };
 		96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9E19577EE300E77CFD /* SettingsViewController.m */; };
 		96D1D564199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1D563199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m */; };
@@ -59,15 +63,7 @@
 		96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F23D196465E800147DEB /* AnalyticsManager.m */; };
 		96D4F2411964860700147DEB /* VersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F2401964860700147DEB /* VersionManager.m */; };
 		96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */; };
-		96E5BA8919BE544B008F2174 /* TaskTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E5BA8819BE544B008F2174 /* TaskTabBarController.m */; };
-		96E5BA8C19BE548C008F2174 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E5BA8B19BE548C008F2174 /* UsersViewController.m */; };
-		96DCACB819C78EAD00A1460E /* AuthValidationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DCACB719C78EAD00A1460E /* AuthValidationViewController.m */; };
-		96DCACBC19C895CC00A1460E /* InviteContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DCACBB19C895CC00A1460E /* InviteContactViewController.m */; };
-		96DCACBF19C8A95B00A1460E /* ContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DCACBE19C8A95B00A1460E /* ContactManager.m */; };
-		96DCACC219C8A9BF00A1460E /* AddressBookContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DCACC119C8A9BF00A1460E /* AddressBookContact.m */; };
-		96DCACC419C8B36500A1460E /* blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 96DCACC319C8B36500A1460E /* blacklist.txt */; };
 		96F0B5D5195882F70001A204 /* EditAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F0B5D4195882F70001A204 /* EditAvatarImageView.m */; };
-		96F75E3719C7818F00C3EB30 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F75E3619C7818F00C3EB30 /* AuthenticationViewController.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
 		CB0418611948C59600B3DE97 /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */; };
 		CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0418641949310300B3DE97 /* DepartmentsTableViewController.m */; };
@@ -154,7 +150,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		30B39923FA64452EB4653D38 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		24F28719E1B0CD684AF136D1 /* Pods.internalrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.internalrelease.xcconfig; path = "Pods/Target Support Files/Pods/Pods.internalrelease.xcconfig"; sourceTree = "<group>"; };
 		426C573043D24799B16F4828 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9601767E19912428002F819B /* SoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundPlayer.h; sourceTree = "<group>"; };
 		9601767F19912428002F819B /* SoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundPlayer.m; sourceTree = "<group>"; };
@@ -235,11 +231,18 @@
 		96A0888B195B42AD008F329E /* TRKeyboardAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRKeyboardAccessoryView.h; sourceTree = "<group>"; };
 		96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRKeyboardAccessoryView.m; sourceTree = "<group>"; };
 		96A0888E195B4648008F329E /* TRUIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRUIKit.h; sourceTree = "<group>"; };
+		96AA758C19D1E87900ABA4F2 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		96B69EE5197D5E5A008A7D1B /* MessageClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageClient.h; sourceTree = "<group>"; };
 		96B69EE6197D5E5A008A7D1B /* MessageClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageClient.m; sourceTree = "<group>"; };
 		96B69EE8197D60EF008A7D1B /* TRFayeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFayeClient.h; sourceTree = "<group>"; };
 		96B69EE9197D60EF008A7D1B /* TRFayeClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFayeClient.m; sourceTree = "<group>"; };
 		96BDD4D2197994500032F21B /* HTTPStatusCodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPStatusCodes.h; sourceTree = "<group>"; };
+		96BF1D1C19DC75AB001A7908 /* InviteContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteContactViewController.h; sourceTree = "<group>"; };
+		96BF1D1D19DC75AB001A7908 /* InviteContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteContactViewController.m; sourceTree = "<group>"; };
+		96BF1D1F19DC75CA001A7908 /* ContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactManager.h; sourceTree = "<group>"; };
+		96BF1D2019DC75CA001A7908 /* ContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactManager.m; sourceTree = "<group>"; };
+		96BF1D2219DC75F1001A7908 /* AddressBookContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookContact.h; sourceTree = "<group>"; };
+		96BF1D2319DC75F1001A7908 /* AddressBookContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookContact.m; sourceTree = "<group>"; };
 		96C2CF9919577EBC00E77CFD /* EditAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAccountViewController.h; sourceTree = "<group>"; };
 		96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAccountViewController.m; sourceTree = "<group>"; };
 		96C2CF9D19577EE300E77CFD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -262,23 +265,9 @@
 		96D4F2401964860700147DEB /* VersionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionManager.m; sourceTree = "<group>"; };
 		96DB2DFC19539E27005E1F93 /* OnboardSelectManagersViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectManagersViewControllers.h; sourceTree = "<group>"; };
 		96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectManagersViewControllers.m; sourceTree = "<group>"; };
-		96E5BA8719BE544B008F2174 /* TaskTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskTabBarController.h; sourceTree = "<group>"; };
-		96E5BA8819BE544B008F2174 /* TaskTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskTabBarController.m; sourceTree = "<group>"; };
-		96E5BA8A19BE548C008F2174 /* UsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
-		96E5BA8B19BE548C008F2174 /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
-		96DCACB619C78EAD00A1460E /* AuthValidationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthValidationViewController.h; sourceTree = "<group>"; };
-		96DCACB719C78EAD00A1460E /* AuthValidationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthValidationViewController.m; sourceTree = "<group>"; };
-		96DCACBA19C895CC00A1460E /* InviteContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteContactViewController.h; sourceTree = "<group>"; };
-		96DCACBB19C895CC00A1460E /* InviteContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteContactViewController.m; sourceTree = "<group>"; };
-		96DCACBD19C8A95B00A1460E /* ContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactManager.h; sourceTree = "<group>"; };
-		96DCACBE19C8A95B00A1460E /* ContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactManager.m; sourceTree = "<group>"; };
-		96DCACC019C8A9BF00A1460E /* AddressBookContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookContact.h; sourceTree = "<group>"; };
-		96DCACC119C8A9BF00A1460E /* AddressBookContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookContact.m; sourceTree = "<group>"; };
-		96DCACC319C8B36500A1460E /* blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blacklist.txt; sourceTree = "<group>"; };
 		96F0B5D3195882F70001A204 /* EditAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAvatarImageView.h; sourceTree = "<group>"; };
 		96F0B5D4195882F70001A204 /* EditAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAvatarImageView.m; sourceTree = "<group>"; };
-		96F75E3519C7818F00C3EB30 /* AuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationViewController.h; sourceTree = "<group>"; };
-		96F75E3619C7818F00C3EB30 /* AuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
+		AE274651BF13A81CB96E3402 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CB04185D1948C59600B3DE97 /* ContactInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoTableViewCell.h; sourceTree = "<group>"; };
 		CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoTableViewCell.m; sourceTree = "<group>"; };
 		CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -389,6 +378,7 @@
 		CBBA68F9192FE26C005A6949 /* MessagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesTableViewController.m; sourceTree = "<group>"; };
 		CBBA68FB192FE474005A6949 /* ContactsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsDataSource.h; sourceTree = "<group>"; };
 		CBBA68FC192FE474005A6949 /* ContactsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsDataSource.m; sourceTree = "<group>"; };
+		E217BAA48C987644C8190755 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -433,6 +423,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21D68D49A83087645763E28B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E217BAA48C987644C8190755 /* Pods.debug.xcconfig */,
+				AE274651BF13A81CB96E3402 /* Pods.release.xcconfig */,
+				24F28719E1B0CD684AF136D1 /* Pods.internalrelease.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9601767D199123D9002F819B /* sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,8 +465,8 @@
 		964839811958A1D900E4792A /* other */ = {
 			isa = PBXGroup;
 			children = (
-				96DCACBD19C8A95B00A1460E /* ContactManager.h */,
-				96DCACBE19C8A95B00A1460E /* ContactManager.m */,
+				96BF1D1F19DC75CA001A7908 /* ContactManager.h */,
+				96BF1D2019DC75CA001A7908 /* ContactManager.m */,
 				968436361961E3FD0001259F /* CommonMacros.h */,
 				968436371961E3FD0001259F /* CommonMacros.m */,
 				9624690119B7B7E300924100 /* ReadReceipt.h */,
@@ -602,15 +602,6 @@
 			name = analytics;
 			sourceTree = "<group>";
 		};
-		96DCACB919C8945700A1460E /* invite */ = {
-			isa = PBXGroup;
-			children = (
-				96DCACBA19C895CC00A1460E /* InviteContactViewController.h */,
-				96DCACBB19C895CC00A1460E /* InviteContactViewController.m */,
-			);
-			name = invite;
-			sourceTree = "<group>";
-		};
 		CB041862194930E000B3DE97 /* departments */ = {
 			isa = PBXGroup;
 			children = (
@@ -625,7 +616,6 @@
 		CBA5D0731936BAE40044BBCC /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				96DCACC319C8B36500A1460E /* blacklist.txt */,
 				CBB53205195CCE3200E33724 /* Crashlytics.framework */,
 				CBB5183F194A3F25001C2E0C /* SDCEmbeddedSegmentSegue */,
 				CBA5D0711936B8FA0044BBCC /* Reveal.framework */,
@@ -680,7 +670,7 @@
 				CBBA6887192FD646005A6949 /* Headshot-iosTests */,
 				CBBA6861192FD646005A6949 /* Frameworks */,
 				CBBA6860192FD646005A6949 /* Products */,
-				30B39923FA64452EB4653D38 /* Pods.xcconfig */,
+				21D68D49A83087645763E28B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -742,6 +732,7 @@
 				CBBA6879192FD646005A6949 /* Images.xcassets */,
 				CBBA6876192FD646005A6949 /* Headshot.xcdatamodeld */,
 				CBBA686B192FD646005A6949 /* Supporting Files */,
+				96AA758C19D1E87900ABA4F2 /* Launch Screen.xib */,
 			);
 			path = "Headshot-ios";
 			sourceTree = "<group>";
@@ -813,6 +804,8 @@
 		CBBA68BD192FDDBE005A6949 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				96BF1D2219DC75F1001A7908 /* AddressBookContact.h */,
+				96BF1D2319DC75F1001A7908 /* AddressBookContact.m */,
 				CB1F31AA1931599100CDCFD4 /* Message.h */,
 				CB1F31AB1931599100CDCFD4 /* Message.m */,
 				CB1F31A71931599000CDCFD4 /* MessageThread.h */,
@@ -831,8 +824,6 @@
 				CB041867194A2FFE00B3DE97 /* Department.m */,
 				96A08888195B2171008F329E /* Device.h */,
 				96A08889195B2171008F329E /* Device.m */,
-				96DCACC019C8A9BF00A1460E /* AddressBookContact.h */,
-				96DCACC119C8A9BF00A1460E /* AddressBookContact.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -840,7 +831,6 @@
 		CBBA68DF192FE12A005A6949 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				96DCACB919C8945700A1460E /* invite */,
 				96467B7E195A003500B45C5D /* offices */,
 				96C2CF9C19577ED000E77CFD /* settings */,
 				96696338194E25FC003B22B5 /* onboard */,
@@ -857,10 +847,8 @@
 		CBBA68E3192FE17C005A6949 /* login */ = {
 			isa = PBXGroup;
 			children = (
-				96F75E3519C7818F00C3EB30 /* AuthenticationViewController.h */,
-				96F75E3619C7818F00C3EB30 /* AuthenticationViewController.m */,
-				96DCACB619C78EAD00A1460E /* AuthValidationViewController.h */,
-				96DCACB719C78EAD00A1460E /* AuthValidationViewController.m */,
+				96BF1D1C19DC75AB001A7908 /* InviteContactViewController.h */,
+				96BF1D1D19DC75AB001A7908 /* InviteContactViewController.m */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -1012,12 +1000,12 @@
 				CBA5D0791936BB2B0044BBCC /* Whitney-Medium.otf in Resources */,
 				CBBA686F192FD646005A6949 /* InfoPlist.strings in Resources */,
 				CB1F31CA19325D8600CDCFD4 /* ContactViewController.xib in Resources */,
-				96DCACC419C8B36500A1460E /* blacklist.txt in Resources */,
 				CBBA687A192FD646005A6949 /* Images.xcassets in Resources */,
 				CB1F31D11932746F00CDCFD4 /* AccountViewController.xib in Resources */,
 				CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */,
 				CBA5D07A1936BB2D0044BBCC /* Whitney-Semibold.otf in Resources */,
 				CB0E71B01948BA5E002B2B58 /* ContactSectionViewController.xib in Resources */,
+				96AA758D19D1E87900ABA4F2 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1044,7 +1032,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3D427745FCDA4F7BBBB64A29 /* Check Pods Manifest.lock */ = {
@@ -1099,6 +1087,7 @@
 				96696337194E2018003B22B5 /* FormView.m in Sources */,
 				CBB5183D194A3F04001C2E0C /* SDCEmbeddedSegmentSegue.m in Sources */,
 				96A0888A195B2171008F329E /* Device.m in Sources */,
+				96BF1D2119DC75CA001A7908 /* ContactManager.m in Sources */,
 				96D4F23A196463DE00147DEB /* UIViewController+BackViewController.m in Sources */,
 				CBBA68DE192FE0B5005A6949 /* User.m in Sources */,
 				CBBA6875192FD646005A6949 /* AppDelegate.m in Sources */,
@@ -1108,8 +1097,6 @@
 				96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */,
 				CB1F31D01932746F00CDCFD4 /* AccountViewController.m in Sources */,
 				964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */,
-				96DCACC219C8A9BF00A1460E /* AddressBookContact.m in Sources */,
-				96F75E3719C7818F00C3EB30 /* AuthenticationViewController.m in Sources */,
 				96D4F2411964860700147DEB /* VersionManager.m in Sources */,
 				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
 				964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */,
@@ -1131,6 +1118,7 @@
 				964A6BD7194E31C40024B3C2 /* OnboardUserDetailsViewController.m in Sources */,
 				96696330194B5061003B22B5 /* NotificationManager.m in Sources */,
 				964A6BE0194E66480024B3C2 /* OnboardSelectOfficeViewController.m in Sources */,
+				96BF1D1E19DC75AB001A7908 /* InviteContactViewController.m in Sources */,
 				CBBA68DB192FE0B5005A6949 /* Account.m in Sources */,
 				CB04186B194A338900B3DE97 /* DepartmentContactsTableViewController.m in Sources */,
 				96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */,
@@ -1166,10 +1154,9 @@
 				9631D33C19C9E3D500BF381A /* CenterButton.m in Sources */,
 				CB0E71A8194897B0002B2B58 /* ContactDetailsDataSource.m in Sources */,
 				96B69EEA197D60EF008A7D1B /* TRFayeClient.m in Sources */,
-				96DCACB819C78EAD00A1460E /* AuthValidationViewController.m in Sources */,
 				9647ACA4194AD89300F6A4AF /* Theme.m in Sources */,
+				96BF1D2419DC75F1001A7908 /* AddressBookContact.m in Sources */,
 				96091B12195DFAA900D135A3 /* TRInitialView.m in Sources */,
-				96DCACBF19C8A95B00A1460E /* ContactManager.m in Sources */,
 				964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */,
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
 				9684363A1961E3FD0001259F /* CommonMacros.m in Sources */,
@@ -1178,7 +1165,6 @@
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,
 				96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */,
 				CBBA68AB192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m in Sources */,
-				96DCACBC19C895CC00A1460E /* InviteContactViewController.m in Sources */,
 				9624690319B7B7E300924100 /* ReadReceipt.m in Sources */,
 				CBBA6878192FD646005A6949 /* Headshot.xcdatamodeld in Sources */,
 				CB1F31C919325D8600CDCFD4 /* ContactViewController.m in Sources */,
@@ -1268,7 +1254,7 @@
 		};
 		9646025519956E7900979929 /* InternalRelease */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30B39923FA64452EB4653D38 /* Pods.xcconfig */;
+			baseConfigurationReference = 24F28719E1B0CD684AF136D1 /* Pods.internalrelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1287,6 +1273,7 @@
 					"-ObjC",
 					"-Xlinker",
 					"-lstdc++",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0A1CFD2A-8232-493E-B847-F39116986A53";
@@ -1388,7 +1375,7 @@
 		};
 		CBBA6892192FD646005A6949 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30B39923FA64452EB4653D38 /* Pods.xcconfig */;
+			baseConfigurationReference = E217BAA48C987644C8190755 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1407,6 +1394,7 @@
 					"-ObjC",
 					"-Xlinker",
 					"-lstdc++",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1417,7 +1405,7 @@
 		};
 		CBBA6893192FD646005A6949 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30B39923FA64452EB4653D38 /* Pods.xcconfig */;
+			baseConfigurationReference = AE274651BF13A81CB96E3402 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1436,6 +1424,7 @@
 					"-ObjC",
 					"-Xlinker",
 					"-lstdc++",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0A1CFD2A-8232-493E-B847-F39116986A53";

@@ -111,7 +111,7 @@
         [self showLogin];
     }
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[InviteContactViewController new]];
-//    self.window.rootViewController = nav;
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
 }
 

@@ -24,17 +24,20 @@
         _nameLabel.numberOfLines = 1;
         [self.contentView addSubview: _nameLabel];
         
-        _countLabel = [[UILabel alloc] initWithFrame: CGRectMake(255, 0, 30, 55)];
+        self.accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 52, 55)];
+        
+        _countLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 30, 55)];
         [_countLabel setFont: [UIFont fontWithName:@"Whitney-Medium" size:17.0]];
         _countLabel.textColor = [[UIColor alloc] initWithRed:119.0f/255.0f green:119.0f/255.0f blue:119.0f/255.0f alpha:1.0f];
         [_countLabel setLineBreakMode: NSLineBreakByClipping];
         _countLabel.numberOfLines = 1;
         _countLabel.textAlignment = NSTextAlignmentRight;
-        [self.contentView addSubview: _countLabel];
+        [self.accessoryView addSubview: _countLabel];
         
         UIImageView *chevronView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list-chevron"]];
-        chevronView.frame = CGRectMake(300, 21.25, 7, 12.5);
-        [self.contentView addSubview: chevronView];
+        chevronView.centerY = self.accessoryView.height/2.0;
+        chevronView.x = 45;
+        [self.accessoryView addSubview: chevronView];
 
         
         
