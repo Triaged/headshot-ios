@@ -24,6 +24,7 @@
 #import "FileLogManager.h"
 #import "CrashManager.h"
 #import "WelcomeViewController.h"
+#import "AuthValidationViewController.h"
 
 
 @interface NSManagedObjectContext ()
@@ -111,9 +112,10 @@
     else {
         [self showLogin];
     }
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[InviteContactViewController new]];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[AuthValidationViewController new]];
     self.window.rootViewController = [WelcomeViewController new];
 //    self.window.rootViewController = nav;
+//    nav.navigationBar.translucent = NO;
     [self.window makeKeyAndVisible];
 }
 

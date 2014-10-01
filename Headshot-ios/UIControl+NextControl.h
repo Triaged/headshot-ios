@@ -11,5 +11,6 @@
 @interface UIControl (NextControl)
 
 @property (nonatomic, strong) UIControl *nextControl;
+@property (nonatomic, weak, readonly) UIControl *previousControl;
 
 @end

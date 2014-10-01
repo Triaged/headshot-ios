@@ -9,18 +9,25 @@
 #import "UIControl+NextControl.h"
 #import <objc/runtime.h>
 
-static char defaultHashKey;
+static char nextControlHashKey;
+static char previousControlHashKey;
 
 @implementation UIControl (NextControl)
 
 - (UITextField *)nextControl
 {
-    return objc_getAssociatedObject(self, &defaultHashKey);
+    return objc_getAssociatedObject(self, &nextControlHashKey);
+}
+
+- (UITextField *)previousControl
+{
+    return objc_getAssociatedObject(self, &previousControlHashKey);
 }
 
 - (void)setNextControl:(UITextField *)nextControl
 {
-    objc_setAssociatedObject(self, &defaultHashKey, nextControl, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &nextControlHashKey, nextControl, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(nextControl, &previousControlHashKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

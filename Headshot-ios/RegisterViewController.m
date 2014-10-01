@@ -189,7 +189,7 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
         authValidationViewController.userIdentifier = responseObject[@"id"];
         [self.navigationController pushViewController:authValidationViewController animated:YES];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        [SVProgressHUD dismiss];
     }];
 }
 

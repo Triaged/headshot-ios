@@ -43,6 +43,7 @@
 		966A84E719DC9EAC00E36720 /* UIControl+NextControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 966A84E619DC9EAC00E36720 /* UIControl+NextControl.m */; };
 		966A84EC19DCA18600E36720 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 966A84E919DCA18600E36720 /* AuthenticationViewController.m */; };
 		966A84ED19DCA18600E36720 /* AuthValidationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 966A84EB19DCA18600E36720 /* AuthValidationViewController.m */; };
+		966A84F019DCA46500E36720 /* CodeInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 966A84EF19DCA46500E36720 /* CodeInputView.m */; };
 		968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */; };
 		9684363A1961E3FD0001259F /* CommonMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436371961E3FD0001259F /* CommonMacros.m */; };
 		9684363B1961E3FD0001259F /* JAGrandCentralDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436391961E3FD0001259F /* JAGrandCentralDispatch.m */; };
@@ -228,6 +229,8 @@
 		966A84E919DCA18600E36720 /* AuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
 		966A84EA19DCA18600E36720 /* AuthValidationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthValidationViewController.h; sourceTree = "<group>"; };
 		966A84EB19DCA18600E36720 /* AuthValidationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthValidationViewController.m; sourceTree = "<group>"; };
+		966A84EE19DCA46500E36720 /* CodeInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeInputView.h; sourceTree = "<group>"; };
+		966A84EF19DCA46500E36720 /* CodeInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeInputView.m; sourceTree = "<group>"; };
 		968254DC195494770036955A /* NSDate+BadgeFormattedDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BadgeFormattedDate.h"; sourceTree = "<group>"; };
 		968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BadgeFormattedDate.m"; sourceTree = "<group>"; };
 		968436361961E3FD0001259F /* CommonMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMacros.h; sourceTree = "<group>"; };
@@ -553,6 +556,8 @@
 				96D37F4719608C7800212CDF /* TRAvatarImageView.m */,
 				9631D33A19C9E3D500BF381A /* CenterButton.h */,
 				9631D33B19C9E3D500BF381A /* CenterButton.m */,
+				966A84EE19DCA46500E36720 /* CodeInputView.h */,
+				966A84EF19DCA46500E36720 /* CodeInputView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -1184,6 +1189,7 @@
 				966A84EC19DCA18600E36720 /* AuthenticationViewController.m in Sources */,
 				964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */,
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
+				966A84F019DCA46500E36720 /* CodeInputView.m in Sources */,
 				9684363A1961E3FD0001259F /* CommonMacros.m in Sources */,
 				968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */,
 				CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */,

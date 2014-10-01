@@ -8,10 +8,13 @@
 
 #import "AuthValidationViewController.h"
 #import "HeadshotAPIClient.h"
+#import "CodeInputView.h"
 
-@interface AuthValidationViewController () <UITextFieldDelegate>
+@interface AuthValidationViewController () <UITextFieldDelegate, CodeInputViewDelegate>
 
+@property (strong, nonatomic) UILabel *label;
 @property (strong, nonatomic) UITextField *activationCodeTextField;
+@property (strong, nonatomic) CodeInputView *codeInputView;
 
 @end
 
@@ -20,19 +23,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"Verify Email";
     
-    self.activationCodeTextField = [[UITextField alloc] init];
-    [self.view addSubview:self.activationCodeTextField];
-    self.activationCodeTextField.size = CGSizeMake(200, 100);
-    self.activationCodeTextField.centerX = self.view.width/2.0;
-    self.activationCodeTextField.y = 100;
-    self.activationCodeTextField.placeholder = @"Activation Code";
-    self.activationCodeTextField.delegate = self;
+    self.label = [[UILabel alloc] init];
+    [self.view addSubview:self.label];
+    self.label.width = 256;
+    self.label.centerX = self.view.width/2.0;
+    self.label.y = 24;
+    self.label.text = @"We have sent you an email with a verification code. Please enter the 4-digit validation code.";
+    self.label.numberOfLines = 0;
+    self.label.font = [ThemeManager lightFontOfSize:18];
+    self.label.textColor = [UIColor colorWithRed:131/255.0 green:137/255.0 blue:148/255.0 alpha:1.0];
+    [self.label sizeToFit];
+
+    self.codeInputView = [[CodeInputView alloc] initWithCellSize:CGSizeMake(63, 57) horizontalGap:8 codeLength:4];
+    [self.view addSubview:self.codeInputView];
+    self.codeInputView.delegate = self;
+    self.codeInputView.font = [ThemeManager regularFontOfSize:30];
+    self.codeInputView.y = self.label.bottom + 45;
+    self.codeInputView.centerX = self.view.width/2.0;
 }
 
-- (void)activate
+- (void)viewWillAppear:(BOOL)animated
 {
-    NSString *code = self.activationCodeTextField.text;
+    [super viewWillAppear:animated];
+}
+
+- (void)activateWithCode:(NSString *)code
+{
     NSDictionary *parameters = @{@"auth_params" : @{
                                          @"id" : self.userIdentifier,
                                          @"challenge_code" : code
@@ -40,14 +58,14 @@
     [[HeadshotAPIClient sharedClient] POST:@"authentications/valid" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        [self.codeInputView clear];
+        [[[UIAlertView alloc] initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (void)codeInputView:(CodeInputView *)codeInputView didFinishEnteringCode:(NSString *)code
 {
-    [self activate];
-    return YES;
+    [self activateWithCode:code];
 }
 
 @end
