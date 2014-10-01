@@ -93,7 +93,7 @@
     edgeView.edge = UIRectEdgeTop;
     UIViewAutoresizing resizing;
     CGRect frame = CGRectZero;
-    frame.size = CGSizeMake(self.bounds.size.width - insets.left - insets.bottom, width);
+    frame.size = CGSizeMake(self.bounds.size.width - insets.left - insets.right, width);
     frame.origin.x = insets.left;
     resizing = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     if (insets.left > 0) {

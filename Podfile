@@ -19,7 +19,7 @@ pod 'UIView+Positioning'
 pod 'INTULocationManager', "~> 1.2.0"
 pod "PMEDatePicker", "~> 0.0.1"
 pod 'TCCopyableLabel'
-pod 'BlocksKit'
+pod 'BlocksKit', "~> 2.2.5"
 pod 'CMNavBarNotificationView', :git => 'https://github.com/edgurgel/CMNavBarNotificationView.git'
 pod 'SGNavigationProgress'
 pod 'ECPhoneNumberFormatter', :git => 'https://github.com/enriquez/ECPhoneNumberFormatter.git'

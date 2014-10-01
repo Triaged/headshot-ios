@@ -40,18 +40,22 @@
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
 		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
 		9669633B194E262F003B22B5 /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669633A194E262F003B22B5 /* EmailLoginViewController.m */; };
+		966A84E719DC9EAC00E36720 /* UIControl+NextControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 966A84E619DC9EAC00E36720 /* UIControl+NextControl.m */; };
+		966A84EC19DCA18600E36720 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 966A84E919DCA18600E36720 /* AuthenticationViewController.m */; };
+		966A84ED19DCA18600E36720 /* AuthValidationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 966A84EB19DCA18600E36720 /* AuthValidationViewController.m */; };
 		968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */; };
 		9684363A1961E3FD0001259F /* CommonMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436371961E3FD0001259F /* CommonMacros.m */; };
 		9684363B1961E3FD0001259F /* JAGrandCentralDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 968436391961E3FD0001259F /* JAGrandCentralDispatch.m */; };
 		969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */; };
 		96A0888A195B2171008F329E /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A08889195B2171008F329E /* Device.m */; };
 		96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */; };
-		96AA758D19D1E87900ABA4F2 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AA758C19D1E87900ABA4F2 /* Launch Screen.xib */; };
 		96B69EE7197D5E5A008A7D1B /* MessageClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B69EE6197D5E5A008A7D1B /* MessageClient.m */; };
 		96B69EEA197D60EF008A7D1B /* TRFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B69EE9197D60EF008A7D1B /* TRFayeClient.m */; };
 		96BF1D1E19DC75AB001A7908 /* InviteContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BF1D1D19DC75AB001A7908 /* InviteContactViewController.m */; };
 		96BF1D2119DC75CA001A7908 /* ContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BF1D2019DC75CA001A7908 /* ContactManager.m */; };
 		96BF1D2419DC75F1001A7908 /* AddressBookContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BF1D2319DC75F1001A7908 /* AddressBookContact.m */; };
+		96BF1D2719DC77CD001A7908 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BF1D2619DC77CD001A7908 /* WelcomeViewController.m */; };
+		96BF1D2A19DC7BB5001A7908 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BF1D2919DC7BB5001A7908 /* RegisterViewController.m */; };
 		96C2CF9B19577EBC00E77CFD /* EditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */; };
 		96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C2CF9E19577EE300E77CFD /* SettingsViewController.m */; };
 		96D1D564199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1D563199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m */; };
@@ -218,6 +222,12 @@
 		96696336194E2018003B22B5 /* FormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormView.m; sourceTree = "<group>"; };
 		96696339194E262F003B22B5 /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		9669633A194E262F003B22B5 /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
+		966A84E519DC9EAC00E36720 /* UIControl+NextControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+NextControl.h"; sourceTree = "<group>"; };
+		966A84E619DC9EAC00E36720 /* UIControl+NextControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+NextControl.m"; sourceTree = "<group>"; };
+		966A84E819DCA18600E36720 /* AuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationViewController.h; sourceTree = "<group>"; };
+		966A84E919DCA18600E36720 /* AuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
+		966A84EA19DCA18600E36720 /* AuthValidationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthValidationViewController.h; sourceTree = "<group>"; };
+		966A84EB19DCA18600E36720 /* AuthValidationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthValidationViewController.m; sourceTree = "<group>"; };
 		968254DC195494770036955A /* NSDate+BadgeFormattedDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BadgeFormattedDate.h"; sourceTree = "<group>"; };
 		968254DD195494770036955A /* NSDate+BadgeFormattedDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BadgeFormattedDate.m"; sourceTree = "<group>"; };
 		968436361961E3FD0001259F /* CommonMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMacros.h; sourceTree = "<group>"; };
@@ -231,7 +241,6 @@
 		96A0888B195B42AD008F329E /* TRKeyboardAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRKeyboardAccessoryView.h; sourceTree = "<group>"; };
 		96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRKeyboardAccessoryView.m; sourceTree = "<group>"; };
 		96A0888E195B4648008F329E /* TRUIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRUIKit.h; sourceTree = "<group>"; };
-		96AA758C19D1E87900ABA4F2 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		96B69EE5197D5E5A008A7D1B /* MessageClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageClient.h; sourceTree = "<group>"; };
 		96B69EE6197D5E5A008A7D1B /* MessageClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageClient.m; sourceTree = "<group>"; };
 		96B69EE8197D60EF008A7D1B /* TRFayeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFayeClient.h; sourceTree = "<group>"; };
@@ -243,6 +252,10 @@
 		96BF1D2019DC75CA001A7908 /* ContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactManager.m; sourceTree = "<group>"; };
 		96BF1D2219DC75F1001A7908 /* AddressBookContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookContact.h; sourceTree = "<group>"; };
 		96BF1D2319DC75F1001A7908 /* AddressBookContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookContact.m; sourceTree = "<group>"; };
+		96BF1D2519DC77CD001A7908 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		96BF1D2619DC77CD001A7908 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		96BF1D2819DC7BB5001A7908 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		96BF1D2919DC7BB5001A7908 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		96C2CF9919577EBC00E77CFD /* EditAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAccountViewController.h; sourceTree = "<group>"; };
 		96C2CF9A19577EBC00E77CFD /* EditAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAccountViewController.m; sourceTree = "<group>"; };
 		96C2CF9D19577EE300E77CFD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -504,6 +517,8 @@
 				96D4F239196463DE00147DEB /* UIViewController+BackViewController.m */,
 				96D1D562199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.h */,
 				96D1D563199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m */,
+				966A84E519DC9EAC00E36720 /* UIControl+NextControl.h */,
+				966A84E619DC9EAC00E36720 /* UIControl+NextControl.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -732,7 +747,6 @@
 				CBBA6879192FD646005A6949 /* Images.xcassets */,
 				CBBA6876192FD646005A6949 /* Headshot.xcdatamodeld */,
 				CBBA686B192FD646005A6949 /* Supporting Files */,
-				96AA758C19D1E87900ABA4F2 /* Launch Screen.xib */,
 			);
 			path = "Headshot-ios";
 			sourceTree = "<group>";
@@ -847,8 +861,16 @@
 		CBBA68E3192FE17C005A6949 /* login */ = {
 			isa = PBXGroup;
 			children = (
+				966A84E819DCA18600E36720 /* AuthenticationViewController.h */,
+				966A84E919DCA18600E36720 /* AuthenticationViewController.m */,
+				966A84EA19DCA18600E36720 /* AuthValidationViewController.h */,
+				966A84EB19DCA18600E36720 /* AuthValidationViewController.m */,
 				96BF1D1C19DC75AB001A7908 /* InviteContactViewController.h */,
 				96BF1D1D19DC75AB001A7908 /* InviteContactViewController.m */,
+				96BF1D2519DC77CD001A7908 /* WelcomeViewController.h */,
+				96BF1D2619DC77CD001A7908 /* WelcomeViewController.m */,
+				96BF1D2819DC7BB5001A7908 /* RegisterViewController.h */,
+				96BF1D2919DC7BB5001A7908 /* RegisterViewController.m */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -1005,7 +1027,6 @@
 				CBA5D0781936BB280044BBCC /* Whitney-Book.otf in Resources */,
 				CBA5D07A1936BB2D0044BBCC /* Whitney-Semibold.otf in Resources */,
 				CB0E71B01948BA5E002B2B58 /* ContactSectionViewController.xib in Resources */,
-				96AA758D19D1E87900ABA4F2 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1138,11 +1159,14 @@
 				96D4ECAE1976CB9400234ECF /* ContactsContainerViewController.m in Sources */,
 				9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */,
 				96696333194B6CF7003B22B5 /* Constants.m in Sources */,
+				966A84E719DC9EAC00E36720 /* UIControl+NextControl.m in Sources */,
+				96BF1D2A19DC7BB5001A7908 /* RegisterViewController.m in Sources */,
 				CBBA68D8192FE0B5005A6949 /* EmployeeInfo.m in Sources */,
 				CBB5183E194A3F04001C2E0C /* SDCSegmentedViewController.m in Sources */,
 				CBBA68FA192FE26C005A6949 /* MessagesTableViewController.m in Sources */,
 				CBBA68E2192FE16F005A6949 /* TRTabBarController.m in Sources */,
 				CBBA68F7192FE262005A6949 /* ContactsTableViewController.m in Sources */,
+				966A84ED19DCA18600E36720 /* AuthValidationViewController.m in Sources */,
 				CB1F31AC1931599100CDCFD4 /* Message.m in Sources */,
 				96D37F4819608C7900212CDF /* TRAvatarImageView.m in Sources */,
 				964A6BE6194F2FB90024B3C2 /* DatePickerModalView.m in Sources */,
@@ -1157,12 +1181,14 @@
 				9647ACA4194AD89300F6A4AF /* Theme.m in Sources */,
 				96BF1D2419DC75F1001A7908 /* AddressBookContact.m in Sources */,
 				96091B12195DFAA900D135A3 /* TRInitialView.m in Sources */,
+				966A84EC19DCA18600E36720 /* AuthenticationViewController.m in Sources */,
 				964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */,
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
 				9684363A1961E3FD0001259F /* CommonMacros.m in Sources */,
 				968254DE195494770036955A /* NSDate+BadgeFormattedDate.m in Sources */,
 				CBA5D0831936BD4D0044BBCC /* ContactCell.m in Sources */,
 				CBBA68A3192FD850005A6949 /* TRBackgroundQueue.m in Sources */,
+				96BF1D2719DC77CD001A7908 /* WelcomeViewController.m in Sources */,
 				96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */,
 				CBBA68AB192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m in Sources */,
 				9624690319B7B7E300924100 /* ReadReceipt.m in Sources */,

@@ -60,6 +60,16 @@
     return [UIColor colorWithRed:0 green:167/255.0 blue:152/255.0 alpha:1.0];
 }
 
+- (UIColor *)blueColor
+{
+    return [UIColor colorWithRed:0 green:156/255.0 blue:255.0/255.0 alpha:1.0];
+}
+
+- (UIColor *)primaryColor
+{
+    return [self blueColor];
+}
+
 - (UIColor *)incomingMessageBubbleColor
 {
     return [UIColor colorWithRed:241/255.0 green:240/255.0 blue:240/255.0 alpha:1];
@@ -72,7 +82,7 @@
 
 - (UIColor *)buttonTintColor
 {
-    return [[UIColor alloc] initWithRed:248.0f/255.0f green:172.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
+    return [self primaryColor];
 }
 
 - (UIColor *)tableViewSeparatorColor
@@ -83,9 +93,9 @@
 
 - (void)customizeAppearance
 {
-    UIColor *tint = [[UIColor alloc] initWithRed:0.0f/255.0f green:167.0f/255.0f blue:152.0f/255.0f alpha:1.0f];
+    UIColor *titleTint = [UIColor blackColor];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
-                                                                           fontWithName:@"Whitney-Medium" size:17], NSFontAttributeName, tint,NSForegroundColorAttributeName, nil];
+                                                                           fontWithName:@"Whitney-Medium" size:17], NSFontAttributeName, titleTint,NSForegroundColorAttributeName, nil];
     
     [[UINavigationBar appearance] setTitleTextAttributes:attributes];
     
@@ -100,8 +110,6 @@
     NSDictionary *segmentAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont
                                                                                  fontWithName:@"Whitney-Medium" size:13], NSFontAttributeName, buttonTint,NSForegroundColorAttributeName, nil];
     [[UISegmentedControl appearance] setTitleTextAttributes:segmentAttributes forState:UIControlStateNormal];
-    
-    
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [UINavigationBar appearance].backIndicatorImage = [self.backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

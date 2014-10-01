@@ -23,6 +23,7 @@
 #import "VersionManager.h"
 #import "FileLogManager.h"
 #import "CrashManager.h"
+#import "WelcomeViewController.h"
 
 
 @interface NSManagedObjectContext ()
@@ -110,8 +111,9 @@
     else {
         [self showLogin];
     }
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[InviteContactViewController new]];
-    self.window.rootViewController = nav;
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[InviteContactViewController new]];
+    self.window.rootViewController = [WelcomeViewController new];
+//    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
 }
 
