@@ -7,11 +7,14 @@
 //
 
 #import "InviteContactViewController.h"
+#import "NSString+JAContainsSubstring.h"
 #import "ContactManager.h"
 
 @interface InviteContactViewController () <UITextFieldDelegate>
 
+@property (assign, nonatomic) BOOL searchMode;
 @property (strong, nonatomic) UITextField *searchField;
+@property (strong, nonatomic) NSArray *searchFilteredContacts;
 @property (strong, nonatomic) NSArray *companyContacts;
 @property (strong, nonatomic) NSArray *blackList;
 @property (strong, nonatomic) NSString *emailDomain;
@@ -28,7 +31,7 @@
     UIBarButtonItem *inviteButton = [[UIBarButtonItem alloc] initWithTitle:@"Invite" style:UIBarButtonItemStyleDone target:self action:@selector(inviteButtonTouched:)];
     self.navigationItem.rightBarButtonItem = inviteButton;
     
-    self.emailDomain = @"badge.co";
+    self.emailDomain = @"gmail.com";
     NSString *blacklist = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blacklist" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     NSArray *components = [blacklist componentsSeparatedByString:@"\n"];
     self.blackList = components;
@@ -41,6 +44,7 @@
     self.searchField.font = [ThemeManager lightFontOfSize:18];
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 5)];
     self.searchField.tintColor = [[ThemeManager sharedTheme] primaryColor];
+    self.searchField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.searchField.leftView = leftView;
     self.searchField.leftViewMode = UITextFieldViewModeAlways;
     self.searchField.delegate = self;
@@ -65,6 +69,14 @@
 - (void)setContacts:(NSArray *)contacts
 {
     _contacts = contacts;
+    self.companyContacts = [self filterContacts:contacts byEmailDomain:self.emailDomain];
+    self.companyContacts = [self sortContactsByNameOrEmail:self.companyContacts];
+    _contacts = [self sortContactsByNameOrEmail:contacts];
+    [self.tableView reloadData];
+}
+
+- (NSArray *)filterContacts:(NSArray *)contacts byEmailDomain:(NSString *)domain
+{
     NSMutableArray *companyContacts = [[NSMutableArray alloc] init];
     for (AddressBookContact *contact in contacts) {
         if (contact.emails) {
@@ -75,11 +87,26 @@
             }
         }
     }
-    self.companyContacts = [NSArray arrayWithArray:companyContacts];
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"fullName" ascending:YES selector:@selector(caseInsensitiveCompare:)];
-    [self.companyContacts sortedArrayUsingDescriptors:@[sort]];
-    _contacts = [contacts sortedArrayUsingDescriptors:@[sort]];
-    [self.tableView reloadData];
+    return companyContacts;
+}
+
+- (NSArray *)filterContacts:(NSArray *)contacts bySearchText:(NSString *)searchText
+{
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        AddressBookContact *contact = (AddressBookContact *)evaluatedObject;
+        BOOL found = [contact.fullName ja_containsSubstring:searchText];
+        for (NSString *email in contact.emails) {
+            found = found || [email ja_containsSubstring:searchText];
+        }
+        return found;
+    }];
+    return [contacts filteredArrayUsingPredicate:predicate];
+}
+
+- (NSArray *)sortContactsByNameOrEmail:(NSArray *)contacts
+{
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"displayedTitle" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+    return [contacts sortedArrayUsingDescriptors:@[sort]];
 }
 
 - (void)inviteButtonTouched:(id)sender
@@ -90,6 +117,9 @@
 - (AddressBookContact *)addressBookContactForIndexPath:(NSIndexPath *)indexPath
 {
     AddressBookContact *contact;
+    if (self.searchMode) {
+        return self.searchFilteredContacts[indexPath.row];
+    }
     if (indexPath.section == 0) {
         contact = self.companyContacts[indexPath.row];
     }
@@ -107,12 +137,18 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.searchMode) {
+        return 1;
+    }
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger numRows = 0;
-    if (section == 0) {
+    if (self.searchMode) {
+        numRows = self.searchFilteredContacts.count;
+    }
+    else if (section == 0) {
         numRows = self.companyContacts.count;
     }
     else {
@@ -126,11 +162,30 @@
     return 50;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, [self tableView:tableView heightForHeaderInSection:section])];
+    headerView.backgroundColor = [UIColor colorWithRed:234/255.0 green:235/255.0 blue:236/255.0 alpha:1.0];
+    UILabel *label = [[UILabel alloc] init];
+    [headerView addSubview:label];
+    label.font = [ThemeManager lightFontOfSize:12];
+    label.textColor = [UIColor colorWithRed:76/255.0 green:80/255.0 blue:88/255.0 alpha:1.0];
+    label.text = [self tableView:tableView titleForHeaderInSection:section];
+    [label sizeToFit];
+    label.x = 14;
+    label.bottom = headerView.height - 9;
+    
+    return headerView;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     NSString *title;
-    if (section == 0) {
-        title = self.emailDomain;
+    if (self.searchMode) {
+        title = @"Invite to Badge";
+    }
+    else if (section == 0) {
+        title = @"Suggested Contacts";
     }
     else {
         title = @"All Contacts";
@@ -145,7 +200,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.font = [ThemeManager lightFontOfSize:17];
+        cell.textLabel.font = [ThemeManager regularFontOfSize:17];
         cell.textLabel.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
         cell.detailTextLabel.font = [ThemeManager lightFontOfSize:13];
         cell.detailTextLabel.textColor = [[ThemeManager sharedTheme] lightGrayTextColor];
@@ -183,8 +238,10 @@
 }
 
 #pragma mark - search text
-- (void)searchTextChanged:(id)textfield
+- (void)searchTextChanged:(UITextField *)textfield
 {
+    self.searchFilteredContacts = [self filterContacts:self.contacts bySearchText:textfield.text];
+    self.searchMode = textfield.text && textfield.text.length;
     [self.tableView reloadData];
     self.selectedContacts = [NSMutableSet new];
 }

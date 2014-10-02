@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *lastName;
 @property (strong, nonatomic) NSArray *phoneNumbers;
 @property (strong, nonatomic) NSArray *emails;
+@property (readonly) NSString *displayedTitle;
 
 - (instancetype)initWithRecord:(ABRecordRef)record;
 

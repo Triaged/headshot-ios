@@ -47,4 +47,16 @@
     return self;
 }
 
+- (NSString *)displayedTitle
+{
+    NSString *title;
+    if (self.fullName) {
+        title = self.fullName;
+    }
+    else if (self.emails && self.emails.count) {
+        title = [self.emails firstObject];
+    }
+    return title;
+}
+
 @end

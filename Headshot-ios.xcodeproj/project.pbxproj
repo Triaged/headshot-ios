@@ -50,6 +50,7 @@
 		969B8700195285DF00090B49 /* OnboardSelectDepartmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969B86FF195285DF00090B49 /* OnboardSelectDepartmentViewController.m */; };
 		96A0888A195B2171008F329E /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A08889195B2171008F329E /* Device.m */; };
 		96A0888D195B42AD008F329E /* TRKeyboardAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */; };
+		96ADEE0D19DDD9C400557B11 /* NSString+JAContainsSubstring.m in Sources */ = {isa = PBXBuildFile; fileRef = 96ADEE0C19DDD9C400557B11 /* NSString+JAContainsSubstring.m */; };
 		96B69EE7197D5E5A008A7D1B /* MessageClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B69EE6197D5E5A008A7D1B /* MessageClient.m */; };
 		96B69EEA197D60EF008A7D1B /* TRFayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B69EE9197D60EF008A7D1B /* TRFayeClient.m */; };
 		96BF1D1E19DC75AB001A7908 /* InviteContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BF1D1D19DC75AB001A7908 /* InviteContactViewController.m */; };
@@ -244,6 +245,8 @@
 		96A0888B195B42AD008F329E /* TRKeyboardAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRKeyboardAccessoryView.h; sourceTree = "<group>"; };
 		96A0888C195B42AD008F329E /* TRKeyboardAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRKeyboardAccessoryView.m; sourceTree = "<group>"; };
 		96A0888E195B4648008F329E /* TRUIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRUIKit.h; sourceTree = "<group>"; };
+		96ADEE0B19DDD9C400557B11 /* NSString+JAContainsSubstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JAContainsSubstring.h"; sourceTree = "<group>"; };
+		96ADEE0C19DDD9C400557B11 /* NSString+JAContainsSubstring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JAContainsSubstring.m"; sourceTree = "<group>"; };
 		96B69EE5197D5E5A008A7D1B /* MessageClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageClient.h; sourceTree = "<group>"; };
 		96B69EE6197D5E5A008A7D1B /* MessageClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageClient.m; sourceTree = "<group>"; };
 		96B69EE8197D60EF008A7D1B /* TRFayeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFayeClient.h; sourceTree = "<group>"; };
@@ -522,6 +525,8 @@
 				96D1D563199BD597007216F3 /* NSManagedObjectContext+TRDeleteAll.m */,
 				966A84E519DC9EAC00E36720 /* UIControl+NextControl.h */,
 				966A84E619DC9EAC00E36720 /* UIControl+NextControl.m */,
+				96ADEE0B19DDD9C400557B11 /* NSString+JAContainsSubstring.h */,
+				96ADEE0C19DDD9C400557B11 /* NSString+JAContainsSubstring.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -1171,6 +1176,7 @@
 				CBBA68FA192FE26C005A6949 /* MessagesTableViewController.m in Sources */,
 				CBBA68E2192FE16F005A6949 /* TRTabBarController.m in Sources */,
 				CBBA68F7192FE262005A6949 /* ContactsTableViewController.m in Sources */,
+				96ADEE0D19DDD9C400557B11 /* NSString+JAContainsSubstring.m in Sources */,
 				966A84ED19DCA18600E36720 /* AuthValidationViewController.m in Sources */,
 				CB1F31AC1931599100CDCFD4 /* Message.m in Sources */,
 				96D37F4819608C7900212CDF /* TRAvatarImageView.m in Sources */,
