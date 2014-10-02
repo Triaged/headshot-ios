@@ -14,6 +14,7 @@
 
 @property (assign, nonatomic) BOOL searchMode;
 @property (strong, nonatomic) UITextField *searchField;
+@property (strong, nonatomic) UIButton *searchCancelButton;
 @property (strong, nonatomic) NSArray *searchFilteredContacts;
 @property (strong, nonatomic) NSArray *companyContacts;
 @property (strong, nonatomic) NSArray *blackList;
@@ -52,6 +53,15 @@
                   action:@selector(searchTextChanged:)
         forControlEvents:UIControlEventEditingChanged];
     self.tableView.tableHeaderView = self.searchField;
+    
+    self.searchCancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.searchField.rightView = self.searchCancelButton;
+    self.searchField.rightViewMode = UITextFieldViewModeWhileEditing;
+    self.searchCancelButton.size = CGSizeMake(self.searchField.height, self.searchField.height);
+    self.searchCancelButton.right = self.searchField.width;
+    [self.searchCancelButton setImage:[UIImage imageNamed:@"icn-clear-form"] forState:UIControlStateNormal];
+    [self.searchCancelButton addTarget:self action:@selector(searchCancelButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -112,6 +122,14 @@
 - (void)inviteButtonTouched:(id)sender
 {
     
+}
+
+- (void)searchCancelButtonTouched:(id)sender
+{
+    self.searchField.text = nil;
+    [self.searchField resignFirstResponder];
+    self.searchMode = NO;
+    [self.tableView reloadData];
 }
 
 - (AddressBookContact *)addressBookContactForIndexPath:(NSIndexPath *)indexPath
