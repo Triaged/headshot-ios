@@ -37,12 +37,12 @@
 
 - (UIColor *)darkGrayTextColor
 {
-    return [UIColor colorWithWhite:38/255.0 alpha:1.0];
+    return [UIColor colorWithRed:29/255.0 green:30/255.0 blue:33/255.0 alpha:1.0];
 }
 
 - (UIColor *)lightGrayTextColor
 {
-    return [UIColor colorWithWhite:119/255.0 alpha:1.0];
+    return [UIColor colorWithRed:131/255.0 green:137/255.0 blue:148/255.0 alpha:1.0];
 }
 
 -(UIColor *)disabledGrayTextColor

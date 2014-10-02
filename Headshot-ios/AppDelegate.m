@@ -112,10 +112,10 @@
     else {
         [self showLogin];
     }
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[AuthValidationViewController new]];
-    self.window.rootViewController = [WelcomeViewController new];
-//    self.window.rootViewController = nav;
-//    nav.navigationBar.translucent = NO;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[InviteContactViewController new]];
+//    self.window.rootViewController = [WelcomeViewController new];
+    self.window.rootViewController = nav;
+    nav.navigationBar.translucent = NO;
     [self.window makeKeyAndVisible];
 }
 
