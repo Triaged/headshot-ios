@@ -9,6 +9,7 @@ NSString * const kMixpanelTokenProduction = @"ec6f12813c52d6dc6709aab1bf5cb1b9";
 NSString * const kMixpanelTokenStaging =  @"b9c753b3560536492eba971a53213f5f";
 
 NSString * const kReceivedNewMessageNotification = @"ReceivedNewMessageNotification";
+NSString * const kReceivedNewReadReceiptsNotification = @"ReceivedNewReadReceiptsNotification";
 NSString * const kRequestAuthorizationErrorNotification = @"RequestAuthorizationNotification";
 NSString * const kMessageFailedNotification = @"MessageFailedNotification";
 NSString * const kMessageSentNotification = @"MessageSentNotification";

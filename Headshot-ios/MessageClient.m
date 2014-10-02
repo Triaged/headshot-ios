@@ -44,7 +44,7 @@
 - (void)initHttpClient
 {
     NSString *urlString = [[ConstantsManager sharedConstants] messageServerURLString];
-    NSString *httpURLString = [NSString stringWithFormat:@"https://%@/api/v1", urlString];
+    NSString *httpURLString = [NSString stringWithFormat:@"http://%@/api/v1", urlString];
     self.httpClient = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:httpURLString]];
 }
 
@@ -214,6 +214,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewMessageNotification object:nil userInfo:@{@"messages" : [messages valueForKey:@"objectID"], @"fetched" : @(fetched)}];
 }
 
+- (void)postNotificationForReadReceipts:(NSArray *)readReceipts
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedNewReadReceiptsNotification object:nil userInfo:@{@"readReceipts" : [readReceipts valueForKey:@"objectID"]}];
+}
+
 - (void)postMessageThreadWithRecipients:(NSArray *)recipients completion:(void (^)(MessageThread *messageThread, NSError *error))completion
 {
     NSDictionary *parameters = @{@"message_thread" : @{@"user_ids" : [recipients valueForKey:@"identifier"]}};
@@ -238,11 +243,36 @@
 - (void)fayeClient:(TRFayeClient *)fayeClient didReceiveMessage:(NSDictionary *)messageData fromChannel:(NSString *)channel
 {
     NSString *messageThreadKey = @"message_thread";
-    if (![messageData.allKeys containsObject:messageThreadKey]) {
-        return;
+    NSString *readReceiptsKey = @"receipts";
+    if ([messageData.allKeys containsObject:messageThreadKey]) {
+        NSDictionary *messageThreadData = messageData[messageThreadKey];
+        [self processMessageThreadData:messageThreadData];
     }
-    
-    NSDictionary *messageThreadData = messageData[messageThreadKey];
+    else if ([messageData.allKeys containsObject:readReceiptsKey]) {
+        NSDictionary *readReceiptData = messageData[readReceiptsKey];
+        [self processReadReceiptsData:readReceiptData];
+    }
+}
+
+- (void)processReadReceiptsData:(NSDictionary *)readReceiptsData
+{
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
+    NSMutableArray *createdReceipts = [[NSMutableArray alloc] init];
+    for (NSDictionary *receiptDictionary in readReceiptsData) {
+        BOOL createdReceipt = NO;
+        NSError *error;
+         ReadReceipt *receipt=[self findOrCreateReadReceiptWithData:receiptDictionary message:nil inManagedObjectContext:context created:&createdReceipt error:&error];
+        if (createdReceipt) {
+            [createdReceipts addObject:receipt];
+        }
+    }
+    if (createdReceipts.count) {
+        [self postNotificationForReadReceipts:createdReceipts];
+    }
+}
+
+- (void)processMessageThreadData:(NSDictionary *)messageThreadData
+{
     NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
     [self findOrCreateMessageThreadWithData:messageThreadData inManagedObjectContext:context withCompletion:^(BOOL created, MessageThread *messageThread, NSArray *newMessages) {
         for (Message *message in newMessages) {
@@ -355,12 +385,12 @@
     message.timestamp = [NSDate dateWithTimeIntervalSince1970:timestamp.doubleValue];
     for (NSDictionary *receiptData in receipts) {
         BOOL receiptCreated = NO;
-        [self findOrCreateReadReceiptWithData:receiptData message:message inManagedObjectContext:managedObjectContext created:&receiptCreated];
+        [self findOrCreateReadReceiptWithData:receiptData message:message inManagedObjectContext:managedObjectContext created:&receiptCreated error:nil];
     }
     return message;
 }
 
-- (ReadReceipt *)findOrCreateReadReceiptWithData:(NSDictionary *)receiptData message:(Message *)message inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)_created
+- (ReadReceipt *)findOrCreateReadReceiptWithData:(NSDictionary *)receiptData message:(Message *)message inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext created:(BOOL *)_created error:(NSError **)_error
 {
     NSString *userID = receiptData[@"user_id"];
     NSNumber *timestamp = receiptData[@"timestamp"];
@@ -369,7 +399,20 @@
     ReadReceipt *receipt = [ReadReceipt MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"user.identifier = %@ AND message.messageID = %@",userID, messageID]];
     if (!receipt) {
         receipt = [ReadReceipt MR_createInContext:managedObjectContext];
-        receipt.user = [User MR_findFirstByAttribute:@"identifier" withValue:userID inContext:managedObjectContext];
+        User *user = [User MR_findFirstByAttribute:@"identifier" withValue:userID inContext:managedObjectContext];
+        if (user) {
+            receipt.user = user;
+        }
+        else {
+            *_error = [[NSError alloc] init];
+        }
+        Message *message = [Message MR_findFirstByAttribute:@"messageID" withValue:messageID];
+        if (message) {
+            receipt.message = message;
+        }
+        else {
+            *_error = [[NSError alloc] init];
+        }
         receipt.timestamp = [NSDate dateWithTimeIntervalSince1970:timestamp.doubleValue];
         receipt.acknowledged = @(YES);
         receipt.message = message;

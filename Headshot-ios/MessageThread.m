@@ -58,7 +58,7 @@
 {
     BOOL unread = self.unread && self.unread.boolValue;
     if (unread) {
-        NSArray *unreadMessages = [Message MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageThread = %@ AND userReadReceipt = nil", self, [AppDelegate sharedDelegate].store.currentAccount.currentUser]];
+        NSArray *unreadMessages = [Message MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageThread = %@ AND userReadReceipt = nil AND messageID != nil", self, [AppDelegate sharedDelegate].store.currentAccount.currentUser]];
         NSDate *timestamp = [NSDate date];
         NSMutableArray *createdReceipts = [[NSMutableArray alloc] init];
         for (Message *message in unreadMessages) {
