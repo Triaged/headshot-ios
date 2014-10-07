@@ -11,6 +11,7 @@
 #import "User.h"
 #import "MessageThreadViewController.h"
 #import "NewThreadTableViewController.h"
+#import "NewMessageThreadViewController.h"
 #import "MessageThreadPreviewCell.h"
 #import "UITableView+NXEmptyView.h"
 #import "MessageClient.h"
@@ -175,9 +176,9 @@
     
     MessageThread *thread = [self threadAtIndexPath:indexPath];
     [thread markAsRead];
-    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
+//    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
+    NewMessageThreadViewController *messageThreadVC = [[NewMessageThreadViewController alloc] initWithMessageThread:thread];
     [self.navigationController pushViewController:messageThreadVC animated:YES];
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

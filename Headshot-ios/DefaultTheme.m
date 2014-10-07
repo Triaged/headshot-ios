@@ -60,6 +60,11 @@
     return [UIColor colorWithRed:0 green:167/255.0 blue:152/255.0 alpha:1.0];
 }
 
+- (UIColor *)primaryColor
+{
+    return [UIColor colorWithRed:0 green:156/255.0 blue:255/255.0 alpha:1.0];
+}
+
 - (UIColor *)incomingMessageBubbleColor
 {
     return [UIColor colorWithRed:241/255.0 green:240/255.0 blue:240/255.0 alpha:1];

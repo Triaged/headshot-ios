@@ -1750,6 +1750,105 @@ fi
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>96ADE22A19DEE92200503CC3</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>GroupedMessageCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>96ADE22B19DEE92200503CC3</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>GroupedMessageCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>96ADE22C19DEE92200503CC3</key>
+		<dict>
+			<key>fileRef</key>
+			<string>96ADE22B19DEE92200503CC3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>96ADE22D19DEE9AC00503CC3</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>MessageCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>96ADE22E19DEE9AC00503CC3</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>MessageCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>96ADE22F19DEE9AC00503CC3</key>
+		<dict>
+			<key>fileRef</key>
+			<string>96ADE22E19DEE9AC00503CC3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>96ADE23019DEEC5F00503CC3</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>NewMessageThreadViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>96ADE23119DEEC5F00503CC3</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>NewMessageThreadViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>96ADE23219DEEC5F00503CC3</key>
+		<dict>
+			<key>fileRef</key>
+			<string>96ADE23119DEEC5F00503CC3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>96B69EE5197D5E5A008A7D1B</key>
 		<dict>
 			<key>fileEncoding</key>
@@ -3342,6 +3441,10 @@ fi
 				<string>964A6BE8194F39620024B3C2</string>
 				<string>CBB488A81961C9AE00612C22</string>
 				<string>CBB488A91961C9AE00612C22</string>
+				<string>96ADE22A19DEE92200503CC3</string>
+				<string>96ADE22B19DEE92200503CC3</string>
+				<string>96ADE22D19DEE9AC00503CC3</string>
+				<string>96ADE22E19DEE9AC00503CC3</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -3635,6 +3738,7 @@ fi
 				<string>CB0418601948C59600B3DE97</string>
 				<string>96DB2DFE19539E27005E1F93</string>
 				<string>CB1F31D01932746F00CDCFD4</string>
+				<string>96ADE22F19DEE9AC00503CC3</string>
 				<string>964A6BD4194E2C180024B3C2</string>
 				<string>96D4F2411964860700147DEB</string>
 				<string>CB0418651949310300B3DE97</string>
@@ -3656,6 +3760,7 @@ fi
 				<string>96F0B5D5195882F70001A204</string>
 				<string>964A6BD7194E31C40024B3C2</string>
 				<string>96696330194B5061003B22B5</string>
+				<string>96ADE22C19DEE92200503CC3</string>
 				<string>964A6BE0194E66480024B3C2</string>
 				<string>CBBA68DB192FE0B5005A6949</string>
 				<string>CB04186B194A338900B3DE97</string>
@@ -3705,6 +3810,7 @@ fi
 				<string>9624690319B7B7E300924100</string>
 				<string>CBBA6878192FD646005A6949</string>
 				<string>CB1F31C919325D8600CDCFD4</string>
+				<string>96ADE23219DEEC5F00503CC3</string>
 				<string>CB04186E194A358600B3DE97</string>
 				<string>CBBA68A0192FD850005A6949</string>
 				<string>96021101197443D000C03EB7</string>
@@ -5267,6 +5373,8 @@ fi
 				<string>CB1F31C41931A12600CDCFD4</string>
 				<string>965836521989564900070DAE</string>
 				<string>965836531989564900070DAE</string>
+				<string>96ADE23019DEEC5F00503CC3</string>
+				<string>96ADE23119DEEC5F00503CC3</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
