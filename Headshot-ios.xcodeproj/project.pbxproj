@@ -72,6 +72,8 @@
 		96E143C519E43CA800DF7A45 /* NewMessageThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143C419E43CA800DF7A45 /* NewMessageThreadViewController.m */; };
 		96E143C819E43CCF00DF7A45 /* GroupedMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143C719E43CCF00DF7A45 /* GroupedMessageCell.m */; };
 		96E143CB19E43CE400DF7A45 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143CA19E43CE400DF7A45 /* MessageCell.m */; };
+		96E143CE19E4463E00DF7A45 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143CD19E4463E00DF7A45 /* LoginViewController.m */; };
+		96E143D119E4468700DF7A45 /* BAFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143D019E4468700DF7A45 /* BAFormView.m */; };
 		96F0B5D5195882F70001A204 /* EditAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F0B5D4195882F70001A204 /* EditAvatarImageView.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
 		CB0418611948C59600B3DE97 /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */; };
@@ -293,6 +295,10 @@
 		96E143C719E43CCF00DF7A45 /* GroupedMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupedMessageCell.m; sourceTree = "<group>"; };
 		96E143C919E43CE400DF7A45 /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
 		96E143CA19E43CE400DF7A45 /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
+		96E143CC19E4463E00DF7A45 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		96E143CD19E4463E00DF7A45 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		96E143CF19E4468700DF7A45 /* BAFormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAFormView.h; sourceTree = "<group>"; };
+		96E143D019E4468700DF7A45 /* BAFormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAFormView.m; sourceTree = "<group>"; };
 		96F0B5D3195882F70001A204 /* EditAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAvatarImageView.h; sourceTree = "<group>"; };
 		96F0B5D4195882F70001A204 /* EditAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAvatarImageView.m; sourceTree = "<group>"; };
 		AE274651BF13A81CB96E3402 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -572,6 +578,8 @@
 				9631D33B19C9E3D500BF381A /* CenterButton.m */,
 				966A84EE19DCA46500E36720 /* CodeInputView.h */,
 				966A84EF19DCA46500E36720 /* CodeInputView.m */,
+				96E143CF19E4468700DF7A45 /* BAFormView.h */,
+				96E143D019E4468700DF7A45 /* BAFormView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -894,6 +902,8 @@
 				96BF1D2619DC77CD001A7908 /* WelcomeViewController.m */,
 				96BF1D2819DC7BB5001A7908 /* RegisterViewController.h */,
 				96BF1D2919DC7BB5001A7908 /* RegisterViewController.m */,
+				96E143CC19E4463E00DF7A45 /* LoginViewController.h */,
+				96E143CD19E4463E00DF7A45 /* LoginViewController.m */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -1202,7 +1212,9 @@
 				CB041868194A2FFE00B3DE97 /* Department.m in Sources */,
 				CB354D34194B710E00E537C2 /* Company.m in Sources */,
 				CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */,
+				96E143D119E4468700DF7A45 /* BAFormView.m in Sources */,
 				9631D33C19C9E3D500BF381A /* CenterButton.m in Sources */,
+				96E143CE19E4463E00DF7A45 /* LoginViewController.m in Sources */,
 				CB0E71A8194897B0002B2B58 /* ContactDetailsDataSource.m in Sources */,
 				96B69EEA197D60EF008A7D1B /* TRFayeClient.m in Sources */,
 				9647ACA4194AD89300F6A4AF /* Theme.m in Sources */,

@@ -11,6 +11,7 @@
 #import "PhotoManager.h"
 #import "UIControl+NextControl.h"
 #import "AuthValidationViewController.h"
+#import "BAFormView.h"
 
 typedef NS_ENUM(NSInteger, RegisterRow) {
     RegisterRowPhoto = 0,
@@ -19,19 +20,12 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     RegisterRowPhone
 };
 
-@interface RegisterFormView : UIView
-
-@property (strong, nonatomic) UITextField *textField;
-@property (strong, nonatomic) UILabel *titleLabel;
-
-@end
-
 @interface RegisterViewController () <UITextFieldDelegate>
 
-@property (strong, nonatomic) RegisterFormView *firstNameFormView;
-@property (strong, nonatomic) RegisterFormView *lastNameFormView;
-@property (strong, nonatomic) RegisterFormView *emailFormView;
-@property (strong, nonatomic) RegisterFormView *phoneFormView;
+@property (strong, nonatomic) BAFormView *firstNameFormView;
+@property (strong, nonatomic) BAFormView *lastNameFormView;
+@property (strong, nonatomic) BAFormView *emailFormView;
+@property (strong, nonatomic) BAFormView *phoneFormView;
 @property (strong, nonatomic) UIImageView *avatarImageView;
 @property (strong, nonatomic) UIButton *addPhotoButton;
 
@@ -70,7 +64,7 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     self.firstNameFormView.textField.nextControl = self.lastNameFormView.textField;
     self.lastNameFormView.textField.nextControl = self.emailFormView.textField;
     self.emailFormView.textField.nextControl = self.phoneFormView.textField;
-    for (RegisterFormView *formView in @[self.firstNameFormView, self.lastNameFormView, self.emailFormView, self.phoneFormView]) {
+    for (BAFormView *formView in @[self.firstNameFormView, self.lastNameFormView, self.emailFormView, self.phoneFormView]) {
         UITextField *textField = formView.textField;
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
         textField.delegate = self;
@@ -101,30 +95,9 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     self.tableView.tableFooterView = nil;
 }
 
-- (RegisterFormView *)formViewWithTitle:(NSString *)title placeHolder:(NSString *)placeholder width:(CGFloat)width
+- (BAFormView *)formViewWithTitle:(NSString *)title placeHolder:(NSString *)placeholder width:(CGFloat)width
 {
-    RegisterFormView *formView = [[RegisterFormView alloc] initWithFrame:CGRectMake(0, 0, width, [self formViewHeight])];
-    UILabel *label = [[UILabel alloc] init];
-    [formView addSubview:label];
-    label.font = [ThemeManager lightFontOfSize:12];
-    label.textColor = [UIColor blackColor];
-    label.text = title;
-    [label sizeToFit];
-    label.x = 17;
-    label.y = 9;
-    formView.titleLabel = label;
-    
-    UITextField *textField = [[UITextField alloc] init];
-    textField.placeholder = placeholder;
-    [formView addSubview:textField];
-    textField.font = [ThemeManager lightFontOfSize:18];
-    textField.textColor = [[ThemeManager sharedTheme] primaryColor];
-    [textField sizeToFit];
-    textField.x = label.x;
-    textField.width = formView.width - textField.x;
-    textField.bottom = formView.height - 14;
-    formView.textField = textField;
-    
+    BAFormView *formView = [[BAFormView alloc] initWithFrame:CGRectMake(0, 0, width, [self formViewHeight]) title:title placeholder:placeholder];
     return formView;
 }
 
@@ -285,9 +258,5 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     return NO;
 }
 
-
-@end
-
-@implementation RegisterFormView
 
 @end
