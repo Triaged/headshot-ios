@@ -69,6 +69,9 @@
 		96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F23D196465E800147DEB /* AnalyticsManager.m */; };
 		96D4F2411964860700147DEB /* VersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F2401964860700147DEB /* VersionManager.m */; };
 		96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */; };
+		96E143C519E43CA800DF7A45 /* NewMessageThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143C419E43CA800DF7A45 /* NewMessageThreadViewController.m */; };
+		96E143C819E43CCF00DF7A45 /* GroupedMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143C719E43CCF00DF7A45 /* GroupedMessageCell.m */; };
+		96E143CB19E43CE400DF7A45 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143CA19E43CE400DF7A45 /* MessageCell.m */; };
 		96F0B5D5195882F70001A204 /* EditAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F0B5D4195882F70001A204 /* EditAvatarImageView.m */; };
 		CB0418601948C59600B3DE97 /* ContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04185E1948C59600B3DE97 /* ContactInfoTableViewCell.m */; };
 		CB0418611948C59600B3DE97 /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB04185F1948C59600B3DE97 /* ContactInfoTableViewCell.xib */; };
@@ -284,6 +287,12 @@
 		96D4F2401964860700147DEB /* VersionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionManager.m; sourceTree = "<group>"; };
 		96DB2DFC19539E27005E1F93 /* OnboardSelectManagersViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectManagersViewControllers.h; sourceTree = "<group>"; };
 		96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectManagersViewControllers.m; sourceTree = "<group>"; };
+		96E143C319E43CA800DF7A45 /* NewMessageThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMessageThreadViewController.h; sourceTree = "<group>"; };
+		96E143C419E43CA800DF7A45 /* NewMessageThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMessageThreadViewController.m; sourceTree = "<group>"; };
+		96E143C619E43CCF00DF7A45 /* GroupedMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupedMessageCell.h; sourceTree = "<group>"; };
+		96E143C719E43CCF00DF7A45 /* GroupedMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupedMessageCell.m; sourceTree = "<group>"; };
+		96E143C919E43CE400DF7A45 /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
+		96E143CA19E43CE400DF7A45 /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
 		96F0B5D3195882F70001A204 /* EditAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAvatarImageView.h; sourceTree = "<group>"; };
 		96F0B5D4195882F70001A204 /* EditAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAvatarImageView.m; sourceTree = "<group>"; };
 		AE274651BF13A81CB96E3402 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -662,6 +671,10 @@
 		CBA5D07B1936BC5E0044BBCC /* cells */ = {
 			isa = PBXGroup;
 			children = (
+				96E143C919E43CE400DF7A45 /* MessageCell.h */,
+				96E143CA19E43CE400DF7A45 /* MessageCell.m */,
+				96E143C619E43CCF00DF7A45 /* GroupedMessageCell.h */,
+				96E143C719E43CCF00DF7A45 /* GroupedMessageCell.m */,
 				CBA5D0811936BD4D0044BBCC /* ContactCell.h */,
 				CBA5D0821936BD4D0044BBCC /* ContactCell.m */,
 				CB04185D1948C59600B3DE97 /* ContactInfoTableViewCell.h */,
@@ -942,6 +955,8 @@
 				CB1F31C41931A12600CDCFD4 /* NewThreadTableViewController.m */,
 				965836521989564900070DAE /* GroupMessageInfoTableViewController.h */,
 				965836531989564900070DAE /* GroupMessageInfoTableViewController.m */,
+				96E143C319E43CA800DF7A45 /* NewMessageThreadViewController.h */,
+				96E143C419E43CA800DF7A45 /* NewMessageThreadViewController.m */,
 			);
 			name = messages;
 			sourceTree = "<group>";
@@ -1154,6 +1169,7 @@
 				CB04186B194A338900B3DE97 /* DepartmentContactsTableViewController.m in Sources */,
 				96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */,
 				CB1F31D419327B6000CDCFD4 /* OfficeLocation.m in Sources */,
+				96E143C819E43CCF00DF7A45 /* GroupedMessageCell.m in Sources */,
 				962FD81A1959DCEB00A313AC /* UIImage+SolidColor.m in Sources */,
 				96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */,
 				CBBA68EB192FE19D005A6949 /* TRNavigationController.m in Sources */,
@@ -1192,6 +1208,7 @@
 				9647ACA4194AD89300F6A4AF /* Theme.m in Sources */,
 				96BF1D2419DC75F1001A7908 /* AddressBookContact.m in Sources */,
 				96091B12195DFAA900D135A3 /* TRInitialView.m in Sources */,
+				96E143C519E43CA800DF7A45 /* NewMessageThreadViewController.m in Sources */,
 				966A84EC19DCA18600E36720 /* AuthenticationViewController.m in Sources */,
 				964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */,
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,
@@ -1205,6 +1222,7 @@
 				CBBA68AB192FD8FD005A6949 /* TRJSONResponseSerializerWithData.m in Sources */,
 				9624690319B7B7E300924100 /* ReadReceipt.m in Sources */,
 				CBBA6878192FD646005A6949 /* Headshot.xcdatamodeld in Sources */,
+				96E143CB19E43CE400DF7A45 /* MessageCell.m in Sources */,
 				CB1F31C919325D8600CDCFD4 /* ContactViewController.m in Sources */,
 				CB04186E194A358600B3DE97 /* DepartmentCell.m in Sources */,
 				CBBA68A0192FD850005A6949 /* Store.m in Sources */,

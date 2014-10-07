@@ -22,6 +22,7 @@
 - (UIColor *)lightGrayTextColor;
 - (UIColor *)disabledGrayTextColor;
 - (UIColor *)buttonTintColor;
+- (UIColor *)primaryColor;
 - (UIColor *)tableViewSeparatorColor;
 - (UIColor *)incomingMessageBubbleColor;
 - (UIColor *)outgoingMessageBubbleColor;
