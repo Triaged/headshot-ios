@@ -31,6 +31,23 @@
     [self fetchObjectFromURL:URL completionHandler:completionHandler];
 }
 
++ (void)loginWithEmail:(NSString *)email password:(NSString *)password completion:(void (^)(Account *, NSError *))completion
+{
+    NSDictionary *parameters = @{@"user_login" :
+                                     @{@"email" : email,
+                                       @"password" : password}};
+    [[HeadshotAPIClient sharedClient] POST:@"sessions" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        Account *account = [Account updatedObjectWithRawJSONDictionary:responseObject inManagedObjectContext:[NSManagedObjectContext MR_defaultContext]];
+        if (completion) {
+            completion(account, nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (completion) {
+            completion(nil, error);
+        }
+    }];
+}
+
 + (void)requestPasswordResetForEmail:(NSString *)email completion:(void (^)(NSString *, NSError *))completionHandler
 {
     NSDictionary *parameters = @{@"email" : email};

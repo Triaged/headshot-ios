@@ -39,7 +39,7 @@
     [self.textField sizeToFit];
     self.textField.x = self.titleLabel.x;
     self.textField.width = self.width - self.textField.x;
-    self.textField.bottom = self.height - 14;
+    self.textField.bottom = self.height - 9;
 }
 
 @end

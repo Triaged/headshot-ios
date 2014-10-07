@@ -14,10 +14,10 @@
 #import "BAFormView.h"
 
 typedef NS_ENUM(NSInteger, RegisterRow) {
-    RegisterRowPhoto = 0,
     RegisterRowName,
     RegisterRowEmail,
-    RegisterRowPhone
+    RegisterRowPhone,
+    RegisterRowPassword,
 };
 
 @interface RegisterViewController () <UITextFieldDelegate>
@@ -26,8 +26,7 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
 @property (strong, nonatomic) BAFormView *lastNameFormView;
 @property (strong, nonatomic) BAFormView *emailFormView;
 @property (strong, nonatomic) BAFormView *phoneFormView;
-@property (strong, nonatomic) UIImageView *avatarImageView;
-@property (strong, nonatomic) UIButton *addPhotoButton;
+@property (strong, nonatomic) BAFormView *passwordFormView;
 
 @end
 
@@ -58,13 +57,18 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     self.phoneFormView.textField.inputAccessoryView = [[TRKeyboardAccessoryView alloc] initWithCancel:^{
         [self.phoneFormView.textField resignFirstResponder];
     } doneBlock:^{
-        [self.phoneFormView.textField resignFirstResponder];
+        [self.phoneFormView.textField.nextControl becomeFirstResponder];
     }];;
+    
+    self.passwordFormView = [self formViewWithTitle:@"Password" placeHolder:@"password at least 8 characters long" width:self.view.width];
+    self.passwordFormView.textField.secureTextEntry = YES;
     
     self.firstNameFormView.textField.nextControl = self.lastNameFormView.textField;
     self.lastNameFormView.textField.nextControl = self.emailFormView.textField;
     self.emailFormView.textField.nextControl = self.phoneFormView.textField;
-    for (BAFormView *formView in @[self.firstNameFormView, self.lastNameFormView, self.emailFormView, self.phoneFormView]) {
+    self.phoneFormView.textField.nextControl = self.passwordFormView.textField;
+    
+    for (BAFormView *formView in @[self.firstNameFormView, self.lastNameFormView, self.emailFormView, self.phoneFormView, self.passwordFormView]) {
         UITextField *textField = formView.textField;
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
         textField.delegate = self;
@@ -78,20 +82,6 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    
-    self.avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"onboarding-add-photo"]];
-    UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoButtonTouched:)];
-    self.avatarImageView.userInteractionEnabled = YES;
-    [self.avatarImageView addGestureRecognizer:avatarTap];
-    self.avatarImageView.clipsToBounds = YES;
-    self.avatarImageView.layer.cornerRadius = self.avatarImageView.width/2.0;
-    self.addPhotoButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.addPhotoButton setTitle:@"Add Photo" forState:UIControlStateNormal];
-    self.addPhotoButton.tintColor = [[ThemeManager sharedTheme] primaryColor];
-    self.addPhotoButton.titleLabel.font = [ThemeManager lightFontOfSize:13];
-    [self.addPhotoButton sizeToFit];
-    [self.addPhotoButton addTarget:self action:@selector(photoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-    
     self.tableView.tableFooterView = nil;
 }
 
@@ -101,33 +91,11 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     return formView;
 }
 
-- (void)photoButtonTouched:(id)sender
-{
-    UIActionSheet *actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Add Photo"];
-    [actionSheet bk_addButtonWithTitle:@"Take Photo" handler:^{
-        [self presentPhotoPickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
-    }];
-    [actionSheet bk_addButtonWithTitle:@"Camera Roll" handler:^{
-        [self presentPhotoPickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }];
-    [actionSheet bk_setCancelButtonWithTitle:@"Cancel" handler:nil];
-    [actionSheet showInView:self.view];
-}
-
-- (void)presentPhotoPickerWithSourceType:(UIImagePickerControllerSourceType)sourceType
-{
-    [[PhotoManager sharedManager] presentImagePickerForSourceType:sourceType fromViewController:self completion:^(UIImage *image, BOOL cancelled) {
-        if (image) {
-            self.avatarImageView.image = image;
-        }
-    }];
-}
-
 - (void)doneButtonTouched:(id)sender
 {
     [self validateFields:^(BOOL valid, NSString *message) {
         if (valid) {
-            [self loginWithFirstName:self.firstNameFormView.textField.text lastName:self.lastNameFormView.textField.text email:self.emailFormView.textField.text phone:self.phoneFormView.textField.text];
+            [self loginWithFirstName:self.firstNameFormView.textField.text lastName:self.lastNameFormView.textField.text email:self.emailFormView.textField.text phone:self.phoneFormView.textField.text password:self.passwordFormView.textField.text];
         }
         else {
             [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -148,20 +116,22 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     }
 }
 
-- (void)loginWithFirstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email phone:(NSString *)phone
+- (void)loginWithFirstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email phone:(NSString *)phone password:(NSString *)password
 {
     [SVProgressHUD show];
-    NSDictionary *parameters = @{@"auth_params" :
+    NSDictionary *parameters = @{@"registration" :
                                      @{@"first_name" : firstName,
                                        @"last_name" : lastName,
                                        @"email" : email,
-                                       @"phone_number" : phone}};
-    [[HeadshotAPIClient sharedClient] POST:@"authentications" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+                                       @"phone_number" : phone,
+                                       @"password" : password}};
+    [[HeadshotAPIClient sharedClient] POST:@"registrations" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         [SVProgressHUD dismiss];
         AuthValidationViewController *authValidationViewController = [[AuthValidationViewController alloc] init];
         authValidationViewController.userIdentifier = responseObject[@"id"];
         [self.navigationController pushViewController:authValidationViewController animated:YES];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [[[UIAlertView alloc] initWithTitle:@"Sorry" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [SVProgressHUD dismiss];
     }];
 }
@@ -171,7 +141,7 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
 
 - (CGFloat)formViewHeight
 {
-    return 60;
+    return 57;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -184,9 +154,6 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == RegisterRowPhoto) {
-        return 105;
-    }
     return [self formViewHeight];
 }
 
@@ -203,8 +170,8 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     else if (indexPath.row == RegisterRowPhone) {
         cell = [self configurePhoneCell:cell];
     }
-    else if (indexPath.row == RegisterRowPhoto) {
-        cell = [self configurePhotoCell:cell];
+    else if (indexPath.row == RegisterRowPassword) {
+        cell = [self configurePasswordCell:cell];
     }
     return cell;
 }
@@ -214,7 +181,7 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
     [cell.contentView addSubview:self.firstNameFormView];
     [cell.contentView addSubview:self.lastNameFormView];
     self.lastNameFormView.x = self.firstNameFormView.right;
-    [self.firstNameFormView addEdge:UIRectEdgeRight width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+    [self.firstNameFormView addEdge:UIRectEdgeRight insets:UIEdgeInsetsMake(12, 0, 0, 0) width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
     return cell;
 }
 
@@ -229,20 +196,16 @@ typedef NS_ENUM(NSInteger, RegisterRow) {
 - (UITableViewCell *)configurePhoneCell:(UITableViewCell *)cell
 {
     [cell.contentView addSubview:self.phoneFormView];
+    [self.phoneFormView addEdge:UIRectEdgeBottom
+                         insets:UIEdgeInsetsMake(0, 12, 0, 12) width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
     return cell;
 }
 
-- (UITableViewCell *)configurePhotoCell:(UITableViewCell *)cell
+- (UITableViewCell *)configurePasswordCell:(UITableViewCell *)cell
 {
-    [cell.contentView addSubview:self.avatarImageView];
-    self.avatarImageView.centerX = cell.contentView.width/2.0;
-    self.avatarImageView.y = 18;
-    self.avatarImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    
-    [cell.contentView addSubview:self.addPhotoButton];
-    self.addPhotoButton.centerX = self.avatarImageView.centerX;
-    self.addPhotoButton.y = self.avatarImageView.bottom;
-    self.addPhotoButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [cell.contentView addSubview:self.passwordFormView];
+    [self.passwordFormView addEdge:UIRectEdgeBottom
+                         insets:UIEdgeInsetsMake(0, 12, 0, 12) width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
     return cell;
 }
 

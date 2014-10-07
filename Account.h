@@ -19,6 +19,7 @@
 
 + (void)currentAccountWithCompletionHandler:(void(^)(Account *account, NSError *error))completionHandler;
 + (void)requestPasswordResetForEmail:(NSString *)email completion:(void(^)(NSString *message, NSError *error))completionHandler;
++ (void)loginWithEmail:(NSString *)email password:(NSString *)password completion:(void (^)(Account *account, NSError *error))completion;
 - (void)updateAccountWithSuccess:(void (^)(Account *account))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 - (void)updatePassword:(NSString *)currentPassword password:(NSString *)password confirmedPassword:(NSString *)confirmedPassword withCompletion:(void (^)(NSError *error))completion;
 - (void)updateAvatarImage:(UIImage *)image withCompletion:(void (^)(UIImage *image, NSError *error))completion;

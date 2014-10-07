@@ -8,6 +8,7 @@
 
 #import "WelcomeViewController.h"
 #import "RegisterViewController.h"
+#import "LoginViewController.h"
 
 @interface WelcomeViewController ()
 
@@ -53,7 +54,8 @@
 
 - (void)loginButtonTouched:(id)sender
 {
-    
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    [self presentViewControllerWithNav:loginViewController animated:YES completion:nil];
 }
 
 - (void)signUpButtonTouched:(id)sender
