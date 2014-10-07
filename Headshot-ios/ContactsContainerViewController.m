@@ -7,11 +7,13 @@
 //
 
 #import "ContactsContainerViewController.h"
+#import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "DepartmentsTableViewController.h"
 #import "ContactsTableViewController.h"
 #import "DepartmentContactsTableViewController.h"
 #import "TRSearchDisplayController.h"
 #import "ContactViewController.h"
+#import "InviteContactViewController.h"
 
 @interface ContactsContainerViewController () <ContactsTableViewControllerDelegate, DepartmentsTableViewControllerDelegate, UISearchBarDelegate>
 
@@ -33,7 +35,11 @@
     
     self.searchButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButtonTouched:)];
     self.searchButtonItem.tintColor = [[ThemeManager sharedTheme] orangeColor];
-    self.navigationItem.leftBarButtonItem = self.searchButtonItem;
+    UIBarButtonItem *inviteButton = [[UIBarButtonItem alloc] initWithTitle:@"Invite" style:UIBarButtonItemStylePlain target:self action:@selector(inviteButtonTouched:)];
+    self.navigationItem.rightBarButtonItems = @[inviteButton, self.searchButtonItem];
+    
+    UIBarButtonItem *settingsButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationItem.leftBarButtonItem = settingsButtonItem;
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Contacts", @"Departments"]];
@@ -63,6 +69,16 @@
     self.searchController.delegate = (id<UISearchDisplayDelegate>)self.contactsViewController.tableView.dataSource;
     self.searchController.searchResultsDelegate = self.contactsViewController.tableView.delegate;
     self.searchController.searchResultsDataSource = self.contactsViewController.tableView.dataSource;
+}
+
+- (void)inviteButtonTouched:(id)sender
+{
+    InviteContactViewController *inviteViewController = [[InviteContactViewController alloc] init];
+    TRNavigationController *navigationController = [[TRNavigationController alloc] initWithRootViewController:inviteViewController];
+    inviteViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain handler:^(id sender) {
+        [navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)setDepartmentsHidden:(BOOL)departmentsHidden
