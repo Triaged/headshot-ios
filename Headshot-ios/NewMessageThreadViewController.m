@@ -172,4 +172,10 @@
     return self.maxCellWidth;
 }
 
+- (MessageCellAlignment)cellAlignmentForMessage:(Message *)message
+{
+    BOOL isUserMessage = [message.author.identifier isEqualToString:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
+    return isUserMessage ? MessageCellAlignmentRight : MessageCellAlignmentLeft;
+}
+
 @end

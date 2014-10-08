@@ -9,8 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "TRAvatarImageView.h"
 #import "Message.h"
-#import "NewMessageThreadViewController.h"
 
+typedef NS_ENUM(NSInteger, MessageCellAlignment) {
+    MessageCellAlignmentLeft,
+    MessageCellAlignmentRight,
+};
+
+@protocol MessageCellDelegate <NSObject>
+
+- (UIFont *)fontForMessage:(Message *)message;
+- (UIColor *)textColorForMessage:(Message *)message;
+- (UIColor *)bubbleColorForMessage:(Message *)message;
+- (UIEdgeInsets)textInsetsForMessage:(Message *)message;
+- (CGFloat)maxCellWidthForMessage:(Message *)message;
+- (MessageCellAlignment) cellAlignmentForMessage:(Message *)message;
+
+@end
 
 
 @interface MessageCell : UITableViewCell

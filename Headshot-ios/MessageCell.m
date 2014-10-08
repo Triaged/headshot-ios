@@ -86,6 +86,7 @@
     self.messageTextLabel.text = message.messageText;
     self.timestampLabel.text =  [message.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
     self.messageTextLabel.textColor = [self.messageCellDelegate textColorForMessage:message];
+    self.messageTextLabel.font = [self.messageCellDelegate fontForMessage:message];
 }
 
 - (void)setShowAvatar:(BOOL)showAvatar
@@ -93,7 +94,7 @@
     _showAvatar = showAvatar;
 
     self.avatarImageView.hidden = !showAvatar;
-    self.nameLabel.hidden = !showAvatar;
+    self.nameLabel.hidden = !showAvatar || [self.messageCellDelegate cellAlignmentForMessage:self.message] == MessageCellAlignmentRight;
     self.headerView.height = [MessageCell headerHeightShowAvatar:showAvatar];
 }
 
@@ -113,12 +114,48 @@
 {
     self.messageTextLabel.height = [MessageCell heightForText:self.messageTextLabel.text withFont:self.messageTextLabel.font constrainedToSize:CGSizeMake(self.contentView.width, CGFLOAT_MAX)];
     [super layoutSubviews];
+    MessageCellAlignment alignment = [self.messageCellDelegate cellAlignmentForMessage:self.message];
+    if (alignment == MessageCellAlignmentLeft) {
+        [self layoutLeftAlignment];
+    }
+    else {
+        [self layoutRightAlignment];
+    }
+}
+
+- (void)layoutRightAlignment
+{
+    UIEdgeInsets textInsets = [self.messageCellDelegate textInsetsForMessage:self.message];
+    self.messageTextLabel.y = self.headerView.bottom + textInsets.top;
+    self.messageTextLabel.right = self.contentView.width - textInsets.left;
+    self.messageTextLabel.textAlignment = NSTextAlignmentRight;
+    self.avatarImageView.size = CGSizeMake(35, 35);
+    self.avatarImageView.right = self.contentView.width - 10;
+    self.avatarImageView.centerY = self.avatarImageView.superview.height/2.0;
+    [self.nameLabel sizeToFit];
+    self.nameLabel.x = self.avatarImageView.right + 10;
+    self.nameLabel.y = self.avatarImageView.y;
+    [self.timestampLabel sizeToFit];
+    if (self.showAvatar) {
+        self.timestampLabel.y = self.avatarImageView.y;
+        self.timestampLabel.x = textInsets.left;
+    }
+    else {
+        self.timestampLabel.centerY = self.timestampLabel.superview.height/2.0;
+        self.timestampLabel.x = textInsets.left;
+    }
+
+}
+
+- (void)layoutLeftAlignment
+{
     UIEdgeInsets textInsets = [self.messageCellDelegate textInsetsForMessage:self.message];
     self.messageTextLabel.y = self.headerView.bottom + textInsets.top;
     self.messageTextLabel.x = textInsets.left;
     self.avatarImageView.size = CGSizeMake(35, 35);
     self.avatarImageView.x = 10;
     self.avatarImageView.centerY = self.avatarImageView.superview.height/2.0;
+
     [self.nameLabel sizeToFit];
     self.nameLabel.x = self.avatarImageView.right + 10;
     self.nameLabel.y = self.avatarImageView.y;
@@ -129,7 +166,7 @@
     }
     else {
         self.timestampLabel.centerY = self.timestampLabel.superview.height/2.0;
-        self.timestampLabel.x = 10;
+        self.timestampLabel.x = textInsets.left;
     }
 }
 
