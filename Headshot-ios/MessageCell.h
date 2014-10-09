@@ -17,6 +17,7 @@
 - (UIColor *)bubbleColorForMessage:(Message *)message;
 - (UIEdgeInsets)contentInsetsForMessage:(Message *)message;
 - (CGFloat)maxCellWidthForMessage:(Message *)message;
+- (NSAttributedString *)attributedNameStringForMessage:(Message *)message;
 
 @end
 

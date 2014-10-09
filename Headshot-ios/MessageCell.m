@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UILabel *readReceiptLabel;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) UILabel *messageTextLabel;
+@property (strong, nonatomic) UIColor *lightGrayColor;
 
 @end
 
@@ -57,13 +58,15 @@
     
     self.nameLabel = [[UILabel alloc] init];
     [self.headerView addSubview:self.nameLabel];
-    self.nameLabel.font = [ThemeManager regularFontOfSize:14];
+    self.nameLabel.font = [ThemeManager regularFontOfSize:13];
     self.nameLabel.textColor = [UIColor blackColor];
+    
+    self.lightGrayColor = [UIColor colorWithRed:202/255.0 green:204/255.0 blue:209/255.0 alpha:1.0];
     
     self.timestampLabel = [[UILabel alloc] init];
     [self.headerView addSubview:self.timestampLabel];
     self.timestampLabel.font = [ThemeManager regularFontOfSize:12];
-    self.timestampLabel.textColor = [UIColor lightGrayColor];
+    self.timestampLabel.textColor = self.lightGrayColor;
     
     return self;
 }
@@ -72,7 +75,7 @@
 {
     _message = message;
     self.avatarImageView.user = message.author;
-    self.nameLabel.text = message.author.fullName;
+    self.nameLabel.attributedText = [self.messageCellDelegate attributedNameStringForMessage:message];
     self.messageTextLabel.text = message.messageText;
     self.timestampLabel.text =  [message.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
     self.messageTextLabel.textColor = [self.messageCellDelegate textColorForMessage:message];
