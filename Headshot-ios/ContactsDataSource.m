@@ -141,11 +141,12 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         view.backgroundColor = [UIColor whiteColor];
         [view setAlpha:0.95];
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:view.bounds];
-        titleLabel.font = [ThemeManager boldFontOfSize:12];
+        titleLabel.font = [ThemeManager regularFontOfSize:12];
+        titleLabel.textColor = [UIColor colorWithRed:131/255.0 green:137/255.0 blue:148/255.0 alpha:1.0];
         titleLabel.x = 15;
         titleLabel.tag = HeaderLabelTag;
         [view addSubview:titleLabel];
-        [view addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+        [view addEdge:UIRectEdgeBottom insets:UIEdgeInsetsMake(0, 20, 0, 0) width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
     }
     UILabel *titleLabel = (UILabel *)[view viewWithTag:HeaderLabelTag];
     titleLabel.text = [Alphabet substringWithRange:NSMakeRange(section, 1)];
@@ -178,12 +179,7 @@ NSString * const Alphabet = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) {
-        [cell addEdge:UIRectEdgeBottom insets:UIEdgeInsetsMake(0, 70, 0, 0) width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
-    }
-    else {
-        [cell removeEdge:UIRectEdgeBottom];
-    }
+
 }
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {

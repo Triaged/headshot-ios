@@ -21,5 +21,6 @@
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, weak)  ContactsContainerViewController *containerViewController;
 @property (nonatomic, weak) id<ContactsTableViewControllerDelegate> contactsTableViewControllerDelegate;
+@property (strong, nonatomic) NSSet *tagSetItems;
 
 @end

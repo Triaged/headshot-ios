@@ -27,9 +27,9 @@
     }
     self.avatarImageView = [[TRAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [self.contentView addSubview:self.avatarImageView];
-    self.textLabel.font = [ThemeManager regularFontOfSize:18];
+    self.textLabel.font = [ThemeManager regularFontOfSize:17];
     self.textLabel.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
-    self.detailTextLabel.font = [ThemeManager regularFontOfSize:12];
+    self.detailTextLabel.font = [ThemeManager regularFontOfSize:13];
     self.detailTextLabel.textColor = [[ThemeManager sharedTheme] lightGrayTextColor];
     
     return self;
@@ -52,9 +52,9 @@
 {
     [super layoutSubviews];
     self.avatarImageView.size = CGSizeMake(40, 40);
-    self.avatarImageView.x = 15;
+    self.avatarImageView.x = 17;
     self.avatarImageView.centerY = self.height/2.0;
-    self.textLabel.x = self.avatarImageView.right + 15;
+    self.textLabel.x = self.avatarImageView.right + 16;
     self.detailTextLabel.x = self.textLabel.x;
 }
 

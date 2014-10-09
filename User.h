@@ -12,7 +12,7 @@
 #import "HeadshotAPIClient.h"
 
 
-@class Company, EmployeeInfo, Department, OfficeLocation, Account;
+@class Company, EmployeeInfo, Department, OfficeLocation, Account, TagSetItem;
 
 @interface User : NSManagedObject
 
@@ -36,10 +36,11 @@
 @property (nonatomic, retain) OfficeLocation *currentOfficeLocation;
 @property (nonatomic, retain) OfficeLocation *primaryOfficeLocation;
 @property (nonatomic, readonly) NSSet *messageThreads;
-
+@property (nonatomic, retain) NSSet *tagSetItems;
 @property (nonatomic, readonly) NSString *nameInitials;
 
 + (NSArray *)findAllExcludeCurrent;
++ (NSArray *)findAllIntersectingfItems:(NSArray *)tagSetItems excludeCurrent:(BOOL)excludeCurrent;
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler;
 
 @end
@@ -47,5 +48,14 @@
 @interface NSManagedObject (SLRESTfulCoreDataQueryInterface)
 
 - (void)updateWithCompletionHandler:(void(^)(id managedObject, NSError *error))completionHandler;
+
+@end
+
+@interface User (CoreDataGeneratedAccessors)
+
+- (void)addTagSetItem:(NSManagedObject *)value;
+- (void)removeTagSetItem:(NSManagedObject *)value;
+- (void)addTagSetItems:(NSSet *)values;
+- (void)removeTagSetItems:(NSSet *)values;
 
 @end

@@ -11,6 +11,8 @@
 #import "SLRESTfulCoreData.h"
 #import "HeadshotAPIClient.h"
 #import "TRDataStoreManager.h"
+#import "TagSet.h"
+#import "TagSetItem.h"
 
 
 @implementation Company
@@ -29,14 +31,24 @@
         NSManagedObjectContext *backgroundContext = [TRDataStoreManager sharedInstance].backgroundThreadManagedObjectContext;
         [backgroundContext performBlock:^{
             Company *company = [Company updatedObjectWithRawJSONDictionary:responseObject inManagedObjectContext:backgroundContext];
+            for (NSDictionary *tagSetData in responseObject[@"tag_sets"]) {
+                [TagSet updatedObjectWithRawJSONDictionary:tagSetData inManagedObjectContext:backgroundContext];
+            }
             for (NSDictionary *userData in responseObject[@"users"]) {
-                [User updatedObjectWithRawJSONDictionary:userData inManagedObjectContext:backgroundContext];
+                User *user = [User updatedObjectWithRawJSONDictionary:userData inManagedObjectContext:backgroundContext];
+                NSArray *tagItemIds = userData[@"tag_set_item_ids"];
+                if (tagItemIds.count) {
+                    user.tagSetItems = [NSSet setWithArray:[TagSetItem MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"identifier IN %@", tagItemIds] inContext:backgroundContext]];
+                }
             }
             NSManagedObjectID *companyID = company.objectID;
             if (completionHandler) {
                 [[TRDataStoreManager sharedInstance].mainThreadManagedObjectContext performBlockAndWait:^{
                     Company *mainCompany = (Company *)[[TRDataStoreManager sharedInstance].mainThreadManagedObjectContext existingObjectWithID:companyID error:nil];
                     completionHandler(mainCompany, nil);
+                    for (TagSetItem *item in [TagSetItem MR_findAll]) {
+                        NSLog(@"%@\n%@", item.name, @(item.users.count));
+                    }
                 }];
             }
         }];

@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TagSet.h"
 
-@class ContactsTableViewController, DepartmentsTableViewController;
+@class ContactsTableViewController, DepartmentsTableViewController, TagSetTableViewController;
 @interface ContactsContainerViewController : UITableViewController
 
 @property (strong, nonatomic) ContactsTableViewController *contactsViewController;
-@property (strong, nonatomic) DepartmentsTableViewController *departmentsViewController;
-@property (assign, nonatomic) BOOL departmentsHidden;
+@property (strong, nonatomic) TagSetTableViewController *departmentsViewController;
+@property (assign, nonatomic) BOOL tagsHidden;
+@property (strong, nonatomic) NSArray *users;
 
 @end

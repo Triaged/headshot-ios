@@ -15,7 +15,9 @@
 #import "ContactViewController.h"
 #import "InviteContactViewController.h"
 
-@interface ContactsContainerViewController () <ContactsTableViewControllerDelegate, DepartmentsTableViewControllerDelegate, UISearchBarDelegate>
+#import "TagSetTableViewController.h"
+
+@interface ContactsContainerViewController () <ContactsTableViewControllerDelegate, DepartmentsTableViewControllerDelegate, TagSetTableViewControllerDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) UIBarButtonItem *searchButtonItem;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
@@ -28,6 +30,23 @@
 
 @implementation ContactsContainerViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.contactsViewController = [[ContactsTableViewController alloc] init];
+        self.contactsViewController.containerViewController = self;
+        self.contactsViewController.contactsTableViewControllerDelegate = self;
+        
+        self.departmentsViewController = [[TagSetTableViewController alloc] init];
+        self.departmentsViewController.delegate = self;
+        
+        self.viewControllers = @[self.contactsViewController, self.departmentsViewController];
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,24 +58,11 @@
     self.navigationItem.rightBarButtonItems = @[inviteButton, self.searchButtonItem];
     
     UIBarButtonItem *settingsButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:nil];
-    self.navigationItem.leftBarButtonItem = settingsButtonItem;
+//    self.navigationItem.leftBarButtonItem = settingsButtonItem;
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Contacts", @"Departments"]];
-    self.segmentedControl.tintColor = [[ThemeManager sharedTheme] orangeColor];
-    [self.segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-    self.departmentsHidden = NO;
+//    self.departmentsViewController.departmentsTableViewControllerDelegate = self;
     
-    self.contactsViewController = [[ContactsTableViewController alloc] init];
-    self.contactsViewController.containerViewController = self;
-    self.contactsViewController.contactsTableViewControllerDelegate = self;
-    
-    self.departmentsViewController = [[DepartmentsTableViewController alloc] init];
-    self.departmentsViewController.departmentsTableViewControllerDelegate = self;
-    
-    self.viewControllers = @[self.contactsViewController, self.departmentsViewController];
-    self.segmentedControl.selectedSegmentIndex = 0;
-    [self selectViewControllerWithIndex:self.segmentedControl.selectedSegmentIndex];
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     self.searchBar.showsCancelButton = YES;
@@ -71,21 +77,32 @@
     self.searchController.searchResultsDataSource = self.contactsViewController.tableView.dataSource;
 }
 
-- (void)inviteButtonTouched:(id)sender
+- (void)viewWillAppear:(BOOL)animated
 {
-    InviteContactViewController *inviteViewController = [[InviteContactViewController alloc] init];
-    TRNavigationController *navigationController = [[TRNavigationController alloc] initWithRootViewController:inviteViewController];
-    inviteViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain handler:^(id sender) {
-        [navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [super viewWillAppear:animated];
+    if (!self.departmentsViewController.tagSet) {
+            self.departmentsViewController.tagSet = [TagSet MR_findFirstOrderedByAttribute:@"priority" ascending:YES];
+    }
+    [[AppDelegate sharedDelegate].window.rootViewController.view addSubview:self.searchBar];
+    [self setSearchBarHidden:YES animated:NO completion:nil];
+    
+    [self updateSegmentedControl];
+    self.segmentedControl.selectedSegmentIndex = 0;
+    [self selectViewControllerWithIndex:self.segmentedControl.selectedSegmentIndex];
 }
 
-- (void)setDepartmentsHidden:(BOOL)departmentsHidden
+- (void)updateSegmentedControl
 {
-    _departmentsHidden = departmentsHidden;
+    if (self.tagsHidden) {
+        self.tableView.tableHeaderView = nil;
+        return;
+    }
+    TagSet *tagSet = self.departmentsViewController.tagSet;
     UIView *headerView;
-    if (!departmentsHidden) {
+    if (tagSet) {
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Contacts", tagSet.name]];
+        self.segmentedControl.tintColor = [[ThemeManager sharedTheme] primaryColor];
+        [self.segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 50)];
         headerView.backgroundColor = [UIColor whiteColor];
         [headerView addSubview:self.segmentedControl];
@@ -97,11 +114,14 @@
     self.tableView.tableHeaderView = headerView;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)inviteButtonTouched:(id)sender
 {
-    [super viewWillAppear:animated];
-    [[AppDelegate sharedDelegate].window.rootViewController.view addSubview:self.searchBar];
-    [self setSearchBarHidden:YES animated:NO completion:nil];
+    InviteContactViewController *inviteViewController = [[InviteContactViewController alloc] init];
+    TRNavigationController *navigationController = [[TRNavigationController alloc] initWithRootViewController:inviteViewController];
+    inviteViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain handler:^(id sender) {
+        [navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -175,6 +195,25 @@
     [self.searchController setActive:NO animated:YES];
     DepartmentContactsTableViewController *deptContactsTableVC = [[DepartmentContactsTableViewController alloc] initWithDepartment:department];
     [self.navigationController pushViewController:deptContactsTableVC animated:YES];
+}
+
+- (void)tagSetTableViewController:(TagSetTableViewController *)tagSetTableViewController didSelectTagSetItem:(TagSetItem *)tagSetItem
+{
+    ContactsContainerViewController *containerViewController = [[ContactsContainerViewController alloc] init];
+    TagSet *tagSet = [TagSet MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"priority > %@", self.departmentsViewController.tagSet.priority] sortedBy:@"priority" ascending:YES];
+    containerViewController.departmentsViewController.tagSet = tagSet;
+    if (!tagSet) {
+        containerViewController.tagsHidden = YES;
+    }
+    NSMutableSet *tagSetItems = [[NSMutableSet alloc] initWithObjects:tagSetItem, nil];
+    if (self.contactsViewController.tagSetItems) {
+        [tagSetItems addObjectsFromArray:self.contactsViewController.tagSetItems.allObjects];
+    }
+    [tagSetItems addObject:tagSetItem];
+    containerViewController.contactsViewController.tagSetItems = tagSetItems;
+    containerViewController.departmentsViewController.previousTagSetItems = tagSetItems;
+    
+    [self.navigationController pushViewController:containerViewController animated:YES];
 }
 
 @end

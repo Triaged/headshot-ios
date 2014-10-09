@@ -9,6 +9,7 @@
 #import "User.h"
 #import "Company.h"
 #import "EmployeeInfo.h"
+#import "TagSetItem.h"
 
 
 @implementation User
@@ -32,6 +33,7 @@
 @dynamic manager;
 @dynamic subordinates;
 @dynamic messageThreads;
+@dynamic tagSetItems;
 
 + (void)initialize
 {
@@ -47,6 +49,16 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@ && archived == NO", [AppDelegate sharedDelegate].store.currentAccount.identifier];
     return [User MR_findAllWithPredicate:predicate];
+}
+
++ (NSArray *)findAllIntersectingfItems:(NSArray *)tagSetItems excludeCurrent:(BOOL)excludeCurrent
+{
+    NSArray *users = excludeCurrent ? [User findAllExcludeCurrent] : [User MR_findAll];
+    NSMutableSet *userSet = [[NSMutableSet alloc] initWithArray:users];
+    for (TagSetItem *tagSetItem in tagSetItems) {
+        [userSet intersectSet:tagSetItem.users];
+    }
+    return userSet.allObjects;
 }
 
 - (NSString *)nameInitials

@@ -8,6 +8,7 @@
 
 #import "ContactsTableViewController.h"
 #import "User.h"
+#import "TagSetItem.h"
 #import "ContactsDataSource.h"
 #import "ContactViewController.h"
 #import "ContactsContainerViewController.h"
@@ -75,7 +76,7 @@
 - (void)setupTableView
 {
     self.contactsDataSource = [[ContactsDataSource alloc] init];
-    self.contactsDataSource.users = [User findAllExcludeCurrent];
+    [self loadUsers];
     self.contactsDataSource.tableViewController = self;
     self.tableView.dataSource = self.contactsDataSource;
     self.tableView.delegate = self;
@@ -97,9 +98,15 @@
     searchController.searchResultsTableView.tableFooterView = [[UIView alloc] init];
 }
 
+- (void)loadUsers
+{
+    NSArray *users = self.tagSetItems ? [User findAllIntersectingfItems:self.tagSetItems.allObjects excludeCurrent:YES] : [User findAllExcludeCurrent] ;
+    self.contactsDataSource.users = users;
+}
+
 - (void) fetchContacts {
     [User usersWithCompletionHandler:^(NSArray *users, NSError *error) {
-        self.contactsDataSource.users = [User findAllExcludeCurrent];
+        [self loadUsers];
         UITableView *tableView = self.containerViewController ? self.containerViewController.tableView : self.tableView;
         [tableView reloadData];
         [self.refreshControl endRefreshing];
