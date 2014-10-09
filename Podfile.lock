@@ -46,6 +46,7 @@ PODS:
   - FLEX (1.1.0)
   - FrameAccessor (1.3.2)
   - FXBlurView (1.6.2)
+  - HMSegmentedControl (1.4.0)
   - INTULocationManager (1.2.0)
   - JACenterButton (0.1.0)
   - JSQMessagesViewController (5.3.2):
@@ -124,6 +125,7 @@ DEPENDENCIES:
   - ECPhoneNumberFormatter (from `https://github.com/enriquez/ECPhoneNumberFormatter.git`)
   - FLEX
   - FXBlurView (~> 1.6.2)
+  - HMSegmentedControl (~> 1.4)
   - INTULocationManager (~> 1.2.0)
   - JACenterButton (from `https://github.com/jma256/JACenterButton.git`, commit `0d3dd00a1437c1b668ff75dd3fa968745c10e40a`)
   - JSQMessagesViewController (~> 5.3.2)
@@ -177,6 +179,7 @@ SPEC CHECKSUMS:
   FLEX: fa5e81b7b25ba64afe4fad14deb27d4b95efd75e
   FrameAccessor: 5eec95b29b5e9a3afe72a7a2e9ed25b000d3bcc3
   FXBlurView: 47496afc9160097fa34af35fc4b310bd85d65dca
+  HMSegmentedControl: c0517a8d4b80c978b8386f863f1c44729cfd7d6f
   INTULocationManager: 596c57e35a00ca1ee9d59bf4cc2b63dc299b580e
   JACenterButton: c8466a9faee93db08c17554decf832d7ef2d2792
   JSQMessagesViewController: d36408f51a8289c0354b7d9c497f572e9f26db67

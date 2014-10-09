@@ -8,6 +8,7 @@
 
 #import "ContactsContainerViewController.h"
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
+#import <HMSegmentedControl.h>
 #import "DepartmentsTableViewController.h"
 #import "ContactsTableViewController.h"
 #import "DepartmentContactsTableViewController.h"
@@ -20,7 +21,7 @@
 @interface ContactsContainerViewController () <ContactsTableViewControllerDelegate, DepartmentsTableViewControllerDelegate, TagSetTableViewControllerDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) UIBarButtonItem *searchButtonItem;
-@property (strong, nonatomic) UISegmentedControl *segmentedControl;
+@property (strong, nonatomic) HMSegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSArray *viewControllers;
 @property (strong, nonatomic) UITableViewController *selectedTableViewController;
 @property (strong, nonatomic) TRSearchDisplayController *searchController;
@@ -86,8 +87,10 @@
     [[AppDelegate sharedDelegate].window.rootViewController.view addSubview:self.searchBar];
     [self setSearchBarHidden:YES animated:NO completion:nil];
     
-    [self updateSegmentedControl];
-    self.segmentedControl.selectedSegmentIndex = 0;
+    if (!self.segmentedControl) {
+        [self updateSegmentedControl];
+        self.segmentedControl.selectedSegmentIndex = 0;
+    }
     [self selectViewControllerWithIndex:self.segmentedControl.selectedSegmentIndex];
 }
 
@@ -100,16 +103,28 @@
     TagSet *tagSet = self.departmentsViewController.tagSet;
     UIView *headerView;
     if (tagSet) {
-        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Contacts", tagSet.name]];
-        self.segmentedControl.tintColor = [[ThemeManager sharedTheme] primaryColor];
+        self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"CONTACTS", tagSet.name.uppercaseString]];
+        self.segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+        self.segmentedControl.backgroundColor = [UIColor clearColor];
+        self.segmentedControl.font = [ThemeManager regularFontOfSize:12.5];
+        self.segmentedControl.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
+        CGFloat selectedSegmentBuffer = 22;
+        self.segmentedControl.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0, -selectedSegmentBuffer, 0, -2*selectedSegmentBuffer);
+        self.segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
+        self.segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:58/255.0 green:172/255.0 blue:65/255.0 alpha:1.0];
+        self.segmentedControl.selectionIndicatorHeight = 3;
+        self.segmentedControl.textColor = [UIColor colorWithRed:76/255.0 green:80/255.0 blue:88/255.0 alpha:0.4];
+        self.segmentedControl.selectedTextColor = [self.segmentedControl.textColor colorWithAlphaComponent:1.0];
         [self.segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 50)];
-        headerView.backgroundColor = [UIColor whiteColor];
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 40)];
+        headerView.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:248/255.0 alpha:1.0];
+        [headerView addEdge:UIRectEdgeBottom width:0.5 color:[UIColor colorWithRed:234/255.0 green:235/255.0 blue:236/255.0 alpha:1.0]];
         [headerView addSubview:self.segmentedControl];
         self.tableView.tableHeaderView = headerView;
-        self.segmentedControl.width = 200;
+        self.segmentedControl.height = 36;
+        self.segmentedControl.width = 280;
         self.segmentedControl.centerX = headerView.width/2.0;
-        self.segmentedControl.centerY = headerView.height/2.0;
+        self.segmentedControl.bottom = headerView.height;
     }
     self.tableView.tableHeaderView = headerView;
 }

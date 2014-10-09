@@ -19,6 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.rowHeight = 45;
+    
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    self.tableView.separatorColor = [[ThemeManager sharedTheme] tableViewSeparatorColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -79,6 +83,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.textLabel.textColor = [UIColor colorWithRed:29/255.0 green:30/255.0 blue:33/255.0 alpha:1.0];
+        cell.textLabel.font = [ThemeManager regularFontOfSize:17];
     }
     TagSetItem *tagSetItem = [self tagSetItemForIndexPath:indexPath];
     cell.textLabel.text = tagSetItem.name;
