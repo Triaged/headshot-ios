@@ -22,30 +22,17 @@
 
 @implementation MessageCell
 
-+ (CGFloat)desiredHeightForMessage:(Message *)message font:(UIFont *)font constrainedToSize:(CGSize)size textEdgeInsets:(UIEdgeInsets)edgeInsets showAvatar:(BOOL)showAvatar
++ (CGFloat)desiredHeightForMessage:(Message *)message font:(UIFont *)font constrainedToSize:(CGSize)size textEdgeInsets:(UIEdgeInsets)edgeInsets
 {
+    CGFloat headerHeight = 62;
     CGSize textSize = CGSizeMake(size.width - edgeInsets.right - edgeInsets.left, size.height - edgeInsets.top - edgeInsets.bottom);
-    return [self headerHeightShowAvatar:showAvatar] + [self heightForText:message.messageText withFont:font constrainedToSize:textSize] + edgeInsets.top + edgeInsets.bottom;
-}
-
-+ (CGFloat)headerHeightShowAvatar:(BOOL)showAvatar
-{
-    return showAvatar ? 45 : 26;
+    return headerHeight + [self heightForText:message.messageText withFont:font constrainedToSize:textSize] + edgeInsets.top + edgeInsets.bottom;
 }
 
 + (CGFloat)heightForText:(NSString *)text withFont:(UIFont *)font constrainedToSize:(CGSize)size
 {
     CGFloat height = [text boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil].size.height;
     return height;
-}
-
-- (TRAvatarImageView *)avatarImageView
-{
-    if (!_avatarImageView) {
-        _avatarImageView = [[TRAvatarImageView alloc] init];
-        [self.headerView addSubview:_avatarImageView];
-    }
-    return _avatarImageView;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -55,12 +42,15 @@
     self.headerView = [[UIView alloc] init];
     [self.contentView addSubview:self.headerView];
     self.headerView.width = self.contentView.width;
+    self.headerView.height = 62;
     self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.headerView.backgroundColor = [UIColor whiteColor];
     
+    self.avatarImageView = [[TRAvatarImageView alloc] init];
+    [self.headerView addSubview:self.avatarImageView];
+    
     self.messageTextLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.messageTextLabel];
-    self.messageTextLabel.width = self.contentView.width;
     self.messageTextLabel.y = self.headerView.bottom;
     self.messageTextLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.messageTextLabel.numberOfLines = 0;
@@ -94,8 +84,6 @@
     _showAvatar = showAvatar;
 
     self.avatarImageView.hidden = !showAvatar;
-    self.nameLabel.hidden = !showAvatar || [self.messageCellDelegate cellAlignmentForMessage:self.message] == MessageCellAlignmentRight;
-    self.headerView.height = [MessageCell headerHeightShowAvatar:showAvatar];
 }
 
 - (void)setBubbleBackgroundColor:(UIColor *)bubbleBackgroundColor
@@ -114,60 +102,22 @@
 {
     self.messageTextLabel.height = [MessageCell heightForText:self.messageTextLabel.text withFont:self.messageTextLabel.font constrainedToSize:CGSizeMake(self.contentView.width, CGFLOAT_MAX)];
     [super layoutSubviews];
-    MessageCellAlignment alignment = [self.messageCellDelegate cellAlignmentForMessage:self.message];
-    if (alignment == MessageCellAlignmentLeft) {
-        [self layoutLeftAlignment];
-    }
-    else {
-        [self layoutRightAlignment];
-    }
-}
-
-- (void)layoutRightAlignment
-{
-    UIEdgeInsets textInsets = [self.messageCellDelegate textInsetsForMessage:self.message];
-    self.messageTextLabel.y = self.headerView.bottom + textInsets.top;
-    self.messageTextLabel.right = self.contentView.width - textInsets.left;
-    self.messageTextLabel.textAlignment = NSTextAlignmentRight;
+    UIEdgeInsets insets = [self.messageCellDelegate contentInsetsForMessage:self.message];
     self.avatarImageView.size = CGSizeMake(35, 35);
-    self.avatarImageView.right = self.contentView.width - 10;
+    self.avatarImageView.x = insets.left;
     self.avatarImageView.centerY = self.avatarImageView.superview.height/2.0;
+    self.messageTextLabel.width = self.contentView.width - insets.left - insets.right;
+    
+    self.messageTextLabel.centerY = self.avatarImageView.bottom + (self.contentView.height - self.headerView.height)/2.0;
+    self.messageTextLabel.x = insets.left;
+    
     [self.nameLabel sizeToFit];
     self.nameLabel.x = self.avatarImageView.right + 10;
     self.nameLabel.y = self.avatarImageView.y;
     [self.timestampLabel sizeToFit];
-    if (self.showAvatar) {
-        self.timestampLabel.y = self.avatarImageView.y;
-        self.timestampLabel.x = textInsets.left;
-    }
-    else {
-        self.timestampLabel.centerY = self.timestampLabel.superview.height/2.0;
-        self.timestampLabel.x = textInsets.left;
-    }
-
+    self.timestampLabel.x = self.nameLabel.x;
+    self.timestampLabel.y = self.nameLabel.bottom;
 }
 
-- (void)layoutLeftAlignment
-{
-    UIEdgeInsets textInsets = [self.messageCellDelegate textInsetsForMessage:self.message];
-    self.messageTextLabel.y = self.headerView.bottom + textInsets.top;
-    self.messageTextLabel.x = textInsets.left;
-    self.avatarImageView.size = CGSizeMake(35, 35);
-    self.avatarImageView.x = 10;
-    self.avatarImageView.centerY = self.avatarImageView.superview.height/2.0;
-
-    [self.nameLabel sizeToFit];
-    self.nameLabel.x = self.avatarImageView.right + 10;
-    self.nameLabel.y = self.avatarImageView.y;
-    [self.timestampLabel sizeToFit];
-    if (self.showAvatar) {
-        self.timestampLabel.y = self.nameLabel.bottom;
-        self.timestampLabel.x = self.nameLabel.x;
-    }
-    else {
-        self.timestampLabel.centerY = self.timestampLabel.superview.height/2.0;
-        self.timestampLabel.x = textInsets.left;
-    }
-}
 
 @end

@@ -10,26 +10,20 @@
 #import "TRAvatarImageView.h"
 #import "Message.h"
 
-typedef NS_ENUM(NSInteger, MessageCellAlignment) {
-    MessageCellAlignmentLeft,
-    MessageCellAlignmentRight,
-};
-
 @protocol MessageCellDelegate <NSObject>
 
 - (UIFont *)fontForMessage:(Message *)message;
 - (UIColor *)textColorForMessage:(Message *)message;
 - (UIColor *)bubbleColorForMessage:(Message *)message;
-- (UIEdgeInsets)textInsetsForMessage:(Message *)message;
+- (UIEdgeInsets)contentInsetsForMessage:(Message *)message;
 - (CGFloat)maxCellWidthForMessage:(Message *)message;
-- (MessageCellAlignment) cellAlignmentForMessage:(Message *)message;
 
 @end
 
 
 @interface MessageCell : UITableViewCell
 
-+ (CGFloat)desiredHeightForMessage:(Message *)message font:(UIFont *)font constrainedToSize:(CGSize)size textEdgeInsets:(UIEdgeInsets)edgeInsets showAvatar:(BOOL)showAvatar;
++ (CGFloat)desiredHeightForMessage:(Message *)message font:(UIFont *)font constrainedToSize:(CGSize)size textEdgeInsets:(UIEdgeInsets)edgeInsets;
 
 @property (weak, nonatomic) id<MessageCellDelegate> messageCellDelegate;
 @property (strong, nonatomic) TRAvatarImageView *avatarImageView;
