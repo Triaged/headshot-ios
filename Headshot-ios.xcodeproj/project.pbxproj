@@ -46,6 +46,7 @@
 		9661913F19E7311D002FDB1B /* JAKeyboardObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9661913E19E7311D002FDB1B /* JAKeyboardObserver.m */; };
 		9661914419E73F1C002FDB1B /* JAInsetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9661914119E73F1C002FDB1B /* JAInsetLabel.m */; };
 		9661914519E73F1C002FDB1B /* JAPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9661914319E73F1C002FDB1B /* JAPlaceholderTextView.m */; };
+		9664E9FC19E8815A00047C1D /* ReadReceiptCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9664E9FB19E8815A00047C1D /* ReadReceiptCell.m */; };
 		96696330194B5061003B22B5 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9669632F194B5061003B22B5 /* NotificationManager.m */; };
 		96696333194B6CF7003B22B5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696332194B6CF7003B22B5 /* Constants.m */; };
 		96696337194E2018003B22B5 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96696336194E2018003B22B5 /* FormView.m */; };
@@ -250,6 +251,8 @@
 		9661914119E73F1C002FDB1B /* JAInsetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAInsetLabel.m; sourceTree = "<group>"; };
 		9661914219E73F1C002FDB1B /* JAPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAPlaceholderTextView.h; sourceTree = "<group>"; };
 		9661914319E73F1C002FDB1B /* JAPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAPlaceholderTextView.m; sourceTree = "<group>"; };
+		9664E9FA19E8815A00047C1D /* ReadReceiptCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadReceiptCell.h; sourceTree = "<group>"; };
+		9664E9FB19E8815A00047C1D /* ReadReceiptCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadReceiptCell.m; sourceTree = "<group>"; };
 		9669632E194B5061003B22B5 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		9669632F194B5061003B22B5 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		96696331194B6CF7003B22B5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -738,6 +741,8 @@
 				964A6BE8194F39620024B3C2 /* MessageThreadPreviewCell.m */,
 				CBB488A81961C9AE00612C22 /* AvailabilityCell.h */,
 				CBB488A91961C9AE00612C22 /* AvailabilityCell.m */,
+				9664E9FA19E8815A00047C1D /* ReadReceiptCell.h */,
+				9664E9FB19E8815A00047C1D /* ReadReceiptCell.m */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -1232,6 +1237,7 @@
 				96696330194B5061003B22B5 /* NotificationManager.m in Sources */,
 				964A6BE0194E66480024B3C2 /* OnboardSelectOfficeViewController.m in Sources */,
 				96BF1D1E19DC75AB001A7908 /* InviteContactViewController.m in Sources */,
+				9664E9FC19E8815A00047C1D /* ReadReceiptCell.m in Sources */,
 				CBBA68DB192FE0B5005A6949 /* Account.m in Sources */,
 				CB04186B194A338900B3DE97 /* DepartmentContactsTableViewController.m in Sources */,
 				96C2CF9F19577EE300E77CFD /* SettingsViewController.m in Sources */,

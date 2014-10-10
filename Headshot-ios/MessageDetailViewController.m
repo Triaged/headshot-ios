@@ -9,6 +9,9 @@
 #import "MessageDetailViewController.h"
 #import <HMSegmentedControl.h>
 #import "MessageCell.h"
+#import "ReadReceiptCell.h"
+#import "ReadReceipt.h"
+#import "MessageThread.h"
 #import "DefaultMessageCellDelegate.h"
 
 @interface MessageDetailViewController()
@@ -16,7 +19,9 @@
 @property (strong, nonatomic) id<MessageCellDelegate> messageCellDelegate;
 @property (strong, nonatomic) UIView *segmentedControlContainerView;
 @property (strong, nonatomic) HMSegmentedControl *segmentedControl;
-
+@property (strong, nonatomic) NSArray *unreadUsers;
+@property (strong, nonatomic) NSArray *readReceipts;
+@property (readonly) BOOL showRead;
 @end
 
 @implementation MessageDetailViewController
@@ -58,11 +63,45 @@
     self.segmentedControl.width = 280;
     self.segmentedControl.centerX = self.segmentedControlContainerView.width/2.0;
     self.segmentedControl.bottom = self.segmentedControlContainerView.height;
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.message) {
+        [self reloadData];
+    }
+}
+
+- (BOOL)showRead
+{
+    return self.segmentedControl.selectedSegmentIndex == 0;
 }
 
 - (void)segmentedControlValueChanged:(id)sender
 {
+    [self reloadData];
+}
+
+- (void)reloadData
+{
+    NSMutableSet *readSet = [[NSMutableSet alloc] init];
+    for (ReadReceipt *readReceipt in self.message.readReceipts) {
+        [readSet addObject:readReceipt.user];
+    }
     
+    NSMutableSet *unreadSet = [[NSMutableSet alloc] initWithSet:self.message.messageThread.recipients];
+    [unreadSet minusSet:readSet];
+    self.unreadUsers = unreadSet.allObjects;
+    self.readReceipts = self.message.readReceipts.allObjects;
+    
+    NSString *readTitle = [NSString stringWithFormat:@"READ (%@)", @(self.readReceipts.count)];
+    NSString *unreadTitle = [NSString stringWithFormat:@"UNREAD (%@)", @(self.unreadUsers.count)];
+    self.segmentedControl.sectionTitles = @[readTitle, unreadTitle];
+    
+    [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -77,7 +116,12 @@
         numRows = 1;
     }
     else {
-        
+        if (self.showRead) {
+            numRows = self.readReceipts.count;
+        }
+        else {
+            numRows = self.unreadUsers.count;
+        }
     }
     return numRows;
 }
@@ -105,6 +149,9 @@
         Message *message = self.message;
         height = [MessageCell desiredHeightForMessage:message font:[self.messageCellDelegate fontForMessage:message] constrainedToSize:CGSizeMake(self.view.width, CGFLOAT_MAX) textEdgeInsets:[self.messageCellDelegate contentInsetsForMessage:message]];
     }
+    else {
+        height = 54;
+    }
     return height;
 }
 
@@ -114,13 +161,37 @@
         return [self messageCell];
     }
     else {
-        return nil;
+        return [self tableView:tableView readReceiptCellForIndexPath:indexPath];
     }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView readReceiptCellForIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"CellIdentifier";
+    ReadReceiptCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[ReadReceiptCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.textLabel.font = [ThemeManager lightFontOfSize:16];
+        cell.detailTextLabel.font = [ThemeManager lightFontOfSize:13];
+        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+    }
+    
+    if (self.showRead) {
+        ReadReceipt *receipt = self.readReceipts[indexPath.row];
+        [cell configureForReadReceipt:receipt];
+    }
+    else {
+        User *user = self.unreadUsers[indexPath.row];
+        [cell configureForUnreadUser:user];
+    }
+    
+    return cell;
 }
 
 - (MessageCell *)messageCell
 {
     MessageCell *messageCell = [[MessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    messageCell.selectionStyle = UITableViewCellSelectionStyleNone;
     messageCell.messageCellDelegate = self.messageCellDelegate;
     messageCell.message = self.message;
     return messageCell;
