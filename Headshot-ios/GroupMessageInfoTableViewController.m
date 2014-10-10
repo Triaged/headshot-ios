@@ -9,6 +9,7 @@
 #import "GroupMessageInfoTableViewController.h"
 #import "ContactsDataSource.h"
 #import "ContactCell.h"
+#import "CenterButton.h"
 
 @interface GroupMessageInfoTableViewController ()
 
@@ -27,13 +28,65 @@
 {
     [super viewDidLoad];
     self.tableView.tableFooterView = [[UIView alloc] init];
+    [self initHeader];
+}
+
+- (void)initHeader
+{
+    self.addMembersButton = [[CenterButton alloc] init];
+    self.addMembersButton.titleLabel.font = [ThemeManager regularFontOfSize:9];
+    [self.addMembersButton setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
+    [self.addMembersButton setImage:[UIImage imageNamed:@"messages-add-member"] forState:UIControlStateNormal];
+    [self.addMembersButton setTitle:@"Add Members" forState:UIControlStateNormal];
     
+    self.editNameButton = [[CenterButton alloc] init];
+    [self.editNameButton setTitle:@"Edit Name" forState:UIControlStateNormal];
+    [self.editNameButton setImage:[UIImage imageNamed:@"messages-edit-name"] forState:UIControlStateNormal];
+    
+    self.muteButton = [[CenterButton alloc] init];
 }
 
 - (void)setUsers:(NSArray *)users
 {
     _users = users;
     [self.tableView reloadData];
+}
+
+- (void)showHeaderForMessageThread:(MessageThread *)messageThread
+{
+    self.tableView.tableHeaderView = [self infoToolBarForMessageThread:messageThread];
+}
+
+- (UIView *)infoToolBarForMessageThread:(MessageThread *)messageThread
+{
+    UIView *toolBarBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 56)];
+    toolBarBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+    
+    NSArray *buttons;
+    if (messageThread.isGroupThread) {
+        buttons = @[self.addMembersButton, self.editNameButton, self.muteButton];
+    }
+    else {
+        buttons = @[self.addMembersButton, self.muteButton];
+    }
+    CGSize buttonSize = CGSizeMake(toolBarBackground.width/buttons.count, toolBarBackground.height);
+    [buttons enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        CenterButton *button = (CenterButton *)obj;
+        button.size = buttonSize;
+        button.x = idx*buttonSize.width;
+        button.padding = 2;
+        [button setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [ThemeManager regularFontOfSize:9];
+        button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [toolBarBackground addSubview:button];
+        if (idx < 2) {
+            [button addEdge:UIRectEdgeRight width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+        }
+    }];
+    
+    [toolBarBackground addEdge:UIRectEdgeBottom width:0.5 color:[[ThemeManager sharedTheme] tableViewSeparatorColor]];
+    return toolBarBackground;
 }
 
 #pragma mark - Table view data source

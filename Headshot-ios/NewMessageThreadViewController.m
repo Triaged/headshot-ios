@@ -7,13 +7,18 @@
 //
 
 #import "NewMessageThreadViewController.h"
+#import <FXBlurView.h>
 #import <UINavigationController+SGProgress.h>
+#import "UINavigationController+NotificationIndicator.h"
 #import "MessageCell.h"
 #import "MessageClient.h"
 #import "JAKeyboardObserver.h"
 #import "JAPlaceholderTextView.h"
+#import "GroupMessageInfoTableViewController.h"
+#import "CenterButton.h"
 
-@interface NewMessageThreadViewController() <JAKeyboardObserverDelegate, JAPlaceholderTextViewDelegate>
+
+@interface NewMessageThreadViewController() <JAKeyboardObserverDelegate, JAPlaceholderTextViewDelegate, GroupMessageInfoTableViewController>
 
 @property (strong, nonatomic) NSMutableOrderedSet *messageQueue;
 @property (strong, nonatomic) NSMutableArray *messages;
@@ -25,6 +30,9 @@
 @property (assign, nonatomic) BOOL sendingMessage;
 @property (assign, nonatomic) CGFloat maxCellWidth;
 @property (strong, nonatomic) JAKeyboardObserver *keyboardObserver;
+@property (strong, nonatomic) GroupMessageInfoTableViewController *groupInfoViewController;
+@property (strong, nonatomic) FXBlurView *groupInfoBackgroundView;
+@property (assign, nonatomic) BOOL showingGroupInfo;
 @property (strong, nonatomic) NSTimer *progressTimer;
 @property (assign, nonatomic) NSTimeInterval progressDuration;
 @property (assign, nonatomic) CGFloat progressPercentage;
@@ -45,6 +53,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *infoButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar-more"] style:UIBarButtonItemStyleDone target:self action:@selector(infoButtonTouched:)];
+    self.navigationItem.rightBarButtonItem = infoButton;
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorColor = [[ThemeManager sharedTheme] tableViewSeparatorColor];
@@ -67,6 +78,9 @@
     
     self.textInputbar.rightButton.titleLabel.font = [ThemeManager regularFontOfSize:17];
     [self.textInputbar.rightButton setTitleColor:[[ThemeManager sharedTheme] primaryColor] forState:UIControlStateNormal];
+    
+    [self.textInputbar.leftButton setImage:[UIImage imageNamed:@"message-icn-add"] forState:UIControlStateNormal];
+    self.textInputbar.leftButton.tintColor = [UIColor lightGrayColor];
 
     self.keyboardObserver = [[JAKeyboardObserver alloc] initWithDelegate:self];
     
@@ -86,6 +100,47 @@
     _messageThread = messageThread;
     [self reloadData];
     [self scrollToBottomAnimated:NO];
+}
+
+- (void)receivedNewMessageNotification:(NSNotification *)notification
+{
+    NSArray *messageIDs = notification.userInfo[@"messages"];
+    BOOL reload = NO;
+    BOOL showIndicator = NO;
+    for (NSManagedObjectID *messageID in messageIDs) {
+        Message *message = (Message *)[[NSManagedObjectContext MR_defaultContext] objectWithID:messageID];
+        if ([message.messageThread.identifier isEqualToString:self.messageThread.identifier]) {
+            reload = YES;
+        }
+        else {
+            showIndicator = YES;
+        }
+    }
+    if (reload) {
+        [self reloadData];
+        [self.messageThread markAsRead];
+        [self scrollToBottomAnimated:YES];
+    }
+    if (showIndicator) {
+        [self.navigationController showNotificationIndicator];
+    }
+}
+
+- (void)receivedMessageFailedNotification:(NSNotification *)notification
+{
+    [self reloadData];
+    [self cancelProgressBar];
+}
+
+- (void)receivedMessageSentNotification:(NSNotification *)notification
+{
+    NSManagedObjectID *objectID = notification.userInfo[@"message"];
+    Message *message = (Message *)[[NSManagedObjectContext MR_contextForCurrentThread] existingObjectWithID:objectID error:nil];
+    if (message) {
+        [self.messageQueue removeObject:message.uniqueID];
+        [self updateProgressBar];
+    }
+    [self reloadData];
 }
 
 - (void)didPressRightButton:(id)sender
@@ -287,5 +342,90 @@
 {
     [self scrollToBottomAnimated:YES];
 }
+
+
+#pragma mark - Group Info
+- (void)infoButtonTouched:(id)sender
+{
+    if (!self.messageThread) {
+        return;
+    }
+    if (self.showingGroupInfo) {
+        [self dismissGroupInfo];
+    }
+    else {
+        [self showGroupInfo];
+    }
+}
+
+- (void)showGroupInfo
+{
+    self.showingGroupInfo = YES;
+    self.groupInfoViewController.users = [self.messageThread.recipientsExcludeUser filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"archived == NO"]].allObjects;;
+    if (!self.groupInfoBackgroundView) {
+        CGRect frame = CGRectZero;
+        if (self.navigationController.navigationBar.isTranslucent) {
+            frame.origin.y = self.navigationController.navigationBar.bottom;
+            frame.size = CGSizeMake(self.view.width, self.view.height - frame.origin.y);
+        }
+        else {
+            frame = self.view.bounds;
+        }
+        self.groupInfoBackgroundView = [[FXBlurView alloc] initWithFrame:frame];
+        UIView *overlayView = [[UIView alloc] initWithFrame:self.groupInfoBackgroundView.bounds];
+        overlayView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+        [self.groupInfoBackgroundView addSubview:overlayView];
+        self.groupInfoBackgroundView.blurEnabled = YES;
+        self.groupInfoBackgroundView.blurRadius = 10;
+        self.groupInfoBackgroundView.tintColor = nil;
+        self.groupInfoBackgroundView.dynamic = NO;
+        self.groupInfoViewController.view.frame = self.groupInfoBackgroundView.bounds;
+    }
+    [self.groupInfoViewController showHeaderForMessageThread:self.messageThread];
+    self.groupInfoViewController.view.backgroundColor = [UIColor clearColor];
+    [self addChildViewController:self.groupInfoViewController];
+    [self.groupInfoBackgroundView addSubview:self.groupInfoViewController.view];
+    [self.view addSubview:self.groupInfoBackgroundView];
+    self.groupInfoBackgroundView.alpha = 0;
+    self.groupInfoViewController.view.transform = CGAffineTransformMakeTranslation(0, -self.groupInfoViewController.view.height);
+    [UIView animateWithDuration:0.3 animations:^{
+        self.groupInfoBackgroundView.alpha = 1;
+        self.groupInfoViewController.view.transform = CGAffineTransformIdentity;
+    }];
+}
+
+- (void)dismissGroupInfo
+{
+    self.showingGroupInfo = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.groupInfoViewController.view.transform = CGAffineTransformMakeTranslation(0, -self.groupInfoViewController.view.height);
+        self.groupInfoBackgroundView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.groupInfoBackgroundView removeFromSuperview];
+        [self.groupInfoViewController removeFromParentViewController];
+    }];
+}
+
+- (GroupMessageInfoTableViewController *)groupInfoViewController
+{
+    if (!_groupInfoViewController) {
+        _groupInfoViewController = [[GroupMessageInfoTableViewController alloc] init];
+        _groupInfoViewController.delegate = self;
+        _groupInfoViewController.tableView.bounces = NO;
+        [self updateMuteButton];
+    }
+    return _groupInfoViewController;
+}
+
+- (void)updateMuteButton
+{
+    UIButton *muteButton = self.groupInfoViewController.muteButton;
+    [muteButton setTitle:@"Mute" forState:UIControlStateNormal];
+    [muteButton setImage:[UIImage imageNamed:@"messages-mute"] forState:UIControlStateNormal];
+    [muteButton setTitle:@"Unmute" forState:UIControlStateSelected];
+    [muteButton setImage:[UIImage imageNamed:@"messages-unmute"] forState:UIControlStateSelected];
+    muteButton.selected = self.messageThread.muted.boolValue;
+}
+
 
 @end

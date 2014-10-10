@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageThread.h"
 
 @class GroupMessageInfoTableViewController;
 @protocol GroupMessageInfoTableViewController <NSObject>
@@ -17,9 +18,13 @@
 
 @interface GroupMessageInfoTableViewController : UITableViewController
 
+@property (strong, nonatomic) UIButton *muteButton;
+@property (strong, nonatomic) UIButton *editNameButton;
+@property (strong, nonatomic) UIButton *addMembersButton;
 @property (weak, nonatomic) id<GroupMessageInfoTableViewController> delegate;
 @property (strong, nonatomic) NSArray *users;
 
 - (id)initWithUsers:(NSArray *)users;
+- (void)showHeaderForMessageThread:(MessageThread *)messageThread;
 
 @end
