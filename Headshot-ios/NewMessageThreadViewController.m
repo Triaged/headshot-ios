@@ -15,6 +15,8 @@
 #import "JAKeyboardObserver.h"
 #import "JAPlaceholderTextView.h"
 #import "GroupMessageInfoTableViewController.h"
+#import "DefaultMessageCellDelegate.h"
+#import "MessageDetailViewController.h"
 #import "CenterButton.h"
 
 
@@ -22,13 +24,8 @@
 
 @property (strong, nonatomic) NSMutableOrderedSet *messageQueue;
 @property (strong, nonatomic) NSMutableArray *messages;
-@property (strong, nonatomic) UIFont *messageTextFont;
-@property (strong, nonatomic) UIColor *incomingBubbleColor;
-@property (strong, nonatomic) UIColor *outgoingBubbleColor;
-@property (strong, nonatomic) UIColor *incomingTextColor;
-@property (strong, nonatomic) UIColor *outgoingTextColor;
+@property (strong, nonatomic) id <MessageCellDelegate> messageCellDelegate;
 @property (assign, nonatomic) BOOL sendingMessage;
-@property (assign, nonatomic) CGFloat maxCellWidth;
 @property (strong, nonatomic) JAKeyboardObserver *keyboardObserver;
 @property (strong, nonatomic) GroupMessageInfoTableViewController *groupInfoViewController;
 @property (strong, nonatomic) FXBlurView *groupInfoBackgroundView;
@@ -59,15 +56,8 @@
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorColor = [[ThemeManager sharedTheme] tableViewSeparatorColor];
-
     
-    self.incomingBubbleColor = [UIColor colorWithRed:234/255.0 green:235/255.0 blue:236/255.0 alpha:1.0];
-    self.outgoingBubbleColor = [[ThemeManager sharedTheme] primaryColor];
-    
-    self.incomingTextColor = [UIColor blackColor];
-    self.outgoingTextColor = [[ThemeManager sharedTheme] primaryColor];
-    
-    self.maxCellWidth = 0.93*self.view.width;
+    self.messageCellDelegate = [[DefaultMessageCellDelegate alloc] init];
     
     self.textInputbar.backgroundColor = [UIColor colorWithWhite:250/255.0 alpha:1.0];
     self.textView.placeholder = @"Type a message";
@@ -276,7 +266,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Message *message = [self messageForIndexPath:indexPath];
-    return [MessageCell desiredHeightForMessage:message font:[self fontForMessage:message] constrainedToSize:CGSizeMake(self.view.width, CGFLOAT_MAX) textEdgeInsets:UIEdgeInsetsMake(7, 8, 7, 8)];
+    return [MessageCell desiredHeightForMessage:message font:[self.messageCellDelegate fontForMessage:message] constrainedToSize:CGSizeMake(self.view.width, CGFLOAT_MAX) textEdgeInsets:[self.messageCellDelegate contentInsetsForMessage:message]];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -291,55 +281,18 @@
     if (!cell) {
         cell = [[MessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.messageCellDelegate = self;
+        cell.messageCellDelegate = self.messageCellDelegate;
     }
     cell.message = [self messageForIndexPath:indexPath];
     return cell;
 }
 
-#pragma mark - Message Cell Delegate
-- (UIFont *)fontForMessage:(Message *)message
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ThemeManager lightFontOfSize:17];
+    Message *message = [self messageForIndexPath:indexPath];
+    MessageDetailViewController *messageDetailViewController = [[MessageDetailViewController alloc] initWithMessage:message];
+    [self.navigationController pushViewController:messageDetailViewController animated:YES];
 }
-
-- (UIColor *)textColorForMessage:(Message *)message
-{
-    BOOL isUserMessage = [message.author.identifier isEqualToString:[User currentUser].identifier];
-    UIColor *color = isUserMessage ? self.outgoingTextColor : self.incomingTextColor;
-    return color;
-}
-
-- (UIColor *)bubbleColorForMessage:(Message *)message
-{
-    BOOL isUserMessage = [message.author.identifier isEqualToString:[User currentUser].identifier];
-    UIColor *color = isUserMessage ? self.outgoingBubbleColor : self.incomingBubbleColor;
-    return color;
-}
-
-- (NSAttributedString *)attributedNameStringForMessage:(Message *)message
-{
-    BOOL isUserMessage = [message.author.identifier isEqualToString:[User currentUser].identifier];
-    if (!isUserMessage) {
-        NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:message.author.fullName];
-        [attributedNameString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedNameString.string.length)];
-        return attributedNameString;
-    }
-    else {
-        return [[NSAttributedString alloc] initWithString:@"Me"];
-    }
-}
-
-- (UIEdgeInsets)contentInsetsForMessage:(Message *)message
-{
-    return UIEdgeInsetsMake(7, 17, 7, 30);
-}
-
-- (CGFloat)maxCellWidthForMessage:(Message *)message
-{
-    return self.maxCellWidth;
-}
-
 
 #pragma mark - Keyboard
 - (void)keyboardObserver:(JAKeyboardObserver *)observer receivedWillShowNotificationWithInfo:(JAKeyboardInfo *)info

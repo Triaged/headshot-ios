@@ -103,16 +103,17 @@
 
 - (void)layoutSubviews
 {
-    self.messageTextLabel.height = [MessageCell heightForText:self.messageTextLabel.text withFont:self.messageTextLabel.font constrainedToSize:CGSizeMake(self.contentView.width, CGFLOAT_MAX)];
     [super layoutSubviews];
     UIEdgeInsets insets = [self.messageCellDelegate contentInsetsForMessage:self.message];
+    self.messageTextLabel.x = insets.left;
+    self.messageTextLabel.width = self.contentView.width - insets.right - insets.left;
+    [self.messageTextLabel sizeToFit];
+    
     self.avatarImageView.size = CGSizeMake(35, 35);
     self.avatarImageView.x = insets.left;
     self.avatarImageView.centerY = self.avatarImageView.superview.height/2.0;
-    self.messageTextLabel.width = self.contentView.width - insets.left - insets.right;
     
-    self.messageTextLabel.centerY = self.avatarImageView.bottom + (self.contentView.height - self.headerView.height)/2.0;
-    self.messageTextLabel.x = insets.left;
+    self.messageTextLabel.y = self.headerView.bottom;
     
     [self.nameLabel sizeToFit];
     self.nameLabel.x = self.avatarImageView.right + 10;

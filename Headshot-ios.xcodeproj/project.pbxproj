@@ -23,6 +23,8 @@
 		9631D33C19C9E3D500BF381A /* CenterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9631D33B19C9E3D500BF381A /* CenterButton.m */; };
 		96395AEB19E82164006B708D /* MessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96395AEA19E82164006B708D /* MessageTextView.m */; };
 		96395AEE19E83518006B708D /* UINavigationController+NotificationIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 96395AED19E83518006B708D /* UINavigationController+NotificationIndicator.m */; };
+		96395AF119E85B40006B708D /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96395AF019E85B40006B708D /* MessageDetailViewController.m */; };
+		96395AF419E86F14006B708D /* DefaultMessageCellDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96395AF319E86F14006B708D /* DefaultMessageCellDelegate.m */; };
 		96467B81195A01D000B45C5D /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96467B80195A01D000B45C5D /* OfficesViewController.m */; };
 		96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96467B83195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m */; };
 		9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA0194AD89300F6A4AF /* DefaultTheme.m */; };
@@ -202,6 +204,10 @@
 		96395AEA19E82164006B708D /* MessageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextView.m; sourceTree = "<group>"; };
 		96395AEC19E83518006B708D /* UINavigationController+NotificationIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+NotificationIndicator.h"; sourceTree = "<group>"; };
 		96395AED19E83518006B708D /* UINavigationController+NotificationIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+NotificationIndicator.m"; sourceTree = "<group>"; };
+		96395AEF19E85B40006B708D /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
+		96395AF019E85B40006B708D /* MessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewController.m; sourceTree = "<group>"; };
+		96395AF219E86F14006B708D /* DefaultMessageCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultMessageCellDelegate.h; sourceTree = "<group>"; };
+		96395AF319E86F14006B708D /* DefaultMessageCellDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultMessageCellDelegate.m; sourceTree = "<group>"; };
 		96467B7F195A01D000B45C5D /* OfficesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficesViewController.h; sourceTree = "<group>"; };
 		96467B80195A01D000B45C5D /* OfficesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficesViewController.m; sourceTree = "<group>"; };
 		96467B82195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PresentWithNavigationViewController.h"; sourceTree = "<group>"; };
@@ -1010,6 +1016,10 @@
 				965836531989564900070DAE /* GroupMessageInfoTableViewController.m */,
 				96E143C319E43CA800DF7A45 /* NewMessageThreadViewController.h */,
 				96E143C419E43CA800DF7A45 /* NewMessageThreadViewController.m */,
+				96395AEF19E85B40006B708D /* MessageDetailViewController.h */,
+				96395AF019E85B40006B708D /* MessageDetailViewController.m */,
+				96395AF219E86F14006B708D /* DefaultMessageCellDelegate.h */,
+				96395AF319E86F14006B708D /* DefaultMessageCellDelegate.m */,
 			);
 			name = messages;
 			sourceTree = "<group>";
@@ -1198,6 +1208,7 @@
 				96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */,
 				CB1F31D01932746F00CDCFD4 /* AccountViewController.m in Sources */,
 				964A6BD4194E2C180024B3C2 /* UIView+Edge.m in Sources */,
+				96395AF419E86F14006B708D /* DefaultMessageCellDelegate.m in Sources */,
 				96D4F2411964860700147DEB /* VersionManager.m in Sources */,
 				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
 				964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */,
@@ -1239,6 +1250,7 @@
 				96119B241991791900C9DD8C /* MessageNavigationController.m in Sources */,
 				CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */,
 				CBB488AA1961C9AE00612C22 /* AvailabilityCell.m in Sources */,
+				96395AF119E85B40006B708D /* MessageDetailViewController.m in Sources */,
 				96D4ECAE1976CB9400234ECF /* ContactsContainerViewController.m in Sources */,
 				9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */,
 				96696333194B6CF7003B22B5 /* Constants.m in Sources */,

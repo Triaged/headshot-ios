@@ -11,7 +11,7 @@
 #import "MessageThread.h"
 #import "MessageCell.h"
 
-@interface NewMessageThreadViewController : SLKTextViewController <MessageCellDelegate>
+@interface NewMessageThreadViewController : SLKTextViewController
 
 
 //@property (strong, nonatomic) UITableView *tableView;
