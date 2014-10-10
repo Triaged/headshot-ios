@@ -92,6 +92,13 @@
         [readSet addObject:readReceipt.user];
     }
     
+    if (self.message.messageThread.name) {
+        self.navigationItem.title = self.message.messageThread.name;
+    }
+    else {
+        self.navigationItem.title = self.message.messageThread.defaultTitle;
+    }
+    
     NSMutableSet *unreadSet = [[NSMutableSet alloc] initWithSet:self.message.messageThread.recipients];
     [unreadSet minusSet:readSet];
     self.unreadUsers = unreadSet.allObjects;

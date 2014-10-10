@@ -9,6 +9,7 @@
 #import "MessageCell.h"
 #import <NSDate+TimeAgo.h>
 #import "User.h"
+#import "MessageThread.h"
 
 @interface MessageCell()
 
@@ -77,7 +78,9 @@
     self.avatarImageView.user = message.author;
     self.nameLabel.attributedText = [self.messageCellDelegate attributedNameStringForMessage:message];
     self.messageTextLabel.text = message.messageText;
-    self.timestampLabel.text =  [message.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
+    NSString *timestampText =  [message.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
+    NSString *readReceiptText = [NSString stringWithFormat:@"Read by %@/%@", @(message.readReceipts.count), @(message.messageThread.recipients.count)];
+    self.timestampLabel.text = [NSString stringWithFormat:@"%@, %@", timestampText, readReceiptText];
     self.messageTextLabel.textColor = [self.messageCellDelegate textColorForMessage:message];
     self.messageTextLabel.font = [self.messageCellDelegate fontForMessage:message];
 }
