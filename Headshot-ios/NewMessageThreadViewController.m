@@ -321,10 +321,8 @@
 {
     BOOL isUserMessage = [message.author.identifier isEqualToString:[User currentUser].identifier];
     if (!isUserMessage) {
-        UIColor *lightGrayColor = [UIColor colorWithRed:202/255.0 green:204/255.0 blue:209/255.0 alpha:1.0];
         NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:message.author.fullName];
-        [attributedNameString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:[attributedNameString.string rangeOfString:message.author.firstName]];
-        [attributedNameString addAttribute:NSForegroundColorAttributeName value:lightGrayColor range:[attributedNameString.string rangeOfString:message.author.lastName]];
+        [attributedNameString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedNameString.string.length)];
         return attributedNameString;
     }
     else {
