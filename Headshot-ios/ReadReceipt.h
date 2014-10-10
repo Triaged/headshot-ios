@@ -18,6 +18,4 @@
 @property (nonatomic, retain) Message *message;
 @property (nonatomic, retain) User *user;
 
-+ (void)postReceipts:(NSArray *)receipts withCompletion:(void (^)(NSArray *receipts, NSError *error))completion;
-
 @end

@@ -124,6 +124,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedMessageSentNotification:) name:kMessageSentNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedMessageFailedNotification:) name:kMessageFailedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewReadReceiptsNotification:) name:kReceivedNewReadReceiptsNotification object:nil];
 
     
     currentUser = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
@@ -284,6 +285,11 @@
     if (showIndicator) {
         [self showUnreadMessageIndicator];
     }
+}
+
+- (void)receivedNewReadReceiptsNotification:(NSNotification *)notification
+{
+    [self fetchMessages];
 }
 
 - (void)receivedMessageFailedNotification:(NSNotification *)notification
@@ -550,6 +556,23 @@
     return nil;
 }
 
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
+{
+    Message *message = [self messageForIndexPath:indexPath];
+    User *user = [AppDelegate sharedDelegate].store.currentAccount.currentUser;
+    if (message.readReceipts) {
+        NSSet *filtered = [message.readReceipts filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"user != %@", user]];
+        if (filtered.count) {
+            NSMutableString *string = [[NSMutableString alloc] init];
+            for (ReadReceipt *reciept in filtered) {
+                [string appendString:reciept.user.firstName];
+            }
+            return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Read by %@", string]];
+        }
+    }
+    return nil;
+}
+
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
 {
     JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
@@ -572,11 +595,6 @@
      *  Don't specify attributes to use the defaults.
      */
     return [[NSAttributedString alloc] initWithString:message.sender];
-}
-
-- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
-{
-    return nil;
 }
 
 #pragma mark - UICollectionView DataSource
@@ -685,7 +703,7 @@
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
                    layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 0.0f;
+    return 15.0f;
 }
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView

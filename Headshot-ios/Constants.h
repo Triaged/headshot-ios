@@ -31,6 +31,7 @@ extern NSString * const kMessageSentNotification;
 extern NSString * const kHasStoredCompanyNotification;
 extern NSString * const kUserLogginInNotification;
 extern NSString * const kMarkedMessageThreadAsReadNotification;
+extern NSString * const kReceivedNewReadReceiptsNotification;
 
 
 //user defaults
