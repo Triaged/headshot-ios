@@ -98,6 +98,12 @@
 {
     [self view];
     _messageThread = messageThread;
+    if (messageThread.name) {
+        self.navigationItem.title = messageThread.name;
+    }
+    else {
+        self.navigationItem.title = messageThread.defaultTitle;
+    }
     [self reloadData];
     [self scrollToBottomAnimated:NO];
 }
