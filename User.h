@@ -39,6 +39,7 @@
 @property (nonatomic, retain) NSSet *tagSetItems;
 @property (nonatomic, readonly) NSString *nameInitials;
 
++ (User *)currentUser;
 + (NSArray *)findAllExcludeCurrent;
 + (NSArray *)findAllIntersectingfItems:(NSArray *)tagSetItems excludeCurrent:(BOOL)excludeCurrent;
 + (void)usersWithCompletionHandler:(void(^)(NSArray *users, NSError *error))completionHandler;

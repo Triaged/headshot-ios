@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SLKTextViewController.h>
 #import "MessageThread.h"
 #import "MessageCell.h"
 
-@interface NewMessageThreadViewController : UITableViewController <MessageCellDelegate>
+@interface NewMessageThreadViewController : SLKTextViewController <MessageCellDelegate>
 
 
+//@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) MessageThread *messageThread;
 
 - (instancetype)initWithMessageThread:(MessageThread *)messageThread;

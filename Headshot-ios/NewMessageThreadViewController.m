@@ -7,21 +7,28 @@
 //
 
 #import "NewMessageThreadViewController.h"
+#import <UINavigationController+SGProgress.h>
 #import "MessageCell.h"
+#import "MessageClient.h"
 #import "JAKeyboardObserver.h"
+#import "JAPlaceholderTextView.h"
 
-@interface NewMessageThreadViewController() <JAKeyboardObserverDelegate>
+@interface NewMessageThreadViewController() <JAKeyboardObserverDelegate, JAPlaceholderTextViewDelegate>
 
+@property (strong, nonatomic) NSMutableOrderedSet *messageQueue;
 @property (strong, nonatomic) NSMutableArray *messages;
 @property (strong, nonatomic) UIFont *messageTextFont;
 @property (strong, nonatomic) UIColor *incomingBubbleColor;
 @property (strong, nonatomic) UIColor *outgoingBubbleColor;
 @property (strong, nonatomic) UIColor *incomingTextColor;
 @property (strong, nonatomic) UIColor *outgoingTextColor;
+@property (assign, nonatomic) BOOL sendingMessage;
 @property (assign, nonatomic) CGFloat maxCellWidth;
-@property (strong, nonatomic) UIView *textInputContainer;
-//@property (strong, nonatomic) 
 @property (strong, nonatomic) JAKeyboardObserver *keyboardObserver;
+@property (strong, nonatomic) NSTimer *progressTimer;
+@property (assign, nonatomic) NSTimeInterval progressDuration;
+@property (assign, nonatomic) CGFloat progressPercentage;
+@property (assign, nonatomic) CGFloat progressUpdateInterval;
 
 @end
 
@@ -29,16 +36,19 @@
 
 - (instancetype)initWithMessageThread:(MessageThread *)messageThread
 {
-    self = [super initWithStyle:UITableViewStylePlain];
+    self = [super initWithTableViewStyle:UITableViewStylePlain];
     self.messageThread = messageThread;
+    self.inverted = NO;
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorColor = [[ThemeManager sharedTheme] tableViewSeparatorColor];
+
     
     self.incomingBubbleColor = [UIColor colorWithRed:234/255.0 green:235/255.0 blue:236/255.0 alpha:1.0];
     self.outgoingBubbleColor = [[ThemeManager sharedTheme] primaryColor];
@@ -48,7 +58,21 @@
     
     self.maxCellWidth = 0.93*self.view.width;
     
+    self.textInputbar.backgroundColor = [UIColor colorWithWhite:250/255.0 alpha:1.0];
+    self.textView.placeholder = @"Type a message";
+    self.textView.font = [ThemeManager lightFontOfSize:15];
+    self.textView.backgroundColor = [UIColor clearColor];
+    self.textView.layer.borderWidth = 0;
+    self.textView.layer.cornerRadius = 0;
+    
+    self.textInputbar.rightButton.titleLabel.font = [ThemeManager regularFontOfSize:17];
+    [self.textInputbar.rightButton setTitleColor:[[ThemeManager sharedTheme] primaryColor] forState:UIControlStateNormal];
+
     self.keyboardObserver = [[JAKeyboardObserver alloc] initWithDelegate:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedMessageSentNotification:) name:kMessageSentNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedMessageFailedNotification:) name:kMessageFailedNotification object:nil];
 }
 
 - (BOOL)hidesBottomBarWhenPushed
@@ -61,12 +85,114 @@
     [self view];
     _messageThread = messageThread;
     [self reloadData];
+    [self scrollToBottomAnimated:NO];
+}
+
+- (void)didPressRightButton:(id)sender
+{
+    Message *message = [self createMessageWithText:self.textView.text andAuthor:[User currentUser]];
+    [self sendMessage:message];
+    [self clearTextField];
+}
+
+- (void)sendMessage:(Message *)message
+{
+    [self.messageQueue addObject:message];
+    [self startProgressBar];
+    self.sendingMessage = YES;
+    NSLog(@"sending message %@", message);
+    [[MessageClient sharedClient] sendMessage:message withCompletion:^(Message *message, NSError *error) {
+        self.sendingMessage = NO;
+        NSLog(@"completing message %@", message);
+        [self.messageQueue removeObject:message];
+        [self updateProgressBar];
+        [self reloadData];
+    }];
+    [self reloadData];
+    [self scrollToBottomAnimated:YES];
+    [[AnalyticsManager sharedManager] messageSent];
+}
+
+- (void)resendMessage:(Message *)message
+{
+    if (!self.sendingMessage) {
+        [self sendMessage:message];
+    }
+}
+
+- (Message *)createMessageWithText:(NSString *)text andAuthor:(User *)user {
+    Message *newMessage = [Message MR_createEntity];
+    newMessage.timestamp = [NSDate date];
+    newMessage.author = user;
+    newMessage.messageThread = self.messageThread;
+    newMessage.messageText = text;
+    return newMessage;
+}
+
+- (void)clearTextField
+{
+    self.textView.text = nil;
+}
+
+#pragma mark - Progress Bar
+- (void)updateProgressBar
+{
+    if (!self.messageQueue.count) {
+        [self finishProgressBar];
+    }
+    else {
+        self.progressPercentage += 100*self.progressUpdateInterval/(self.progressDuration);
+        self.progressPercentage = MIN(75, self.progressPercentage);
+        [self setProgessPercentage:self.progressPercentage failed:NO];
+    }
+}
+
+- (void)setProgessPercentage:(CGFloat)progressPercentage failed:(BOOL)failed
+{
+    UIColor *tintColor = failed ? [UIColor redColor] : [[ThemeManager sharedTheme] primaryColor];
+    [self.navigationController setSGProgressPercentage:progressPercentage andTintColor:tintColor];
+}
+
+- (void)startProgressBar
+{
+    self.progressDuration = 1.5;
+    self.progressUpdateInterval = 0.1;
+    self.progressPercentage = 0;
+    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:self.progressUpdateInterval target:self selector:@selector(updateProgressBar) userInfo:nil repeats:YES];
+    [self updateProgressBar];
+}
+
+- (void)finishProgressBar
+{
+    [self setProgessPercentage:100 failed:NO];
+    [self.progressTimer invalidate];
+}
+
+- (void)cancelProgressBar
+{
+    [self setProgessPercentage:0 failed:YES];
+    [self.progressTimer invalidate];
 }
 
 - (void)reloadData
 {
     self.messages = [NSMutableArray arrayWithArray:[Message MR_findByAttribute:@"messageThread" withValue:self.messageThread andOrderBy:@"timestamp" ascending:YES]];
     [self.tableView reloadData];
+}
+
+- (void)scrollToBottomAnimated:(BOOL)animated
+{
+    if ([self.tableView numberOfSections] == 0) {
+        return;
+    }
+    
+    NSInteger items = [self.tableView numberOfRowsInSection:0];
+    
+    if (items > 0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:items - 1 inSection:0]
+                                    atScrollPosition:UITableViewScrollPositionTop
+                                            animated:animated];
+    }
 }
 
 #pragma mark - data source
@@ -118,21 +244,21 @@
 
 - (UIColor *)textColorForMessage:(Message *)message
 {
-    BOOL isUserMessage = [message.author.identifier isEqualToString:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
+    BOOL isUserMessage = [message.author.identifier isEqualToString:[User currentUser].identifier];
     UIColor *color = isUserMessage ? self.outgoingTextColor : self.incomingTextColor;
     return color;
 }
 
 - (UIColor *)bubbleColorForMessage:(Message *)message
 {
-    BOOL isUserMessage = [message.author.identifier isEqualToString:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
+    BOOL isUserMessage = [message.author.identifier isEqualToString:[User currentUser].identifier];
     UIColor *color = isUserMessage ? self.outgoingBubbleColor : self.incomingBubbleColor;
     return color;
 }
 
 - (NSAttributedString *)attributedNameStringForMessage:(Message *)message
 {
-    BOOL isUserMessage = [message.author.identifier isEqualToString:[AppDelegate sharedDelegate].store.currentAccount.currentUser.identifier];
+    BOOL isUserMessage = [message.author.identifier isEqualToString:[User currentUser].identifier];
     if (!isUserMessage) {
         UIColor *lightGrayColor = [UIColor colorWithRed:202/255.0 green:204/255.0 blue:209/255.0 alpha:1.0];
         NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:message.author.fullName];
@@ -157,9 +283,9 @@
 
 
 #pragma mark - Keyboard
-- (void)keyboardObserver:(JAKeyboardObserver *)observer receivedWillChangeFrameNotificationWithInfo:(JAKeyboardInfo *)info
+- (void)keyboardObserver:(JAKeyboardObserver *)observer receivedWillShowNotificationWithInfo:(JAKeyboardInfo *)info
 {
-    
+    [self scrollToBottomAnimated:YES];
 }
 
 @end

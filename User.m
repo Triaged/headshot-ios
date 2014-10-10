@@ -45,6 +45,11 @@
     [self fetchObjectsFromURL:URL completionHandler:completionHandler];
 }
 
++ (User *)currentUser
+{
+    return [AppDelegate sharedDelegate].store.currentAccount.currentUser;
+}
+
 + (NSArray *)findAllExcludeCurrent
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier != %@ && archived == NO", [AppDelegate sharedDelegate].store.currentAccount.identifier];
