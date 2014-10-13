@@ -65,6 +65,7 @@
             ReadReceipt *readReceipt = [ReadReceipt MR_createEntity];
             readReceipt.message = message;
             readReceipt.timestamp = timestamp;
+            readReceipt.user = [User currentUser];
             [createdReceipts addObject:readReceipt];
             message.userReadReceipt = readReceipt;
         }
