@@ -24,4 +24,6 @@
 @property (nonatomic, retain) MessageThread *messageThread;
 @property (nonatomic, retain) User *author;
 
+@property (nonatomic, readonly) NSSet *recieptsExcludeSender;
+
 @end
