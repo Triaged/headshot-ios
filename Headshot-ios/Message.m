@@ -48,7 +48,7 @@
     return self.timestamp;
 }
 
-- (NSSet *)recieptsExcludeSender
+- (NSSet *)readRecieptsExcludeAuthor
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user != %@", self.author];
     return [self.readReceipts filteredSetUsingPredicate:predicate];
