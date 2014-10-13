@@ -140,7 +140,7 @@
     }
     [message.managedObjectContext MR_saveOnlySelfAndWait];
     NSString *channel = [NSString stringWithFormat:@"/threads/messages/%@", message.messageThread.identifier];
-    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.text, @"guid" : message.uniqueID}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
+    [self.fayeClient sendMessage:@{@"message" : @{@"author_id" : message.author.identifier, @"body" : message.messageText, @"guid" : message.uniqueID}} toChannel:channel usingExtension:self.authExtension withCompletion:^(NSDictionary *responseObject, NSError *error) {
         if (!error) {
 //            responseObject must have a messageThread containing a single message
             NSDictionary *messageData = responseObject[@"message_thread"][@"messages"][0];

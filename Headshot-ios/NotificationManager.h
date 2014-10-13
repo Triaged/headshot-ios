@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NewMessageThreadViewController.h"
 
 @class MessageThreadViewController;
 
 @interface NotificationManager : NSObject
 
-@property (strong, nonatomic) MessageThreadViewController *visibleMessageThreadViewController;
+@property (strong, nonatomic) NewMessageThreadViewController *visibleMessageThreadViewController;
 
 + (NotificationManager *)sharedManager;
 - (void)registerForRemoteNotificationsWithCompletion:(void (^)(NSData *devToken, NSError *error))completion;

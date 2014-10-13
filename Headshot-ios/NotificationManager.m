@@ -10,7 +10,6 @@
 #import "Message.h"
 #import "MessageThread.h"
 #import "User.h"
-#import "MessageThreadViewController.h"
 #import "MessageNavigationController.h"
 #import "SoundPlayer.h"
 #import "Device.h"

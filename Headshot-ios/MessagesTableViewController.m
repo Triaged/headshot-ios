@@ -9,7 +9,6 @@
 #import "MessagesTableViewController.h"
 #import "MessageThread.h"
 #import "User.h"
-#import "MessageThreadViewController.h"
 #import "NewThreadTableViewController.h"
 #import "NewMessageThreadViewController.h"
 #import "MessageThreadPreviewCell.h"
@@ -84,12 +83,6 @@
 - (void)dismissModal
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)createOrFindThreadForRecipient:(User *)recipient
-{
-    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithRecipient:recipient];
-    [self.navigationController pushViewController:messageThreadVC animated:NO];
 }
 
 - (void)setupTableView

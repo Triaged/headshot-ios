@@ -49,9 +49,6 @@ PODS:
   - HMSegmentedControl (1.4.0)
   - INTULocationManager (1.2.0)
   - JACenterButton (0.1.0)
-  - JSQMessagesViewController (5.3.2):
-    - JSQSystemSoundPlayer
-  - JSQSystemSoundPlayer (1.5.2)
   - MagicalRecord (2.2):
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
@@ -119,7 +116,7 @@ PODS:
   - UITableView-NXEmptyView (0.1.6)
   - UIView+AutoLayout (2.0.1)
   - UIView+Positioning (1.0.1)
-  - VENTokenField (2.0.1):
+  - VENTokenField (2.2.1):
     - FrameAccessor (~> 1.0)
   - Vertigo (0.1)
 
@@ -133,7 +130,6 @@ DEPENDENCIES:
   - HMSegmentedControl (~> 1.4)
   - INTULocationManager (~> 1.2.0)
   - JACenterButton (from `https://github.com/jma256/JACenterButton.git`, commit `0d3dd00a1437c1b668ff75dd3fa968745c10e40a`)
-  - JSQMessagesViewController (~> 5.3.2)
   - MagicalRecord
   - MBContactPicker
   - Mixpanel
@@ -156,7 +152,7 @@ DEPENDENCIES:
   - UITableView-NXEmptyView
   - UIView+AutoLayout
   - UIView+Positioning
-  - VENTokenField (from `https://github.com/jma256/VENTokenField.git`)
+  - VENTokenField (from `https://github.com/jma256/VENTokenField.git`, commit `75d8b541e17cebf69ec94a44f29641a5479f51b6`)
   - Vertigo
 
 EXTERNAL SOURCES:
@@ -173,6 +169,7 @@ EXTERNAL SOURCES:
     :commit: bca970244654d0d504de82552be5fa5661b83a12
     :git: https://github.com/jma256/MZFayeClient.git
   VENTokenField:
+    :commit: 75d8b541e17cebf69ec94a44f29641a5479f51b6
     :git: https://github.com/jma256/VENTokenField.git
 
 SPEC CHECKSUMS:
@@ -188,8 +185,6 @@ SPEC CHECKSUMS:
   HMSegmentedControl: c0517a8d4b80c978b8386f863f1c44729cfd7d6f
   INTULocationManager: 596c57e35a00ca1ee9d59bf4cc2b63dc299b580e
   JACenterButton: c8466a9faee93db08c17554decf832d7ef2d2792
-  JSQMessagesViewController: d36408f51a8289c0354b7d9c497f572e9f26db67
-  JSQSystemSoundPlayer: c24914bc96ff5365b5d28b59d7ecffd60d1c5587
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
   MBContactPicker: f3ad9c973cdc8ed6caa92a104dbc314f155f3ea6
   Mixpanel: a29ff32db93936dea24162f0dc4fecc4a8f17071
@@ -214,7 +209,7 @@ SPEC CHECKSUMS:
   UITableView-NXEmptyView: 4322b391d08f8272e4f1860e4a182eba300d05dd
   UIView+AutoLayout: d876c583c3dec28b5c3916175ea4b6ad70a8be34
   UIView+Positioning: 870af80983bf495af2cb8a3a15b20e26fcc57ebb
-  VENTokenField: a5094a240dc70494ba1b5b147889ac66e508b4f0
+  VENTokenField: f1d6013c90017ee33e2f63dad6f37a4cfd1fb1fc
   Vertigo: 606222b572b2f54d5a85329b7afe1436a4859e89
 
 COCOAPODS: 0.34.1

@@ -19,5 +19,6 @@
 
 - (instancetype)initWithMessageThread:(MessageThread *)messageThread;
 - (instancetype)initWithRecipients:(NSArray *)recipients;
+- (id)initWithThreadID:(NSString *)threadID;
 
 @end

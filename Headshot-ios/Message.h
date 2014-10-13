@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import <JSQMessagesViewController/JSQMessages.h>
 
 @class MessageThread, User, ReadReceipt;
 
-@interface Message : NSManagedObject <JSQMessageData>
+@interface Message : NSManagedObject 
 
 @property (nonatomic, retain) NSString * uniqueID;
 @property (nonatomic, retain) NSNumber * failed;

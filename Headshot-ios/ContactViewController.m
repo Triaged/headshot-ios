@@ -10,8 +10,8 @@
 #import <BlocksKit+UIKit.h>
 #import "EmployeeInfo.h"
 #import "OfficeLocation.h"
-#import "MessageThreadViewController.h"
 #import "ContactDetailsDataSource.h"
+#import "NewMessageThreadViewController.h"
 #import "MailComposer.h"
 
 
@@ -104,16 +104,10 @@
     [self.view layoutIfNeeded];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)messageTapped:(id)sender {
     BOOL pop = NO;
-    if (self.backViewController && [self.backViewController isKindOfClass:[MessageThreadViewController class]]) {
-        MessageThreadViewController *messageThreadViewController = (MessageThreadViewController *)self.backViewController;
+    if (self.backViewController && [self.backViewController isKindOfClass:[NewMessageThreadViewController class]]) {
+        NewMessageThreadViewController *messageThreadViewController = (NewMessageThreadViewController *)self.backViewController;
         User *recipient = [messageThreadViewController.messageThread.recipientsExcludeUser anyObject];
         pop = [recipient.identifier isEqual:self.user.identifier];
     }
@@ -121,7 +115,7 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
     else {
-        MessageThreadViewController *threadVC = [[MessageThreadViewController alloc] initWithRecipient:self.user];
+        NewMessageThreadViewController *threadVC = [[NewMessageThreadViewController alloc] initWithRecipients:@[self.user]];
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
         [self.navigationController pushViewController:threadVC animated:YES];
     }

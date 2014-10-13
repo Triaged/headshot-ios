@@ -16,7 +16,6 @@
 #import "CredentialStore.h"
 #import "NotificationManager.h"
 #import "OnboardNavigationController.h"
-#import "MessageThreadViewController.h"
 #import "AuthenticationViewController.h"
 #import "InviteContactViewController.h"
 #import "MailComposer.h"
@@ -112,10 +111,10 @@
     else {
         [self showLogin];
     }
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[InviteContactViewController new]];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[InviteContactViewController new]];
 //    self.window.rootViewController = [WelcomeViewController new];
-    self.window.rootViewController = nav;
-    nav.navigationBar.translucent = NO;
+//    self.window.rootViewController = nav;
+//    nav.navigationBar.translucent = NO;
     [self.window makeKeyAndVisible];
 }
 
@@ -178,7 +177,7 @@
 
 - (void)setTopViewControllerToMessageThreadViewControllerWithID:(NSString *)threadID
 {
-    MessageThreadViewController *messageThreadViewControllor = [[MessageThreadViewController alloc] initWithThreadID:threadID];
+    NewMessageThreadViewController *messageThreadViewControllor = [[NewMessageThreadViewController alloc] initWithThreadID:threadID];
     self.window.rootViewController = self.tabBarController;
     [self.tabBarController selectMessagesViewController];
     UINavigationController *navigationController = (UINavigationController *)self.tabBarController.selectedViewController;

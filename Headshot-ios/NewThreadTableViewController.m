@@ -69,7 +69,7 @@
     self.tokenField = [[VENTokenField alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 55)];
     self.tokenField.returnKeyType = UIReturnKeyNext;
     self.tokenField.maxHeight = 55;
-    [self.tokenField setColorScheme:[[ThemeManager sharedTheme] orangeColor]];
+    [self.tokenField setColorScheme:[[ThemeManager sharedTheme] primaryColor]];
     self.tokenField.placeholderText = @"Who would you like to message?";
     self.tokenField.delegate = self;
     self.tokenField.dataSource = self;

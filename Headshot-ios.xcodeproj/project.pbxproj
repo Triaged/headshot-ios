@@ -96,7 +96,6 @@
 		CB0E71B01948BA5E002B2B58 /* ContactSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB0E71AE1948BA5E002B2B58 /* ContactSectionViewController.xib */; };
 		CB1F31A91931599000CDCFD4 /* MessageThread.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31A81931599000CDCFD4 /* MessageThread.m */; };
 		CB1F31AC1931599100CDCFD4 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31AB1931599100CDCFD4 /* Message.m */; };
-		CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F31AE19315A6700CDCFD4 /* MessageThreadViewController.m */; };
 		CB1F31B6193178E400CDCFD4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31B5193178E400CDCFD4 /* libsqlite3.dylib */; };
 		CB1F31B8193178EE00CDCFD4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31B7193178EE00CDCFD4 /* Security.framework */; };
 		CB1F31BA193178FF00CDCFD4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1F31B9193178FF00CDCFD4 /* AudioToolbox.framework */; };
@@ -352,8 +351,6 @@
 		CB1F31A81931599000CDCFD4 /* MessageThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThread.m; sourceTree = "<group>"; };
 		CB1F31AA1931599100CDCFD4 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		CB1F31AB1931599100CDCFD4 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
-		CB1F31AD19315A6700CDCFD4 /* MessageThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageThreadViewController.h; sourceTree = "<group>"; };
-		CB1F31AE19315A6700CDCFD4 /* MessageThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThreadViewController.m; sourceTree = "<group>"; };
 		CB1F31B5193178E400CDCFD4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		CB1F31B7193178EE00CDCFD4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CB1F31B9193178FF00CDCFD4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -1013,8 +1010,6 @@
 			children = (
 				CBBA68F8192FE26C005A6949 /* MessagesTableViewController.h */,
 				CBBA68F9192FE26C005A6949 /* MessagesTableViewController.m */,
-				CB1F31AD19315A6700CDCFD4 /* MessageThreadViewController.h */,
-				CB1F31AE19315A6700CDCFD4 /* MessageThreadViewController.m */,
 				CB1F31C31931A12600CDCFD4 /* NewThreadTableViewController.h */,
 				CB1F31C41931A12600CDCFD4 /* NewThreadTableViewController.m */,
 				965836521989564900070DAE /* GroupMessageInfoTableViewController.h */,
@@ -1218,7 +1213,6 @@
 				CB0418651949310300B3DE97 /* DepartmentsTableViewController.m in Sources */,
 				964A6BF2194F93250024B3C2 /* OnboardPushPermissionViewController.m in Sources */,
 				961E5396196C511000F8A158 /* ForgotPasswordViewController.m in Sources */,
-				CB1F31AF19315A6700CDCFD4 /* MessageThreadViewController.m in Sources */,
 				CBBA68A2192FD850005A6949 /* TRDataStoreManager.m in Sources */,
 				CB1F31D919327FC600CDCFD4 /* LocationClient.m in Sources */,
 				960A8EF9197041BD00CFBCEC /* FileLogManager.m in Sources */,

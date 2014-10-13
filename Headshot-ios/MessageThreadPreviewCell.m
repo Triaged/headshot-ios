@@ -89,7 +89,7 @@
     else {
         self.textLabel.text = messageThread.defaultTitle;
     }
-    self.detailTextLabel.text = lastMessage.text;
+    self.detailTextLabel.text = lastMessage.messageText;
     self.timeLabel.text = [lastMessage.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
     if (messageThread.unread.boolValue) {
         self.textLabel.font = self.unreadTextFont;
