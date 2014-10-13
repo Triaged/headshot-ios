@@ -36,14 +36,25 @@
     self.addMembersButton = [[CenterButton alloc] init];
     self.addMembersButton.titleLabel.font = [ThemeManager regularFontOfSize:9];
     [self.addMembersButton setTitleColor:[[ThemeManager sharedTheme] lightGrayTextColor] forState:UIControlStateNormal];
-    [self.addMembersButton setImage:[UIImage imageNamed:@"messages-add-member"] forState:UIControlStateNormal];
+    UIImage *addMemberImage = [[UIImage imageNamed:@"messages-add-member"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.addMembersButton setImage:addMemberImage forState:UIControlStateNormal];
     [self.addMembersButton setTitle:@"Add Members" forState:UIControlStateNormal];
+    self.addMembersButton.tintColor = [[ThemeManager sharedTheme] primaryColor];
     
     self.editNameButton = [[CenterButton alloc] init];
     [self.editNameButton setTitle:@"Edit Name" forState:UIControlStateNormal];
-    [self.editNameButton setImage:[UIImage imageNamed:@"messages-edit-name"] forState:UIControlStateNormal];
+    UIImage *editNameImage = [[UIImage imageNamed:@"messages-edit-name"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.editNameButton setImage:editNameImage forState:UIControlStateNormal];
+    self.editNameButton.tintColor = [[ThemeManager sharedTheme] primaryColor];
     
     self.muteButton = [[CenterButton alloc] init];
+    UIImage *muteNormalImage = [[UIImage imageNamed:@"messages-mute"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *muteSelectedImage = [[UIImage imageNamed:@"messages-muted"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.muteButton setTitle:@"Mute" forState:UIControlStateNormal];
+    [self.muteButton setImage:muteNormalImage forState:UIControlStateNormal];
+    [self.muteButton setTitle:@"Unmute" forState:UIControlStateSelected];
+    [self.muteButton setImage:muteSelectedImage forState:UIControlStateSelected];
+    self.muteButton.tintColor = [[ThemeManager sharedTheme] primaryColor];
 }
 
 - (void)setUsers:(NSArray *)users

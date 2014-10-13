@@ -383,11 +383,7 @@
 - (void)updateMuteButton
 {
     UIButton *muteButton = self.groupInfoViewController.muteButton;
-    [muteButton setTitle:@"Mute" forState:UIControlStateNormal];
-    [muteButton setImage:[UIImage imageNamed:@"messages-mute"] forState:UIControlStateNormal];
-    [muteButton setTitle:@"Unmute" forState:UIControlStateSelected];
-    [muteButton setImage:[UIImage imageNamed:@"messages-unmute"] forState:UIControlStateSelected];
-    muteButton.selected = self.messageThread.muted.boolValue;
+    self.groupInfoViewController.muteButton.selected = self.messageThread.muted.boolValue;
 }
 
 
