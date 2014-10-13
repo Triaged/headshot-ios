@@ -116,19 +116,13 @@
 }
 
 #pragma mark - New Thread Table View Controller Delegate
-- (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUser:(User *)user
-{
-    [self createOrFindThreadForRecipient:user];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)newThreadTableViewController:(NewThreadTableViewController *)newThreadTableViewController didSelectUsers:(NSArray *)users
 {
     if (!users || !users.count) {
         return;
     }
-    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithRecipients:users];
-    messageThreadVC.showKeyboardOnAppear = YES;
+    NewMessageThreadViewController *messageThreadVC = [[NewMessageThreadViewController alloc] initWithRecipients:users];
+    [messageThreadVC presentKeyboard:NO];
     [self.navigationController pushViewController:messageThreadVC animated:YES];
 
     [self dismissViewControllerAnimated:YES completion:^{

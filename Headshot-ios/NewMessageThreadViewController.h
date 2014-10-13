@@ -18,5 +18,6 @@
 @property (strong, nonatomic) MessageThread *messageThread;
 
 - (instancetype)initWithMessageThread:(MessageThread *)messageThread;
+- (instancetype)initWithRecipients:(NSArray *)recipients;
 
 @end

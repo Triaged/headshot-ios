@@ -47,6 +47,25 @@
     return self;
 }
 
+- (instancetype)initWithRecipients:(NSArray *)recipients
+{
+    NSMutableSet *recipientSet = [NSMutableSet setWithArray:recipients];
+    [recipientSet addObject:[User currentUser]];
+    MessageThread *thread = [MessageThread findThreadWithRecipients:recipientSet];
+    if (!thread) {
+        [[MessageClient sharedClient] postMessageThreadWithRecipients:recipientSet.allObjects completion:^(MessageThread *messageThread, NSError *error) {
+            if (error) {
+                [[[UIAlertView alloc] initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+            else {
+                self.messageThread = messageThread;
+            }
+        }];
+    }
+    self = [self initWithMessageThread:thread];
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
