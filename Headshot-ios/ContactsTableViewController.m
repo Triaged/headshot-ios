@@ -38,8 +38,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.title = @"Contacts";
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(clearContacts)
@@ -96,6 +94,14 @@
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     searchController.searchResultsTableView.tableFooterView = [[UIView alloc] init];
+}
+
+- (void)setTagSetItems:(NSSet *)tagSetItems
+{
+    _tagSetItems = tagSetItems;
+    NSSortDescriptor *prioritySort = [NSSortDescriptor sortDescriptorWithKey:@"tagSet.priority" ascending:NO];
+    TagSetItem *first = [[tagSetItems sortedArrayUsingDescriptors:@[prioritySort]] firstObject];
+    self.navigationItem.title = first.name;
 }
 
 - (void)loadUsers

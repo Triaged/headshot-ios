@@ -11,6 +11,9 @@
 #import "TagSetItem.h"
 #import "TagSet.h"
 #import "TRAvatarImageView.h"
+#import "MailComposer.h"
+#import "MessageThreadViewController.h"
+#import "ContactsTableViewController.h"
 
 @interface ProfileItem : NSObject
 
@@ -23,7 +26,7 @@
 
 @end
 
-@interface ProfileViewController() <UITableViewDataSource, UITableViewDelegate>
+@interface ProfileViewController() <UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *profileItems;
@@ -85,7 +88,7 @@
     self.sendMessageButton.titleLabel.font = [ThemeManager regularFontOfSize:16];
     [self.sendMessageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.sendMessageButton.backgroundColor = [[ThemeManager sharedTheme] primaryColor];
-    
+    [self.sendMessageButton addTarget:self action:@selector(messageButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.sendMessageButton.height, 0);
 }
 
@@ -134,28 +137,84 @@
         if ([[title substringWithRange:NSMakeRange(title.length - 1, 1)] isEqualToString:@"s"]) {
             title = [title substringWithRange:NSMakeRange(0, title.length - 1)];
         }
-        ProfileItem *profileItem = [[ProfileItem alloc] initWithTitle:title detail:tagItem.name accessoryImage:nil selectionBlock:nil];
+        ProfileItem *profileItem = [[ProfileItem alloc] initWithTitle:title detail:tagItem.name accessoryImage:nil selectionBlock:^{
+            [self showContactsForTagSetItem:tagItem];
+        }];
         [profileItems addObject:profileItem];
     }
     
-    ProfileItem *emailItem = [[ProfileItem alloc] initWithTitle:@"Email" detail:self.user.email accessoryImage:[UIImage imageNamed:@"profile-icn-email"] selectionBlock:nil];
+    ProfileItem *emailItem = [[ProfileItem alloc] initWithTitle:@"Email" detail:self.user.email accessoryImage:[UIImage imageNamed:@"profile-icn-email"] selectionBlock:^{
+        [self sendEmailToAddress:self.user.email];
+    }];
     [profileItems addObject:emailItem];
     
     NSString *cellPhone = self.user.employeeInfo.cellPhone;
     if (cellPhone) {
-        ProfileItem *cellPhoneItem = [[ProfileItem alloc] initWithTitle:@"Mobile" detail:cellPhone accessoryImage:[UIImage imageNamed:@"profile-icn-phone"] selectionBlock:nil];
+        ProfileItem *cellPhoneItem = [[ProfileItem alloc] initWithTitle:@"Mobile" detail:cellPhone accessoryImage:[UIImage imageNamed:@"profile-icn-phone"] selectionBlock:^{
+            [self callPhoneNumber:cellPhone];
+        }];
         [profileItems addObject:cellPhoneItem];
     }
     
     NSString *officePhone = self.user.employeeInfo.officePhone;
     if (officePhone) {
-        ProfileItem *officePhoneItem = [[ProfileItem alloc] initWithTitle:@"Office" detail:officePhone accessoryImage:[UIImage imageNamed:@"profile-icn-phone"] selectionBlock:nil];
+        ProfileItem *officePhoneItem = [[ProfileItem alloc] initWithTitle:@"Office" detail:officePhone accessoryImage:[UIImage imageNamed:@"profile-icn-phone"] selectionBlock:^{
+            [self callPhoneNumber:officePhone];
+        }];
         [profileItems addObject:officePhoneItem];
     }
     
     self.profileItems = [NSArray arrayWithArray:profileItems];
     
     [self.tableView reloadData];
+}
+
+- (void)sendEmailToAddress:(NSString *)emailAddress
+{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *composeViewController = [MailComposer sharedComposer];
+        [composeViewController setMailComposeDelegate:self];
+        [composeViewController setToRecipients:@[emailAddress]];
+        [self presentViewController:composeViewController animated:YES completion:nil];
+    }
+}
+
+- (void)callPhoneNumber:(NSString *)phoneNumber
+{
+    NSString *urlString = [@"telprompt://" stringByAppendingString:phoneNumber];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+
+- (void)messageButtonTouched
+{
+    BOOL pop = NO;
+    if (self.backViewController && [self.backViewController isKindOfClass:[MessageThreadViewController class]]) {
+        MessageThreadViewController *messageThreadViewController = (MessageThreadViewController *)self.backViewController;
+        User *recipient = [messageThreadViewController.messageThread.recipientsExcludeUser anyObject];
+        pop = [recipient.identifier isEqual:self.user.identifier];
+    }
+    if (pop) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        MessageThreadViewController *threadVC = [[MessageThreadViewController alloc] initWithRecipients:@[self.user]];
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+        [self.navigationController pushViewController:threadVC animated:YES];
+    }
+}
+
+- (void)showContactsForTagSetItem:(TagSetItem *)tagSetItem
+{
+    NSMutableSet *tagSetItems = [[NSMutableSet alloc] init];
+    [tagSetItems addObject:tagSetItem];
+    for (TagSetItem *otherItem in self.user.tagSetItems) {
+        if (otherItem.tagSet.priority.integerValue < tagSetItem.tagSet.priority.integerValue) {
+            [tagSetItems addObject:tagSetItem];
+        }
+    }
+    ContactsTableViewController *contactsViewController = [[ContactsTableViewController alloc] init];
+    contactsViewController.tagSetItems = tagSetItems;
+    [self.navigationController pushViewController:contactsViewController animated:YES];
 }
 
 - (ProfileItem *)itemForIndexPath:(NSIndexPath *)indexPath
