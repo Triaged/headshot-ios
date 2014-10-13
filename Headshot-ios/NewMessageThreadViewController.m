@@ -77,6 +77,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewMessageNotification:) name:kReceivedNewMessageNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedMessageSentNotification:) name:kMessageSentNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedMessageFailedNotification:) name:kMessageFailedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewReadReceiptsNotification:) name:kReceivedNewReadReceiptsNotification object:nil];
 }
 
 - (BOOL)hidesBottomBarWhenPushed
@@ -136,6 +137,11 @@
         [self.messageQueue removeObject:message.uniqueID];
         [self updateProgressBar];
     }
+    [self reloadData];
+}
+
+- (void)receivedNewReadReceiptsNotification:(NSNotification *)notification
+{
     [self reloadData];
 }
 

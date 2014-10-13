@@ -88,7 +88,7 @@
 - (void)reloadData
 {
     NSMutableSet *readSet = [[NSMutableSet alloc] init];
-    for (ReadReceipt *readReceipt in self.message.readReceipts) {
+    for (ReadReceipt *readReceipt in self.message.recieptsExcludeSender) {
         [readSet addObject:readReceipt.user];
     }
     
@@ -100,9 +100,10 @@
     }
     
     NSMutableSet *unreadSet = [[NSMutableSet alloc] initWithSet:self.message.messageThread.recipients];
+    [unreadSet minusSet:[NSSet setWithObject:self.message.author]];
     [unreadSet minusSet:readSet];
     self.unreadUsers = unreadSet.allObjects;
-    self.readReceipts = self.message.readReceipts.allObjects;
+    self.readReceipts = self.message.recieptsExcludeSender.allObjects;
     
     NSString *readTitle = [NSString stringWithFormat:@"READ (%@)", @(self.readReceipts.count)];
     NSString *unreadTitle = [NSString stringWithFormat:@"UNREAD (%@)", @(self.unreadUsers.count)];
