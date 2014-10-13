@@ -80,7 +80,7 @@
 		96D4F23E196465E800147DEB /* AnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F23D196465E800147DEB /* AnalyticsManager.m */; };
 		96D4F2411964860700147DEB /* VersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4F2401964860700147DEB /* VersionManager.m */; };
 		96DB2DFE19539E27005E1F93 /* OnboardSelectManagersViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */; };
-		96E143C519E43CA800DF7A45 /* NewMessageThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143C419E43CA800DF7A45 /* NewMessageThreadViewController.m */; };
+		96E143C519E43CA800DF7A45 /* MessageThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143C419E43CA800DF7A45 /* MessageThreadViewController.m */; };
 		96E143CB19E43CE400DF7A45 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143CA19E43CE400DF7A45 /* MessageCell.m */; };
 		96E143CE19E4463E00DF7A45 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143CD19E4463E00DF7A45 /* LoginViewController.m */; };
 		96E143D119E4468700DF7A45 /* BAFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E143D019E4468700DF7A45 /* BAFormView.m */; };
@@ -320,8 +320,8 @@
 		96D4F2401964860700147DEB /* VersionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionManager.m; sourceTree = "<group>"; };
 		96DB2DFC19539E27005E1F93 /* OnboardSelectManagersViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardSelectManagersViewControllers.h; sourceTree = "<group>"; };
 		96DB2DFD19539E27005E1F93 /* OnboardSelectManagersViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardSelectManagersViewControllers.m; sourceTree = "<group>"; };
-		96E143C319E43CA800DF7A45 /* NewMessageThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMessageThreadViewController.h; sourceTree = "<group>"; };
-		96E143C419E43CA800DF7A45 /* NewMessageThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMessageThreadViewController.m; sourceTree = "<group>"; };
+		96E143C319E43CA800DF7A45 /* MessageThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageThreadViewController.h; sourceTree = "<group>"; };
+		96E143C419E43CA800DF7A45 /* MessageThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageThreadViewController.m; sourceTree = "<group>"; };
 		96E143C919E43CE400DF7A45 /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
 		96E143CA19E43CE400DF7A45 /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
 		96E143CC19E4463E00DF7A45 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -1014,8 +1014,8 @@
 				CB1F31C41931A12600CDCFD4 /* NewThreadTableViewController.m */,
 				965836521989564900070DAE /* GroupMessageInfoTableViewController.h */,
 				965836531989564900070DAE /* GroupMessageInfoTableViewController.m */,
-				96E143C319E43CA800DF7A45 /* NewMessageThreadViewController.h */,
-				96E143C419E43CA800DF7A45 /* NewMessageThreadViewController.m */,
+				96E143C319E43CA800DF7A45 /* MessageThreadViewController.h */,
+				96E143C419E43CA800DF7A45 /* MessageThreadViewController.m */,
 				96395AEF19E85B40006B708D /* MessageDetailViewController.h */,
 				96395AF019E85B40006B708D /* MessageDetailViewController.m */,
 				96395AF219E86F14006B708D /* DefaultMessageCellDelegate.h */,
@@ -1281,7 +1281,7 @@
 				9647ACA4194AD89300F6A4AF /* Theme.m in Sources */,
 				96BF1D2419DC75F1001A7908 /* AddressBookContact.m in Sources */,
 				96091B12195DFAA900D135A3 /* TRInitialView.m in Sources */,
-				96E143C519E43CA800DF7A45 /* NewMessageThreadViewController.m in Sources */,
+				96E143C519E43CA800DF7A45 /* MessageThreadViewController.m in Sources */,
 				966A84EC19DCA18600E36720 /* AuthenticationViewController.m in Sources */,
 				964A6BEF194F8F7A0024B3C2 /* OnboardLocationPermissionViewController.m in Sources */,
 				CBBA68FD192FE474005A6949 /* ContactsDataSource.m in Sources */,

@@ -10,7 +10,7 @@
 #import "MessageThread.h"
 #import "User.h"
 #import "NewThreadTableViewController.h"
-#import "NewMessageThreadViewController.h"
+#import "MessageThreadViewController.h"
 #import "MessageThreadPreviewCell.h"
 #import "UITableView+NXEmptyView.h"
 #import "MessageClient.h"
@@ -114,7 +114,7 @@
     if (!users || !users.count) {
         return;
     }
-    NewMessageThreadViewController *messageThreadVC = [[NewMessageThreadViewController alloc] initWithRecipients:users];
+    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithRecipients:users];
     [messageThreadVC presentKeyboard:NO];
     [self.navigationController pushViewController:messageThreadVC animated:YES];
 
@@ -164,7 +164,7 @@
     MessageThread *thread = [self threadAtIndexPath:indexPath];
     [thread markAsRead];
 //    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
-    NewMessageThreadViewController *messageThreadVC = [[NewMessageThreadViewController alloc] initWithMessageThread:thread];
+    MessageThreadViewController *messageThreadVC = [[MessageThreadViewController alloc] initWithMessageThread:thread];
     [self.navigationController pushViewController:messageThreadVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -177,7 +177,7 @@
 
 - (void)setTopViewControllerToMessageThreadViewControllerWithID:(NSString *)threadID
 {
-    NewMessageThreadViewController *messageThreadViewControllor = [[NewMessageThreadViewController alloc] initWithThreadID:threadID];
+    MessageThreadViewController *messageThreadViewControllor = [[MessageThreadViewController alloc] initWithThreadID:threadID];
     self.window.rootViewController = self.tabBarController;
     [self.tabBarController selectMessagesViewController];
     UINavigationController *navigationController = (UINavigationController *)self.tabBarController.selectedViewController;

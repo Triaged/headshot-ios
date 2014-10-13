@@ -1,5 +1,5 @@
 //
-//  NewMessageThreadViewController.h
+//  MessageThreadViewController.h
 //  Headshot-ios
 //
 //  Created by Jeffrey Ames on 10/3/14.
@@ -11,10 +11,9 @@
 #import "MessageThread.h"
 #import "MessageCell.h"
 
-@interface NewMessageThreadViewController : SLKTextViewController
+@interface MessageThreadViewController : SLKTextViewController
 
 
-//@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) MessageThread *messageThread;
 
 - (instancetype)initWithMessageThread:(MessageThread *)messageThread;

@@ -1,12 +1,12 @@
 //
-//  NewMessageThreadViewController.m
+//  MessageThreadViewController.m
 //  Headshot-ios
 //
 //  Created by Jeffrey Ames on 10/3/14.
 //  Copyright (c) 2014 Charlie White. All rights reserved.
 //
 
-#import "NewMessageThreadViewController.h"
+#import "MessageThreadViewController.h"
 #import <FXBlurView.h>
 #import <UINavigationController+SGProgress.h>
 #import "UINavigationController+NotificationIndicator.h"
@@ -20,7 +20,7 @@
 #import "CenterButton.h"
 
 
-@interface NewMessageThreadViewController() <JAKeyboardObserverDelegate, JAPlaceholderTextViewDelegate, GroupMessageInfoTableViewController>
+@interface MessageThreadViewController() <JAKeyboardObserverDelegate, JAPlaceholderTextViewDelegate, GroupMessageInfoTableViewController>
 
 @property (strong, nonatomic) NSMutableOrderedSet *messageQueue;
 @property (strong, nonatomic) NSMutableArray *messages;
@@ -37,7 +37,7 @@
 
 @end
 
-@implementation NewMessageThreadViewController
+@implementation MessageThreadViewController
 
 - (instancetype)initWithMessageThread:(MessageThread *)messageThread
 {

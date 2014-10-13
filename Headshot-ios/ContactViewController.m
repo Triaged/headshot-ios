@@ -11,7 +11,7 @@
 #import "EmployeeInfo.h"
 #import "OfficeLocation.h"
 #import "ContactDetailsDataSource.h"
-#import "NewMessageThreadViewController.h"
+#import "MessageThreadViewController.h"
 #import "MailComposer.h"
 
 
@@ -106,8 +106,8 @@
 
 - (IBAction)messageTapped:(id)sender {
     BOOL pop = NO;
-    if (self.backViewController && [self.backViewController isKindOfClass:[NewMessageThreadViewController class]]) {
-        NewMessageThreadViewController *messageThreadViewController = (NewMessageThreadViewController *)self.backViewController;
+    if (self.backViewController && [self.backViewController isKindOfClass:[MessageThreadViewController class]]) {
+        MessageThreadViewController *messageThreadViewController = (MessageThreadViewController *)self.backViewController;
         User *recipient = [messageThreadViewController.messageThread.recipientsExcludeUser anyObject];
         pop = [recipient.identifier isEqual:self.user.identifier];
     }
@@ -115,7 +115,7 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
     else {
-        NewMessageThreadViewController *threadVC = [[NewMessageThreadViewController alloc] initWithRecipients:@[self.user]];
+        MessageThreadViewController *threadVC = [[MessageThreadViewController alloc] initWithRecipients:@[self.user]];
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
         [self.navigationController pushViewController:threadVC animated:YES];
     }
