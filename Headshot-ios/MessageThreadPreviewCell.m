@@ -37,13 +37,13 @@
         return nil;
     }
     self.textFont = [ThemeManager regularFontOfSize:16.0];
-    self.unreadTextFont = [ThemeManager boldFontOfSize:16.0];
+    self.unreadTextFont = [ThemeManager regularFontOfSize:16.0];
     self.detailTextFont = [ThemeManager regularFontOfSize:15.0];
     self.unreadDetailTextFont = [ThemeManager regularFontOfSize:15.0];
     self.textColor = [[ThemeManager sharedTheme] darkGrayTextColor];
-    self.unreadTextColor = [[ThemeManager sharedTheme] orangeColor];
+    self.unreadTextColor = [[ThemeManager sharedTheme] primaryColor];
     self.detailTextColor = [[ThemeManager sharedTheme] lightGrayTextColor];
-    self.unreadDetailTextColor = [[ThemeManager sharedTheme] darkGrayTextColor];
+    self.unreadDetailTextColor = [[ThemeManager sharedTheme] lightGrayTextColor];
 
     self.detailTextLabel.numberOfLines = 2;
     self.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -52,7 +52,7 @@
     self.timeLabel.size = CGSizeMake(100, 31);
     self.timeLabel.right = self.contentView.width -  10;
     self.timeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    self.timeLabel.font = [ThemeManager regularFontOfSize:9];
+    self.timeLabel.font = [ThemeManager regularFontOfSize:11];
     self.timeLabel.textColor = [[ThemeManager sharedTheme] lightGrayTextColor];
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.timeLabel];
@@ -144,7 +144,7 @@
     if (recipients.count > 4) {
         UILabel *moreRecipientsView = [[UILabel alloc] init];
         moreRecipientsView.size = avatarSize;
-        moreRecipientsView.backgroundColor = [[ThemeManager sharedTheme] orangeColor];
+        moreRecipientsView.backgroundColor = [UIColor colorWithRed:202/255.0 green:204/255.0 blue:209/255.0 alpha:1.0];
         moreRecipientsView.text = [NSString stringWithFormat:@"+%d", recipients.count - 3];
         moreRecipientsView.textAlignment = NSTextAlignmentCenter;
         moreRecipientsView.font = [ThemeManager regularFontOfSize:11];
