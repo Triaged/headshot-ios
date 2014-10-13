@@ -14,6 +14,7 @@
 #import "DepartmentContactsTableViewController.h"
 #import "TRSearchDisplayController.h"
 #import "ContactViewController.h"
+#import "ProfileViewController.h"
 #import "InviteContactViewController.h"
 
 #import "TagSetTableViewController.h"
@@ -200,8 +201,8 @@
 {
     [self.searchBar endEditing:YES];
     [self.searchController setActive:NO animated:YES];
-    ContactViewController *contactViewController = [[ContactViewController alloc] initWitUser:user];
-    [self.navigationController pushViewController:contactViewController animated:YES];
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] initWithUser:user];
+    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
 - (void)departmentsTableViewController:(DepartmentsTableViewController *)departmentsTableViewController didSelectDepartment:(Department *)department

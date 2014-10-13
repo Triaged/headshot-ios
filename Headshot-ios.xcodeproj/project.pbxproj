@@ -25,6 +25,7 @@
 		96395AEE19E83518006B708D /* UINavigationController+NotificationIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 96395AED19E83518006B708D /* UINavigationController+NotificationIndicator.m */; };
 		96395AF119E85B40006B708D /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96395AF019E85B40006B708D /* MessageDetailViewController.m */; };
 		96395AF419E86F14006B708D /* DefaultMessageCellDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96395AF319E86F14006B708D /* DefaultMessageCellDelegate.m */; };
+		963B39A319EC5E4700F545BB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B39A219EC5E4700F545BB /* ProfileViewController.m */; };
 		96467B81195A01D000B45C5D /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96467B80195A01D000B45C5D /* OfficesViewController.m */; };
 		96467B84195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96467B83195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.m */; };
 		9647ACA3194AD89300F6A4AF /* DefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9647ACA0194AD89300F6A4AF /* DefaultTheme.m */; };
@@ -208,6 +209,8 @@
 		96395AF019E85B40006B708D /* MessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewController.m; sourceTree = "<group>"; };
 		96395AF219E86F14006B708D /* DefaultMessageCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultMessageCellDelegate.h; sourceTree = "<group>"; };
 		96395AF319E86F14006B708D /* DefaultMessageCellDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultMessageCellDelegate.m; sourceTree = "<group>"; };
+		963B39A119EC5E4700F545BB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		963B39A219EC5E4700F545BB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		96467B7F195A01D000B45C5D /* OfficesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficesViewController.h; sourceTree = "<group>"; };
 		96467B80195A01D000B45C5D /* OfficesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficesViewController.m; sourceTree = "<group>"; };
 		96467B82195A09F800B45C5D /* UIViewController+PresentWithNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PresentWithNavigationViewController.h"; sourceTree = "<group>"; };
@@ -1001,6 +1004,8 @@
 				CB0E71AE1948BA5E002B2B58 /* ContactSectionViewController.xib */,
 				96D4ECAC1976CB9400234ECF /* ContactsContainerViewController.h */,
 				96D4ECAD1976CB9400234ECF /* ContactsContainerViewController.m */,
+				963B39A119EC5E4700F545BB /* ProfileViewController.h */,
+				963B39A219EC5E4700F545BB /* ProfileViewController.m */,
 			);
 			name = contacts;
 			sourceTree = "<group>";
@@ -1270,6 +1275,7 @@
 				9661913F19E7311D002FDB1B /* JAKeyboardObserver.m in Sources */,
 				964A6BD3194E2C180024B3C2 /* UIView+Shadow.m in Sources */,
 				962FD81D1959E2E000A313AC /* TRSearchBar.m in Sources */,
+				963B39A319EC5E4700F545BB /* ProfileViewController.m in Sources */,
 				CB041868194A2FFE00B3DE97 /* Department.m in Sources */,
 				CB354D34194B710E00E537C2 /* Company.m in Sources */,
 				CBBA68C0192FDE72005A6949 /* CredentialStore.m in Sources */,
