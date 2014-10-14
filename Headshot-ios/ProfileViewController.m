@@ -89,7 +89,6 @@
     [self.sendMessageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.sendMessageButton.backgroundColor = [[ThemeManager sharedTheme] primaryColor];
     [self.sendMessageButton addTarget:self action:@selector(messageButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.sendMessageButton.height, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -120,6 +119,15 @@
     self.nameLabel.width = self.view.width - self.nameLabel.x;
     [self.nameLabel sizeToFit];
     self.nameLabel.y = self.avatarImageView.y;
+    
+    if ([self.user.identifier isEqualToString:[User currentUser].identifier]) {
+        self.sendMessageButton.hidden = YES;
+        self.tableView.contentInset = UIEdgeInsetsZero;
+    }
+    else {
+        self.sendMessageButton.hidden = NO;
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.sendMessageButton.height, 0);
+    }
     
     self.positionLabel.text = self.user.employeeInfo.jobTitle;
     self.positionLabel.x = self.nameLabel.x;

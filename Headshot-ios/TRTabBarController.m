@@ -17,6 +17,7 @@
 #import "SDCSegmentedViewController.h"
 #import "DepartmentsTableViewController.h"
 #import "ContactsContainerViewController.h"
+#import "UserProfileViewController.h"
 
 
 
@@ -46,7 +47,7 @@
     self.messageNavigationController = [[MessageNavigationController alloc] initWithRootViewController:self.messagesTableViewController];
     
     // Settings
-    AccountViewController *accountVC = [[AccountViewController alloc] init];
+    UserProfileViewController *accountVC = [[UserProfileViewController alloc] init];
     TRNavigationController *accountNav = [[TRNavigationController alloc] initWithRootViewController:accountVC];
     UINavigationController *contactsNav = [[TRNavigationController alloc] initWithRootViewController:[[ContactsContainerViewController alloc] init]];
     
