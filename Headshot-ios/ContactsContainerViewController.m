@@ -16,11 +16,12 @@
 #import "ContactViewController.h"
 #import "ProfileViewController.h"
 #import "InviteContactViewController.h"
-
+#import "UserProfileViewController.h"
 #import "TagSetTableViewController.h"
 
 @interface ContactsContainerViewController () <ContactsTableViewControllerDelegate, DepartmentsTableViewControllerDelegate, TagSetTableViewControllerDelegate, UISearchBarDelegate>
 
+@property (strong, nonatomic) TRAvatarImageView *userAvatarImageView;
 @property (strong, nonatomic) UIBarButtonItem *searchButtonItem;
 @property (strong, nonatomic) HMSegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSArray *viewControllers;
@@ -62,6 +63,12 @@
     UIBarButtonItem *settingsButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:nil];
 //    self.navigationItem.leftBarButtonItem = settingsButtonItem;
     
+    self.userAvatarImageView = [[TRAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileButtonTouched:)];
+    [self.userAvatarImageView addGestureRecognizer:avatarTap];
+    UIBarButtonItem *profileBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.userAvatarImageView];
+    self.navigationItem.leftBarButtonItem = profileBarButtonItem;
+    
     self.view.backgroundColor = [UIColor whiteColor];
 //    self.departmentsViewController.departmentsTableViewControllerDelegate = self;
     
@@ -91,6 +98,12 @@
     if (!self.segmentedControl) {
         [self updateSegmentedControl];
         self.segmentedControl.selectedSegmentIndex = 0;
+    }
+    if (self.navigationController && self.navigationController.viewControllers.count > 1) {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    else {
+        self.userAvatarImageView.user = [User currentUser];
     }
     [self selectViewControllerWithIndex:self.segmentedControl.selectedSegmentIndex];
 }
@@ -147,6 +160,12 @@
     [self setSearchBarHidden:YES animated:YES completion:^(BOOL finished) {
         [weakSelf.searchBar removeFromSuperview];
     }];
+}
+
+- (void)profileButtonTouched:(id)sender
+{
+    UserProfileViewController *profileViewController = [[UserProfileViewController alloc] init];
+    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl
