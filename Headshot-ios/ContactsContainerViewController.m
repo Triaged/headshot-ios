@@ -53,10 +53,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Contacts";
+    self.navigationItem.title = @"Contacts";
     
     self.searchButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButtonTouched:)];
-    self.searchButtonItem.tintColor = [[ThemeManager sharedTheme] orangeColor];
+    self.searchButtonItem.tintColor = [[ThemeManager sharedTheme] primaryColor];
     UIBarButtonItem *inviteButton = [[UIBarButtonItem alloc] initWithTitle:@"Invite" style:UIBarButtonItemStylePlain target:self action:@selector(inviteButtonTouched:)];
     self.navigationItem.rightBarButtonItems = @[inviteButton, self.searchButtonItem];
     

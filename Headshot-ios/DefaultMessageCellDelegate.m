@@ -57,7 +57,7 @@
 
 - (UIEdgeInsets)contentInsetsForMessage:(Message *)message
 {
-    return UIEdgeInsetsMake(7, 17, 7, 30);
+    return UIEdgeInsetsMake(8, 59, 12, 30);
 }
 
 

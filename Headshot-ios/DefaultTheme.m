@@ -87,7 +87,7 @@
 
 - (UIColor *)tableViewSeparatorColor
 {
-    return [UIColor colorWithRed:200/255.0 green:199/255.0 blue:204/255.0 alpha:1.0];
+    return [UIColor colorWithWhite:229/255.0 alpha:1.0];
 }
 
 

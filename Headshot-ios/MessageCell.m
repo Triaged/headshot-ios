@@ -11,6 +11,8 @@
 #import "User.h"
 #import "MessageThread.h"
 
+static CGFloat kHeaderHeight = 51;
+
 @interface MessageCell()
 
 @property (strong, nonatomic) UILabel *nameLabel;
@@ -26,9 +28,8 @@
 
 + (CGFloat)desiredHeightForMessage:(Message *)message font:(UIFont *)font constrainedToSize:(CGSize)size textEdgeInsets:(UIEdgeInsets)edgeInsets
 {
-    CGFloat headerHeight = 62;
     CGSize textSize = CGSizeMake(size.width - edgeInsets.right - edgeInsets.left, size.height - edgeInsets.top - edgeInsets.bottom);
-    return headerHeight + [self heightForText:message.messageText withFont:font constrainedToSize:textSize] + edgeInsets.top + edgeInsets.bottom;
+    return kHeaderHeight + [self heightForText:message.messageText withFont:font constrainedToSize:textSize] + edgeInsets.top + edgeInsets.bottom;
 }
 
 + (CGFloat)heightForText:(NSString *)text withFont:(UIFont *)font constrainedToSize:(CGSize)size
@@ -44,7 +45,7 @@
     self.headerView = [[UIView alloc] init];
     [self.contentView addSubview:self.headerView];
     self.headerView.width = self.contentView.width;
-    self.headerView.height = 62;
+    self.headerView.height = kHeaderHeight;
     self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.headerView.backgroundColor = [UIColor whiteColor];
     
@@ -111,16 +112,16 @@
     self.messageTextLabel.x = insets.left;
     self.messageTextLabel.width = self.contentView.width - insets.right - insets.left;
     [self.messageTextLabel sizeToFit];
+    self.messageTextLabel.y = self.headerView.bottom + insets.top;
     
     self.avatarImageView.size = CGSizeMake(35, 35);
-    self.avatarImageView.x = insets.left;
-    self.avatarImageView.centerY = self.avatarImageView.superview.height/2.0;
+    self.avatarImageView.x = 12;
+    self.avatarImageView.bottom = self.headerView.height;
     
-    self.messageTextLabel.y = self.headerView.bottom;
     
     [self.nameLabel sizeToFit];
-    self.nameLabel.x = self.avatarImageView.right + 10;
-    self.nameLabel.y = self.avatarImageView.y;
+    self.nameLabel.x = insets.left;
+    self.nameLabel.bottom = self.avatarImageView.centerY;
     [self.timestampLabel sizeToFit];
     self.timestampLabel.x = self.nameLabel.x;
     self.timestampLabel.y = self.nameLabel.bottom;

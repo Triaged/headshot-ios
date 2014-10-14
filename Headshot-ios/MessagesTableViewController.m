@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Messages";
+    self.navigationItem.title = @"Messages";
     
     [self setupTableView];
     

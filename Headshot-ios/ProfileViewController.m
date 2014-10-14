@@ -87,7 +87,7 @@
     [self.sendMessageButton setTitle:@"Send Message" forState:UIControlStateNormal];
     self.sendMessageButton.titleLabel.font = [ThemeManager regularFontOfSize:16];
     [self.sendMessageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.sendMessageButton.backgroundColor = [[ThemeManager sharedTheme] primaryColor];
+    self.sendMessageButton.backgroundColor = [[[ThemeManager sharedTheme] primaryColor] colorWithAlphaComponent:0.8];
     [self.sendMessageButton addTarget:self action:@selector(messageButtonTouched) forControlEvents:UIControlEventTouchUpInside];
 }
 

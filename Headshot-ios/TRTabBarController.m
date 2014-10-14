@@ -55,21 +55,23 @@
     
     
     self.tabBar.translucent = NO;
-    self.tabBar.tintColor = [[ThemeManager sharedTheme] orangeColor];
+    self.tabBar.tintColor = [[ThemeManager sharedTheme] primaryColor];
     
     
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [[ThemeManager sharedTheme] orangeColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Whitney-Medium" size:12], NSFontAttributeName, nil]  forState:UIControlStateSelected];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[[ThemeManager sharedTheme] disabledGrayTextColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Whitney-Medium" size:12], NSFontAttributeName, nil]
+    UIFont *tabBarFont = [ThemeManager regularFontOfSize:12];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [[ThemeManager sharedTheme] primaryColor], NSForegroundColorAttributeName, tabBarFont, NSFontAttributeName, nil]  forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[[ThemeManager sharedTheme] disabledGrayTextColor], NSForegroundColorAttributeName, tabBarFont, NSFontAttributeName, nil]
                                              forState:UIControlStateNormal];
     self.tabBar.backgroundColor = [UIColor whiteColor];
     
-    NSArray *tabBarItemImages = @[@"messages", @"contacts", @"profile"];
-    NSArray *titles = @[@"Inbox", @"Contacts", @"Profile"];
+    NSArray *tabBarItemImages = @[@"messages", @"contacts", @"tasks"];
+    NSArray *titles = @[@"Messages", @"Contacts", @"Tasks"];
     [self.viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UIImage *unselectedimage = [[UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-active.png",
                                                       [tabBarItemImages objectAtIndex:idx]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *selectedimage = [[UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-inactive.png", [tabBarItemImages objectAtIndex:idx]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:titles[idx] image:selectedimage selectedImage:unselectedimage];
+        UIImage *selectedimage = [[UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@.png", [tabBarItemImages objectAtIndex:idx]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:nil image:selectedimage selectedImage:unselectedimage];
+        tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
         UIViewController *viewController = self.viewControllers[idx];
         viewController.tabBarItem = tabBarItem;
     }];
