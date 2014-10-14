@@ -10,13 +10,14 @@
 #import <NSDate+TimeAgo.h>
 #import "User.h"
 #import "MessageThread.h"
+#import "ReadReceipt.h"
 
 static CGFloat kHeaderHeight = 51;
 
 @interface MessageCell()
 
 @property (strong, nonatomic) UILabel *nameLabel;
-@property (strong, nonatomic) UILabel *timestampLabel;
+@property (strong, nonatomic) UILabel *infoLabel;
 @property (strong, nonatomic) UILabel *readReceiptLabel;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) UILabel *messageTextLabel;
@@ -65,10 +66,10 @@ static CGFloat kHeaderHeight = 51;
     
     self.lightGrayColor = [UIColor colorWithRed:202/255.0 green:204/255.0 blue:209/255.0 alpha:1.0];
     
-    self.timestampLabel = [[UILabel alloc] init];
-    [self.headerView addSubview:self.timestampLabel];
-    self.timestampLabel.font = [ThemeManager regularFontOfSize:12];
-    self.timestampLabel.textColor = self.lightGrayColor;
+    self.infoLabel = [[UILabel alloc] init];
+    [self.headerView addSubview:self.infoLabel];
+    self.infoLabel.font = [ThemeManager regularFontOfSize:12];
+    self.infoLabel.textColor = self.lightGrayColor;
     
     return self;
 }
@@ -79,11 +80,34 @@ static CGFloat kHeaderHeight = 51;
     self.avatarImageView.user = message.author;
     self.nameLabel.attributedText = [self.messageCellDelegate attributedNameStringForMessage:message];
     self.messageTextLabel.text = message.messageText;
-    NSString *timestampText =  [message.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
-    NSString *readReceiptText = [NSString stringWithFormat:@"Read by %@/%@", @(message.readRecieptsExcludeAuthor.count), @(message.messageThread.recipients.count - 1)];
-    self.timestampLabel.text = [NSString stringWithFormat:@"%@, %@", timestampText, readReceiptText];
+    self.infoLabel.text = [MessageCell infoTextForMessage:message];
+
     self.messageTextLabel.textColor = [self.messageCellDelegate textColorForMessage:message];
     self.messageTextLabel.font = [self.messageCellDelegate fontForMessage:message];
+}
+
++ (NSString *)infoTextForMessage:(Message *)message
+{
+    NSString *infoText;
+    NSString *timestampText =  [message.timestamp timeAgoWithLimit:60*60*24 dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterNoStyle];
+    CGFloat recipientsCount = message.messageThread.recipients.count;
+    NSString *readReceiptText;
+    if (recipientsCount > 2) {
+        readReceiptText = [NSString stringWithFormat:@"Read by %@/%@", @(message.readRecieptsExcludeAuthor.count), @(message.messageThread.recipients.count - 1)];
+        infoText = [NSString stringWithFormat:@"%@, %@", timestampText, readReceiptText];
+    }
+    else {
+        NSMutableSet *receipts = [NSMutableSet setWithSet:message.readRecieptsExcludeAuthor];
+        ReadReceipt *receipt = [receipts anyObject];
+        if (receipt && ![receipt.user.identifier isEqualToString:[User currentUser].identifier]) {
+            readReceiptText = [NSString stringWithFormat:@"Read by %@", receipt.user.firstName];
+            infoText = [NSString stringWithFormat:@"%@, %@", timestampText, readReceiptText];
+        }
+        else {
+            infoText = timestampText;
+        }
+    }
+    return infoText;
 }
 
 - (void)setShowAvatar:(BOOL)showAvatar
@@ -122,9 +146,9 @@ static CGFloat kHeaderHeight = 51;
     [self.nameLabel sizeToFit];
     self.nameLabel.x = insets.left;
     self.nameLabel.bottom = self.avatarImageView.centerY;
-    [self.timestampLabel sizeToFit];
-    self.timestampLabel.x = self.nameLabel.x;
-    self.timestampLabel.y = self.nameLabel.bottom;
+    [self.infoLabel sizeToFit];
+    self.infoLabel.x = self.nameLabel.x;
+    self.infoLabel.y = self.nameLabel.bottom;
 }
 
 
